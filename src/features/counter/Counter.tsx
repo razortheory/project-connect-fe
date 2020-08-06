@@ -3,18 +3,18 @@ import { useStore } from 'effector-react';
 import { VoidFn } from '~/core/types';
 import { $timer, $timerWorking, toggle } from './model';
 
-export interface CounterProps {
+export interface Props {
   onToggle: VoidFn;
   isWorking: boolean;
   currentTime: number;
 }
 
-export const View = ({ onToggle, isWorking, currentTime }: CounterProps) => (
+export const View = ({ onToggle, isWorking, currentTime }: Props) => (
   <div>
     <button type="button" onClick={(): void => onToggle()}>
       {isWorking ? 'Stop' : 'Launch'} timer
     </button>
-    <div>Current time: {currentTime}</div>
+    <p>Timer: {currentTime}</p>
   </div>
 );
 

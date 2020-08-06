@@ -2,7 +2,7 @@ import React from 'react';
 import { GlobalStyle } from './styles';
 import { Root } from './Root';
 
-import '~/fonts';
+import '~/fonts/css';
 
 export const View = () => (
   <>

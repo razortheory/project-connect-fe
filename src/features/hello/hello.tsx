@@ -14,11 +14,11 @@ const Greeting = styled.span`
   }
 `;
 
-export type HomeProps = {
+export type Props = {
   greeting: string;
 };
 
-export const View = ({ greeting }: HomeProps) => (
+export const View = ({ greeting }: Props) => (
   <>
     <img src={wavingHandEmoji} alt="Waving Hand Emoji" />
     <Greeting className="hello">{greeting}</Greeting>

@@ -40,6 +40,22 @@ export const rules: RuleSetRule[] = [
       },
     ],
   },
+  // SVG
+  {
+    test: paths.svgPattern,
+    use: [
+      'babel-loader',
+      {
+        loader: '@svgr/webpack',
+        options: {
+          svgo: true,
+          ref: true,
+          memo: true,
+          babel: false,
+        },
+      },
+    ],
+  },
   // Other files
   {
     test: paths.filePattern,

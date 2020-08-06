@@ -1,5 +1,6 @@
-import './init';
 import { argumentHistory } from '~/core/test-utils';
+
+import './init';
 import { $timer, $timerWorking, tickFx, toggle } from './model';
 
 describe('counter', () => {
