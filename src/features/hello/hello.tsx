@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import wavingHandEmoji from '~/assets/emoji/1f44b.png';
 
@@ -18,14 +18,12 @@ export type HomeProps = {
   greeting: string;
 };
 
-// Root child
-export function Hello(properties: HomeProps): JSX.Element {
-  const { greeting } = properties;
+export const View = ({ greeting }: HomeProps) => (
+  <>
+    <img src={wavingHandEmoji} alt="Waving Hand Emoji" />
+    <Greeting className="hello">{greeting}</Greeting>
+  </>
+);
 
-  return (
-    <>
-      <img src={wavingHandEmoji} alt="Waving Hand Emoji" />
-      <Greeting className="hello">{greeting}</Greeting>
-    </>
-  );
-}
+// Root child
+export const Hello = View;

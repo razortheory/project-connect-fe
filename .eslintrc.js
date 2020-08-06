@@ -108,6 +108,12 @@ const config = {
         },
       },
     ],
+    '@typescript-eslint/explicit-module-boundary-types': [
+      'error',
+      {
+        allowedNames: ['View'],
+      },
+    ],
   },
 };
 

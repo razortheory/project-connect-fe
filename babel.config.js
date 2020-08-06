@@ -1,4 +1,5 @@
 const isTest = process.env.NODE_ENV === 'test';
+const isDevelopment = process.env.WEBPACK_DEV_SERVER === 'true';
 
 /** @type import('@babel/preset-env').Options */
 // eslint-disable-next-line unicorn/prevent-abbreviations
@@ -22,5 +23,13 @@ module.exports = {
     ['@babel/preset-env', babelPresetEnv],
     ['@babel/preset-typescript', babelPresetTypescript],
   ],
-  plugins: ['styled-components'],
+  plugins: [
+    [
+      'babel-plugin-styled-components',
+      {
+        displayName: isDevelopment,
+        pure: true,
+      },
+    ],
+  ],
 };

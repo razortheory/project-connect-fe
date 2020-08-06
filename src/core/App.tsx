@@ -1,15 +1,13 @@
-import '~/styles';
+import React from 'react';
+import { GlobalStyle } from './styles';
+import { Root } from './Root';
+
 import '~/fonts';
 
-import React from 'react';
-import { Counter } from '~/features/counter';
-import { Hello } from '~/features/hello';
-
-export const View = (): JSX.Element => (
+export const View = () => (
   <>
-    <Hello greeting="Hello world!" />
-    <hr />
-    <Counter />
+    <GlobalStyle />
+    <Root />
   </>
 );
 

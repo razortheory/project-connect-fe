@@ -9,22 +9,16 @@ export interface CounterProps {
   currentTime: number;
 }
 
-export const View = ({
-  onToggle,
-  isWorking,
-  currentTime,
-}: Readonly<CounterProps>): JSX.Element => (
+export const View = ({ onToggle, isWorking, currentTime }: CounterProps) => (
   <div>
     <button type="button" onClick={(): void => onToggle()}>
       {isWorking ? 'Stop' : 'Launch'} timer
     </button>
-
-    <span style={{ display: 'block' }}>Current time: {currentTime}</span>
+    <div>Current time: {currentTime}</div>
   </div>
 );
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Counter = () => {
+export const Counter = (): JSX.Element => {
   const currentTime = useStore($timer);
   const isWorking = useStore($timerWorking);
 
