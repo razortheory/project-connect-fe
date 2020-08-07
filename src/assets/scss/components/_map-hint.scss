@@ -1,0 +1,18 @@
+.map-hint {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.map-hint__image {
+    width: 6.6rem;
+    height: 8rem;
+    margin-right: 2.6rem;
+}
+
+.map-hint__text {
+    font-family: $font-family-secondary;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    color: #ffffff;
+}

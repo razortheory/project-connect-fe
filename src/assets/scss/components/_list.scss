@@ -1,0 +1,45 @@
+.list {
+    @include list-unstyled;
+    margin-top: 3rem;
+}
+
+.list__item {
+    position: relative;
+    font-family: $font-family-secondary;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    padding-left: 1rem;
+
+    &:before {
+        content: '';
+        display: inline-flex;
+        position: absolute;
+        left: -0.7rem;
+        top: 0.6rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+
+    &--connected {
+        &:before {
+            background-color: #2779ff;
+        }
+    }
+
+    &--verified {
+        &:before {
+            background-color: #8945d4;
+        }
+    }
+
+    &--not-verified {
+        &:before {
+            background-color: #373c46;
+        }
+    }
+}

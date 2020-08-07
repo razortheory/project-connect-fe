@@ -1,0 +1,91 @@
+.sidebar {
+    @include transition;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #232832;
+
+    @include media-breakpoint-up(md) {
+        position: absolute;
+        top: 7rem;
+        left: 2.4rem;
+        bottom: 2.4rem;
+        width: 33.4rem;
+        height: auto;
+        border-radius: 0.5rem;
+
+        &--collapsed {
+            left: -31.4rem;
+
+            .sidebar__expander > svg {
+                transform: rotate(0deg);
+            }
+        }
+    }
+}
+
+.sidebar__container {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar__expander {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+        display: flex;
+        position: absolute;
+        bottom: 1rem;
+        left: 100%;
+        width: 2rem;
+        height: 2.8rem;
+        padding: 0.4rem 0;
+        border-top-right-radius: 0.4rem;
+        border-bottom-right-radius: 0.4rem;
+        background-color: #141923;
+        outline: none;
+        border: none;
+
+        > img {
+            @include transition;
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.sidebar__title {
+    margin: 0;
+    font-size: 2.6rem;
+    line-height: 3rem;
+    padding: 2.6rem 2.4rem 3.2rem;
+    border-bottom: 0.8rem solid #2779ff;
+}
+
+.sidebar__secondary-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.sidebar__content {
+    padding: 2.4rem 2.4rem;
+}
+
+.sidebar__paragraph {
+    font-family: $font-family-secondary;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar__list {
+    margin-bottom: 3.5rem;
+}
+
+.sidebar__button {
+
+}

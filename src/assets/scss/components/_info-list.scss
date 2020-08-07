@@ -1,0 +1,26 @@
+.info-list {
+    @include list-unstyled;
+}
+
+.info-list__item {
+    &:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.info-list__title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 3rem;
+    line-height: 3.5rem;
+    text-transform: uppercase;
+}
+
+.info-list__description {
+    margin-top: 0.1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    max-width: 12rem;
+}

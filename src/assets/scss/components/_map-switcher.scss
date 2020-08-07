@@ -1,0 +1,24 @@
+.map-switcher {
+    @include list-unstyled;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    background-color: #2779ff;
+}
+
+.map-switcher__item {
+    @include transition;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    color: #232832;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover, &:active, &--active {
+        color: #ffffff;
+    }
+}
