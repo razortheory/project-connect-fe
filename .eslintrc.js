@@ -99,15 +99,18 @@ const config = {
       {
         whitelist: {
           props: true,
+          Props: true,
           outputDev: true,
           outputProd: true,
           env: true,
           envRef: true,
           'config.dev': true,
           'config.prod': true,
+          presetEnv: true,
         },
       },
     ],
+    'unicorn/no-null': 'off',
     '@typescript-eslint/explicit-module-boundary-types': [
       'error',
       {

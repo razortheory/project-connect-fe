@@ -19,7 +19,12 @@ const developmentPlugins: Plugin[] = [
 export const developmentConfig = merge(commonConfig, {
   mode: 'development',
   entry: {
-    main: paths.entryMain,
+    main: ['react-hot-loader/patch', paths.entryMain],
+  },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
   output: {
     publicPath: '/',
@@ -36,7 +41,7 @@ export const developmentConfig = merge(commonConfig, {
     hot: true,
     contentBase: paths.build,
     publicPath: '/',
-    open: false,
+    open: true,
     compress: true,
     clientLogLevel: 'error',
     historyApiFallback: {
