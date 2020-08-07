@@ -1,0 +1,35 @@
+@import 'assets/scss/main.scss';
+
+.App {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.logo {
+  font-size: 1.2rem;
+  letter-spacing: 0.126rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.7rem;
+    letter-spacing: 0.143rem;
+  }
+}
+
+.map-placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: gray;
+  z-index: -1;
+}
