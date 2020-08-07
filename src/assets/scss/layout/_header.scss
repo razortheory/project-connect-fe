@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+    height: $header-height;
+    background-color: $header-background-color;
+    position: fixed;
+    top: 0;
+    z-index: 101;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+        background-color: transparent;
+    }
+}
+
+.header__logo {
+    align-self: center;
+}
+
+.header__button {
+    margin-left: auto;
+
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
+}

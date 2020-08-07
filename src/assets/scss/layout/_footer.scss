@@ -1,0 +1,49 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: $footer-height;
+    background-color: $footer-background-color;
+
+    @include media-breakpoint-up(xl) {
+        padding-left: 2.4rem;
+    }
+}
+
+.footer__logo {
+    display: none;
+    align-self: center;
+    height: 3rem;
+    margin-right: 2rem;
+
+    @include media-breakpoint-up(xl) {
+        display: inline-flex;
+    }
+}
+
+.footer__map-legend {
+    height: 100%;
+    margin-right: auto;
+
+    @include media-breakpoint-up(xl) {
+        margin-left: auto;
+        margin-right: 0;
+    }
+}
+
+.footer__map-switcher {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+        margin-left: 3rem;
+        display: flex;
+    }
+}
+
+.footer__map-resizer {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+        display: flex;
+    }
+}
