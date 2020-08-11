@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
+import { MapMouseEvent } from 'mapbox-gl';
 
 const MapBox = ReactMapboxGl({
   accessToken:
@@ -90,6 +91,16 @@ const fakeGeoJSON = {
   },
 };
 
+const onMouseMove = (event: MapMouseEvent) => {
+  const map = event.target;
+  map.getCanvas().style.cursor = 'pointer';
+};
+
+const onMouseLeave = (event: MapMouseEvent) => {
+  const map = event.target;
+  map.getCanvas().style.cursor = 'default';
+};
+
 export const Map = (): JSX.Element => {
   return (
     <MapBox
@@ -105,6 +116,8 @@ export const Map = (): JSX.Element => {
         type="circle"
         sourceId="example"
         paint={circleStyles}
+        onMouseMove={(event: MapMouseEvent) => onMouseMove(event)}
+        onMouseLeave={(event: MapMouseEvent) => onMouseLeave(event)}
       />
     </MapBox>
   );
