@@ -8,27 +8,28 @@ import { postcssConfig } from './postcss';
 export const rules: RuleSetRule[] = [
   // JS
   {
-    test: paths.babelPattern,
+    test: paths.jsPattern,
     include: paths.source,
     use: ['babel-loader'],
   },
   // CSS
   {
-    test: paths.stylePattern,
+    test: paths.cssPattern,
     use: [
-      {
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-          esModule: true,
-          hmr: isDevelopment,
-        },
-      },
+      isDevelopment
+        ? 'style-loader'
+        : {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: true,
+              hmr: isDevelopment,
+            },
+          },
       {
         loader: 'css-loader',
         options: {
           esModule: true,
           sourceMap: isDevelopment,
-          importLoaders: 1,
         },
       },
       {
@@ -36,6 +37,17 @@ export const rules: RuleSetRule[] = [
         options: {
           ident: 'postcss',
           ...postcssConfig,
+        },
+      },
+      'resolve-url-loader',
+      {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true, // required for resolve-url-loader
+          sassOptions: {
+            sourceMapContents: false,
+          },
+          webpackImporter: false,
         },
       },
     ],
@@ -48,10 +60,13 @@ export const rules: RuleSetRule[] = [
       {
         loader: '@svgr/webpack',
         options: {
-          svgo: true,
           ref: true,
           memo: true,
           babel: false,
+          prettier: false,
+          svgoConfig: {
+            plugins: [{ removeViewBox: false }],
+          },
         },
       },
     ],

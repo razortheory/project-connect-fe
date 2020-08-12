@@ -28,6 +28,9 @@ const config = {
     },
   },
   extends: [
+    'eslint-config-xo-react',
+    'eslint-config-xo-typescript',
+    'eslint-config-xo-space',
     'airbnb',
     'airbnb/hooks',
     'prettier',
@@ -37,7 +40,7 @@ const config = {
     'prettier/@typescript-eslint',
     'plugin:unicorn/recommended',
     'prettier/unicorn',
-    // 'plugin:jest/recommended', // Is plugin included?
+    'plugin:jest/recommended',
   ],
   rules: {
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
@@ -75,9 +78,9 @@ const config = {
     'max-len': [
       'warn',
       {
-        code: 80,
+        code: 80, // prettier default
         tabWidth: 2,
-        ignoreComments: false,
+        ignoreComments: true,
         ignoreUrls: true,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
@@ -111,12 +114,6 @@ const config = {
       },
     ],
     'unicorn/no-null': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': [
-      'error',
-      {
-        allowedNames: ['View'],
-      },
-    ],
   },
 };
 

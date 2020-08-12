@@ -4,13 +4,13 @@ import './init';
 import { $timer, $timerWorking, tickFx, toggle } from './model';
 
 describe('counter', () => {
-  const tick = jest.fn().mockImplementation(() => Promise.resolve());
+  const tick = jest.fn().mockImplementation(async () => Promise.resolve());
   tickFx.use(tick);
 
   it('tick increases timer', () => {
     const timerFn = jest.fn();
     $timer.watch(timerFn);
-    tickFx();
+    void tickFx();
     expect(argumentHistory(timerFn)).toMatchInlineSnapshot(`
       Array [
         0,

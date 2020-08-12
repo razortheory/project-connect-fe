@@ -1,10 +1,11 @@
 import presetEnv from 'postcss-preset-env';
-import normalize from 'postcss-normalize';
 import flexBugsFixes from 'postcss-flexbugs-fixes';
+import normalize from 'postcss-normalize';
 
 import { isDevelopment } from './env';
 
 export const postcssConfig = {
+  syntax: 'postcss-scss',
   plugins: [
     presetEnv({
       stage: 2,

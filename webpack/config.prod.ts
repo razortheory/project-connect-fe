@@ -25,7 +25,7 @@ const productionPlugins: Plugin[] = [
   }),
 ];
 
-const testModules = (names: Array<string>) => (chunk: loader.LoaderContext) =>
+const testModules = (names: string[]) => (chunk: loader.LoaderContext) =>
   Boolean(chunk.resource) &&
   names.some((name) =>
     chunk.resource.startsWith(`${paths.root}/node_modules/${name}/`)
@@ -59,6 +59,7 @@ export const productionConfig = merge(commonConfig, {
       cacheGroups: {
         polyfills: {
           test: testModules(['core-js']),
+          enforce: true,
           reuseExistingChunk: true,
         },
         react: {
@@ -89,7 +90,10 @@ export const productionConfig = merge(commonConfig, {
         },
       }),
       new OptimizeCSSAssetsPlugin({
-        assetNameRegExp: paths.stylePattern,
+        assetNameRegExp: paths.cssPattern,
+        cssProcessorPluginOptions: {
+          preset: ['default', { normalizeUnicode: false }],
+        },
       }),
     ],
   },

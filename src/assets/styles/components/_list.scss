@@ -1,0 +1,48 @@
+.list {
+  @include list-unstyled;
+  margin-top: 3rem;
+}
+
+.list__item {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
+
+  &::before {
+    position: absolute;
+    top: 0.6rem;
+    left: -0.7rem;
+    display: inline-flex;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    content: '';
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  &--connected {
+    // stylelint-disable-next-line max-nesting-depth
+    &::before {
+      background-color: #2779ff;
+    }
+  }
+
+  &--verified {
+    // stylelint-disable-next-line max-nesting-depth
+    &::before {
+      background-color: #8945d4;
+    }
+  }
+
+  &--not-verified {
+    // stylelint-disable-next-line max-nesting-depth
+    &::before {
+      background-color: #373c46;
+    }
+  }
+}

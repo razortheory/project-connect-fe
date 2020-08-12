@@ -1,14 +1,13 @@
 import React from 'react';
-import { GlobalStyle } from './styles';
+import { GlobalStyle } from './style';
 import { Root } from './Root';
 
-import '~/fonts/css';
+import '~/assets/fonts/styles';
+import '~/assets/styles/app.scss';
 
-export const View = () => (
+export const App = (): JSX.Element => (
   <>
     <GlobalStyle />
     <Root />
   </>
 );
-
-export const App = View;

@@ -1,0 +1,33 @@
+.tabs {
+  @include list-unstyled;
+  display: flex;
+  flex-direction: row;
+  padding: 0 2.4rem;
+  background-color: #2779ff;
+}
+
+.tabs__item {
+  &:first-child {
+    margin-left: -1.5rem;
+  }
+}
+
+.tabs__button {
+  @include transition;
+  padding: 1.6rem 1.5rem;
+  color: #141923;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &--active {
+    color: #fff;
+  }
+}

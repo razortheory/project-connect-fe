@@ -1,0 +1,27 @@
+.button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  border-radius: 0.4rem;
+  cursor: pointer;
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--primary {
+    background-color: #2779ff;
+  }
+
+  &--secondary {
+    background-color: #b6bbc6;
+  }
+}

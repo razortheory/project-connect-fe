@@ -7,7 +7,6 @@ export const GlobalStyle = createGlobalStyle`
   html {
     /* Reset box sizing to border-box */
     box-sizing: border-box;
-    font-size: 16px;
     font-family: Roboto, Helvetica, Arial, sans-serif;
   }
 

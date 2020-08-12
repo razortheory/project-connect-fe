@@ -1,0 +1,48 @@
+.week-graph {
+  display: flex;
+  flex-direction: row;
+}
+
+.week-graph__item {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.8rem;
+}
+
+.week-graph__pillar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 0.7rem;
+  height: 7.8rem;
+}
+
+.week-graph__filler {
+  width: 0.7rem;
+
+  &--good {
+    height: 100%;
+    background-color: #8bd432;
+  }
+
+  &--middle {
+    height: 75%;
+    background-color: #ffc93d;
+  }
+
+  &--bad {
+    height: 30%;
+    background-color: #ff615b;
+  }
+}
+
+.week-graph__day {
+  display: flex;
+  justify-content: center;
+  width: 0.7rem;
+  margin-top: 0.5rem;
+  color: #9f9f9f;
+  font-size: 1.3rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
+}

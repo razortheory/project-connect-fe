@@ -1,0 +1,49 @@
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1280px,
+) !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1200px,
+) !default;
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+$grid-columns: 12 !default;
+$grid-gutter-width-base: 30px !default;
+$grid-gutter-widths: (
+  xs: $grid-gutter-width-base,
+  sm: $grid-gutter-width-base,
+  md: $grid-gutter-width-base,
+  lg: $grid-gutter-width-base,
+  xl: $grid-gutter-width-base,
+) !default;
+
+$text-color-light: #fff;
+$text-color-dark: #000;
+
+$font-family-primary: 'Cabin', sans-serif;
+$font-family-secondary: 'Roboto', sans-serif;
+
+$header-height: 7rem;
+$header-height-desktop: 6.4rem; /* 6.3rem in design */
+$header-background-color: #141923;
+$header-background-color-desktop: transparent;
+
+$footer-height: 5.7rem;
+$footer-height-desktop: 5rem; /* 4.9rem in design */
+$footer-background-color: rgba(#000, 0.75);

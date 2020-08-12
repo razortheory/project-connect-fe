@@ -2,7 +2,8 @@ import { guard } from 'effector';
 import { VoidFn } from '~/core/types';
 import { $timer, $timerWorking, tickFx, toggle } from './model';
 
-const tick: VoidFn = async () => new Promise((rs) => setTimeout(rs, 500));
+const tickDelay = 500;
+const tick: VoidFn = async () => new Promise((rs) => setTimeout(rs, tickDelay));
 
 tickFx.use(tick);
 

@@ -1,0 +1,37 @@
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 2.4rem;
+  background-color: #141923;
+}
+
+.search-bar__icon {
+  width: 2rem;
+  height: 4rem;
+}
+
+.search-bar__input {
+  flex: 1 0 auto;
+  height: 4rem;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.search-bar__close {
+  width: 2rem;
+  height: 4rem;
+  color: #fff;
+  font-size: 24px;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  transform: rotate(45deg);
+}

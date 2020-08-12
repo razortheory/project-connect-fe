@@ -3,9 +3,7 @@ import { createElement } from 'react';
 import { render } from 'react-dom';
 import { HotApp } from './core';
 
-const rootElement = document.createElement('div');
-rootElement.setAttribute('id', 'root');
-document.body.prepend(rootElement);
+const rootElement = document.querySelector('div');
 
 const renderApp = (): void => {
   render(createElement(HotApp), rootElement);

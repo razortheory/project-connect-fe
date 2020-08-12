@@ -1,0 +1,40 @@
+.map-resizer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.4rem;
+}
+
+.map-resizer__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+
+  &:not(:last-child) {
+    margin-right: 1.6rem;
+  }
+}
+
+.map-resizer__line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex: 0 0 auto;
+  width: 1.4rem;
+  height: 0.2rem;
+  background-color: #fff;
+  transform: translate3d(-50%, -50%, 0);
+
+  &--vertical {
+    transform: translate3d(-50%, -50%, 0) rotate(90deg);
+  }
+}

@@ -1,0 +1,43 @@
+@import 'init';
+@import 'main';
+
+.app {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.126rem;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.7rem;
+    letter-spacing: 0.143rem;
+  }
+}
+
+.map-placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #808080;
+}
+
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
