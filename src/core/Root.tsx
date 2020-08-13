@@ -8,9 +8,6 @@ import Unicef from '~/assets/images/unicef-logo-footer.svg';
 
 export const Root = (): JSX.Element => (
   <div className="app">
-    <div className="map-placeholder">
-      <Map />
-    </div>
     <header className="header">
       <div className="container">
         <a href="/" className="header__logo logo">
@@ -215,5 +212,8 @@ export const Root = (): JSX.Element => (
         </button>
       </div>
     </footer>
+    <div className="map-placeholder">
+      <Map />
+    </div>
   </div>
 );
