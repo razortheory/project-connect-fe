@@ -1,124 +1,93 @@
+import { FeatureCollection, Point } from 'geojson';
+import mapboxgl, { MapMouseEvent } from 'mapbox-gl';
 import * as React from 'react';
-import { CSSProperties } from 'react';
-import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
-import { MapMouseEvent } from 'mapbox-gl';
+import { CSSProperties, useEffect, useRef } from 'react';
+import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
+import fake from './fake.json';
 
-const MapBox = ReactMapboxGl({
-  accessToken:
-    'pk.eyJ1IjoiaXZhbnJ0IiwiYSI6ImNrZGlwN3B6ejA3M3QycnAzZHR4NWxnMXIifQ.wXvdCl_qPQ55hb8Bgkeb5A',
-});
+mapboxgl.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
 const mapStyles: CSSProperties = {
   position: 'absolute',
   top: 0,
   bottom: 0,
-  left: 0,
   right: 0,
+  left: 0,
   zIndex: 1,
-  width: '100vw',
-  height: '100vh',
 };
 
-const circleStyles = {
-  'circle-radius': {
-    base: 1.75,
-    stops: [
-      [10, 2],
-      [21, 180],
-    ],
-  },
-  'circle-color': [
-    'match',
-    ['get', 'quality'],
-    'good',
-    '#fbb03b',
-    'bad',
-    '#3bb2d0',
-    '#ccc',
-  ],
-};
-
-const fakeGeoJSON = {
-  type: 'geojson',
-  data: {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [27.465222, 53.877752],
-        },
-        properties: {
-          quality: 'good',
-          title: 'Mapbox DC',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [27.434055, 53.863588],
-        },
-        properties: {
-          quality: 'bad',
-          title: 'Mapbox DC',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [30.581234, 52.38837],
-        },
-        properties: {
-          quality: 'bad',
-          title: 'Mapbox DC',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [29.614766, 55.532017],
-        },
-        properties: {
-          quality: 'good',
-          title: 'Mapbox DC',
-        },
-      },
-    ],
-  },
-};
-
-const onMouseMove = (event: MapMouseEvent) => {
-  const map = event.target;
-  map.getCanvas().style.cursor = 'pointer';
-};
-
-const onMouseLeave = (event: MapMouseEvent) => {
-  const map = event.target;
-  map.getCanvas().style.cursor = 'default';
+const initMapOptions = {
+  centerLng: 0,
+  centerLat: 40,
+  zoom: 2,
 };
 
 export const Map = (): JSX.Element => {
-  return (
-    <MapBox
-      center={[0, 40]}
-      zoom={[2]}
-      style="mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4" // eslint-disable-line react/style-prop-object
-      containerStyle={mapStyles}
-    >
-      {/* Example */}
-      <Source id="example" geoJsonSource={fakeGeoJSON} />
-      <Layer
-        id="example"
-        type="circle"
-        sourceId="example"
-        paint={circleStyles}
-        onMouseMove={(event: MapMouseEvent) => onMouseMove(event)}
-        onMouseLeave={(event: MapMouseEvent) => onMouseLeave(event)}
-      />
-    </MapBox>
-  );
+  const mapReference = useRef(null);
+
+  useEffect(() => {
+    const map = new mapboxgl.Map({
+      style: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
+      center: [initMapOptions.centerLng, initMapOptions.centerLat],
+      zoom: initMapOptions.zoom,
+      container: mapReference.current || '',
+    });
+
+    map.on('load', () => {
+      map.addSource('example', {
+        type: 'geojson',
+        data: fake.data as FeatureCollection,
+      });
+
+      map.addLayer({
+        id: 'example',
+        type: 'circle',
+        source: 'example',
+        paint: {
+          'circle-radius': {
+            base: 1.75,
+            stops: [
+              [10, 2],
+              [21, 180],
+            ],
+          },
+          'circle-color': [
+            'match',
+            ['get', 'quality'],
+            'good',
+            '#fbb03b',
+            'bad',
+            '#3bb2d0',
+            '#ccc',
+          ],
+        },
+      });
+      map.on('click', 'example', (event: MapMouseEvent) => {
+        const features = map.queryRenderedFeatures(event.point);
+        const coordinates = (features[0].geometry as Point).coordinates.slice();
+        const description =
+          (features[0].properties && features[0]?.properties.quality) ||
+          'no data';
+
+        while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+          .setLngLat([coordinates[0], coordinates[1]])
+          .setHTML(description)
+          .addTo(map);
+      });
+
+      map.on('mouseenter', 'example', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.on('mouseleave', 'example', () => {
+        map.getCanvas().style.cursor = '';
+      });
+    });
+  });
+
+  return <div id="map" ref={mapReference} style={mapStyles} />;
 };
