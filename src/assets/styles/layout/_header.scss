@@ -8,16 +8,42 @@
   height: $header-height;
   background-color: $header-background-color;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
+    height: $header-height-desktop;
     background-color: transparent;
   }
 }
 
 .header__logo {
   align-self: center;
+  margin-right: 1.5rem;
+  margin-left: -1rem;
+  padding: 1rem;
+}
+
+.header__nav {
+  @include media-breakpoint-down(md) {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #141923;
+    border-top: 0.2rem solid $color-primary;
+    transform: translateY(-1rem);
+    opacity: 0%;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+    &--mobile-visible {
+      display: flex;
+      transform: translateY(0);
+      opacity: 100%;
+    }
+  }
 }
 
 .header__button {
+  align-self: center;
   margin-left: auto;
 
   @include media-breakpoint-down(md) {

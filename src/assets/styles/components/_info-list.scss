@@ -1,5 +1,31 @@
 .info-list {
   @include list-unstyled;
+
+  &--heading {
+    display: flex;
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+    }
+
+    .info-list__item {
+      &:not(:last-child) {
+        margin-bottom: 3rem;
+        @include media-breakpoint-up(md) {
+          margin-right: 6rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .info-list__description {
+      max-width: 19.5rem;
+      margin-top: 0.7rem;
+      margin-bottom: 0;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .info-list__item {

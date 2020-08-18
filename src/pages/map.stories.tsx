@@ -1,11 +1,10 @@
 import { Meta } from '@storybook/react';
 import { create } from '~/lib/storybook-kit';
-
-import { App } from './App';
+import { MapPage } from '~/pages/MapPage';
 
 export default {
-  title: 'App',
-  component: App,
+  title: 'Pages/Map',
+  component: MapPage,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -14,4 +13,4 @@ export default {
   },
 } as Meta;
 
-export const Map = create(App);
+export const Map = create(MapPage);

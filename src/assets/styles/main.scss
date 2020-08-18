@@ -5,6 +5,7 @@
 @import 'vendor/bootstrap/grid';
 
 @import 'base/typography';
+@import 'base/utilities';
 
 @import 'components/button';
 @import 'components/info-list';
@@ -17,6 +18,9 @@
 @import 'components/week-graph';
 @import 'components/search-bar';
 @import 'components/tabs';
+@import 'components/page-heading';
+@import 'components/partnership';
+@import 'components/post';
 
 @import 'layout/navigation';
 @import 'layout/header';

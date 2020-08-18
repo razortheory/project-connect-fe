@@ -15,12 +15,14 @@ const config = {
     'order/properties-alphabetical-order': null,
     'selector-max-id': 3,
     'max-nesting-depth': [
-      1,
+      3,
       {
         ignoreAtRules: ['each', 'media', 'supports', 'include'],
         ignore: ['pseudo-classes'],
       },
     ],
+    // TODO: Remove these rules (temporary)
+    'no-descending-specificity': [true, { severity: 'warning' }],
   },
 };
 

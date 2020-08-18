@@ -26,21 +26,18 @@
   }
 
   &--connected {
-    // stylelint-disable-next-line max-nesting-depth
     &::before {
-      background-color: #2779ff;
+      background-color: $color-primary;
     }
   }
 
   &--verified {
-    // stylelint-disable-next-line max-nesting-depth
     &::before {
       background-color: #8945d4;
     }
   }
 
   &--not-verified {
-    // stylelint-disable-next-line max-nesting-depth
     &::before {
       background-color: #373c46;
     }
