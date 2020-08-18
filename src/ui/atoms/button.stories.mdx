@@ -1,0 +1,19 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Button } from './Button';
+import '~/core/styles';
+
+<Meta title="Library/Atoms/Button" component={Button} />
+
+# Button
+
+Buttons allow users to perform an action or to navigate to another page. They
+have multiple styles for various needs, and are ideal for calling attention to
+where a user needs to do something in order to move forward in a flow.
+
+<Canvas>
+  <Story name="primary">
+    <div>
+      <Button />
+    </div>
+  </Story>
+</Canvas>

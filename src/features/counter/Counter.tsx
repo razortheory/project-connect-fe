@@ -5,7 +5,7 @@ import { $timer, $timerWorking, toggle } from './model';
 
 const onToggle = toggle.prepend(getInverted);
 
-export const Counter = (): JSX.Element => {
+export const Counter = () => {
   const currentTime = useStore($timer);
   const isWorking = useStore($timerWorking);
 

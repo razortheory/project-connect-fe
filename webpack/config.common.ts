@@ -1,13 +1,14 @@
-import webpack, { Plugin } from 'webpack';
+import webpack, { Plugin, ResolvePlugin } from 'webpack';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
-import './types'; // import declarations
+import './types';
+import { nodeLibsBrowser } from './node';
 import * as paths from './paths';
 
 // Common plugins
-const commonPlugins: Plugin[] = [
+export const commonPlugins: Plugin[] = [
   new DotenvWebpackPlugin({
     path: paths.env,
     safe: paths.envRef,
@@ -20,12 +21,17 @@ const commonPlugins: Plugin[] = [
   }),
 ];
 
+export const resolvePlugins: ResolvePlugin[] = [
+  // Get aliases from tsconfig.json
+  new TsconfigPathsPlugin(),
+];
+
 // Common config
 export const commonConfig: webpack.Configuration = {
   context: paths.root,
   resolve: {
     extensions: paths.extensions,
-    plugins: [new TsconfigPathsPlugin()],
+    plugins: resolvePlugins,
   },
   output: {
     path: paths.build,
@@ -51,6 +57,7 @@ export const commonConfig: webpack.Configuration = {
     timings: false,
     version: false,
   },
+  node: nodeLibsBrowser,
 };
 
 // eslint-disable-next-line import/no-default-export

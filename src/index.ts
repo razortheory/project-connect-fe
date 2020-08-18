@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import { render } from 'react-dom';
 import { HotApp } from './core';
 
-const rootElement = document.querySelector('div');
+const rootElement = document.querySelector('#root');
 
 const renderApp = (): void => {
   render(createElement(HotApp), rootElement);

@@ -6,7 +6,7 @@ import Giga from '~/assets/images/giga-logo-footer.svg';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 
-export const Root = (): JSX.Element => (
+export const Root = () => (
   <div className="app">
     <div className="map-placeholder">
       <Map />

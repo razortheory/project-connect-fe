@@ -10,7 +10,7 @@ export const indexHtml = `${source}/index.html`;
 export const favicon = `${source}/favicon.png`;
 
 export const extensions = ['.mjs', '.js', '.json', '.jsx', '.ts', '.tsx'];
-export const jsPattern = /\.(js|jsx|ts|tsx)$/;
+export const jsPattern = /\.(mjs|js|jsx|ts|tsx)$/;
 export const filePattern = /\.(jpg|png|gif|woff2)$/;
 export const svgPattern = /\.(svg)$/;
 export const cssPattern = /\.(css|scss)$/;

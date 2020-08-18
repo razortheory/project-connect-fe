@@ -24,9 +24,9 @@ export type Props = {
 };
 
 // Root child
-export const Hello = ({ greeting }: Props): JSX.Element => (
+export const Hello = ({ greeting }: Props) => (
   <>
-    <img src={wavingHandEmoji} alt="Waving Hand Emoji" />
+    <img src={wavingHandEmoji as string} alt="Waving Hand Emoji" />
     <Greeting className="hello">{greeting}</Greeting>
     <Logo />
   </>
