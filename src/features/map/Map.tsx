@@ -1,11 +1,13 @@
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import { FeatureCollection, Point } from 'geojson';
-import mapboxgl, { MapMouseEvent } from 'mapbox-gl';
-import * as React from 'react';
-import { CSSProperties, useEffect, useRef } from 'react';
+import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
 import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
-import fake from './fake.json';
+import fake from './fake-geo.json';
 
-mapboxgl.accessToken = API_MAPBOX_ACCESS_TOKEN;
+// Styles
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
 const mapStyles: CSSProperties = {
   position: 'absolute',
@@ -22,11 +24,11 @@ const initMapOptions = {
   zoom: 2,
 };
 
-export const Map = (): JSX.Element => {
+export const Map = () => {
   const mapReference = useRef(null);
 
   useEffect(() => {
-    const map = new mapboxgl.Map({
+    const map = new mapboxGL.Map({
       style: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
       center: [initMapOptions.centerLng, initMapOptions.centerLat],
       zoom: initMapOptions.zoom,
@@ -73,7 +75,7 @@ export const Map = (): JSX.Element => {
           coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
+        new mapboxGL.Popup()
           .setLngLat([coordinates[0], coordinates[1]])
           .setHTML(description)
           .addTo(map);
