@@ -8,6 +8,18 @@
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: stretch;
+
+  &--inner {
+    .header {
+      background-color: $header-background-color;
+    }
+
+    .footer {
+      background-color: #141923;
+      border-top: 0.8rem solid $color-primary;
+      min-height: 27.6rem; /* TODO: remove, added as temporary placeholder */
+    }
+  }
 }
 
 .logo {
@@ -31,5 +43,4 @@
   bottom: 0;
   left: 0;
   background-color: gray;
-  z-index: -1;
 }
