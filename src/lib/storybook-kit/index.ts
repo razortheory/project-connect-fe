@@ -1,2 +1,2 @@
-export { createState } from './create-state';
+export { createVariant } from './create-variant';
 export { createDecorator } from './create-decorator';

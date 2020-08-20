@@ -1,6 +1,9 @@
 # TS
 .typescript
 
+# Storybook
+!.storybook
+
 # Dependencies
 node_modules
 
@@ -10,6 +13,7 @@ package-lock.json
 # Build files
 build
 dist
+storybook-static
 
 # Misc
 .coverage

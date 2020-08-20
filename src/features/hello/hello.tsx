@@ -4,11 +4,21 @@ import styled from 'styled-components';
 import wavingHandEmoji from './assets/emoji/1f44b.png';
 import LogoSvg from './assets/logo.svg';
 
-const Greeting = styled.span`
-  padding: 2px;
+const Box = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 16px;
+`;
+
+const Greeting = styled.div`
+  display: inline-flex;
+  align-items: center;
+  margin: auto 16px;
+  padding: 8px;
   color: #639;
   font-size: 24px;
-  border: 1px solid #639;
+  border: 1px solid #a9a9a9;
   border-radius: 5px;
 
   &:hover {
@@ -26,9 +36,9 @@ export type Props = {
 
 // Root child
 export const Hello = ({ greeting }: Props) => (
-  <>
-    <img src={wavingHandEmoji as string} alt="Waving Hand Emoji" />
-    <Greeting className="hello">{greeting}</Greeting>
+  <Box>
+    <img src={wavingHandEmoji} alt="Waving Hand Emoji" />
+    <Greeting>{greeting}</Greeting>
     <Logo />
-  </>
+  </Box>
 );

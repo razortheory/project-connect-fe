@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 
-export const createState = <Props>(
+export const createVariant = <Props>(
   SourceTemplate: Story<Props>,
   args?: Props
 ): Story<Props> => {

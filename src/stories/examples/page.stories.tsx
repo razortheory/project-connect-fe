@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { createState } from '~/lib/storybook-kit';
+import { createVariant } from '~/lib/storybook-kit';
 
 import * as HeaderStories from './header.stories';
 import { Page, PageProps } from './page';
@@ -14,10 +14,10 @@ export default {
 
 const Template: Story<PageProps> = (args) => <Page {...args} />;
 
-export const LoggedIn = createState(Template, {
+export const LoggedIn = createVariant(Template, {
   ...HeaderStories.LoggedIn.args,
 });
 
-export const LoggedOut = createState(Template, {
+export const LoggedOut = createVariant(Template, {
   ...HeaderStories.LoggedOut.args,
 });

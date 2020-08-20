@@ -20,6 +20,6 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["./", ".*.js"],
-  "exclude": ["node_modules", "build"]
+  "include": ["./", ".*.js", ".storybook/*.ts"],
+  "exclude": ["node_modules", "build", "storybook-static"]
 }

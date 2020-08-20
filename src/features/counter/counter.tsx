@@ -12,11 +12,11 @@ export const Counter = () => {
   const isWorking = useStore($timerWorking);
 
   return (
-    <div>
+    <figure>
       <button type="button" onClick={onToggle}>
         {isWorking ? 'Stop' : 'Launch'} timer
       </button>
       <p>Timer: {currentTime}</p>
-    </div>
+    </figure>
   );
 };

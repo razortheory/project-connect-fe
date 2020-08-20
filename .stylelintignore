@@ -15,6 +15,7 @@ node_modules
 # Build files
 build
 dist
+storybook-static
 
 # Misc
 .coverage

@@ -28,6 +28,7 @@ package-lock.json
 # Build files
 build
 dist
+storybook-static
 
 # Misc
 .coverage

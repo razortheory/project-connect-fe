@@ -10,6 +10,7 @@ package-lock.json
 # Build files
 build
 dist
+storybook-static
 
 # Misc
 .coverage
@@ -44,6 +45,7 @@ dist
 !.idea/project.iml
 
 # System
+.DS_Store
 *.DS_Store
 .AppleDouble
 .LSOverride

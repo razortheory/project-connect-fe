@@ -13,7 +13,8 @@ export const extensions = ['.mjs', '.js', '.json', '.jsx', '.ts', '.tsx'];
 export const jsPattern = /\.(mjs|js|jsx|ts|tsx)$/;
 export const filePattern = /\.(jpg|png|gif|woff2)$/;
 export const svgPattern = /\.(svg)$/;
-export const cssPattern = /\.(css|scss)$/;
+export const cssPattern = /\.(css)$/;
+export const scssPattern = /\.(scss)$/;
 
 export const outputDev = {
   assets: '[path][name].[ext]',

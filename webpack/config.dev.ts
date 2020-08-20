@@ -5,7 +5,7 @@ import { merge } from 'webpack-merge';
 
 import { commonConfig } from './config.common';
 import * as paths from './paths';
-import { rules } from './rules';
+import { createRules } from './rules';
 
 // Development plugins
 const developmentPlugins: Plugin[] = [
@@ -39,7 +39,7 @@ export const developmentConfig = merge(commonConfig, {
     chunkFilename: paths.outputDev.jsChunks,
   },
   module: {
-    rules,
+    rules: createRules(),
   },
   plugins: developmentPlugins,
   devtool: 'source-map',
@@ -68,5 +68,4 @@ export const developmentConfig = merge(commonConfig, {
   },
 });
 
-// eslint-disable-next-line import/no-default-export
 export default developmentConfig;

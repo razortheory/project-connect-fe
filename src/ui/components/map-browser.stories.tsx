@@ -13,14 +13,6 @@ export default {
       'storybook/docs/panel': {
         hidden: true,
       },
-      /*
-      docsOnly: true,
-      previewTabs: {
-        canvas: {
-          hidden: true,
-        },
-      },
-      */
     },
   },
 } as Meta;

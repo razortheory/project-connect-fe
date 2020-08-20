@@ -59,17 +59,23 @@ const config = {
       },
     },
     {
+      files: ['src/**/*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+      },
+    },
+    {
+      files: ['.storybook/**/*.ts', 'webpack/**/*.ts', '**/*.d.ts'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
+    {
       files: ['src/**/*.stories.ts', 'src/**/*.stories.tsx'],
       rules: {
         'import/no-default-export': 'off',
         '@typescript-eslint/consistent-type-assertions': 'off',
         'react/jsx-props-no-spreading': 'off',
-      },
-    },
-    {
-      files: ['src/**/*.tsx'],
-      rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
       },
     },
     {
@@ -209,6 +215,7 @@ const config = {
           'src/**/*.stories.tsx',
           'src/**/*.stories.mdx',
           'src/lib/storybook-kit/**/*.ts',
+          '.storybook/*.ts',
         ],
       },
     ],

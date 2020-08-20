@@ -1,6 +1,6 @@
 import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
 import DotenvPlugin from 'dotenv-webpack';
-import CssExtractPlugin from 'mini-css-extract-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack, { loader, Plugin } from 'webpack';
@@ -8,7 +8,7 @@ import { merge } from 'webpack-merge';
 
 import { commonConfig } from './config.common';
 import * as paths from './paths';
-import { rules } from './rules';
+import { createRules } from './rules';
 
 // Production plugins
 const productionPlugins: Plugin[] = [
@@ -26,7 +26,7 @@ const productionPlugins: Plugin[] = [
   new webpack.SourceMapDevToolPlugin({
     noSources: true,
   }),
-  new CssExtractPlugin({
+  new MiniCssExtractPlugin({
     filename: paths.outputProd.css,
     chunkFilename: paths.outputProd.cssChunks,
   }),
@@ -52,7 +52,7 @@ export const productionConfig = merge(commonConfig, {
     chunkFilename: paths.outputProd.jsChunks,
   },
   module: {
-    rules,
+    rules: createRules(),
   },
   plugins: productionPlugins,
   optimization: {
@@ -106,5 +106,4 @@ export const productionConfig = merge(commonConfig, {
   },
 });
 
-// eslint-disable-next-line import/no-default-export
 export default productionConfig;

@@ -12,6 +12,7 @@ const config = {
   rules: {
     // Selectors should be lowercase with hyphens, may have __postfixes
     'selector-class-pattern': '^[a-z0-9\\-]+(__[a-z0-9\\-]+)*$',
+    // Use stylelint-config-rational-order instead
     'order/properties-alphabetical-order': null,
     'selector-max-id': 3,
     'max-nesting-depth': [
@@ -21,8 +22,6 @@ const config = {
         ignore: ['pseudo-classes'],
       },
     ],
-    // TODO: Remove these rules (temporary)
-    'no-descending-specificity': [true, { severity: 'warning' }],
   },
 };
 

@@ -55,5 +55,4 @@ export const commonConfig: webpack.Configuration = {
   node: nodeLibsBrowser,
 };
 
-// eslint-disable-next-line import/no-default-export
 export default commonConfig;
