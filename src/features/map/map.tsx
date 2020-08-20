@@ -1,12 +1,15 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import React, { CSSProperties, useEffect, useRef } from 'react';
+import { useStore } from 'effector-react';
 import { FeatureCollection, Point } from 'geojson';
 import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import { $mapTheme, $mapZoom, MapTheme } from './model';
 
 import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
 
 import fake from './fake-geo.json';
+
 
 mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
@@ -22,17 +25,25 @@ const mapStyles: CSSProperties = {
 const initMapOptions = {
   centerLng: 0,
   centerLat: 40,
-  zoom: 2,
+};
+
+const mapThemes: { [theme in MapTheme]: string } = {
+  dark: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
+  light: 'mapbox://styles/ivanrt/ckdzse0bp0r2419lbj96dw07a',
+  satellite: 'mapbox://styles/ivanrt/cke2hmks20xc119mpssxyiytb',
+  accessible: 'mapbox://styles/ivanrt/cke16a91g0lg41aoz5zk4ddr2',
 };
 
 export const Map = () => {
   const mapReference = useRef(null);
+  const theme: MapTheme = useStore($mapTheme);
+  const zoom: number = useStore($mapZoom);
 
   useEffect(() => {
     const map = new mapboxGL.Map({
-      style: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
+      style: mapThemes[theme],
       center: [initMapOptions.centerLng, initMapOptions.centerLat],
-      zoom: initMapOptions.zoom,
+      zoom,
       container: mapReference.current ?? '',
     });
 
