@@ -1,6 +1,6 @@
 import './types';
 
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlPlugin from 'html-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 import webpack, { Plugin, ResolvePlugin } from 'webpack';
 
@@ -9,7 +9,7 @@ import * as paths from './paths';
 
 // Common plugins
 export const commonPlugins: Plugin[] = [
-  new HtmlWebpackPlugin({
+  new HtmlPlugin({
     inject: 'body',
     template: paths.indexHtml,
     favicon: paths.favicon,

@@ -1,6 +1,6 @@
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import DotenvWebpackPlugin from 'dotenv-webpack';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
+import DotenvPlugin from 'dotenv-webpack';
+import CssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack, { loader, Plugin } from 'webpack';
@@ -12,13 +12,13 @@ import { rules } from './rules';
 
 // Production plugins
 const productionPlugins: Plugin[] = [
-  new DotenvWebpackPlugin({
+  new DotenvPlugin({
     path: paths.env,
     safe: paths.envRef,
     expand: true,
     systemvars: true,
   }),
-  new CleanWebpackPlugin(),
+  new CleanPlugin(),
   new webpack.ProgressPlugin({
     activeModules: false,
     entries: true,
@@ -26,7 +26,7 @@ const productionPlugins: Plugin[] = [
   new webpack.SourceMapDevToolPlugin({
     noSources: true,
   }),
-  new MiniCssExtractPlugin({
+  new CssExtractPlugin({
     filename: paths.outputProd.css,
     chunkFilename: paths.outputProd.cssChunks,
   }),
