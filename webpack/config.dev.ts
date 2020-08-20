@@ -1,3 +1,4 @@
+import DotenvWebpackPlugin from 'dotenv-webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack, { Plugin } from 'webpack';
 import { merge } from 'webpack-merge';
@@ -8,6 +9,11 @@ import { rules } from './rules';
 
 // Development plugins
 const developmentPlugins: Plugin[] = [
+  new DotenvWebpackPlugin({
+    path: paths.env,
+    safe: paths.envRef,
+    expand: true,
+  }),
   new MiniCssExtractPlugin({
     filename: paths.outputDev.css,
     chunkFilename: paths.outputDev.cssChunks,

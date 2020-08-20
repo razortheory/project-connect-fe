@@ -1,6 +1,5 @@
 import './types';
 
-import DotenvWebpackPlugin from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 import webpack, { Plugin, ResolvePlugin } from 'webpack';
@@ -10,11 +9,6 @@ import * as paths from './paths';
 
 // Common plugins
 export const commonPlugins: Plugin[] = [
-  new DotenvWebpackPlugin({
-    path: paths.env,
-    safe: paths.envRef,
-    expand: true,
-  }),
   new HtmlWebpackPlugin({
     inject: 'body',
     template: paths.indexHtml,

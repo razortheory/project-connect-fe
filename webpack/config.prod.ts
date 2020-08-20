@@ -1,4 +1,5 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import DotenvWebpackPlugin from 'dotenv-webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -11,6 +12,12 @@ import { rules } from './rules';
 
 // Production plugins
 const productionPlugins: Plugin[] = [
+  new DotenvWebpackPlugin({
+    path: paths.env,
+    safe: paths.envRef,
+    expand: true,
+    systemvars: true,
+  }),
   new CleanWebpackPlugin(),
   new webpack.ProgressPlugin({
     activeModules: false,
