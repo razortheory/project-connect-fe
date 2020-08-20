@@ -1,11 +1,12 @@
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import { FeatureCollection, Point } from 'geojson';
 import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
-import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
-import fake from './fake-geo.json';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 
-// Styles
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
+
+import fake from './fake-geo.json';
 
 mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 

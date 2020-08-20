@@ -1,9 +1,10 @@
-import webpack, { Plugin, ResolvePlugin } from 'webpack';
+import './types';
+
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import webpack, { Plugin, ResolvePlugin } from 'webpack';
 
-import './types';
 import { nodeLibsBrowser } from './node';
 import * as paths from './paths';
 

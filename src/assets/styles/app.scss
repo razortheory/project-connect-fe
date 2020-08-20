@@ -44,3 +44,15 @@
   left: 0;
   background-color: #808080;
 }
+
+.mapboxgl-ctrl {
+  &:empty,
+  &-attrib,
+  &-attrib-inner {
+    display: none;
+  }
+}
+
+.mapboxgl-ctrl .mapboxgl-ctrl-logo {
+  display: none;
+}

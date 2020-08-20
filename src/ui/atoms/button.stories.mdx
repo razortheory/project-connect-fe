@@ -1,8 +1,12 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
-import { Button } from './Button';
-import '~/core/styles';
+import { AppFrame } from '~/core';
+import { Button } from './button';
 
-<Meta title="Library/Atoms/Button" component={Button} />
+<Meta
+  title="Library/Button"
+  component={Button}
+  parameters={{ docsOnly: true, previewTabs: { canvas: { hidden: true } } }}
+/>
 
 # Button
 
@@ -12,8 +16,6 @@ where a user needs to do something in order to move forward in a flow.
 
 <Canvas>
   <Story name="primary">
-    <div>
-      <Button />
-    </div>
+    <Button>Project Connect</Button>
   </Story>
 </Canvas>

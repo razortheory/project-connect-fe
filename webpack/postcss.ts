@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import presetEnv from 'postcss-preset-env';
 import flexBugsFixes from 'postcss-flexbugs-fixes';
 import normalize from 'postcss-normalize';
+import presetEnv from 'postcss-preset-env';
 
 import { isDevelopment } from './env';
 

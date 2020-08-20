@@ -1,8 +1,8 @@
-import { RuleSetRule } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { RuleSetRule } from 'webpack';
 
-import * as paths from './paths';
 import { isDevelopment } from './env';
+import * as paths from './paths';
 import { postcssConfig } from './postcss';
 
 export const js = {

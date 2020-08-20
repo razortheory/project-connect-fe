@@ -1,8 +1,9 @@
+import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import { create } from '~/lib/storybook-kit';
 
-import { Button, ButtonProps } from './Button';
+import { createState } from '~/lib/storybook-kit';
+
+import { Button, ButtonProps } from './button';
 
 export default {
   title: 'Examples/Button',
@@ -18,21 +19,21 @@ const Template: Story<ButtonProps> = (args) => (
   </div>
 );
 
-export const Primary = create(Template, {
+export const Primary = createState(Template, {
   primary: true,
   label: 'Button',
 });
 
-export const Secondary = create(Template, {
+export const Secondary = createState(Template, {
   label: 'Button',
 });
 
-export const Large = create(Template, {
+export const Large = createState(Template, {
   size: 'large',
   label: 'Button',
 });
 
-export const Small = create(Template, {
+export const Small = createState(Template, {
   size: 'small',
   label: 'Button',
 });

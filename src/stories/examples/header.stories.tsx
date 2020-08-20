@@ -1,8 +1,9 @@
+import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import { create } from '~/lib/storybook-kit';
 
-import { Header, HeaderProps } from './Header';
+import { createState } from '~/lib/storybook-kit';
+
+import { Header, HeaderProps } from './header';
 
 export default {
   title: 'Examples/Header',
@@ -12,8 +13,8 @@ export default {
 
 const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 
-export const LoggedIn = create(Template, {
+export const LoggedIn = createState(Template, {
   user: {},
 });
 
-export const LoggedOut = create(Template);
+export const LoggedOut = createState(Template);

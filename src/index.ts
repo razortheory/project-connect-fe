@@ -1,7 +1,8 @@
 // Entry point
 import { createElement } from 'react';
 import { render } from 'react-dom';
-import { HotApp } from './core';
+
+import { HotApp } from './hot-app';
 
 const rootElement = document.querySelector('#root');
 

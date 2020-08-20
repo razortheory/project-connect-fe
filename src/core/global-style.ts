@@ -1,9 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
-import '~/assets/fonts/styles';
-import '~/assets/styles/app.scss';
-
 export const GlobalStyle = createGlobalStyle`
   ${normalize};
 

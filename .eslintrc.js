@@ -47,6 +47,18 @@ const config = {
   ],
   overrides: [
     {
+      files: ['**/*.ts', '**/*.tsx'],
+      plugins: ['simple-import-sort'],
+      rules: {
+        'sort-imports': 'off',
+        'import/order': 'off',
+        'simple-import-sort/sort': 'error',
+        'import/first': 'error',
+        'import/newline-after-import': 'error',
+        'import/no-duplicates': 'error',
+      },
+    },
+    {
       files: ['src/**/*.stories.ts', 'src/**/*.stories.tsx'],
       rules: {
         'import/no-default-export': 'off',
@@ -222,15 +234,6 @@ const config = {
       },
     ],
     'no-restricted-imports': ['error', { patterns: ['../*'] }],
-    'unicorn/filename-case': [
-      'error',
-      {
-        cases: {
-          kebabCase: true,
-          pascalCase: true,
-        },
-      },
-    ],
     'unicorn/prevent-abbreviations': [
       'error',
       {
@@ -249,6 +252,13 @@ const config = {
       },
     ],
     'unicorn/no-null': 'off',
+    'react/require-default-props': [
+      'warn',
+      {
+        forbidDefaultForRequired: true,
+        ignoreFunctionalComponents: true,
+      },
+    ],
   },
 };
 

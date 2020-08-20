@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/react';
-import { create } from '~/lib/storybook-kit';
 
-import { ProjectPage } from './ProjectPage';
+import { ProjectPage } from './project-page';
 
 export default {
   title: 'Pages/Project',
@@ -14,4 +13,4 @@ export default {
   },
 } as Meta;
 
-export const Project = create(ProjectPage);
+export const main = ProjectPage;

@@ -1,5 +1,7 @@
 import { guard } from 'effector';
-import { VoidFn } from '~/core/types';
+
+import { VoidFn } from '~/lib/effector-kit';
+
 import { $timer, $timerWorking, tickFx, toggle } from './model';
 
 const tickDelay = 500;

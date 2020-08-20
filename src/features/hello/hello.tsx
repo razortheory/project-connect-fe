@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import wavingHandEmoji from './assets/emoji/1f44b.png';
 import LogoSvg from './assets/logo.svg';
 

@@ -1,12 +1,12 @@
-import webpack, { loader, Plugin } from 'webpack';
-import { merge } from 'webpack-merge';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
+import webpack, { loader, Plugin } from 'webpack';
+import { merge } from 'webpack-merge';
 
-import * as paths from './paths';
 import { commonConfig } from './config.common';
+import * as paths from './paths';
 import { rules } from './rules';
 
 // Production plugins

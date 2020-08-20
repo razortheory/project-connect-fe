@@ -1,9 +1,9 @@
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack, { Plugin } from 'webpack';
 import { merge } from 'webpack-merge';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import * as paths from './paths';
 import { commonConfig } from './config.common';
+import * as paths from './paths';
 import { rules } from './rules';
 
 // Development plugins
