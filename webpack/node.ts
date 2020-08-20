@@ -1,3 +1,5 @@
+// See: https://www.npmjs.com/package/node-libs-browser
+
 // The list of node core libs (all off by default)
 const allOff = {
   assert: false,
@@ -44,4 +46,5 @@ const allOff = {
 export const nodeLibsBrowser = {
   ...allOff,
   global: true,
+  process: true,
 };
