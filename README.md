@@ -111,4 +111,5 @@ certain data into your database, or navigate around your application.
 - TypeScript module resolver
 - filenames linting
 - jest coverage
+- typescript coverage
 - root alias support
