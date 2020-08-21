@@ -1,15 +1,20 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useStore } from 'effector-react';
 import { FeatureCollection, Point } from 'geojson';
 import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
-import { $mapTheme, $mapZoom, MapTheme } from './model';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
 
 import fake from './fake-geo.json';
-
+import {
+  $mapTheme,
+  $mapZoom,
+  changeZoom,
+  initialMapOptions,
+  MapTheme,
+} from './model';
 
 mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
@@ -22,11 +27,6 @@ const mapStyles: CSSProperties = {
   zIndex: 1,
 };
 
-const initMapOptions = {
-  centerLng: 0,
-  centerLat: 40,
-};
-
 const mapThemes: { [theme in MapTheme]: string } = {
   dark: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
   light: 'mapbox://styles/ivanrt/ckdzse0bp0r2419lbj96dw07a',
@@ -36,14 +36,21 @@ const mapThemes: { [theme in MapTheme]: string } = {
 
 export const Map = () => {
   const mapReference = useRef(null);
+
+  const [mapState, setMapState] = useState<mapboxGL.Map>();
+  const [center, setCenter] = useState<[number, number]>([
+    initialMapOptions.lng,
+    initialMapOptions.lat,
+  ]);
+
   const theme: MapTheme = useStore($mapTheme);
   const zoom: number = useStore($mapZoom);
 
   useEffect(() => {
     const map = new mapboxGL.Map({
       style: mapThemes[theme],
-      center: [initMapOptions.centerLng, initMapOptions.centerLat],
-      zoom,
+      center: [initialMapOptions.lng, initialMapOptions.lat],
+      zoom: initialMapOptions.zoom,
       container: mapReference.current ?? '',
     });
 
@@ -97,11 +104,31 @@ export const Map = () => {
         map.getCanvas().style.cursor = 'pointer';
       });
 
+      map.on('zoomend', () => {
+        changeZoom(map.getZoom());
+      });
+
+      map.on('moveend', () => {
+        const { lng, lat } = map.getCenter();
+        setCenter([lng, lat]);
+      });
+
       map.on('mouseleave', 'example', () => {
         map.getCanvas().style.cursor = '';
       });
     });
-  });
+
+    setMapState(map);
+  }, [theme]);
+
+  useEffect(() => {
+    mapState?.setZoom(zoom);
+  }, [mapState, zoom]);
+
+  useEffect(() => {
+    mapState?.setCenter(center);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapState]);
 
   return <div id="map" ref={mapReference} style={mapStyles} />;
 };
