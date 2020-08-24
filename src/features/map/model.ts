@@ -1,17 +1,14 @@
 import { createEvent, createStore } from 'effector';
 
-export type MapTheme = 'dark' | 'light' | 'satellite' | 'accessible';
+import { defaultStyle } from './constants';
+import { Center, InitMapOptions, Map, Style } from './types';
 
-export const changeMapTheme = createEvent<MapTheme>();
-export const incrementZoom = createEvent();
-export const decrementZoom = createEvent();
-export const changeZoom = createEvent<number>();
+export const initMap = createEvent<InitMapOptions>();
+export const changeMap = createEvent<Map>();
+export const changeStyle = createEvent<Style>();
+export const setCenter = createEvent<Center>();
+export const zoomIn = createEvent();
+export const zoomOut = createEvent();
 
-export const initialMapOptions = {
-  zoom: 2,
-  lng: 0,
-  lat: 40,
-};
-
-export const $mapTheme = createStore<MapTheme>('dark');
-export const $mapZoom = createStore<number>(initialMapOptions.zoom);
+export const $map = createStore<Map | null>(null);
+export const $style = createStore<Style>(defaultStyle);
