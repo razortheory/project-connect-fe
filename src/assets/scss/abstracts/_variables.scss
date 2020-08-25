@@ -33,6 +33,24 @@ $grid-gutter-widths: (
         xl: $grid-gutter-width-base
 ) !default;
 
+$grid-gutter-width-sm: 16px;
+$grid-gutter-widths-sm: (
+        xs: $grid-gutter-width-sm,
+        sm: $grid-gutter-width-sm,
+        md: $grid-gutter-width-sm,
+        lg: $grid-gutter-width-sm,
+        xl: $grid-gutter-width-sm
+);
+
+$grid-gutter-width-lg: 48px;
+$grid-gutter-widths-lg: (
+        xs: $grid-gutter-width-lg,
+        sm: $grid-gutter-width-lg,
+        md: $grid-gutter-width-lg,
+        lg: $grid-gutter-width-lg,
+        xl: $grid-gutter-width-lg
+);
+
 $color-primary: #2779ff;
 $color-primary-hover: lighten($color-primary, 5%);
 $color-primary-active: lighten($color-primary, 10%);

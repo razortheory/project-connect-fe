@@ -1,0 +1,36 @@
+.view-changer {
+  display: none;
+  flex-direction: row;
+  align-items: stretch;
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+  }
+}
+
+.view-changer__button {
+  @include transition;
+  display: inline-flex;
+  align-items: center;
+  color: #67abff;
+  font-family: $font-family-primary;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  height: 100%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+
+  &:hover, &:active, &--active {
+    color: $text-color-light;
+  }
+}
+
+.view-changer__icon {
+  margin-right: 0.4rem;
+}

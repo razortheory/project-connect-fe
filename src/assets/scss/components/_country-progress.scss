@@ -1,0 +1,60 @@
+.country-progress {
+  display: flex;
+  flex-direction: column;
+}
+
+.country-progress__bubbles {
+  display: flex;
+  flex-direction: row;
+
+  &--joined {
+    .country-progress__bubble:nth-child(1) {
+      background-color: #2779ff;
+    }
+  }
+
+  &--locations-mapped {
+    .country-progress__bubble:nth-child(1),
+    .country-progress__bubble:nth-child(2) {
+      background-color: #2779ff;
+    }
+  }
+
+  &--connectivity-mapped {
+    .country-progress__bubble:nth-child(1),
+    .country-progress__bubble:nth-child(2),
+    .country-progress__bubble:nth-child(3) {
+      background-color: #2779ff;
+    }
+  }
+
+  &--real-time-data {
+    .country-progress__bubble:nth-child(1),
+    .country-progress__bubble:nth-child(2),
+    .country-progress__bubble:nth-child(3),
+    .country-progress__bubble:nth-child(4) {
+      background-color: #2779ff;
+    }
+  }
+}
+
+.country-progress__bubble {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: #6e737d;
+
+  &:not(:last-child) {
+    margin-right: 0.6rem;
+  }
+}
+
+.country-progress__title {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-family: $font-family-secondary;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  font-weight: normal;
+  color: $text-color-light;
+}

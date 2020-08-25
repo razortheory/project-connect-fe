@@ -1,0 +1,72 @@
+.progress-dashboard {
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+
+.progress-dashboard__row {
+  @include make-row($gutters: $grid-gutter-widths-lg);
+}
+
+.progress-dashboard__legend-col {
+  @include make-col-ready($gutters: $grid-gutter-widths-lg);
+  @include make-col(12);
+
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }
+}
+
+.progress-dashboard__title {
+  font-size: 3rem;
+  line-height: 3.5rem;
+  font-family: $font-family-primary;
+  color: $text-color-light;
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+}
+
+.progress-dashboard__description {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  font-family: $font-family-secondary;
+  color: $text-color-light;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.progress-dashboard__status-title {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-family: $font-family-primary;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  color: $text-color-light;
+  text-transform: uppercase;
+}
+
+.progress-dashboard__controls-bar {
+  @include media-breakpoint-down(sm) {
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+}
+
+.progress-dashboard__countries-list {
+  @include media-breakpoint-down(sm) {
+    margin-left: -24px;
+    margin-right: -24px;
+    padding: 24px;
+    background-color: #232832;
+  }
+}
+
+.progress-dashboard__countries-col {
+  @include make-col-ready($gutters: $grid-gutter-widths-lg);
+  @include make-col(12);
+
+  @include media-breakpoint-up(lg) {
+    @include make-col(8);
+  }
+}

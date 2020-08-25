@@ -23,6 +23,7 @@
 
 .header__nav {
     @include media-breakpoint-down(md) {
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
