@@ -29,21 +29,21 @@ const config = {
     },
   },
   extends: [
-    'eslint-config-xo-react',
-    'eslint-config-xo-typescript',
-    'eslint-config-xo-space',
-    'airbnb',
-    'airbnb-typescript',
-    'airbnb/hooks',
+    'plugin:unicorn/recommended',
+    'plugin:jest/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:@typescript-eslint/recommended',
+    'xo-space',
+    'xo-react/space',
+    'xo-typescript/space',
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
     'prettier',
     'prettier/react',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/typescript',
     'prettier/@typescript-eslint',
-    'plugin:unicorn/recommended',
     'prettier/unicorn',
-    'plugin:jest/recommended',
   ],
   overrides: [
     {
@@ -231,7 +231,7 @@ const config = {
     'max-len': [
       'warn',
       {
-        code: 80, // prettier default
+        code: 80, // Prettier default
         tabWidth: 2,
         ignoreComments: true,
         ignoreUrls: true,
@@ -265,6 +265,14 @@ const config = {
       {
         forbidDefaultForRequired: true,
         ignoreFunctionalComponents: true,
+      },
+    ],
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        prev: 'multiline-block-like',
+        next: '*',
       },
     ],
   },

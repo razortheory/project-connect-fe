@@ -24,6 +24,7 @@ export const configureWebpack = (config: Configuration): Configuration => {
     // eslint-disable-next-line no-param-reassign
     config.module.rules = config.module?.rules?.slice(0, -3) ?? [];
   }
+
   // Merge with custom config
   return merge(config, customConfig);
 };
