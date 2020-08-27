@@ -5,6 +5,7 @@ import {
   GeometryCollection,
   GeometryObject,
   MultiPolygon,
+  Polygon,
 } from 'geojson';
 import { LngLatBoundsLike, LngLatLike } from 'mapbox-gl';
 
@@ -58,7 +59,7 @@ export const convertCountriesDataToGeoJson = (
 };
 
 export const getPolygonBoundingBox = (
-  feature: Feature<MultiPolygon>
+  feature: Feature<MultiPolygon | Polygon>
 ): [LngLatLike, LngLatLike] => {
   // longitude -180 - 180
   // latitude -90 - 90
@@ -68,11 +69,8 @@ export const getPolygonBoundingBox = (
   let minLat = 90;
 
   for (const coordinates of feature.geometry.coordinates) {
-    const [polygon] =
-      feature.geometry.coordinates.length === 1
-        ? // Polygon coordinates[0][nodes]
-          feature.geometry.coordinates
-        : coordinates;
+    const polygon =
+      typeof coordinates[0][0] === 'number' ? coordinates : coordinates[0];
 
     for (const element of polygon) {
       const [longitude, latitude] = element as [number, number];
