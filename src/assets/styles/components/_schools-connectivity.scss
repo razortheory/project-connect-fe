@@ -1,0 +1,24 @@
+.schools-connectivity {
+  // Empty
+}
+
+.schools-connectivity__bar {
+  display: flex;
+  flex-direction: row;
+  width: 11rem;
+  height: 0.8rem;
+  background-color: #373c46;
+}
+
+.schools-connectivity__filler {
+  display: inline-flex;
+  width: 50%; // Placeholder
+  height: 0.8rem;
+  background-color: $color-primary;
+}
+
+.schools-connectivity__percentage-connected {
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2.5rem;
+}

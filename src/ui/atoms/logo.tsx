@@ -1,7 +1,13 @@
 import React from 'react';
 
+import { navigate } from '~/lib/router';
+
 export const Logo = () => (
-  <a href="/" className="header__logo logo">
+  <button
+    type="button"
+    onClick={() => navigate('/')}
+    className="header__logo logo"
+  >
     Project connect
-  </a>
+  </button>
 );

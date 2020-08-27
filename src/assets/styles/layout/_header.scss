@@ -22,17 +22,20 @@
 }
 
 .header__nav {
+  display: flex;
+  height: 100%;
+
   @include media-breakpoint-down(md) {
     position: absolute;
     top: 100%;
     right: 0;
     left: 0;
     z-index: 100;
+    display: none;
     background-color: #141923;
     border-top: 0.2rem solid $color-primary;
     transform: translateY(-1rem);
     opacity: 0%;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 
     &--mobile-visible {
       display: flex;

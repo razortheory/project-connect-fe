@@ -1,10 +1,11 @@
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
+import { navigate } from '~/lib/router';
 
 import { Search } from './search';
 
-export const CountryList = () => (
+export const MapCountries = () => (
   <>
     <Search />
     <ul className="sidebar__tabs tabs">
@@ -32,7 +33,8 @@ export const CountryList = () => (
           of schools.
         </p>
       </div>
-      <ul className="list">
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+      <ul className="list" onClick={() => navigate('/map/country/100')}>
         <li className="list__item list__item--connected">Brazil</li>
         <li className="list__item list__item--connected">Colombia</li>
         <li className="list__item list__item--connected">Kazakhstan</li>

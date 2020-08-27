@@ -256,10 +256,13 @@ const config = {
           Prod: true,
           env: true,
           Env: true,
+          params: true,
+          Params: true,
         },
       },
     ],
     'unicorn/no-null': 'off',
+    'unicorn/no-fn-reference-in-iterator': 'off',
     'react/require-default-props': [
       'warn',
       {

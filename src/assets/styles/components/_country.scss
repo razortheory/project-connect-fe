@@ -1,0 +1,72 @@
+.country {
+  color: $text-color-light;
+}
+
+.country__inner {
+  // Empty
+}
+
+.country__meta-wrapper {
+  color: $text-color-light;
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2.5rem;
+}
+
+.country__flag-wrapper {
+  display: flex;
+}
+
+.country__flag {
+  width: 100%;
+}
+
+.country__name {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.country__date {
+  // Empty
+}
+
+.country__subtitle {
+  margin-top: 0;
+  margin-bottom: 1.4rem;
+  color: $text-color-light;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: $font-family-primary;
+  line-height: 1.1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.country__schools-connected {
+  // Empty
+}
+
+.country__separator {
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
+  border: solid 0.1rem #373c46;
+}
+
+.country__description {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2.5rem;
+}
+
+.country__view-on-map {
+  margin-top: auto;
+}
+
+.country__link {
+  // Empty
+}

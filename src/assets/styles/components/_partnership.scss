@@ -1,5 +1,5 @@
 .partnership {
-  // Skip
+  // Empty
 }
 
 .partnership__row {
@@ -10,6 +10,7 @@
   @include make-col-ready;
   @include make-col(12);
   margin-bottom: 3rem;
+
   @include media-breakpoint-up(md) {
     @include make-col(6);
   }

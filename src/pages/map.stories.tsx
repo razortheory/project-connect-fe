@@ -1,8 +1,9 @@
 import { Meta } from '@storybook/react';
+import React from 'react';
 
-import { CountryInfoPage } from './country-info-page';
-import { CountryListPage } from './country-list-page';
-import { WorldInfoPage } from './world-info-page';
+import { AppFrame } from '~/core';
+import { MapCountries, MapCountry, MapOverview } from '~/ui/components';
+import { MapTemplate } from '~/ui/templates';
 
 export default {
   title: 'Pages/Map',
@@ -14,6 +15,26 @@ export default {
   },
 } as Meta;
 
-export const worldInfo = WorldInfoPage;
-export const countryList = CountryListPage;
-export const countryInfo = CountryInfoPage;
+export const overview = () => (
+  <AppFrame>
+    <MapTemplate>
+      <MapOverview />
+    </MapTemplate>
+  </AppFrame>
+);
+
+export const countries = () => (
+  <AppFrame>
+    <MapTemplate>
+      <MapCountries />
+    </MapTemplate>
+  </AppFrame>
+);
+
+export const country = () => (
+  <AppFrame>
+    <MapTemplate>
+      <MapCountry />
+    </MapTemplate>
+  </AppFrame>
+);

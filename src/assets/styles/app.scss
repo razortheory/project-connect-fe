@@ -15,7 +15,7 @@
     }
 
     .footer {
-      min-height: 27.6rem; // remove, added as temporary placeholder
+      min-height: 27.6rem; // Remove, added as temporary placeholder
       background-color: #141923;
       border-top: 0.8rem solid $color-primary;
     }
@@ -24,11 +24,17 @@
 
 .logo {
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.2rem;
   letter-spacing: 0.126rem;
   text-transform: uppercase;
   text-decoration: none;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  //noinspection CssBrowserCompatibilityForProperties
+  user-select: none;
 
   @include media-breakpoint-up(md) {
     font-size: 1.7rem;

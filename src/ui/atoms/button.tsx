@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 export type Props = {
-  to: string;
   children: string;
+  onClick: (event: MouseEvent<HTMLButtonElement>) => unknown;
 };
 
-export const Button = ({ to, children }: Props) => (
-  <a href={to} className="header__button button button--primary">
+export const Button = ({ children, onClick }: Props) => (
+  <button
+    type="button"
+    className="header__button button button--primary"
+    onClick={onClick}
+  >
     {children}
-  </a>
+  </button>
 );

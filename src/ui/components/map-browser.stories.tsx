@@ -1,10 +1,10 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { CountryInfo } from './country-info';
-import { CountryList } from './country-list';
 import { MapBrowser } from './map-browser';
-import { WorldInfo } from './world-info';
+import { MapCountries } from './map-countries';
+import { MapCountry } from './map-country';
+import { MapOverview } from './map-overview';
 
 export default {
   title: 'Library/MapBrowser',
@@ -19,20 +19,20 @@ export default {
 
 export const empty = MapBrowser;
 
-export const worldInfo = () => (
+export const overview = () => (
   <MapBrowser>
-    <WorldInfo />
+    <MapOverview />
   </MapBrowser>
 );
 
-export const countryList = () => (
+export const countries = () => (
   <MapBrowser>
-    <CountryList />
+    <MapCountries />
   </MapBrowser>
 );
 
-export const countryInfo = () => (
+export const country = () => (
   <MapBrowser>
-    <CountryInfo />
+    <MapCountry />
   </MapBrowser>
 );

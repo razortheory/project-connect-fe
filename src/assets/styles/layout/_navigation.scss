@@ -10,7 +10,7 @@
 }
 
 .menu__link {
-  padding: 2.4rem 2.5rem;
+  padding: 1.8rem 2.5rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
@@ -30,6 +30,14 @@
     padding-left: 1.7rem;
   }
 
+  &,
+  button {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+
   &:hover {
     background-color: $color-primary;
   }
@@ -43,10 +51,17 @@
 .menu__item {
   position: relative;
   display: inline-flex;
+  align-items: center;
 
   @include media-breakpoint-down(md) {
     flex-direction: column;
     width: 100%;
+  }
+
+  .menu__link {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
   }
 
   > .menu {

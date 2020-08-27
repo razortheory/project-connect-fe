@@ -7,6 +7,9 @@
 }
 
 .search-bar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 2rem;
   height: 4rem;
 }
@@ -27,9 +30,12 @@
 
 .search-bar__close {
   width: 2rem;
-  height: 4rem;
+  height: 2rem;
+  padding: 0;
   color: #fff;
-  font-size: 24px;
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
   background-color: transparent;
   border: 0;
   outline: none;

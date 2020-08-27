@@ -27,4 +27,6 @@
 
 .map-switcher__button {
   outline: none;
+  //noinspection CssBrowserCompatibilityForProperties
+  user-select: none;
 }

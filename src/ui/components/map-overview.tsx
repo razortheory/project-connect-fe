@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const WorldInfo = () => (
+import { navigate } from '~/lib/router';
+
+export const MapOverview = () => (
   <>
     <h2 className="sidebar__title">
       Connecting every young person to information, opportunity and choice.
@@ -27,7 +29,11 @@ export const WorldInfo = () => (
           </p>
         </li>
       </ul>
-      <button className="button button--primary" type="button">
+      <button
+        onClick={() => navigate('/map/countries')}
+        className="button button--primary"
+        type="button"
+      >
         Select a country
       </button>
     </div>
