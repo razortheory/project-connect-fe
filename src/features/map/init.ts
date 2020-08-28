@@ -13,8 +13,10 @@ import {
   SchoolData,
 } from './map-data-helpers';
 import {
+  $currentCountryId,
   $map,
   $style,
+  changeCurrentCountryId,
   changeMap,
   changeStyle,
   initMap,
@@ -26,6 +28,7 @@ import { InitMapOptions } from './types';
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
+$currentCountryId.on(changeCurrentCountryId, setPayload);
 
 initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   const map = new mapboxGL.Map({
@@ -105,6 +108,7 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
         return;
       }
 
+      changeCurrentCountryId(event.features[0].id as number);
       const bounds = getPolygonBoundingBox(
         event.features[0] as Feature<MultiPolygon>
       );
@@ -140,12 +144,12 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
       }
     });
 
-    // When the mouse leaves the state-fill layer, update the feature state of the
+    // When the mouse leaves the countries layer, update the country state of the
     // previously hovered feature.
-    map.on('mouseleave', 'state-fills', () => {
+    map.on('mouseleave', 'countries', () => {
       if (hoveredCountryId) {
         map.setFeatureState(
-          { source: 'states', id: hoveredCountryId },
+          { source: 'countries', id: hoveredCountryId },
           { hover: false }
         );
       }
