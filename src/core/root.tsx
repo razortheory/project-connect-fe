@@ -1,8 +1,8 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { map, project } from '~/core/routes';
-import { $notFound, useRoute } from '~/lib/router';
+import { map, project, router } from '~/core/routes';
+import { useRoute } from '~/lib/router';
 import { MapPage, ProjectPage } from '~/pages';
 
 const NotFound = () => (
@@ -13,6 +13,6 @@ export const Root = () => (
   <>
     {useRoute(map) && <MapPage />}
     {useRoute(project) && <ProjectPage />}
-    {useStore($notFound) && <NotFound />}
+    {useStore(router.noMatches) && <NotFound />}
   </>
 );

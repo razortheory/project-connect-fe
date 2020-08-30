@@ -3,8 +3,15 @@ import React from 'react';
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import { AppFrame } from '~/core';
-import { about, countryProgress, joinUs, media, privacy } from '~/core/routes';
-import { Link, navigate, useRoute } from '~/lib/router';
+import {
+  about,
+  countryProgress,
+  joinUs,
+  media,
+  privacy,
+  router,
+} from '~/core/routes';
+import { Link, useRoute } from '~/lib/router';
 
 export const Media = () => (
   <section className="section">
@@ -687,7 +694,7 @@ export const ProjectPage = () => (
       <header className="header">
         <div className="container-fluid">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => router.navigate('/')}
             type="button"
             className="header__logo logo"
           >
@@ -752,7 +759,7 @@ export const ProjectPage = () => (
           </nav>
           <button
             type="button"
-            onClick={() => navigate('/map')}
+            onClick={() => router.navigate('/map')}
             className="header__button button button--primary"
           >
             Connectivity map

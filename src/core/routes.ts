@@ -1,27 +1,41 @@
-import { createRoute } from '~/lib/router';
+import history from 'history/browser';
 
-export const root = createRoute({ path: '/', exact: true, redirectTo: '/map' });
+import { applyRouter, createRouter } from '~/lib/router';
 
-export const map = createRoute({ path: '/map' });
-export const mapOverview = createRoute({ path: '/map', exact: true });
-export const mapCountries = createRoute({ path: '/map/countries' });
-export const mapCountry = createRoute({ path: '/map/country/:id' });
+// Create router and use Browser History
+export const router = createRouter({ history });
 
-export const project = createRoute();
-export const media = createRoute({ path: '/media', parent: project });
-export const countryProgress = createRoute({
-  path: '/country-progress',
-  parent: project,
-});
-export const joinUs = createRoute({
-  path: '/join-us',
-  parent: project,
-});
-export const about = createRoute({
-  path: '/about',
-  parent: project,
-});
-export const privacy = createRoute({
-  path: '/privacy',
-  parent: project,
+// Apply default router for Links
+applyRouter(router);
+
+// This route is only for redirection
+export const exactRoot = router.add({ path: '/' });
+
+// Map section
+export const map = router.add('/map(/.*)?');
+export const mapOverview = router.add('/map');
+export const mapCountries = router.add('/map/countries');
+export const mapCountry = router.add('/map/country/:id');
+
+// Project section
+export const media = router.add('/media');
+export const countryProgress = router.add('/country-progress');
+export const joinUs = router.add('/join-us');
+export const about = router.add('/about');
+export const privacy = router.add('/privacy');
+
+// Merge route to create parent route
+export const project = router.merge([
+  media,
+  countryProgress,
+  joinUs,
+  about,
+  privacy,
+]);
+
+// Redirect from "/" to "/map"
+exactRoot.visible.watch((visible) => {
+  if (visible) {
+    router.redirect('/map');
+  }
 });

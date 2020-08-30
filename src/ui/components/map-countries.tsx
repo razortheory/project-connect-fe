@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { navigate } from '~/lib/router';
+import { router } from '~/core/routes';
 
 import { Search } from './search';
 
@@ -34,7 +34,7 @@ export const MapCountries = () => (
         </p>
       </div>
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-      <ul className="list" onClick={() => navigate('/map/country/100')}>
+      <ul className="list" onClick={() => router.navigate('/map/country/100')}>
         <li className="list__item list__item--connected">Brazil</li>
         <li className="list__item list__item--connected">Colombia</li>
         <li className="list__item list__item--connected">Kazakhstan</li>

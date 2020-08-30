@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { navigate } from '~/lib/router';
+import { router } from '~/core/routes';
 
 export const Logo = () => (
   <button
     type="button"
-    onClick={() => navigate('/')}
+    onClick={() => router.navigate('/')}
     className="header__logo logo"
   >
     Project connect

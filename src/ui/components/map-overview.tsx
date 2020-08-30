@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { navigate } from '~/lib/router';
+import { router } from '~/core/routes';
 
 export const MapOverview = () => (
   <>
@@ -30,7 +30,7 @@ export const MapOverview = () => (
         </li>
       </ul>
       <button
-        onClick={() => navigate('/map/countries')}
+        onClick={() => router.navigate('/map/countries')}
         className="button button--primary"
         type="button"
       >
