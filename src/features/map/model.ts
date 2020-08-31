@@ -9,8 +9,8 @@ export const changeStyle = createEvent<Style>();
 export const setCenter = createEvent<Center>();
 export const zoomIn = createEvent();
 export const zoomOut = createEvent();
-export const changeCurrentCountryId = createEvent<number>();
+export const selectCountry = createEvent<number>();
 
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
-export const $currentCountryId = createStore<number>(0);
+export const $selectedCountryId = createStore<number>(0);
