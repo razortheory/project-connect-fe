@@ -1,7 +1,7 @@
 import { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
 import mapboxGL, { MapLayerMouseEvent, MapMouseEvent } from 'mapbox-gl';
 
-import { setPayload } from '~/lib/effector-kit';
+import { setPayload, VoidFn } from '~/lib/effector-kit';
 import { createRequest } from '~/packages/request';
 
 import { defaultCenter, defaultZoom, styleUrls } from './constants';
@@ -13,11 +13,13 @@ import {
   SchoolData,
 } from './map-data-helpers';
 import {
+  $countries,
   $map,
   $selectedCountryId,
   $style,
   changeMap,
   changeStyle,
+  fetchCountriesFx,
   initMap,
   selectCountry,
   setCenter,
@@ -26,14 +28,27 @@ import {
 } from './model';
 import { InitMapOptions } from './types';
 
-$map.on(changeMap, setPayload);
-$style.on(changeStyle, setPayload);
-$selectedCountryId.on(selectCountry, setPayload);
-
 // create request
 const request = createRequest({
   baseUrl: ' https://api.projectconnect.razortheory.com/',
 });
+
+const fetchCountries: VoidFn = async () =>
+  request({
+    url: 'api/locations/countries/',
+    method: 'GET',
+    fn: ({ jsonData }) =>
+      convertCountriesDataToGeoJson(jsonData as CountryData[]),
+  });
+
+fetchCountriesFx.use(fetchCountries as VoidFn<FeatureCollection>);
+
+$map.on(changeMap, setPayload);
+$style.on(changeStyle, setPayload);
+$countries.on(fetchCountriesFx.doneData, setPayload);
+$selectedCountryId.on(selectCountry, setPayload);
+
+let loaderMarker: mapboxGL.Marker | undefined;
 
 initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   const map = new mapboxGL.Map({
@@ -51,136 +66,25 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   loaderWrapper.append(loader);
 
   // add loader
-  const loaderMarker = new mapboxGL.Marker(loaderWrapper)
+  loaderMarker = new mapboxGL.Marker(loaderWrapper)
     .setLngLat(map.getCenter())
     .addTo(map);
 
   // always display the loader in the center
   map.on('zoom', () => {
-    loaderMarker.setLngLat(map.getCenter());
+    if (loaderMarker) {
+      loaderMarker.setLngLat(map.getCenter());
+    }
   });
 
   map.on('move', () => {
-    loaderMarker.setLngLat(map.getCenter());
+    if (loaderMarker) {
+      loaderMarker.setLngLat(map.getCenter());
+    }
   });
 
-  map.on('load', async () => {
-    const countries = await request({
-      url: 'api/locations/countries/',
-      method: 'GET',
-      fn: ({ jsonData }) =>
-        convertCountriesDataToGeoJson(jsonData as CountryData[]),
-    });
-
-    let hoveredCountryId = 0;
-    let selectedCountryId = 0;
-
-    // remove loader after loading data
-    loaderMarker.remove();
-
-    map.addSource('countries', {
-      type: 'geojson',
-      data: countries as FeatureCollection,
-    });
-
-    map.addLayer({
-      id: 'countries',
-      type: 'fill',
-      source: 'countries',
-      paint: {
-        'fill-color': '#0068ea',
-        'fill-outline-color': '#646973',
-        'fill-opacity': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          0.9,
-          1,
-        ],
-      },
-    });
-
-    map.on('click', 'countries', (event: MapLayerMouseEvent) => {
-      if (
-        !event.features ||
-        !event.features[0] ||
-        selectedCountryId === event.features[0].id
-      ) {
-        return;
-      }
-      if (map.getLayer('schools')) {
-        map.removeLayer('schools');
-      }
-      if (map.getSource('schools')) {
-        map.removeSource('schools');
-      }
-
-      if (selectedCountryId) {
-        map.setFeatureState(
-          { source: 'countries', id: selectedCountryId },
-          { selected: false }
-        );
-      }
-      selectedCountryId = event.features[0].id as number;
-      selectCountry(selectedCountryId);
-
-      map.setFeatureState(
-        { source: 'countries', id: selectedCountryId },
-        { selected: true }
-      );
-
-      map.setPaintProperty('countries', 'fill-color', [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        '#141923',
-        '#373c46',
-      ]);
-
-      const bounds = getPolygonBoundingBox(
-        event.features[0] as Feature<MultiPolygon>
-      );
-      map.fitBounds(bounds, {
-        padding: { left: 360, right: 30, top: 30, bottom: 30 },
-      });
-    });
-
-    map.on('mouseenter', 'countries', () => {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-
-    map.on('mouseleave', 'countries', () => {
-      map.getCanvas().style.cursor = '';
-    });
-
-    map.on('mousemove', 'countries', (event: MapLayerMouseEvent) => {
-      if (!event.features || !event.features[0]) {
-        return;
-      }
-      if (event.features.length > 0) {
-        if (hoveredCountryId) {
-          map.setFeatureState(
-            { source: 'countries', id: hoveredCountryId },
-            { hover: false }
-          );
-        }
-        hoveredCountryId = event.features[0].id as number;
-        map.setFeatureState(
-          { source: 'countries', id: hoveredCountryId },
-          { hover: true }
-        );
-      }
-    });
-
-    // When the mouse leaves the countries layer, update the country state of the
-    // previously hovered feature.
-    map.on('mouseleave', 'countries', () => {
-      if (hoveredCountryId) {
-        map.setFeatureState(
-          { source: 'countries', id: hoveredCountryId },
-          { hover: false }
-        );
-      }
-      hoveredCountryId = 0;
-    });
+  map.on('load', () => {
+    void fetchCountriesFx();
   });
 
   changeMap(map);
@@ -206,6 +110,123 @@ $map.watch(changeStyle, (map, style) => {
     zoom: map.getZoom(),
     center: map.getCenter(),
     style,
+  });
+});
+
+$map.watch(fetchCountriesFx.doneData, (map, countries: FeatureCollection) => {
+  if (!map) return;
+  let hoveredCountryId = 0;
+  let selectedCountryId = 0;
+
+  // remove loader after loading data
+  if (loaderMarker) {
+    loaderMarker.remove();
+  }
+
+  map.addSource('countries', {
+    type: 'geojson',
+    data: countries,
+  });
+
+  map.addLayer({
+    id: 'countries',
+    type: 'fill',
+    source: 'countries',
+    paint: {
+      'fill-color': '#0068ea',
+      'fill-outline-color': '#646973',
+      'fill-opacity': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        0.9,
+        1,
+      ],
+    },
+  });
+
+  map.on('click', 'countries', (event: MapLayerMouseEvent) => {
+    if (
+      !event.features ||
+      !event.features[0] ||
+      selectedCountryId === event.features[0].id
+    ) {
+      return;
+    }
+    if (map.getLayer('schools')) {
+      map.removeLayer('schools');
+    }
+    if (map.getSource('schools')) {
+      map.removeSource('schools');
+    }
+
+    if (selectedCountryId) {
+      map.setFeatureState(
+        { source: 'countries', id: selectedCountryId },
+        { selected: false }
+      );
+    }
+    selectedCountryId = event.features[0].id as number;
+    selectCountry(selectedCountryId);
+
+    map.setFeatureState(
+      { source: 'countries', id: selectedCountryId },
+      { selected: true }
+    );
+
+    map.setPaintProperty('countries', 'fill-color', [
+      'case',
+      ['boolean', ['feature-state', 'selected'], false],
+      '#141923',
+      '#373c46',
+    ]);
+
+    const bounds = getPolygonBoundingBox(
+      event.features[0] as Feature<MultiPolygon>
+    );
+    map.fitBounds(bounds, {
+      padding: { left: 360, right: 30, top: 30, bottom: 30 },
+    });
+  });
+
+  map.on('mouseenter', 'countries', () => {
+    // eslint-disable-next-line no-param-reassign
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', 'countries', () => {
+    // eslint-disable-next-line no-param-reassign
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mousemove', 'countries', (event: MapLayerMouseEvent) => {
+    if (!event.features || !event.features[0]) {
+      return;
+    }
+    if (event.features.length > 0) {
+      if (hoveredCountryId) {
+        map.setFeatureState(
+          { source: 'countries', id: hoveredCountryId },
+          { hover: false }
+        );
+      }
+      hoveredCountryId = event.features[0].id as number;
+      map.setFeatureState(
+        { source: 'countries', id: hoveredCountryId },
+        { hover: true }
+      );
+    }
+  });
+
+  // When the mouse leaves the countries layer, update the country state of the
+  // previously hovered feature.
+  map.on('mouseleave', 'countries', () => {
+    if (hoveredCountryId) {
+      map.setFeatureState(
+        { source: 'countries', id: hoveredCountryId },
+        { hover: false }
+      );
+    }
+    hoveredCountryId = 0;
   });
 });
 

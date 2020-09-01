@@ -2,12 +2,10 @@ import {
   Feature,
   FeatureCollection,
   Geometry,
-  GeometryCollection,
-  GeometryObject,
   MultiPolygon,
   Polygon,
 } from 'geojson';
-import { LngLatBoundsLike, LngLatLike } from 'mapbox-gl';
+import { LngLatLike } from 'mapbox-gl';
 
 export type SchoolData = {
   id: number;

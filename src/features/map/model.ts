@@ -1,4 +1,5 @@
-import { createEvent, createStore } from 'effector';
+import { createEffect, createEvent, createStore } from 'effector';
+import { FeatureCollection } from 'geojson';
 
 import { defaultStyle } from './constants';
 import { Center, InitMapOptions, Map, Style } from './types';
@@ -11,6 +12,9 @@ export const zoomIn = createEvent();
 export const zoomOut = createEvent();
 export const selectCountry = createEvent<number>();
 
+export const fetchCountriesFx = createEffect<void, FeatureCollection>();
+
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
 export const $selectedCountryId = createStore<number>(0);
+export const $countries = createStore<FeatureCollection | null>(null);
