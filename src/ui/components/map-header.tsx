@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { router } from '~/core/routes';
+import { media } from '~/core/routes';
+import { Link } from '~/lib/router';
 import { Button, Logo } from '~/ui/atoms';
 
 export const MapHeader = () => (
   <header className="header">
     <div className="container">
       <Logo />
-      <Button onClick={() => router.navigate('/media')}>Project info</Button>
+      <Link to={media} className="header__button">
+        <Button>Project info</Button>
+      </Link>
     </div>
   </header>
 );

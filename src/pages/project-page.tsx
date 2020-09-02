@@ -6,10 +6,11 @@ import { AppFrame } from '~/core';
 import {
   about,
   countryProgress,
+  exactRoot,
   joinUs,
+  mapOverview,
   media,
   privacy,
-  router,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
 
@@ -693,13 +694,9 @@ export const ProjectPage = () => (
     <div className="app app--inner">
       <header className="header">
         <div className="container-fluid">
-          <button
-            onClick={() => router.navigate('/')}
-            type="button"
-            className="header__logo logo"
-          >
+          <Link to={exactRoot} type="button" className="header__logo logo">
             Project&nbsp;connect
-          </button>
+          </Link>
           {/* header__nav--mobile-visible on menu button click */}
           <nav className="header__nav">
             <ul className="menu">
@@ -722,7 +719,7 @@ export const ProjectPage = () => (
               </li>
               <li className="menu__item">
                 <Link
-                  to="/country-progress"
+                  to={countryProgress}
                   className={`menu__link ${
                     useRoute(countryProgress) ? 'menu__link--active' : ''
                   }`}
@@ -737,7 +734,7 @@ export const ProjectPage = () => (
               </li>
               <li className="menu__item">
                 <Link
-                  to="/media"
+                  to={media}
                   className={`menu__link ${
                     useRoute(media) ? 'menu__link--active' : ''
                   }`}
@@ -747,7 +744,7 @@ export const ProjectPage = () => (
               </li>
               <li className="menu__item">
                 <Link
-                  to="/join-us"
+                  to={joinUs}
                   className={`menu__link ${
                     useRoute(joinUs) ? 'menu__link--active' : ''
                   }`}
@@ -757,13 +754,12 @@ export const ProjectPage = () => (
               </li>
             </ul>
           </nav>
-          <button
-            type="button"
-            onClick={() => router.navigate('/map')}
+          <Link
+            to={mapOverview}
             className="header__button button button--primary"
           >
             Connectivity map
-          </button>
+          </Link>
         </div>
       </header>
       <main className="content">

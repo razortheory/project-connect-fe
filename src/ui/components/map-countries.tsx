@@ -1,7 +1,8 @@
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { router } from '~/core/routes';
+import { mapCountry } from '~/core/routes';
+import { Link } from '~/lib/router';
 
 import { Search } from './search';
 
@@ -33,11 +34,22 @@ export const MapCountries = () => (
           of schools.
         </p>
       </div>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-      <ul className="list" onClick={() => router.navigate('/map/country/100')}>
-        <li className="list__item list__item--connected">Brazil</li>
-        <li className="list__item list__item--connected">Colombia</li>
-        <li className="list__item list__item--connected">Kazakhstan</li>
+      <ul className="list">
+        <li className="list__item list__item--connected">
+          <Link to={mapCountry} params={{ id: 101 }}>
+            Brazil
+          </Link>
+        </li>
+        <li className="list__item list__item--connected">
+          <Link to={mapCountry} params={{ id: 102 }}>
+            Colombia
+          </Link>
+        </li>
+        <li className="list__item list__item--connected">
+          <Link to={mapCountry} params={{ id: 103 }}>
+            Kazakhstan
+          </Link>
+        </li>
         <li className="list__item list__item--connected">Kyrgyzstan</li>
         <li className="list__item list__item--connected">
           Democratic Republic of Congo

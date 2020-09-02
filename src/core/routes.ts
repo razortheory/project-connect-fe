@@ -1,12 +1,9 @@
 import history from 'history/browser';
 
-import { applyRouter, createRouter } from '~/lib/router';
+import { createRouter } from '~/lib/router';
 
 // Create router and use Browser History
 export const router = createRouter({ history });
-
-// Apply default router for Links
-applyRouter(router);
 
 // This route is only for redirection
 export const exactRoot = router.add({ path: '/' });
@@ -15,7 +12,7 @@ export const exactRoot = router.add({ path: '/' });
 export const map = router.add('/map(/.*)?');
 export const mapOverview = router.add('/map');
 export const mapCountries = router.add('/map/countries');
-export const mapCountry = router.add('/map/country/:id');
+export const mapCountry = router.add<{ id: number }>('/map/country/:id');
 
 // Project section
 export const media = router.add('/media');
@@ -36,6 +33,6 @@ export const project = router.merge([
 // Redirect from "/" to "/map"
 exactRoot.visible.watch((visible) => {
   if (visible) {
-    router.redirect('/map');
+    map.redirect();
   }
 });

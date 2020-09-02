@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { router } from '~/core/routes';
+import { mapCountries } from '~/core/routes';
+import { Link } from '~/lib/router';
 
 export const MapOverview = () => (
   <>
@@ -29,13 +30,9 @@ export const MapOverview = () => (
           </p>
         </li>
       </ul>
-      <button
-        onClick={() => router.navigate('/map/countries')}
-        className="button button--primary"
-        type="button"
-      >
+      <Link to={mapCountries} className="button button--primary">
         Select a country
-      </button>
+      </Link>
     </div>
   </>
 );
