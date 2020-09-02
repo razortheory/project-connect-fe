@@ -1,26 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from 'effector-react';
-import { ParseOptions, TokensToFunctionOptions } from 'path-to-regexp';
-import React, {
-  AnchorHTMLAttributes,
-  ComponentType,
-  DetailedHTMLProps,
-  ReactNode,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useMemo, useRef } from 'react';
 
-import { shouldUpdate } from './router';
-import { MergedRoute, ObjectAny, Params, Route as RouteType } from './types';
-
-type RouteProps = {
-  of: RouteType;
-  children?: ReactNode;
-  component?: ComponentType;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type UseRoute = (route: RouteType<any> | MergedRoute) => boolean;
+import { LinkProps, ObjectAny, Params, RouteProps, UseRoute } from './types';
+import { shouldUpdate } from './utils';
 
 export const useRoute: UseRoute = (route) => useStore(route.visible);
 
@@ -32,18 +15,6 @@ export const Route = ({
   const element = children ?? (Component && <Component />);
   return <>{useStore(route.visible) && element}</>;
 };
-
-type LinkProps<P extends Params> = {
-  to: RouteType<P>;
-  children: ReactNode;
-  params?: P;
-  query?: string[][] | Record<string, string> | string | URLSearchParams;
-  hash?: string;
-  compileOptions?: ParseOptions & TokensToFunctionOptions;
-} & DetailedHTMLProps<
-  AnchorHTMLAttributes<HTMLAnchorElement>,
-  HTMLAnchorElement
->;
 
 const useShouldUpdateRef = (dep: ObjectAny | undefined) => {
   const ref = useRef(dep);

@@ -18,6 +18,12 @@ import {
   TokensToFunctionOptions,
   TokensToRegexpOptions,
 } from 'path-to-regexp';
+import {
+  AnchorHTMLAttributes,
+  ComponentType,
+  DetailedHTMLProps,
+  ReactNode,
+} from 'react';
 
 export interface ObjectAny {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,3 +103,24 @@ export type Router<Q extends Query = Query, S extends State = State> = {
   merge: <T extends Route[]>(routes: T) => MergedRoute;
   none: <T extends Route[]>(routes: T) => MergedRoute;
 };
+
+export type RouteProps = {
+  of: Route;
+  children?: ReactNode;
+  component?: ComponentType;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type UseRoute = (route: Route<any> | MergedRoute) => boolean;
+
+export type LinkProps<P extends Params> = {
+  to: Route<P>;
+  children: ReactNode;
+  params?: P;
+  query?: string[][] | Record<string, string> | string | URLSearchParams;
+  hash?: string;
+  compileOptions?: ParseOptions & TokensToFunctionOptions;
+} & DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+>;
