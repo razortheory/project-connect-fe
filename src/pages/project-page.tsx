@@ -701,19 +701,19 @@ export const ProjectPage = () => (
           <nav className="header__nav">
             <ul className="menu">
               <li className="menu__item">
-                <a href="/" className="menu__link">
+                <button type="button" className="menu__link">
                   About
-                </a>
+                </button>
                 <ul className="menu">
                   <li className="menu__item">
-                    <a href="/" className="menu__link">
+                    <button type="button" className="menu__link">
                       Second level
-                    </a>
+                    </button>
                   </li>
                   <li className="menu__item">
-                    <a href="/" className="menu__link">
+                    <button type="button" className="menu__link">
                       Second level 2
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </li>
@@ -728,9 +728,9 @@ export const ProjectPage = () => (
                 </Link>
               </li>
               <li className="menu__item">
-                <a href="/" className="menu__link">
+                <button type="button" className="menu__link">
                   Data sharing & privacy
-                </a>
+                </button>
               </li>
               <li className="menu__item">
                 <Link

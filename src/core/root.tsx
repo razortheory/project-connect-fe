@@ -1,7 +1,8 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { map, project, router } from '~/core/routes';
+import { router } from '~/core/router';
+import { map, project } from '~/core/routes';
 import { useRoute } from '~/lib/router';
 import { MapPage, ProjectPage } from '~/pages';
 

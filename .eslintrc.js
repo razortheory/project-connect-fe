@@ -258,6 +258,8 @@ const config = {
           Env: true,
           params: true,
           Params: true,
+          param: true,
+          Param: true,
           config: true,
           Config: true,
         },
