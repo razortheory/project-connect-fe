@@ -7,8 +7,8 @@ export const exactRoot = router.add({ path: '/' });
 export const map = router.add('/map(/.*)?');
 export const mapOverview = router.add('/map');
 export const mapCountries = router
-  .add<{ tabPath: string }>('/map/countries:tabPath(;tab=.*)?')
-  .bind('tabPath', {
+  .add<{ tab: string }>('/map/countries:tab(;tab=.*)?')
+  .bind('tab', {
     router: tabRouter,
     parse: (rawParam) => rawParam?.replace(/;tab=/g, ''),
     format: (path) => path && `;tab=${path}`,

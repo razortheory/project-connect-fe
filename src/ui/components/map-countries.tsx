@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { mapCountry } from '~/core/routes';
+import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 
@@ -56,7 +56,7 @@ export const MapCountries = () => (
   <>
     <Search />
     <ul className="sidebar__tabs tabs">
-      <Link to={tabMap}>
+      <Link to={mapCountries} params={{ tab: tabMap.compile() }}>
         <li className="tabs__item">
           <button
             type="button"
@@ -68,7 +68,7 @@ export const MapCountries = () => (
           </button>
         </li>
       </Link>
-      <Link to={tabInfo}>
+      <Link to={mapCountries} params={{ tab: tabInfo.compile() }}>
         <li className="tabs__item">
           <button
             type="button"
@@ -80,7 +80,7 @@ export const MapCountries = () => (
           </button>
         </li>
       </Link>
-      <Link to={tabControls}>
+      <Link to={mapCountries} params={{ tab: tabControls.compile() }}>
         <li className="tabs__item">
           <button
             type="button"
