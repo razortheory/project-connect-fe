@@ -1030,7 +1030,7 @@ export const ProjectPage = () => (
             <ul className="menu">
               <li className="menu__item">
                 <Link
-                  to="/about"
+                  to={about}
                   className={`menu__link ${
                     useRoute(about) ? 'menu__link--active' : ''
                   }`}
