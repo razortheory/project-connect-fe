@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "project-connect",
   "version": "0.0.0",
   "author": "doasync",
   "private": true,
@@ -133,6 +133,7 @@
     "ts-jest": "^26.3.0",
     "ts-node": "^9.0.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
+    "type-fest": "^0.16.0",
     "typescript": "^4.0.2",
     "typescript-coverage-report": "^0.1.3",
     "webpack": "^4.43.0",
@@ -149,6 +150,7 @@
     "history": "^5.0.0",
     "mapbox-gl": "^1.11.1",
     "path-parser": "^6.1.0",
+    "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",

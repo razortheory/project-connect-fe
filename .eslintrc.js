@@ -258,6 +258,10 @@ const config = {
           Env: true,
           params: true,
           Params: true,
+          param: true,
+          Param: true,
+          config: true,
+          Config: true,
         },
       },
     ],
@@ -268,14 +272,6 @@ const config = {
       {
         forbidDefaultForRequired: true,
         ignoreFunctionalComponents: true,
-      },
-    ],
-    'padding-line-between-statements': [
-      'error',
-      {
-        blankLine: 'always',
-        prev: 'multiline-block-like',
-        next: '*',
       },
     ],
   },

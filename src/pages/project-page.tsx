@@ -19,8 +19,16 @@ import LogoMaxar from '~/assets/images/logo-maxar.svg';
 import LogoSoftbank from '~/assets/images/logo-softbank.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import { AppFrame } from '~/core';
-import { about, countryProgress, joinUs, media, privacy } from '~/core/routes';
-import { Link, navigate, useRoute } from '~/lib/router';
+import {
+  about,
+  countryProgress,
+  exactRoot,
+  joinUs,
+  mapOverview,
+  media,
+  privacy,
+} from '~/core/routes';
+import { Link, useRoute } from '~/lib/router';
 
 // import SwiperCore, { Navigation, A11y, Controller } from 'swiper';
 // import { Swiper, SwiperSlide } from 'swiper/react';
@@ -1014,13 +1022,9 @@ export const ProjectPage = () => (
     <div className="app app--inner">
       <header className="header">
         <div className="container-fluid">
-          <button
-            onClick={() => navigate('/')}
-            type="button"
-            className="header__logo logo"
-          >
+          <Link to={exactRoot} type="button" className="header__logo logo">
             Project&nbsp;connect
-          </button>
+          </Link>
           {/* header__nav--mobile-visible on menu button click */}
           <nav className="header__nav">
             <ul className="menu">
@@ -1035,20 +1039,20 @@ export const ProjectPage = () => (
                 </Link>
                 <ul className="menu">
                   <li className="menu__item">
-                    <a href="/" className="menu__link">
+                    <button type="button" className="menu__link">
                       Second level
-                    </a>
+                    </button>
                   </li>
                   <li className="menu__item">
-                    <a href="/" className="menu__link">
+                    <button type="button" className="menu__link">
                       Second level 2
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </li>
               <li className="menu__item">
                 <Link
-                  to="/country-progress"
+                  to={countryProgress}
                   className={`menu__link ${
                     useRoute(countryProgress) ? 'menu__link--active' : ''
                   }`}
@@ -1057,13 +1061,13 @@ export const ProjectPage = () => (
                 </Link>
               </li>
               <li className="menu__item">
-                <a href="/" className="menu__link">
+                <button type="button" className="menu__link">
                   Data sharing & privacy
-                </a>
+                </button>
               </li>
               <li className="menu__item">
                 <Link
-                  to="/media"
+                  to={media}
                   className={`menu__link ${
                     useRoute(media) ? 'menu__link--active' : ''
                   }`}
@@ -1073,7 +1077,7 @@ export const ProjectPage = () => (
               </li>
               <li className="menu__item">
                 <Link
-                  to="/join-us"
+                  to={joinUs}
                   className={`menu__link ${
                     useRoute(joinUs) ? 'menu__link--active' : ''
                   }`}
@@ -1083,13 +1087,12 @@ export const ProjectPage = () => (
               </li>
             </ul>
           </nav>
-          <button
-            type="button"
-            onClick={() => navigate('/map')}
+          <Link
+            to={mapOverview}
             className="header__button button button--primary"
           >
             Connectivity map
-          </button>
+          </Link>
         </div>
       </header>
       <main className="content">

@@ -1,103 +1,140 @@
-import { createEvent, createStore, Store, withRegion } from 'effector';
+/* eslint-disable @typescript-eslint/unbound-method */
+import { createEvent, createStore } from 'effector';
 import {
-  createBrowserHistory,
-  parsePath,
-  Path as HistoryPath,
-  Update as HistoryUpdate,
+  BrowserHistory,
+  HashHistory,
+  MemoryHistory,
+  State,
+  Update,
 } from 'history';
-import { Path } from 'path-parser';
 
-import { Route, RouteParams } from './types';
+import { createMergedRoute, createRoute } from './route';
+import {
+  Delta,
+  MergedRoute,
+  Params,
+  Query,
+  Route,
+  RouteConfig,
+  Router,
+  RouterConfig,
+  ToLocation,
+} from './types';
+import {
+  createHistory,
+  getQueryParams,
+  historyChanger,
+  reduceStore,
+} from './utils';
 
-const getResource = ({ pathname, search, hash }: HistoryPath) =>
-  `${pathname}${search}${hash}`;
+export const createRouter = <Q extends Query = Query, S extends State = State>({
+  history: userHistory,
+  root,
+}: RouterConfig<S> = {}): Router<Q, S> => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  let history = userHistory! ?? createHistory<S>(root);
 
-const history = createBrowserHistory();
+  const historyUpdated = createEvent<Update<S>>();
+  const $historyUpdate = createStore<Update<S>>({
+    location: history.location,
+    action: history.action,
+  }).on(historyUpdated, (_, update) => update);
 
-const historyUpdated = createEvent<HistoryUpdate>();
-export const onHistoryUpdate = historyUpdated.map(({ action }) => action);
+  let unlisten = history.listen(historyUpdated);
 
-export const navigate = createEvent<string>();
+  const navigate = createEvent<ToLocation<S>>();
+  const redirect = createEvent<ToLocation<S>>();
+  const shift = createEvent<Delta>();
+  const back = shift.prepend<void>(() => -1);
+  const forward = shift.prepend<void>(() => 1);
 
-export const $location = createStore(history.location);
-export const $pathname = $location.map((location) => location.pathname);
-export const $search = $location.map((location) => location.search);
-export const $hash = $location.map((location) => location.hash);
-export const $state = $location.map((location) => location.state);
-export const $resource = $location.map(getResource);
-export const $query = $search.map((search) =>
-  Object.fromEntries(new URLSearchParams(search))
-);
+  const $location = $historyUpdate.map((update) => update.location);
+  const $action = $historyUpdate.map((update) => update.action);
+  const $pathname = $location.map((location) => location.pathname);
+  const $search = $location.map((location) => location.search);
+  const $hash = $location.map((location) => location.hash);
+  const $state = $location.map((location) => location.state);
+  const $key = $location.map((location) => location.key);
+  const $href = $location.map(history.createHref);
+  const $query = $search.map<Q>(getQueryParams);
 
-const $isFound = createStore(false).reset(onHistoryUpdate);
-export const $notFound = $isFound.map((isFound) => !isFound);
+  const $hasMatches = createStore(false);
+  const $noMatches = $hasMatches.map((hasMatches) => !hasMatches);
 
-$location.on(historyUpdated, (_, historyUpdate) => historyUpdate.location);
+  $location.watch(navigate, historyChanger<S>(history.push));
+  $location.watch(redirect, historyChanger<S>(history.replace));
+  shift.watch(history.go);
 
-history.listen(historyUpdated);
-
-$location.watch(navigate, (location, url) => {
-  const { pathname, search, hash } = parsePath(url);
-  // noinspection OverlyComplexBooleanExpressionJS
-  const shouldPush =
-    (pathname && pathname !== location.pathname) ||
-    (search && search !== location.search) ||
-    (hash && hash !== location.hash);
-
-  if (shouldPush) {
-    history.push(url);
-  }
-});
-
-export const createRoute = <T = Record<string, unknown>>({
-  path: routePath,
-  exact = false,
-  caseSensitive = false,
-  redirectTo,
-  parent,
-}: RouteParams = {}): Store<Route<T>> => {
-  const $route = createStore<Route<T>>({
-    pattern: routePath ? Path.createPath(routePath) : null,
-    params: null,
-    isVisible: false,
-  });
-
-  withRegion($route, () => {
-    const onResource = createEvent<string>();
-
-    $route.on(onResource, (route, resource) => {
-      if (!route.pattern) {
-        return { ...route, params: null, isVisible: false };
-      }
-
-      const params = exact
-        ? route.pattern.test(resource, {
-            strictTrailingSlash: true,
-            caseSensitive,
-          })
-        : route.pattern.partialTest(resource, { caseSensitive });
-
-      return { ...route, params, isVisible: Boolean(params) };
-    });
-
-    $isFound.on($route, (isFound, { isVisible }) => isFound || isVisible);
-
-    if (parent) {
-      parent.on($route, (state, { isVisible }) => {
-        const makeVisible = state.isVisible || isVisible;
-        if (makeVisible !== state.isVisible) {
-          return { ...state, isVisible: makeVisible };
-        }
-
-        return state;
-      });
-    }
-
-    $resource.watch(onResource);
-    $route.watch(
-      ({ isVisible }) => redirectTo && isVisible && history.replace(redirectTo)
+  const connectRoute = <P extends Params = Params>(
+    route: Route<P, unknown> | MergedRoute
+  ): void => {
+    reduceStore(
+      $hasMatches,
+      route.visible,
+      (hasMatches, visible) => hasMatches || visible
     );
-  });
+  };
 
-  return $route;
+  const router: Router<Q, S> = {
+    history,
+    historyUpdated,
+    historyUpdate: $historyUpdate,
+
+    navigate,
+    redirect,
+    shift,
+    back,
+    forward,
+
+    location: $location,
+    action: $action,
+    pathname: $pathname,
+    search: $search,
+    hash: $hash,
+    state: $state,
+    key: $key,
+    href: $href,
+    query: $query,
+
+    hasMatches: $hasMatches,
+    noMatches: $noMatches,
+
+    add: <P extends Params = Params>(
+      pathConfig: string | RouteConfig
+    ): Route<P, Router<Q, S>> => {
+      const routeConfig =
+        typeof pathConfig === 'string' ? { path: pathConfig } : pathConfig;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+      // @ts-ignore
+      const route = createRoute<P, Router<Q, S>>(router, routeConfig);
+      connectRoute(route);
+      return route;
+    },
+
+    merge: <T extends Route[]>(routes: T): MergedRoute => {
+      const route = createMergedRoute(routes);
+      connectRoute(route);
+      return route;
+    },
+
+    none: <T extends Route[]>(routes: T): MergedRoute => {
+      const route = createMergedRoute(routes);
+      route.visible = route.visible.map((visible) => !visible);
+      return route;
+    },
+
+    use: (
+      givenHistory: BrowserHistory<S> | HashHistory<S> | MemoryHistory<S>
+    ) => {
+      const { location, action } = givenHistory;
+      const defaultState = { location, action };
+      $historyUpdate.defaultState = defaultState;
+      unlisten();
+      unlisten = givenHistory.listen(historyUpdated);
+      history = givenHistory;
+      historyUpdated(defaultState);
+    },
+  };
+
+  return router;
 };

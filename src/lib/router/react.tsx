@@ -1,36 +1,69 @@
-import { Store } from 'effector';
+/* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from 'effector-react';
-import React, { ReactNode } from 'react';
+import React, { useMemo, useRef } from 'react';
 
-import { navigate } from './router';
-import { Route as RouteType } from './types';
+import { LinkProps, ObjectAny, Params, RouteProps, UseRoute } from './types';
+import { shouldUpdate } from './utils';
 
-export const useRoute = ($route: Store<RouteType>): boolean =>
-  useStore($route).isVisible;
+export const useRoute: UseRoute = (route) => useStore(route.visible);
 
-export const useRouteStore = <T extends unknown>(
-  $route: Store<RouteType<T>>
-): RouteType<T> => useStore($route);
-
-export { useStore };
-
-type RouteProps = {
-  of: Store<RouteType>;
-  children: ReactNode;
+export const Route = ({
+  of: route,
+  component: Component,
+  children,
+}: RouteProps): JSX.Element => {
+  const element = children ?? (Component && <Component />);
+  return <>{useStore(route.visible) && element}</>;
 };
 
-export const Route = ({ of, children }: RouteProps): JSX.Element => (
-  <>{useRoute(of) && children}</>
-);
-
-type LinkProps = {
-  to: string;
-  children: ReactNode;
-  className: string;
+const useShouldUpdateRef = (dep: ObjectAny | undefined) => {
+  const ref = useRef(dep);
+  if (dep && ref.current) {
+    if (shouldUpdate(ref.current, dep)) ref.current = dep;
+  }
+  return ref;
 };
 
-export const Link = ({ to, children, className }: LinkProps) => (
-  <button type="button" className={className} onClick={() => navigate(to)}>
-    {children}
-  </button>
-);
+export const Link = <P extends Params>({
+  to,
+  children,
+  params,
+  query,
+  hash,
+  compileOptions,
+  ...props
+}: LinkProps<P>) => {
+  const paramsRef = useShouldUpdateRef(params);
+  const compileOptionsRef = useShouldUpdateRef(compileOptions);
+
+  const compileFactory = () => {
+    return to.compile({
+      params,
+      query,
+      hash,
+      options: compileOptions,
+    });
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const href = useMemo(compileFactory, [
+    to,
+    query,
+    hash,
+    paramsRef.current,
+    compileOptionsRef.current,
+  ]);
+
+  return (
+    <a
+      href={href}
+      onClick={(event) => {
+        event.preventDefault();
+        to.router.navigate(href);
+      }}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+};
