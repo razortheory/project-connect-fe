@@ -5,7 +5,7 @@ import { Button, Logo } from '~/ui/atoms';
 
 export const MapHeader = () => (
   <header className="header">
-    <div className="container">
+    <div className="container-fluid">
       <Logo />
       <Button onClick={() => navigate('/media')}>Project info</Button>
     </div>

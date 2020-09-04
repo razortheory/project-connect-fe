@@ -1,0 +1,55 @@
+.partners__row {
+  @include make-row;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
+}
+
+.partners__info {
+  @include make-col-ready;
+  max-width: 71.8rem;
+
+  @include media-breakpoint-down(sm) {
+    @include make-col(12);
+  }
+}
+
+.partners__title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 2.6rem;
+  font-family: $font-family-primary;
+  line-height: 3.3rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3rem;
+    line-height: 3.8rem;
+  }
+
+  &:not(:first-child) {
+    margin-top: 4.5rem;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 8.5rem;
+    }
+  }
+}
+
+.partners__button {
+  width: 16.6rem;
+  max-width: 100%;
+  margin-top: 2.7rem;
+}
+
+.partners__list {
+  @include make-col-ready;
+  @include make-col(12);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+  }
+}

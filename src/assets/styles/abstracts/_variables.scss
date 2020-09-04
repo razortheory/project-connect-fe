@@ -3,7 +3,8 @@
 // Define the minimum dimensions at which your layout will change,
 // adapting to different screen sizes, for use in media queries.
 $grid-breakpoints: (
-  xs: 0,
+  xxs: 0,
+  xs: 480px,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -14,6 +15,7 @@ $grid-breakpoints: (
 //
 // Define the maximum width of `.container` for different screen sizes.
 $container-max-widths: (
+  xs: 450px,
   sm: 540px,
   md: 720px,
   lg: 960px,
@@ -26,6 +28,7 @@ $container-max-widths: (
 $grid-columns: 12 !default;
 $grid-gutter-width-base: 30px !default;
 $grid-gutter-widths: (
+  xxs: $grid-gutter-width-base,
   xs: $grid-gutter-width-base,
   sm: $grid-gutter-width-base,
   md: $grid-gutter-width-base,
@@ -35,6 +38,7 @@ $grid-gutter-widths: (
 
 $grid-gutter-width-sm: 16px;
 $grid-gutter-widths-sm: (
+  xxs: $grid-gutter-width-sm,
   xs: $grid-gutter-width-sm,
   sm: $grid-gutter-width-sm,
   md: $grid-gutter-width-sm,
@@ -44,6 +48,7 @@ $grid-gutter-widths-sm: (
 
 $grid-gutter-width-lg: 48px;
 $grid-gutter-widths-lg: (
+  xxs: $grid-gutter-width-lg,
   xs: $grid-gutter-width-lg,
   sm: $grid-gutter-width-lg,
   md: $grid-gutter-width-lg,

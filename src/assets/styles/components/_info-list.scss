@@ -23,6 +23,7 @@
 
 .info-list {
   @include list-unstyled;
+  color: $text-color-light;
 
   &--heading {
     display: flex;

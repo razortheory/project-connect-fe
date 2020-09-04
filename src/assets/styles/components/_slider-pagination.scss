@@ -1,0 +1,26 @@
+.slider-pagination {
+  @include list-unstyled;
+  display: flex;
+  flex-direction: row;
+}
+
+.slider-pagination__item {
+  @include transition;
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: $font-family-primary;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &--active {
+    background-color: $color-primary;
+  }
+}

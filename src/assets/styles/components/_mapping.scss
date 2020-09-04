@@ -1,0 +1,97 @@
+.mapping__row {
+  @include make-row;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
+}
+
+.mapping__media {
+  margin-bottom: 3rem;
+
+  @include media-breakpoint-down(md) {
+    flex: 1 1 auto;
+    margin-right: -9px;
+    margin-left: -9px;
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-col-ready;
+    @include make-col(4);
+    margin-right: 2rem;
+    margin-bottom: 5rem;
+    margin-left: -24px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-right: 5rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    margin-right: 8.3rem;
+  }
+}
+
+.mapping__image-wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  width: auto;
+}
+
+.mapping__image {
+  width: 100%;
+  max-width: 100%;
+}
+
+.mapping__info {
+  @include make-col-ready;
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-down(sm) {
+    @include make-col(12);
+  }
+}
+
+.mapping__title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 2.6rem;
+  font-family: $font-family-primary;
+  line-height: 3.3rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3rem;
+    line-height: 3.8rem;
+  }
+
+  &:not(:first-child) {
+    margin-top: 4.5rem;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 8.5rem;
+    }
+  }
+}
+
+.mapping__text {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-family: $font-family-secondary;
+  line-height: 2.6rem;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 2.5rem;
+    font-size: 2.3rem;
+    line-height: 3rem;
+  }
+}
+
+.mapping__list {
+  margin-top: 3rem;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 5rem;
+  }
+}
