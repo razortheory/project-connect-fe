@@ -1,8 +1,8 @@
 import { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
 import mapboxGL, { MapLayerMouseEvent, MapMouseEvent } from 'mapbox-gl';
 
-import { setPayload, VoidFn } from '~/lib/effector-kit';
-import { createRequest } from '~/packages/request';
+import { setPayload } from '~/lib/effector-kit';
+import { createRequest } from '~/lib/request';
 
 import { defaultCenter, defaultZoom, styleUrls } from './constants';
 import {
@@ -30,18 +30,17 @@ import { InitMapOptions } from './types';
 
 // create request
 const request = createRequest({
-  baseUrl: ' https://api.projectconnect.razortheory.com/',
+  baseUrl: 'htps://api.projectconnect.razortheory.com/',
 });
 
-const fetchCountries: VoidFn = async () =>
-  request({
+const fetchCountries = async () =>
+  request<FeatureCollection>({
     url: 'api/locations/countries/',
-    method: 'GET',
     fn: ({ jsonData }) =>
       convertCountriesDataToGeoJson(jsonData as CountryData[]),
   });
 
-fetchCountriesFx.use(fetchCountries as VoidFn<FeatureCollection>);
+fetchCountriesFx.use(fetchCountries);
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
@@ -232,15 +231,16 @@ $map.watch(fetchCountriesFx.doneData, (map, countries: FeatureCollection) => {
 
 $map.watch(selectCountry, async (map, selectedCountryId) => {
   if (!map) return;
-  const points = await request({
+
+  const points = await request<FeatureCollection>({
     url: `api/locations/countries/${selectedCountryId}/schools/`,
-    method: 'GET',
     fn: ({ jsonData }) => convertSchoolsDataToGeoJson(jsonData as SchoolData[]),
   });
-  if ((points as FeatureCollection).features.length > 0) {
+
+  if (points.features.length > 0) {
     map.addSource('schools', {
       type: 'geojson',
-      data: points as FeatureCollection,
+      data: points,
     });
 
     map.addLayer({
