@@ -30,20 +30,6 @@ import {
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
 
-// import SwiperCore, { Navigation, A11y, Controller } from 'swiper';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-// import 'swiper/swiper.scss';
-// import 'swiper/components/navigation/navigation.scss';
-
-// install Swiper components
-// SwiperCore.use([Navigation, A11y, Controller]);
-
-// store swiper instances
-// const [firstSwiper, setFirstSwiper] = useState(null);
-// const [secondSwiper, setSecondSwiper] = useState(null);
-
 export const Media = () => (
   <section className="section">
     <h2 className="visually-hidden">Blog posts</h2>
@@ -771,19 +757,6 @@ export const About = () => (
                     src="http://placehold.it/500x500.png"
                     alt=""
                   />
-                  {/* <Swiper */}
-                  {/*  spaceBetween={50} */}
-                  {/*  navigation */}
-                  {/*  pagination={{ clickable: true }} */}
-                  {/*  scrollbar={{ draggable: true }} */}
-                  {/*  onSwiper={setFirstSwiper} controller={{ control: secondSwiper }} */}
-                  {/*  onSlideChange={() => console.log('slide change')} */}
-                  {/* > */}
-                  {/*  <SwiperSlide>Slide 1</SwiperSlide> */}
-                  {/*  <SwiperSlide>Slide 2</SwiperSlide> */}
-                  {/*  <SwiperSlide>Slide 3</SwiperSlide> */}
-                  {/*  <SwiperSlide>Slide 4</SwiperSlide> */}
-                  {/* </Swiper> */}
                 </div>
                 <div className="slider__info-wrapper">
                   <div className="slider__title">Colombia</div>
