@@ -12,9 +12,14 @@ export const zoomIn = createEvent();
 export const zoomOut = createEvent();
 export const selectCountry = createEvent<number>();
 
-export const fetchCountriesFx = createEffect<void, FeatureCollection>();
+export const fetchCountriesGeometryDataFx = createEffect<
+  void,
+  FeatureCollection
+>();
 
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
 export const $selectedCountryId = createStore<number>(0);
-export const $countries = createStore<FeatureCollection | null>(null);
+export const $countriesGeometryData = createStore<FeatureCollection | null>(
+  null
+);

@@ -1,3 +1,4 @@
+import { Geometry } from 'geojson';
 import type mapboxGl from 'mapbox-gl';
 
 export type Style = 'dark' | 'light' | 'satellite' | 'accessible';
@@ -10,4 +11,15 @@ export type InitMapOptions = {
   container: HTMLElement;
   center?: Center;
   zoom?: Zoom;
+};
+
+export type CountryGeometryData = {
+  id: number;
+  geometry_simplified: Geometry;
+};
+
+export type SchoolData = {
+  id: number;
+  name: string;
+  geopoint: Geometry;
 };

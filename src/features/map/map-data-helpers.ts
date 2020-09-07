@@ -1,17 +1,8 @@
-import {
-  Feature,
-  FeatureCollection,
-  Geometry,
-  MultiPolygon,
-  Polygon,
-} from 'geojson';
+import { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { LngLatLike } from 'mapbox-gl';
 
-export type SchoolData = {
-  id: number;
-  name: string;
-  geopoint: Geometry;
-};
+import { CountryGeometryData, SchoolData } from './types';
+
 export const convertSchoolsDataToGeoJson = (
   points: SchoolData[]
 ): FeatureCollection => {
@@ -28,27 +19,15 @@ export const convertSchoolsDataToGeoJson = (
   };
 };
 
-export type CountryData = {
-  id: number;
-  name: string;
-  flag: string;
-  code: string;
-  geometry_simplified: Geometry;
-};
-
 export const convertCountriesDataToGeoJson = (
-  countries: CountryData[]
+  countries: CountryGeometryData[]
 ): FeatureCollection => {
   return {
     type: 'FeatureCollection',
     features: countries.map((country) => {
       return {
         type: 'Feature',
-        properties: {
-          name: country.name,
-          flag: country.flag,
-          code: country.code,
-        },
+        properties: {},
         geometry: country.geometry_simplified,
         id: country.id,
       };

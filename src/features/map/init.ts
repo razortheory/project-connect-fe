@@ -8,43 +8,41 @@ import { defaultCenter, defaultZoom, styleUrls } from './constants';
 import {
   convertCountriesDataToGeoJson,
   convertSchoolsDataToGeoJson,
-  CountryData,
   getPolygonBoundingBox,
-  SchoolData,
 } from './map-data-helpers';
 import {
-  $countries,
+  $countriesGeometryData,
   $map,
   $selectedCountryId,
   $style,
   changeMap,
   changeStyle,
-  fetchCountriesFx,
+  fetchCountriesGeometryDataFx,
   initMap,
   selectCountry,
   setCenter,
   zoomIn,
   zoomOut,
 } from './model';
-import { InitMapOptions } from './types';
+import { CountryGeometryData, InitMapOptions, SchoolData } from './types';
 
 // create request
 const request = createRequest({
-  baseUrl: 'htps://api.projectconnect.razortheory.com/',
+  baseUrl: 'https://api.projectconnect.razortheory.com/',
 });
 
 const fetchCountries = async () =>
   request<FeatureCollection>({
-    url: 'api/locations/countries/',
+    url: 'api/locations/countries-boundary/',
     fn: ({ jsonData }) =>
-      convertCountriesDataToGeoJson(jsonData as CountryData[]),
+      convertCountriesDataToGeoJson(jsonData as CountryGeometryData[]),
   });
 
-fetchCountriesFx.use(fetchCountries);
+fetchCountriesGeometryDataFx.use(fetchCountries);
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
-$countries.on(fetchCountriesFx.doneData, setPayload);
+$countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $selectedCountryId.on(selectCountry, setPayload);
 
 let loaderMarker: mapboxGL.Marker | undefined;
@@ -83,7 +81,7 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   });
 
   map.on('load', () => {
-    void fetchCountriesFx();
+    void fetchCountriesGeometryDataFx();
   });
 
   changeMap(map);
@@ -112,122 +110,125 @@ $map.watch(changeStyle, (map, style) => {
   });
 });
 
-$map.watch(fetchCountriesFx.doneData, (map, countries: FeatureCollection) => {
-  if (!map) return;
-  let hoveredCountryId = 0;
-  let selectedCountryId = 0;
+$map.watch(
+  fetchCountriesGeometryDataFx.doneData,
+  (map, countries: FeatureCollection) => {
+    if (!map) return;
+    let hoveredCountryId = 0;
+    let selectedCountryId = 0;
 
-  // remove loader after loading data
-  if (loaderMarker) {
-    loaderMarker.remove();
-  }
-
-  map.addSource('countries', {
-    type: 'geojson',
-    data: countries,
-  });
-
-  map.addLayer({
-    id: 'countries',
-    type: 'fill',
-    source: 'countries',
-    paint: {
-      'fill-color': '#0068ea',
-      'fill-outline-color': '#646973',
-      'fill-opacity': [
-        'case',
-        ['boolean', ['feature-state', 'hover'], false],
-        0.9,
-        1,
-      ],
-    },
-  });
-
-  map.on('click', 'countries', (event: MapLayerMouseEvent) => {
-    if (
-      !event.features ||
-      !event.features[0] ||
-      selectedCountryId === event.features[0].id
-    ) {
-      return;
-    }
-    if (map.getLayer('schools')) {
-      map.removeLayer('schools');
-    }
-    if (map.getSource('schools')) {
-      map.removeSource('schools');
+    // remove loader after loading data
+    if (loaderMarker) {
+      loaderMarker.remove();
     }
 
-    if (selectedCountryId) {
+    map.addSource('countries', {
+      type: 'geojson',
+      data: countries,
+    });
+
+    map.addLayer({
+      id: 'countries',
+      type: 'fill',
+      source: 'countries',
+      paint: {
+        'fill-color': '#0068ea',
+        'fill-outline-color': '#646973',
+        'fill-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.9,
+          1,
+        ],
+      },
+    });
+
+    map.on('click', 'countries', (event: MapLayerMouseEvent) => {
+      if (
+        !event.features ||
+        !event.features[0] ||
+        selectedCountryId === event.features[0].id
+      ) {
+        return;
+      }
+      if (map.getLayer('schools')) {
+        map.removeLayer('schools');
+      }
+      if (map.getSource('schools')) {
+        map.removeSource('schools');
+      }
+
+      if (selectedCountryId) {
+        map.setFeatureState(
+          { source: 'countries', id: selectedCountryId },
+          { selected: false }
+        );
+      }
+      selectedCountryId = event.features[0].id as number;
+      selectCountry(selectedCountryId);
+
       map.setFeatureState(
         { source: 'countries', id: selectedCountryId },
-        { selected: false }
+        { selected: true }
       );
-    }
-    selectedCountryId = event.features[0].id as number;
-    selectCountry(selectedCountryId);
 
-    map.setFeatureState(
-      { source: 'countries', id: selectedCountryId },
-      { selected: true }
-    );
+      map.setPaintProperty('countries', 'fill-color', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        '#141923',
+        '#373c46',
+      ]);
 
-    map.setPaintProperty('countries', 'fill-color', [
-      'case',
-      ['boolean', ['feature-state', 'selected'], false],
-      '#141923',
-      '#373c46',
-    ]);
-
-    const bounds = getPolygonBoundingBox(
-      event.features[0] as Feature<MultiPolygon>
-    );
-    map.fitBounds(bounds, {
-      padding: { left: 360, right: 30, top: 30, bottom: 30 },
+      const bounds = getPolygonBoundingBox(
+        event.features[0] as Feature<MultiPolygon>
+      );
+      map.fitBounds(bounds, {
+        padding: { left: 360, right: 30, top: 30, bottom: 30 },
+      });
     });
-  });
 
-  map.on('mouseenter', 'countries', () => {
-    // eslint-disable-next-line no-param-reassign
-    map.getCanvas().style.cursor = 'pointer';
-  });
+    map.on('mouseenter', 'countries', () => {
+      // eslint-disable-next-line no-param-reassign
+      map.getCanvas().style.cursor = 'pointer';
+    });
 
-  map.on('mouseleave', 'countries', () => {
-    // eslint-disable-next-line no-param-reassign
-    map.getCanvas().style.cursor = '';
-  });
+    map.on('mouseleave', 'countries', () => {
+      // eslint-disable-next-line no-param-reassign
+      map.getCanvas().style.cursor = '';
+    });
 
-  map.on('mousemove', 'countries', (event: MapLayerMouseEvent) => {
-    if (!event.features || !event.features[0]) {
-      return;
-    }
-    if (event.features.length > 0) {
+    map.on('mousemove', 'countries', (event: MapLayerMouseEvent) => {
+      if (!event.features || !event.features[0]) {
+        return;
+      }
+      if (event.features.length > 0) {
+        if (hoveredCountryId) {
+          map.setFeatureState(
+            { source: 'countries', id: hoveredCountryId },
+            { hover: false }
+          );
+        }
+        hoveredCountryId = event.features[0].id as number;
+        map.setFeatureState(
+          { source: 'countries', id: hoveredCountryId },
+          { hover: true }
+        );
+      }
+    });
+
+    // When the mouse leaves the countries layer, update the country state of the
+    // previously hovered feature.
+    map.on('mouseleave', 'countries', () => {
       if (hoveredCountryId) {
         map.setFeatureState(
           { source: 'countries', id: hoveredCountryId },
           { hover: false }
         );
       }
-      hoveredCountryId = event.features[0].id as number;
-      map.setFeatureState(
-        { source: 'countries', id: hoveredCountryId },
-        { hover: true }
-      );
-    }
-  });
-
-  // When the mouse leaves the countries layer, update the country state of the
-  // previously hovered feature.
-  map.on('mouseleave', 'countries', () => {
-    if (hoveredCountryId) {
-      map.setFeatureState(
-        { source: 'countries', id: hoveredCountryId },
-        { hover: false }
-      );
-    }
-    hoveredCountryId = 0;
-  });
-});
+      hoveredCountryId = 0;
+    });
+  }
+);
 
 $map.watch(selectCountry, async (map, selectedCountryId) => {
   if (!map) return;
