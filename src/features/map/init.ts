@@ -1,24 +1,53 @@
-import { FeatureCollection, Point } from 'geojson';
-import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
+import { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
+import mapboxGL, { MapLayerMouseEvent, MapMouseEvent } from 'mapbox-gl';
 
 import { setPayload } from '~/lib/effector-kit';
+import { createRequest } from '~/lib/request';
 
 import { defaultCenter, defaultZoom, styleUrls } from './constants';
-import fake from './fake-geo.json';
 import {
+  convertCountriesDataToGeoJson,
+  convertSchoolsDataToGeoJson,
+  CountryData,
+  getPolygonBoundingBox,
+  SchoolData,
+} from './map-data-helpers';
+import {
+  $countries,
   $map,
+  $selectedCountryId,
   $style,
   changeMap,
   changeStyle,
+  fetchCountriesFx,
   initMap,
+  selectCountry,
   setCenter,
   zoomIn,
   zoomOut,
 } from './model';
 import { InitMapOptions } from './types';
 
+// create request
+const request = createRequest({
+  baseUrl: 'htps://api.projectconnect.razortheory.com/',
+});
+
+const fetchCountries = async () =>
+  request<FeatureCollection>({
+    url: 'api/locations/countries/',
+    fn: ({ jsonData }) =>
+      convertCountriesDataToGeoJson(jsonData as CountryData[]),
+  });
+
+fetchCountriesFx.use(fetchCountries);
+
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
+$countries.on(fetchCountriesFx.doneData, setPayload);
+$selectedCountryId.on(selectCountry, setPayload);
+
+let loaderMarker: mapboxGL.Marker | undefined;
 
 initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   const map = new mapboxGL.Map({
@@ -28,60 +57,33 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
     container,
   });
 
+  // create loader
+  // a loader with animation that is not wrapped in a container is displayed incorrectly
+  const loader = document.createElement('div');
+  loader.className = 'map-loader';
+  const loaderWrapper = document.createElement('div');
+  loaderWrapper.append(loader);
+
+  // add loader
+  loaderMarker = new mapboxGL.Marker(loaderWrapper)
+    .setLngLat(map.getCenter())
+    .addTo(map);
+
+  // always display the loader in the center
+  map.on('zoom', () => {
+    if (loaderMarker) {
+      loaderMarker.setLngLat(map.getCenter());
+    }
+  });
+
+  map.on('move', () => {
+    if (loaderMarker) {
+      loaderMarker.setLngLat(map.getCenter());
+    }
+  });
+
   map.on('load', () => {
-    map.addSource('example', {
-      type: 'geojson',
-      data: fake.data as FeatureCollection,
-    });
-
-    map.addLayer({
-      id: 'example',
-      type: 'circle',
-      source: 'example',
-      paint: {
-        'circle-radius': {
-          base: 1.75,
-          stops: [
-            [10, 2],
-            [21, 180],
-          ],
-        },
-        'circle-color': [
-          'match',
-          ['get', 'quality'],
-          'good',
-          '#fbb03b',
-          'bad',
-          '#3bb2d0',
-          '#ccc',
-        ],
-      },
-    });
-
-    map.on('click', 'example', (event: MapMouseEvent) => {
-      const features = map.queryRenderedFeatures(event.point);
-      const coordinates = (features[0].geometry as Point).coordinates.slice();
-      const description = ((features[0].properties &&
-        features[0]?.properties.quality) ??
-        'no data') as string;
-
-      while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      new mapboxGL.Popup()
-        .setLngLat([coordinates[0], coordinates[1]])
-        .setHTML(description)
-        .addTo(map);
-    });
-
-    map.on('mouseenter', 'example', () => {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-
-    map.on('mouseleave', 'example', () => {
-      map.getCanvas().style.cursor = '';
-    });
+    void fetchCountriesFx();
   });
 
   changeMap(map);
@@ -108,4 +110,180 @@ $map.watch(changeStyle, (map, style) => {
     center: map.getCenter(),
     style,
   });
+});
+
+$map.watch(fetchCountriesFx.doneData, (map, countries: FeatureCollection) => {
+  if (!map) return;
+  let hoveredCountryId = 0;
+  let selectedCountryId = 0;
+
+  // remove loader after loading data
+  if (loaderMarker) {
+    loaderMarker.remove();
+  }
+
+  map.addSource('countries', {
+    type: 'geojson',
+    data: countries,
+  });
+
+  map.addLayer({
+    id: 'countries',
+    type: 'fill',
+    source: 'countries',
+    paint: {
+      'fill-color': '#0068ea',
+      'fill-outline-color': '#646973',
+      'fill-opacity': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        0.9,
+        1,
+      ],
+    },
+  });
+
+  map.on('click', 'countries', (event: MapLayerMouseEvent) => {
+    if (
+      !event.features ||
+      !event.features[0] ||
+      selectedCountryId === event.features[0].id
+    ) {
+      return;
+    }
+    if (map.getLayer('schools')) {
+      map.removeLayer('schools');
+    }
+    if (map.getSource('schools')) {
+      map.removeSource('schools');
+    }
+
+    if (selectedCountryId) {
+      map.setFeatureState(
+        { source: 'countries', id: selectedCountryId },
+        { selected: false }
+      );
+    }
+    selectedCountryId = event.features[0].id as number;
+    selectCountry(selectedCountryId);
+
+    map.setFeatureState(
+      { source: 'countries', id: selectedCountryId },
+      { selected: true }
+    );
+
+    map.setPaintProperty('countries', 'fill-color', [
+      'case',
+      ['boolean', ['feature-state', 'selected'], false],
+      '#141923',
+      '#373c46',
+    ]);
+
+    const bounds = getPolygonBoundingBox(
+      event.features[0] as Feature<MultiPolygon>
+    );
+    map.fitBounds(bounds, {
+      padding: { left: 360, right: 30, top: 30, bottom: 30 },
+    });
+  });
+
+  map.on('mouseenter', 'countries', () => {
+    // eslint-disable-next-line no-param-reassign
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', 'countries', () => {
+    // eslint-disable-next-line no-param-reassign
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mousemove', 'countries', (event: MapLayerMouseEvent) => {
+    if (!event.features || !event.features[0]) {
+      return;
+    }
+    if (event.features.length > 0) {
+      if (hoveredCountryId) {
+        map.setFeatureState(
+          { source: 'countries', id: hoveredCountryId },
+          { hover: false }
+        );
+      }
+      hoveredCountryId = event.features[0].id as number;
+      map.setFeatureState(
+        { source: 'countries', id: hoveredCountryId },
+        { hover: true }
+      );
+    }
+  });
+
+  // When the mouse leaves the countries layer, update the country state of the
+  // previously hovered feature.
+  map.on('mouseleave', 'countries', () => {
+    if (hoveredCountryId) {
+      map.setFeatureState(
+        { source: 'countries', id: hoveredCountryId },
+        { hover: false }
+      );
+    }
+    hoveredCountryId = 0;
+  });
+});
+
+$map.watch(selectCountry, async (map, selectedCountryId) => {
+  if (!map) return;
+
+  const points = await request<FeatureCollection>({
+    url: `api/locations/countries/${selectedCountryId}/schools/`,
+    fn: ({ jsonData }) => convertSchoolsDataToGeoJson(jsonData as SchoolData[]),
+  });
+
+  if (points.features.length > 0) {
+    map.addSource('schools', {
+      type: 'geojson',
+      data: points,
+    });
+
+    map.addLayer({
+      id: 'schools',
+      type: 'circle',
+      source: 'schools',
+      paint: {
+        'circle-radius': {
+          base: 1.5,
+          stops: [
+            [12, 1.5],
+            [21, 10],
+          ],
+        },
+        'circle-color': '#ffffff',
+      },
+    });
+
+    map.on('mouseenter', 'schools', () => {
+      // eslint-disable-next-line no-param-reassign
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'schools', () => {
+      // eslint-disable-next-line no-param-reassign
+      map.getCanvas().style.cursor = '';
+    });
+
+    map.on('click', 'schools', (event: MapMouseEvent) => {
+      const features = map.queryRenderedFeatures(event.point);
+      const coordinates = (features[0].geometry as Point).coordinates.slice();
+      const description = ((features[0].properties &&
+        features[0]?.properties.name) ??
+        'no data') as string;
+
+      while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      new mapboxGL.Popup()
+        .setLngLat([coordinates[0], coordinates[1]])
+        .setHTML(`<span style="color: #000000;">${description}</span>`)
+        .addTo(map);
+    });
+  }
 });

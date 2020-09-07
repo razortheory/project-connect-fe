@@ -228,18 +228,6 @@ const config = {
       'WithStatement',
       'SequenceExpression',
     ],
-    'max-len': [
-      'warn',
-      {
-        code: 80, // Prettier default
-        tabWidth: 2,
-        ignoreComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true,
-      },
-    ],
     'no-restricted-imports': ['error', { patterns: ['../*'] }],
     'unicorn/prevent-abbreviations': [
       'error',
