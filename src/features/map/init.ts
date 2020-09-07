@@ -31,14 +31,14 @@ const request = createRequest({
   baseUrl: 'https://api.projectconnect.razortheory.com/',
 });
 
-const fetchCountries = async () =>
+const fetchCountriesGeometryData = async () =>
   request<FeatureCollection>({
     url: 'api/locations/countries-boundary/',
     fn: ({ jsonData }) =>
       convertCountriesDataToGeoJson(jsonData as CountryGeometryData[]),
   });
 
-fetchCountriesGeometryDataFx.use(fetchCountries);
+fetchCountriesGeometryDataFx.use(fetchCountriesGeometryData);
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
