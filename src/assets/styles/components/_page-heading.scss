@@ -29,8 +29,8 @@
 .page-heading__media {
   display: flex;
   flex-direction: column;
-  margin-right: -2.4rem;
-  margin-left: -2.4rem;
+  margin-right: -24px;
+  margin-left: -24px;
 
   @include media-breakpoint-up(sm) {
     flex-direction: row;
@@ -60,7 +60,7 @@
 }
 
 .page-heading__info {
-  padding: 3rem 2.4rem;
+  padding: 3rem 24px;
   background-color: #141923;
 
   @include media-breakpoint-only(sm) {

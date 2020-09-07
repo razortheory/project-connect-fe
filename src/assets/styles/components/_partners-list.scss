@@ -1,0 +1,17 @@
+.partners-list {
+  @include list-unstyled;
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-between;
+}
+
+.partners-list__item {
+  display: inline-flex;
+  width: 19.4rem;
+  max-width: 50%;
+}
+
+.partners-list__image {
+  width: 100%;
+  max-width: 100%;
+}
