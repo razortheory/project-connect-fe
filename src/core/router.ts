@@ -1,6 +1,4 @@
-import history from 'history/browser';
-
-import { createRouter } from '~/lib/router';
+import { createRouter, history } from '~/lib/router';
 
 // Create router and use Browser History
 export const router = createRouter({ history });
