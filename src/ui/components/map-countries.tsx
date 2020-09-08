@@ -1,3 +1,4 @@
+import { useStore } from 'effector-react';
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
@@ -5,7 +6,8 @@ import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 
-import { Search } from './search';
+import { $showSearchResults, Search } from './search';
+import { SearchResults } from './search-results';
 
 const CountriesList = () => (
   <>
@@ -52,51 +54,61 @@ const CountriesList = () => (
   </>
 );
 
+export const Tabs = () => (
+  <ul className="sidebar__tabs tabs">
+    <Link to={mapCountries} params={{ tab: tabMap.compile() }}>
+      <li className="tabs__item">
+        <button
+          type="button"
+          className={`tabs__button ${
+            useRoute(tabMap) ? 'tabs__button--active' : ''
+          }`}
+        >
+          Map
+        </button>
+      </li>
+    </Link>
+    <Link to={mapCountries} params={{ tab: tabInfo.compile() }}>
+      <li className="tabs__item">
+        <button
+          type="button"
+          className={`tabs__button ${
+            useRoute(tabInfo) ? 'tabs__button--active' : ''
+          }`}
+        >
+          Info
+        </button>
+      </li>
+    </Link>
+    <Link to={mapCountries} params={{ tab: tabControls.compile() }}>
+      <li className="tabs__item">
+        <button
+          type="button"
+          className={`tabs__button ${
+            useRoute(tabControls) ? 'tabs__button--active' : ''
+          }`}
+        >
+          Controls
+        </button>
+      </li>
+    </Link>
+  </ul>
+);
+
+export const Content = () => (
+  <>
+    {useRoute(tabMap) && <p>Map</p>}
+    {useRoute(tabInfo) && <CountriesList />}
+    {useRoute(tabControls) && <p>Controls</p>}
+  </>
+);
+
 export const MapCountries = () => (
   <>
     <Search />
-    <ul className="sidebar__tabs tabs">
-      <Link to={mapCountries} params={{ tab: tabMap.compile() }}>
-        <li className="tabs__item">
-          <button
-            type="button"
-            className={`tabs__button ${
-              useRoute(tabMap) ? 'tabs__button--active' : ''
-            }`}
-          >
-            Map
-          </button>
-        </li>
-      </Link>
-      <Link to={mapCountries} params={{ tab: tabInfo.compile() }}>
-        <li className="tabs__item">
-          <button
-            type="button"
-            className={`tabs__button ${
-              useRoute(tabInfo) ? 'tabs__button--active' : ''
-            }`}
-          >
-            Info
-          </button>
-        </li>
-      </Link>
-      <Link to={mapCountries} params={{ tab: tabControls.compile() }}>
-        <li className="tabs__item">
-          <button
-            type="button"
-            className={`tabs__button ${
-              useRoute(tabControls) ? 'tabs__button--active' : ''
-            }`}
-          >
-            Controls
-          </button>
-        </li>
-      </Link>
-    </ul>
+    {!useStore($showSearchResults) && <Tabs />}
     <div className="sidebar__content">
-      {useRoute(tabMap) && <p>Map</p>}
-      {useRoute(tabInfo) && <CountriesList />}
-      {useRoute(tabControls) && <p>Controls</p>}
+      {useStore($showSearchResults) ? <SearchResults /> : <Content />}
     </div>
   </>
 );
