@@ -352,4 +352,10 @@ $map.watch(onLeaveMapCountry, (map) => {
     zoom: defaultZoom,
   });
   map?.setPaintProperty('countries', 'fill-color', '#0068ea');
+  if (map?.getLayer('schools')) {
+    map.removeLayer('schools');
+  }
+  if (map?.getSource('schools')) {
+    map.removeSource('schools');
+  }
 });
