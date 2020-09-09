@@ -7,9 +7,9 @@ import { Link } from '~/lib/router';
 
 import { $noSearchResults, $searchResults } from './search';
 
-export const NotFound = () => <div>Not found</div>;
+export const NotFound = () => <div>Countries not found</div>;
 
-export const CountryList = () => (
+export const CountriesFound = () => (
   <ul className="list">
     {useStore($searchResults)?.map((country: CountryData) => (
       <li key={country.id} className="list__item list__item--not-verified">
@@ -22,5 +22,5 @@ export const CountryList = () => (
 );
 
 export const SearchResults = () => (
-  <>{useStore($noSearchResults) ? <NotFound /> : <CountryList />}</>
+  <>{useStore($noSearchResults) ? <NotFound /> : <CountriesFound />}</>
 );

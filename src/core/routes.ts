@@ -13,11 +13,7 @@ export const map = router.add('/map(/.*)?');
 export const mapOverview = router.add('/map');
 export const mapCountries = router
   .add<{ tab: string }>('/map/countries:tab(.*)?')
-  .bind('tab', {
-    router: tabRouter,
-    parse: (rawParam) => rawParam ?? '/',
-    format: (path) => path?.replace(/^\/$/g, ''),
-  });
+  .bind('tab', { router: tabRouter });
 export const mapCountry = router.add<{ id: number }>('/map/country/:id');
 
 // Project section
