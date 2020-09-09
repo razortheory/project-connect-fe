@@ -1,4 +1,9 @@
-import { router, tabRouter } from './router';
+import { createRouter, history } from '~/lib/router';
+
+import { tabRouter } from './tab-routes';
+
+// Create router and use Browser History
+export const router = createRouter({ history });
 
 // This route is only for redirection
 export const exactRoot = router.add({ path: '/' });
