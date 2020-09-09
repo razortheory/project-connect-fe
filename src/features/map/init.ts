@@ -47,10 +47,7 @@ const request = createRequest({
 });
 
 const fetchCountriesData = async () =>
-  request<CountryData[]>({
-    url: 'api/locations/countries/',
-    fn: ({ jsonData }) => jsonData as CountryData[],
-  });
+  request<CountryData[]>('api/locations/countries/');
 
 const fetchCountriesGeometryData = async () =>
   request<FeatureCollection>({

@@ -14,7 +14,7 @@ import { SearchResults } from './search-results';
 const CountriesList = () => {
   const countries = useStore($countriesData);
   if (!countries) {
-    return <>loading</>;
+    return <>Loading...</>;
   }
   return (
     <>
