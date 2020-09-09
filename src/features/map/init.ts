@@ -182,7 +182,13 @@ $map.watch(
       type: 'fill',
       source: 'countries',
       paint: {
-        'fill-color': '#0068ea',
+        'fill-color': [
+          'match',
+          ['get', 'connectivity'],
+          'connectivity',
+          '#0068ea',
+          '#373c46',
+        ],
         'fill-outline-color': '#646973',
         'fill-opacity': [
           'case',
@@ -261,7 +267,13 @@ $map.watch(
     }
 
     if (newCountryId === 0) {
-      map?.setPaintProperty('countries', 'fill-color', '#0068ea');
+      map?.setPaintProperty('countries', 'fill-color', [
+        'match',
+        ['get', 'connectivity'],
+        'connectivity',
+        '#0068ea',
+        '#373c46',
+      ]);
       return;
     }
 
@@ -351,7 +363,13 @@ $map.watch(onLeaveMapCountry, (map) => {
     center: defaultCenter,
     zoom: defaultZoom,
   });
-  map?.setPaintProperty('countries', 'fill-color', '#0068ea');
+  map?.setPaintProperty('countries', 'fill-color', [
+    'match',
+    ['get', 'connectivity'],
+    'connectivity',
+    '#0068ea',
+    '#373c46',
+  ]);
   if (map?.getLayer('schools')) {
     map.removeLayer('schools');
   }

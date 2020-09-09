@@ -27,7 +27,11 @@ export const convertCountriesDataToGeoJson = (
     features: countries.map((country) => {
       return {
         type: 'Feature',
-        properties: {},
+        properties: {
+          // demo
+          connectivity:
+            country.id === 32 || country.id === 37 ? 'connectivity' : '',
+        },
         geometry: country.geometry_simplified,
         id: country.id,
       };
