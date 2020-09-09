@@ -15,6 +15,7 @@ yarn.lock
 *.ttf
 *.txt
 *.pb
+*.toml
 
 # TS
 .typescript

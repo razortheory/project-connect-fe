@@ -32,6 +32,7 @@
 
 .sidebar__expander {
   display: none;
+  cursor: pointer;
 
   @include media-breakpoint-up(md) {
     position: absolute;
