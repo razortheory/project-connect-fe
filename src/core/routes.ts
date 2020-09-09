@@ -7,11 +7,11 @@ export const exactRoot = router.add({ path: '/' });
 export const map = router.add('/map(/.*)?');
 export const mapOverview = router.add('/map');
 export const mapCountries = router
-  .add<{ tab: string }>('/map/countries:tab(;tab=.*)?')
+  .add<{ tab: string }>('/map/countries:tab(.*)?')
   .bind('tab', {
     router: tabRouter,
-    parse: (rawParam) => rawParam?.replace(/;tab=/g, ''),
-    format: (path) => path && `;tab=${path}`,
+    parse: (rawParam) => rawParam ?? '/',
+    format: (path) => path?.replace(/^\/$/g, ''),
   });
 export const mapCountry = router.add<{ id: number }>('/map/country/:id');
 
