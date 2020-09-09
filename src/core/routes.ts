@@ -13,7 +13,7 @@ export const mapCountries = router
     parse: (rawParam) => rawParam?.replace(/;tab=/g, ''),
     format: (path) => path && `;tab=${path}`,
   });
-export const mapCountry = router.add<{ id: string }>('/map/country/:id');
+export const mapCountry = router.add<{ id: number }>('/map/country/:id');
 
 // Project section
 export const media = router.add('/media');
