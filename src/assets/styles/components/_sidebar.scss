@@ -7,6 +7,7 @@
   background-color: #232832;
 
   @include media-breakpoint-up(md) {
+    @include transition;
     position: absolute;
     top: 7rem;
     bottom: 2.4rem;
@@ -26,12 +27,17 @@
 }
 
 .sidebar__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
 .sidebar__expander {
   display: none;
+  color: $color-primary;
+  font-size: 2rem;
   cursor: pointer;
 
   @include media-breakpoint-up(md) {
@@ -48,10 +54,19 @@
     border-bottom-right-radius: 0.4rem;
     outline: none;
 
-    > img {
+    > svg {
       @include transition;
       transform: rotate(180deg);
     }
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-primary-hover;
+  }
+
+  &:active {
+    color: $color-primary-active;
   }
 }
 
@@ -60,6 +75,7 @@
   padding: 2.6rem 2.4rem 3.2rem;
   font-size: 2.6rem;
   line-height: 3rem;
+  background-color: #141923;
   border-bottom: 0.8rem solid $color-primary;
 }
 
@@ -72,6 +88,7 @@
 }
 
 .sidebar__content {
+  flex: 1 0 auto;
   padding: 2.4rem;
 }
 
@@ -89,4 +106,23 @@
 
 .sidebar__button {
   // Empty
+}
+
+.sidebar__not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar__period-picker {
+  margin-bottom: 2.5rem;
+}
+
+.sidebar__divider {
+  margin: 2rem -24px;
+  border: solid 0.1rem #373c46;
+  border-top: 0;
 }

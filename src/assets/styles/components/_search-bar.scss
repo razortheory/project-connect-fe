@@ -10,13 +10,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
+  width: 1.5rem;
   height: 4rem;
+  font-size: 1.5rem;
 }
 
 .search-bar__input {
   flex: 1 0 auto;
   height: 4rem;
+  padding: 0 0.5rem;
   color: #fff;
   font-weight: bold;
   font-size: 1.2rem;
@@ -29,6 +31,7 @@
 }
 
 .search-bar__close {
+  position: relative;
   width: 2rem;
   height: 2rem;
   padding: 0;
@@ -39,6 +42,28 @@
   background-color: transparent;
   border: 0;
   outline: none;
-  transform: rotate(45deg);
   cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 1.8rem;
+    height: 0.2rem;
+    margin-top: -0.1rem;
+    margin-left: -0.9rem;
+    background-color: $text-color-light;
+    border-radius: 0.1rem;
+    content: '';
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(135deg);
+  }
 }

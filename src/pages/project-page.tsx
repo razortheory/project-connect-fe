@@ -8,6 +8,7 @@ import IconInvestment from '~/assets/images/icon-investment.svg';
 import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
 import IconMarket from '~/assets/images/icon-market-data.svg';
 import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
+import IconSearch from '~/assets/images/icon-search.svg';
 import LogoArm from '~/assets/images/logo-arm.svg';
 import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
@@ -138,16 +139,16 @@ export const CountryProgress = () => (
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <h3 className="info-list__title">30%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">30%</p>
+                  <h3 className="info-list__title">
                     Countries with real time connectivity data
-                  </p>
+                  </h3>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">78.2%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">78.2%</p>
+                  <h3 className="info-list__title">
                     Countries committed to Project Connect
-                  </p>
+                  </h3>
                 </li>
               </ul>
             </div>
@@ -232,20 +233,7 @@ export const CountryProgress = () => (
             <div className="progress-dashboard__controls-bar controls-bar">
               <div className="controls-bar__search search-bar">
                 <div className="search-bar__icon">
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 5.91986C0 2.65975 2.65978 0 5.91987 0C9.17994 0 11.8397 2.65975 11.8397 5.91986C11.8397 7.2663 11.3872 8.51222 10.6249 9.50877L14.7688 13.6527C15.0771 13.9609 15.0771 14.4606 14.7688 14.7688C14.4606 15.0771 13.9547 15.077 13.6465 14.7688L9.50878 10.6249C8.51213 11.3875 7.26659 11.8397 5.91987 11.8397C2.65978 11.8397 0 9.17994 0 5.91986ZM10.2611 5.91986C10.2611 3.51292 8.32676 1.57863 5.91987 1.57863C3.51294 1.57863 1.57863 3.51292 1.57863 5.91986C1.57863 8.32675 3.51294 10.2611 5.91987 10.2611C8.32676 10.2611 10.2611 8.32675 10.2611 5.91986Z"
-                      fill="white"
-                    />
-                  </svg>
+                  <IconSearch />
                 </div>
                 <input
                   className="search-bar__input"
@@ -253,7 +241,7 @@ export const CountryProgress = () => (
                   placeholder="Search for a country"
                 />
                 <button type="button" className="search-bar__close">
-                  +
+                  <span className="visually-hidden">Clear search</span>
                 </button>
               </div>
               <div className="controls-bar__sort">
@@ -622,87 +610,89 @@ export const CountryProgress = () => (
 );
 
 export const JoinUs = () => (
-  <section className="section section--inverted">
-    <h2 className="visually-hidden">Partner with us</h2>
-    <div className="container partnership">
-      <div className="partnership__row">
-        <div className="partnership__tabs-list">
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Government
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Non-profit or similar
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            International organization
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Development bank
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            ISP or Network provider
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            tech company
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            research institute
-          </button>
-        </div>
-        <div className="partnership__tab-content">
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
+  <>
+    <section className="section section--inverted">
+      <h2 className="visually-hidden">Partner with us</h2>
+      <div className="container partnership">
+        <div className="partnership__row">
+          <div className="partnership__tabs-list">
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Government
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Non-profit or similar
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              International organization
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Development bank
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              ISP or Network provider
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              tech company
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              research institute
+            </button>
+          </div>
+          <div className="partnership__tab-content">
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </>
 );
 
 export const About = () => (
@@ -727,16 +717,16 @@ export const About = () => (
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <h3 className="info-list__title">30%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">30%</p>
+                  <h3 className="info-list__title">
                     Countries with real time connectivity data
-                  </p>
+                  </h3>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">78.2%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">78.2%</p>
+                  <h3 className="info-list__title">
                     Countries committed to Project Connect
-                  </p>
+                  </h3>
                 </li>
               </ul>
             </div>
@@ -1076,8 +1066,112 @@ export const ProjectPage = () => (
         {useRoute(joinUs) && <JoinUs />}
       </main>
       <footer className="footer">
-        <Giga className="footer__logo" alt="Unicef logo" />
-        <Unicef className="footer__logo" alt="Giga logo" />
+        <div className="container">
+          <div className="footer__row">
+            <div className="footer__info-wrapper">
+              <div className="footer__info">
+                <a href="/" className="footer__main-logo">
+                  Project Connect
+                </a>
+                <p className="footer__description">
+                  Connecting every young person to information, opportunity and
+                  choice.
+                </p>
+              </div>
+              <div className="footer__supporters">
+                <h4 className="footer__supporters-title">Supported by</h4>
+                <Giga className="footer__supporter-logo" alt="Unicef logo" />
+                <Unicef className="footer__supporter-logo" alt="Giga logo" />
+              </div>
+            </div>
+
+            <nav className="footer__nav">
+              <ul className="footer__menu footer-menu">
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Connectivity map
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    About
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Country Progress
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Methods & data privacy
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Join us
+                  </a>
+                </li>
+              </ul>
+              <ul className="footer__socials footer-socials">
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="#2779FF"
+                          fillRule="evenodd"
+                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="#2779FF"
+                          fillRule="evenodd"
+                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="#2779FF"
+                          fillRule="evenodd"
+                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </footer>
     </div>
   </AppFrame>

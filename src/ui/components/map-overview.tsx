@@ -16,18 +16,16 @@ export const MapOverview = () => (
       </p>
       <ul className="sidebar__list info-list">
         <li className="info-list__item">
-          <h3 className="info-list__title">0.8M / 6M</h3>
-          <p className="info-list__description">Schools mapped</p>
+          <p className="info-list__description">0.8M / 6M</p>
+          <h3 className="info-list__title">Schools mapped</h3>
         </li>
         <li className="info-list__item">
-          <h3 className="info-list__title">87%</h3>
-          <p className="info-list__description">Schools without connectivity</p>
+          <p className="info-list__description">87%</p>
+          <h3 className="info-list__title">Schools without connectivity</h3>
         </li>
         <li className="info-list__item">
-          <h3 className="info-list__title">43</h3>
-          <p className="info-list__description">
-            Countries joined Project Connect
-          </p>
+          <p className="info-list__description">43</p>
+          <h3 className="info-list__title">Countries joined Project Connect</h3>
         </li>
       </ul>
       <Link to={mapCountries} className="button button--primary">

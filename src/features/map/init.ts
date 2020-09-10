@@ -348,7 +348,7 @@ $map.watch(
 
         new mapboxGL.Popup()
           .setLngLat([coordinates[0], coordinates[1]])
-          .setHTML(`<span style="color: #000000;">${description}</span>`)
+          .setHTML(`<div>${description}</div>`)
           .addTo(map);
       });
     }

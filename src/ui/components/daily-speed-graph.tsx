@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const DailySpeedGraph = () => (
-  <div className="sidebar__content">
+  <>
     <h3 className="sidebar__secondary-title">Daily speed graph (download)</h3>
     <div className="week-graph">
       <div className="week-graph__item">
@@ -47,5 +47,5 @@ export const DailySpeedGraph = () => (
         <span className="week-graph__day">Th</span>
       </div>
     </div>
-  </div>
+  </>
 );
