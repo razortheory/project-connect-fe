@@ -1,10 +1,11 @@
-import { createEvent, createStore, sample } from 'effector';
+import { combine, createEvent, createStore, sample } from 'effector';
 import { useStore } from 'effector-react';
 import React, { ChangeEvent } from 'react';
 
 import IconList from '~/assets/images/list.svg';
 import IconSearch from '~/assets/images/search.svg';
 import IconTile from '~/assets/images/tile.svg';
+import { fetchCountriesDataFx } from '~/features/map';
 import { $countriesData } from '~/features/map/model';
 import { CountryData } from '~/features/map/types';
 import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
@@ -22,17 +23,22 @@ const $searchText = createStore('');
 export const $searchResults = createStore<CountryData[] | null>([]);
 export const $noSearchResults = createStore(false);
 export const $isListType = createStore(false);
+export const $isLoading = fetchCountriesDataFx.pending;
 
 // Init
 $searchText.on(changeSearchText, setPayload);
 $isListType.on(changeViewType, (state) => !state);
 $searchText.reset(clearSearchText);
 
+const $searchCountriesData = combine({
+  countriesData: $countriesData,
+  searchText: $searchText,
+});
+
 sample({
-  source: $countriesData,
-  clock: $searchText,
+  source: $searchCountriesData,
   // TODO: sort 8 elements
-  fn: (countriesData: CountryData[] | null, searchText: string) =>
+  fn: ({ countriesData, searchText }) =>
     countriesData
       ?.slice(0, 8)
       .filter((countryData) =>
