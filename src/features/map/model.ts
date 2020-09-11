@@ -2,7 +2,14 @@ import { createEffect, createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
 
 import { defaultStyle } from './constants';
-import { Center, CountryData, InitMapOptions, Map, Style } from './types';
+import {
+  Center,
+  CountryData,
+  CountryGeometryData,
+  InitMapOptions,
+  Map,
+  Style,
+} from './types';
 
 export const initMap = createEvent<InitMapOptions>();
 export const changeMap = createEvent<Map>();
@@ -14,14 +21,17 @@ export const changeCountryId = createEvent<number>();
 
 export const fetchCountriesGeometryDataFx = createEffect<
   void,
-  FeatureCollection
+  CountryGeometryData[]
 >();
 export const fetchCountriesDataFx = createEffect<void, CountryData[]>();
 
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
 export const $selectedCountryId = createStore<number>(0);
-export const $countriesGeometryData = createStore<FeatureCollection | null>(
+export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
   null
 );
 export const $countriesData = createStore<CountryData[] | null>(null);
+export const $countriesFeatureCollection = createStore<FeatureCollection | null>(
+  null
+);
