@@ -7,7 +7,7 @@ import {
   $isLoading,
   $noSearchResults,
   SearchSortBlock,
-} from './components/search-sort-block';
+} from './components/search-sort-box';
 import { SearchResults } from './components/search-sort-results';
 
 const MainContent = () => (
