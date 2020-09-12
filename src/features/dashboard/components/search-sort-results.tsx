@@ -9,7 +9,11 @@ import { mapCountry } from '~/core/routes';
 import { CountryData } from '~/features/map/types';
 import { Link } from '~/lib/router';
 
-import { $isListType, $noSearchResults, $searchResults } from './search-sort-box';
+import {
+  $isListType,
+  $noSearchResults,
+  $searchResults,
+} from './search-sort-box';
 
 export const NotFound = () => <h1>Countries not found</h1>;
 
@@ -32,22 +36,23 @@ export const CountriesFound = () => {
         } = country;
 
         const joinedDate = new Date(date_of_join as string);
-        const dateFormat = isListType ?
-          format(new Date(joinedDate), 'd LLL yyyy') :
-          format(new Date(joinedDate), 'LLL yyyy');
+        const dateFormat = isListType
+          ? format(new Date(joinedDate), 'd LLL yyyy')
+          : format(new Date(joinedDate), 'LLL yyyy');
         const joinedTitle = `${isListType ? '' : 'Joined in '}${dateFormat}`;
 
         const integrationStatus = integration_status ?? 'No data';
-        const countryDescription = description ??
+        const countryDescription =
+          description ??
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum urna tortor, eget laoreet arcu fermentum sit amet. Sed aliquet, turpis vel fermentum elementum.';
         const schoolPercent = schools_with_data_percentage ?? 'No data';
 
         const progressBarPercent = {
           width: `${schools_with_data_percentage ?? '5'}%`,
-        }
+        };
         const mapPreviewBackground = {
           backgroundImage: `url(${map_preview ?? MapPreview})`,
-        }
+        };
 
         return (
           <div className="countries-list__item" key={id}>
@@ -76,11 +81,15 @@ export const CountriesFound = () => {
                     <div className="country-progress__bubble" />
                   </div>
 
-                  <h5 className="country-progress__title">{integrationStatus}</h5>
+                  <h5 className="country-progress__title">
+                    {integrationStatus}
+                  </h5>
                 </div>
 
                 <div className="country__schools-connectivity schools-connectivity">
-                  <h4 className="country__subtitle">Schools with connectivity</h4>
+                  <h4 className="country__subtitle">
+                    Schools with connectivity
+                  </h4>
                   <div className="schools-connectivity__bar">
                     <div
                       className="schools-connectivity__filler"
@@ -95,9 +104,7 @@ export const CountriesFound = () => {
 
                 <div className="country__separator" />
 
-                <p className="country__description">
-                  {countryDescription}
-                </p>
+                <p className="country__description">{countryDescription}</p>
 
                 <Link
                   className="country__view-on-map view-on-map"
@@ -120,7 +127,7 @@ export const CountriesFound = () => {
       })}
     </div>
   );
-}
+};
 
 export const SearchResults = () => (
   <>{useStore($noSearchResults) ? <NotFound /> : <CountriesFound />}</>
