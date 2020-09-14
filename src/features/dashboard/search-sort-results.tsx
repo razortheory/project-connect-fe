@@ -9,11 +9,7 @@ import { mapCountry } from '~/core/routes';
 import { CountryData } from '~/features/map/types';
 import { Link } from '~/lib/router';
 
-import {
-  $isListType,
-  $noSearchResults,
-  $searchResults,
-} from './search-sort-box';
+import { $isListType, $noSearchResults, $searchResults } from './model';
 
 export const NotFound = () => <h1>Countries not found</h1>;
 

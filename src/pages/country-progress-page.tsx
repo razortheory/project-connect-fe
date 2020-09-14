@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CountriesPicture from '~/assets/images/countries-dashboard.jpg';
-import { Dashboard } from '~/features/dashboard/dashboard';
+import { Dashboard } from '~/features/dashboard';
 
 export const CountryProgressPage = () => (
   <>
