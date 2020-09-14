@@ -63,7 +63,7 @@ export const countriesPaintData: { [style in Style]: CountriesPaintData } = {
   },
 };
 
-export const intStatusRelateToPaintField: {
+export const statusPaintField: {
   [key in IntegrationStatus]: keyof CountriesPaintData;
 } = {
   0: 'countryNotVerified',

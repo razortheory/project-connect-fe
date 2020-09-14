@@ -1,12 +1,7 @@
 import { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { LngLatLike } from 'mapbox-gl';
 
-import {
-  ConnectivityStatus,
-  CountryData,
-  CountryGeometryData,
-  SchoolData,
-} from './types';
+import { CountryData, CountryGeometryData, SchoolData } from './types';
 
 export const convertSchoolsDataToGeoJson = (
   points: SchoolData[]

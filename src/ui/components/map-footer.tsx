@@ -117,16 +117,12 @@ const MapStyle = () => {
 
 export const MapFooter = () => {
   const isCountryView = useStore(mapCountry.visible);
-  const mapLegend = isCountryView ? (
-    <MapLegendForSchools />
-  ) : (
-    <MapLegendForCountries />
-  );
+
   return (
     <footer className="footer">
       <Unicef className="footer__logo" alt="Unicef logo" />
       <Giga className="footer__logo" alt="Giga logo" />
-      {mapLegend}
+      {isCountryView ? <MapLegendForSchools /> : <MapLegendForCountries />}
       <MapStyle />
       <MapZoom />
     </footer>

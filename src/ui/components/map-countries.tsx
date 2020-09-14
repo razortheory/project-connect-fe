@@ -4,10 +4,7 @@ import React from 'react';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
-import {
-  countriesPaintData,
-  intStatusRelateToPaintField,
-} from '~/features/map/constants';
+import { countriesPaintData, statusPaintField } from '~/features/map/constants';
 import { $countriesData, $style } from '~/features/map/model';
 import { CountryData } from '~/features/map/types';
 import { Link, useRoute } from '~/lib/router';
@@ -41,7 +38,7 @@ const CountriesList = () => {
                 className="list__circle"
                 style={{
                   backgroundColor: paintData[
-                    intStatusRelateToPaintField[country.integration_status]
+                    statusPaintField[country.integration_status]
                   ] as string,
                 }}
               />

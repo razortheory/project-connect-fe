@@ -22,6 +22,21 @@ const config = {
         ignore: ['pseudo-classes'],
       },
     ],
+    // Fix bugged `value-keyword-case` rule (allow "." and "[")
+    'value-keyword-case': [
+      'lower',
+      {
+        // eslint-disable-next-line unicorn/better-regex, no-useless-escape
+        ignoreKeywords: [/^.*[.\[].*$/],
+      },
+    ],
+    // Fix bugged `value-keyword-case` rule (allow to use "myVar.toString()")
+    'function-name-case': [
+      'lower',
+      {
+        ignoreFunctions: [/^.*\.toString$/],
+      },
+    ],
   },
 };
 
