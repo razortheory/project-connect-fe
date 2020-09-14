@@ -10,7 +10,11 @@
   font-family: $font-family-secondary;
   line-height: 2rem;
 
-  &::before {
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  .list__circle {
     position: absolute;
     top: 0.6rem;
     left: -0.7rem;
@@ -19,27 +23,5 @@
     height: 0.7rem;
     border-radius: 50%;
     content: '';
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
-
-  &--connected {
-    &::before {
-      background-color: $color-primary;
-    }
-  }
-
-  &--verified {
-    &::before {
-      background-color: #8945d4;
-    }
-  }
-
-  &--not-verified {
-    &::before {
-      background-color: #373c46;
-    }
   }
 }

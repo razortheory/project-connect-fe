@@ -4,7 +4,8 @@ import React from 'react';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
-import { $countriesData } from '~/features/map/model';
+import { countriesPaintData, statusPaintField } from '~/features/map/constants';
+import { $countriesData, $style } from '~/features/map/model';
 import { CountryData } from '~/features/map/types';
 import { Link, useRoute } from '~/lib/router';
 
@@ -13,6 +14,9 @@ import { SearchResults } from './search-results';
 
 const CountriesList = () => {
   const countries = useStore($countriesData);
+  const style = useStore($style);
+  const paintData = countriesPaintData[style];
+
   if (!countries) {
     return <>Loading...</>;
   }
@@ -26,15 +30,23 @@ const CountriesList = () => {
         </p>
       </div>
       <ul className="list">
-        {/* list__item--connected, list__item--verified list__item--not-verified */}
-        {/* // TODO: replace country.name with the country.code when it appears in all countries */}
-        {countries.map((country: CountryData) => (
-          <li key={country.id} className="list__item list__item--connected">
-            <Link to={mapCountry} params={{ id: country.id }}>
-              {country.name}
-            </Link>
-          </li>
-        ))}
+        {countries
+          .sort((a, b) => b.integration_status - a.integration_status)
+          .map((country: CountryData) => (
+            <li key={country.id} className="list__item list__item--connected">
+              <div
+                className="list__circle"
+                style={{
+                  backgroundColor: paintData[
+                    statusPaintField[country.integration_status]
+                  ] as string,
+                }}
+              />
+              <Link to={mapCountry} params={{ id: country.id }}>
+                {country.name}
+              </Link>
+            </li>
+          ))}
       </ul>
     </>
   );

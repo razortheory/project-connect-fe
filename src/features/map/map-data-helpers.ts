@@ -1,7 +1,7 @@
-import { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
+import { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { LngLatLike } from 'mapbox-gl';
 
-import { CountryGeometryData, SchoolData } from './types';
+import { CountryData, CountryGeometryData, SchoolData } from './types';
 
 export const convertSchoolsDataToGeoJson = (
   points: SchoolData[]
@@ -12,6 +12,8 @@ export const convertSchoolsDataToGeoJson = (
       type: 'Feature',
       properties: {
         name: point.name,
+        connectivity_status: point.connectivity_status,
+        coverage_status: point.coverage_status,
       },
       geometry: point.geopoint,
       id: point.id,
@@ -19,28 +21,34 @@ export const convertSchoolsDataToGeoJson = (
   };
 };
 
-export const convertCountriesDataToGeoJson = (
-  countries: CountryGeometryData[]
+export const combineCountriesDataToGeoJson = (
+  countriesProperties: CountryData[] | null,
+  countriesGeometry: CountryGeometryData[] | null
 ): FeatureCollection => {
   return {
     type: 'FeatureCollection',
-    features: countries.map((country) => {
-      return {
-        type: 'Feature',
-        properties: {
-          // demo
-          connectivity:
-            country.id === 32 || country.id === 37 ? 'connectivity' : '',
-        },
-        geometry: country.geometry_simplified,
-        id: country.id,
-      };
-    }),
+    features:
+      countriesGeometry?.map((country) => {
+        const countryData = countriesProperties?.find(
+          (countryProperties) => countryProperties.id === country.id
+        );
+        return {
+          type: 'Feature',
+          properties: {
+            integration_status: countryData?.integration_status,
+            schools_with_data_percentage:
+              countryData?.schools_with_data_percentage,
+            code: countryData?.code,
+          },
+          geometry: country.geometry_simplified,
+          id: country.id,
+        };
+      }) ?? [],
   };
 };
 
 export const getPolygonBoundingBox = (
-  feature: Feature<MultiPolygon | Polygon>
+  geometry: Polygon | MultiPolygon
 ): [LngLatLike, LngLatLike] => {
   // longitude -180 - 180
   // latitude -90 - 90
@@ -49,7 +57,7 @@ export const getPolygonBoundingBox = (
   let maxLat = -90;
   let minLat = 90;
 
-  for (const coordinates of feature.geometry.coordinates) {
+  for (const coordinates of geometry.coordinates) {
     const polygon =
       typeof coordinates[0][0] === 'number' ? coordinates : coordinates[0];
 
