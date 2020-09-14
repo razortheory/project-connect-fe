@@ -1,4 +1,5 @@
 .sidebar {
+  @include transition;
   position: relative;
   z-index: 1;
   display: flex;
@@ -14,6 +15,10 @@
     width: 33.4rem;
     height: auto;
     border-radius: 0.5rem;
+
+    .sidebar__expander > svg {
+      transform: rotate(180deg);
+    }
 
     &--collapsed {
       left: -31.4rem;
