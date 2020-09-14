@@ -22,11 +22,13 @@ import {
   $countriesData,
   $countriesGeometryData,
   $map,
+  // $popup,
   $selectedCountryId,
   $style,
   changeCountryId,
   changeMap,
   changeStyle,
+  // clickSchool,
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
   initMap,
@@ -390,3 +392,29 @@ $map.watch(onLeaveMapCountry, (map) => {
     map.removeSource('schools');
   }
 });
+
+/*
+const onClickSchool = sample({
+  source: $popup,
+  clock: clickSchool,
+  fn: (popupContainer, event) => ({ popupContainer, event }),
+});
+
+
+$map.watch(onClickSchool, (map, { popupContainer, event }) => {
+  const features = map?.queryRenderedFeatures(event.point);
+  const coordinates = (features[0].geometry as Point).coordinates.slice();
+  const description = ((features[0].properties &&
+    features[0]?.properties.name) ??
+    'no data') as string;
+
+  while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+    coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  new mapboxGL.Popup()
+    .setLngLat([coordinates[0], coordinates[1]])
+    .setDOMContent(popupContainer)
+    .addTo(map);
+});
+*/

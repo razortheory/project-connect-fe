@@ -1,5 +1,6 @@
 import { createEffect, createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
+import { MapMouseEvent } from 'mapbox-gl';
 
 import { defaultStyle } from './constants';
 import { Center, CountryData, InitMapOptions, Map, Style } from './types';
@@ -25,3 +26,6 @@ export const $countriesGeometryData = createStore<FeatureCollection | null>(
   null
 );
 export const $countriesData = createStore<CountryData[] | null>(null);
+
+export const $popup = createStore<HTMLDivElement | null>(null);
+export const clickSchool = createEvent<MapMouseEvent>();
