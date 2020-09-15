@@ -1,34 +1,27 @@
+import './country/init';
+
 import { combine, guard, sample } from 'effector';
-import {
-  FeatureCollection,
-  Geometry,
-  MultiPolygon,
-  Point,
-  Polygon,
-} from 'geojson';
-import mapboxGL, { MapLayerMouseEvent, MapMouseEvent } from 'mapbox-gl';
+import { FeatureCollection } from 'geojson';
+import mapboxGL, { MapLayerMouseEvent } from 'mapbox-gl';
 
 import { mapCountry } from '~/core/routes';
-import { setPayload } from '~/lib/effector-kit';
-import { createRequest } from '~/lib/request';
+import { getInverted, setPayload } from '~/lib/effector-kit';
 
+import { request } from './api';
 import {
-  connectivityStatusPaintData,
   defaultCenter,
   defaultZoom,
   stylePaintData,
   styleUrls,
 } from './constants';
-import {
-  combineCountriesDataToGeoJson,
-  convertSchoolsDataToGeoJson,
-  getPolygonBoundingBox,
-} from './map-data-helpers';
+import { changeCountryIdFx } from './country/model';
+import { combineCountriesDataToGeoJson } from './map-data-helpers';
 import {
   $countriesData,
   $countriesFeatureCollection,
   $countriesGeometryData,
   $map,
+  $pending,
   $selectedCountryId,
   $style,
   $stylePaintData,
@@ -46,14 +39,8 @@ import {
   CountryData,
   CountryGeometryData,
   InitMapOptions,
-  SchoolData,
   StylePaintData,
 } from './types';
-
-// create request
-const request = createRequest({
-  baseUrl: 'https://api.projectconnect.razortheory.com/',
-});
 
 const fetchCountriesData = async () =>
   request<CountryData[]>('api/locations/countries/');
@@ -124,9 +111,8 @@ const loaderWrapper = document.createElement('div');
 loaderWrapper.append(loader);
 
 const addLoaderToMap = (map: mapboxGL.Map | null) => {
-  if (!map) {
-    return;
-  }
+  if (!map) return;
+
   // add loader
   loaderMarker = new mapboxGL.Marker(loaderWrapper)
     .setLngLat(map.getCenter())
@@ -145,6 +131,21 @@ const addLoaderToMap = (map: mapboxGL.Map | null) => {
     }
   });
 };
+
+// Update pending status
+sample({
+  source: combine([
+    changeCountryIdFx.pending,
+    // Other effects
+  ]),
+  fn: (states) => states.some(Boolean),
+  target: $pending,
+});
+
+$map.watch(guard($pending, { filter: Boolean }), addLoaderToMap);
+$map.watch(guard($pending, { filter: getInverted }), () => {
+  loaderMarker?.remove();
+});
 
 const addCountriesToMap = (
   map: mapboxGL.Map | null,
@@ -311,126 +312,6 @@ $map.watch(changeStyle, (map, style) => {
     center: map.getCenter(),
     style,
   });
-});
-
-$mapScope.watch(changeCountryId, async ({ map, paintData }, countryId) => {
-  if (!countryId) {
-    return;
-  }
-
-  removeSelectedCountry(map);
-  removeSchoolsFromMap(map);
-  addLoaderToMap(map);
-
-  const countryData = await request<CountryData>(
-    `api/locations/countries/${countryId}/`
-  );
-
-  map?.addSource('selectedCountry', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      geometry: countryData.geometry as Geometry,
-      properties: {},
-    },
-  });
-  map?.addLayer({
-    id: 'selectedCountry',
-    type: 'fill',
-    source: 'selectedCountry',
-    paint: {
-      'fill-color': paintData.countrySelected,
-      'fill-opacity': paintData.opacity,
-      'fill-outline-color': paintData.background,
-    },
-  });
-  map?.setPaintProperty(
-    'countries',
-    'fill-color',
-    paintData.countryNotSelected
-  );
-  map?.setPaintProperty('countries', 'fill-outline-color', [
-    'case',
-    ['==', ['id'], countryId],
-    paintData.countryNotSelected,
-    paintData.background,
-  ]);
-
-  const bounds = getPolygonBoundingBox(
-    countryData.geometry as Polygon | MultiPolygon
-  );
-  map?.fitBounds(bounds, {
-    padding: { left: 360, right: 30, top: 30, bottom: 30 },
-  });
-
-  const points = await request<FeatureCollection>({
-    url: `api/locations/countries/${countryId}/schools/`,
-    fn: ({ jsonData }) => convertSchoolsDataToGeoJson(jsonData as SchoolData[]),
-  });
-
-  loaderMarker?.remove();
-
-  if (points.features.length > 0) {
-    map?.addSource('schools', {
-      type: 'geojson',
-      data: points,
-    });
-
-    map?.addLayer({
-      id: 'schools',
-      type: 'circle',
-      source: 'schools',
-      paint: {
-        'circle-radius': {
-          base: 1.5,
-          stops: [
-            [12, 1.5],
-            [21, 10],
-          ],
-        },
-        'circle-color': [
-          'match',
-          ['get', 'connectivity_status'],
-          'no',
-          connectivityStatusPaintData.no,
-          'unknown',
-          connectivityStatusPaintData.unknown,
-          'moderate',
-          connectivityStatusPaintData.moderate,
-          'good',
-          connectivityStatusPaintData.good,
-          connectivityStatusPaintData.unknown,
-        ],
-      },
-    });
-
-    map?.on('mouseenter', 'schools', () => {
-      // eslint-disable-next-line no-param-reassign
-      map.getCanvas().style.cursor = 'pointer';
-    });
-
-    map?.on('mouseleave', 'schools', () => {
-      // eslint-disable-next-line no-param-reassign
-      map.getCanvas().style.cursor = '';
-    });
-
-    map?.on('click', 'schools', (event: MapMouseEvent) => {
-      const features = map?.queryRenderedFeatures(event.point);
-      const coordinates = (features[0].geometry as Point).coordinates.slice();
-      const description = ((features[0].properties &&
-        features[0]?.properties.name) ??
-        'no data') as string;
-
-      while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      new mapboxGL.Popup()
-        .setLngLat([coordinates[0], coordinates[1]])
-        .setHTML(`<span style="color: #000000;">${description}</span>`)
-        .addTo(map);
-    });
-  }
 });
 
 $mapScope.watch(onLeaveMapCountry, ({ map, paintData }) => {
