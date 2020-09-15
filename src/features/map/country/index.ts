@@ -1,3 +1,9 @@
 import './init';
 
-export { updateCountryFx, updateSchoolsFx } from './model';
+export {
+  updateCountryFx,
+  updateSchoolsFx,
+  fetchCountriesDataFx,
+  fetchCountriesGeometryDataFx,
+  $countriesData,
+} from './model';

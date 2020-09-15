@@ -1,6 +1,6 @@
 import { combine, sample } from 'effector';
 
-import { $countriesData } from '~/features/map/model';
+import { $countriesData } from '~/features/map/country';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
