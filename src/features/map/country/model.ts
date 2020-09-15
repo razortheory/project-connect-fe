@@ -1,7 +1,11 @@
 import { createEffect } from 'effector';
 
-import { ChangeCountry, UpdateCountry, UpdateSchools } from './types';
+import { Map } from '~/features/map/types';
 
-export const changeCountryIdFx = createEffect<ChangeCountry, void>();
+import { LeaveCountryRoute, UpdateCountry, UpdateSchools } from './types';
+
 export const updateCountryFx = createEffect<UpdateCountry, void>();
 export const updateSchoolsFx = createEffect<UpdateSchools, void>();
+export const removeCountryFx = createEffect<Map, void>();
+export const removeSchoolsFx = createEffect<Map, void>();
+export const leaveCountryRouteFx = createEffect<LeaveCountryRoute, void>();

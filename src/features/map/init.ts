@@ -14,7 +14,7 @@ import {
   stylePaintData,
   styleUrls,
 } from './constants';
-import { changeCountryIdFx } from './country/model';
+import { updateCountryFx, updateSchoolsFx } from './country';
 import { combineCountriesDataToGeoJson } from './map-data-helpers';
 import {
   $countriesData,
@@ -56,10 +56,6 @@ $style.on(changeStyle, setPayload);
 $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
 $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $selectedCountryId.on(changeCountryId, setPayload);
-
-const onLeaveMapCountry = guard(mapCountry.visible, {
-  filter: (visible) => !visible,
-});
 
 const allCountriesDataLoaded = guard({
   source: combine([$countriesData, $countriesGeometryData]),
@@ -135,7 +131,8 @@ const addLoaderToMap = (map: mapboxGL.Map | null) => {
 // Update pending status
 sample({
   source: combine([
-    changeCountryIdFx.pending,
+    updateSchoolsFx.pending,
+    updateCountryFx.pending,
     // Other effects
   ]),
   fn: (states) => states.some(Boolean),
@@ -244,24 +241,6 @@ const addCountriesToMap = (
   });
 };
 
-const removeSchoolsFromMap = (map: mapboxGL.Map | null) => {
-  if (map?.getLayer('schools')) {
-    map.removeLayer('schools');
-  }
-  if (map?.getSource('schools')) {
-    map.removeSource('schools');
-  }
-};
-
-const removeSelectedCountry = (map: mapboxGL.Map | null) => {
-  if (map?.getLayer('selectedCountry')) {
-    map.removeLayer('selectedCountry');
-  }
-  if (map?.getSource('selectedCountry')) {
-    map.removeSource('selectedCountry');
-  }
-};
-
 initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   const map = new mapboxGL.Map({
     style: styleUrls[style],
@@ -312,31 +291,4 @@ $map.watch(changeStyle, (map, style) => {
     center: map.getCenter(),
     style,
   });
-});
-
-$mapScope.watch(onLeaveMapCountry, ({ map, paintData }) => {
-  map?.flyTo({
-    center: defaultCenter,
-    zoom: defaultZoom,
-  });
-  map?.setPaintProperty('countries', 'fill-color', [
-    'match',
-    ['get', 'integration_status'],
-    0,
-    paintData.countryNotVerified,
-    1,
-    paintData.countryVerified,
-    2,
-    paintData.countryWithConnectivity,
-    3,
-    paintData.countryWithConnectivity,
-    paintData.countryNotVerified,
-  ]);
-  map?.setPaintProperty(
-    'countries',
-    'fill-outline-color',
-    paintData.background
-  );
-  removeSchoolsFromMap(map);
-  removeSelectedCountry(map);
 });
