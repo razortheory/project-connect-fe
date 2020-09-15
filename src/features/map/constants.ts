@@ -1,9 +1,9 @@
 import {
   Center,
   ConnectivityStatus,
-  CountriesPaintData,
   IntegrationStatus,
   Style,
+  StylePaintData,
   Zoom,
 } from './types';
 
@@ -20,7 +20,7 @@ export const styleUrls: { [style in Style]: string } = {
 
 export const styles = Object.keys(styleUrls) as Style[];
 
-export const countriesPaintData: { [style in Style]: CountriesPaintData } = {
+export const stylePaintData: { [style in Style]: StylePaintData } = {
   dark: {
     background: '#646973',
     countryNotVerified: '#373c46',
@@ -64,7 +64,7 @@ export const countriesPaintData: { [style in Style]: CountriesPaintData } = {
 };
 
 export const statusPaintField: {
-  [key in IntegrationStatus]: keyof CountriesPaintData;
+  [key in IntegrationStatus]: keyof StylePaintData;
 } = {
   0: 'countryNotVerified',
   1: 'countryVerified',

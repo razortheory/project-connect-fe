@@ -1,7 +1,7 @@
 import { createEffect, createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
 
-import { defaultStyle } from './constants';
+import { defaultStyle, stylePaintData } from './constants';
 import {
   Center,
   CountryData,
@@ -9,6 +9,7 @@ import {
   InitMapOptions,
   Map,
   Style,
+  StylePaintData,
 } from './types';
 
 export const initMap = createEvent<InitMapOptions>();
@@ -27,6 +28,9 @@ export const fetchCountriesDataFx = createEffect<void, CountryData[]>();
 
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
+export const $stylePaintData = createStore<StylePaintData>(
+  stylePaintData[defaultStyle]
+);
 export const $selectedCountryId = createStore<number>(0);
 export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
   null
