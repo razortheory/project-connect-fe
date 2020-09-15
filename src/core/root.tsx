@@ -5,7 +5,7 @@ import { map, project, router } from '~/core/routes';
 import {
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
-} from '~/features/map/model';
+} from '~/features/map/country/model';
 import { useRoute } from '~/lib/router';
 import { MapPage, ProjectPage } from '~/pages';
 

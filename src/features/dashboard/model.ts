@@ -1,7 +1,7 @@
 import { createEvent, createStore } from 'effector';
 import { ChangeEvent } from 'react';
 
-import { fetchCountriesDataFx } from '~/features/map';
+import { fetchCountriesDataFx } from '~/features/map/country';
 import { CountryData } from '~/features/map/types';
 
 export const getTargetValue = (event: ChangeEvent<HTMLInputElement>): string =>

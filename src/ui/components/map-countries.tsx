@@ -5,7 +5,8 @@ import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { statusPaintField } from '~/features/map/constants';
-import { $countriesData, $stylePaintData } from '~/features/map/model';
+import { $countriesData } from '~/features/map/country';
+import { $stylePaintData } from '~/features/map/model';
 import { CountryData } from '~/features/map/types';
 import { Link, useRoute } from '~/lib/router';
 

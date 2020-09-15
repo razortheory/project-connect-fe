@@ -3,32 +3,27 @@ import './country/init';
 import { combine, guard, sample } from 'effector';
 import mapboxGL from 'mapbox-gl';
 
-import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import { fetchCountriesData, fetchCountriesGeometryData } from './api';
 import {
   defaultCenter,
   defaultZoom,
   stylePaintData,
   styleUrls,
 } from './constants';
-import { updateCountryFx, updateSchoolsFx } from './country';
-import { combineCountriesDataToGeoJson } from './map-data-helpers';
 import {
-  $countriesData,
-  $countriesGeoJson,
-  $countriesGeometryData,
-  $map,
-  $pending,
-  $selectedCountryId,
-  $style,
-  $stylePaintData,
-  changeCountryId,
-  changeMap,
-  changeStyle,
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
+  updateCountryFx,
+  updateSchoolsFx,
+} from './country';
+import {
+  $map,
+  $pending,
+  $style,
+  $stylePaintData,
+  changeMap,
+  changeStyle,
   initMap,
   setCenter,
   zoomIn,
@@ -36,44 +31,13 @@ import {
 } from './model';
 import { InitMapOptions } from './types';
 
-fetchCountriesDataFx.use(fetchCountriesData);
-fetchCountriesGeometryDataFx.use(fetchCountriesGeometryData);
-
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
-$countriesData.on(fetchCountriesDataFx.doneData, setPayload);
-$countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
-$selectedCountryId.on(changeCountryId, setPayload);
-
-const allCountriesDataLoaded = guard({
-  source: combine([$countriesData, $countriesGeometryData]),
-  filter: ([countriesData, countriesGeometryData]) =>
-    Boolean(countriesData && countriesGeometryData),
-});
-
-$countriesGeoJson.on(
-  allCountriesDataLoaded,
-  (_, [countriesData, countriesGeometryData]) =>
-    combineCountriesDataToGeoJson(countriesData, countriesGeometryData)
-);
 
 sample({
   source: $style,
   fn: (style) => stylePaintData[style],
   target: $stylePaintData,
-});
-
-sample({
-  source: guard(mapCountry.params, { filter: Boolean }),
-  fn: (params) => Number(params?.id),
-  target: changeCountryId,
-});
-
-sample({
-  source: mapCountry.params,
-  clock: changeMap,
-  fn: (params) => (params?.id ? Number(params.id) : 0),
-  target: changeCountryId,
 });
 
 let loaderMarker: mapboxGL.Marker | undefined;

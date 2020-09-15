@@ -2,7 +2,7 @@ import { createEvent, createStore, sample } from 'effector';
 import { useStore } from 'effector-react';
 import React, { ChangeEvent } from 'react';
 
-import { $countriesData } from '~/features/map/model';
+import { $countriesData } from '~/features/map/country';
 import { CountryData } from '~/features/map/types';
 import { getVoid, setPayload } from '~/lib/effector-kit';
 
