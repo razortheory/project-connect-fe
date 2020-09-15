@@ -3,19 +3,15 @@ import { Geometry, MultiPolygon, Polygon } from 'geojson';
 import { fetchCountryData } from '~/features/map/api';
 import { getPolygonBoundingBox } from '~/features/map/map-data-helpers';
 
-import { updateCountryFx } from './model';
+import { removeCountryFx, updateCountryFx } from './model';
 
 updateCountryFx.use(async ({ map, paintData, countryId }) => {
   if (!countryId || !map) return;
 
-  if (map.getLayer('selectedCountry')) {
-    map.removeLayer('selectedCountry');
-  }
-  if (map.getSource('selectedCountry')) {
-    map.removeSource('selectedCountry');
-  }
-
-  const countryData = await fetchCountryData(countryId);
+  const [countryData] = await Promise.all([
+    fetchCountryData(countryId),
+    removeCountryFx(map),
+  ]);
 
   map.addSource('selectedCountry', {
     type: 'geojson',

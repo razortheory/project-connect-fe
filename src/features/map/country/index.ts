@@ -1,3 +1,3 @@
 import './init';
 
-export { changeCountryIdFx } from './model';
+export { updateCountryFx, updateSchoolsFx } from './model';

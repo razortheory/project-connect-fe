@@ -1,22 +1,17 @@
-import { Map as MapboxMap, StylePaintData } from '~/features/map/types';
+import { Map, StylePaintData } from '~/features/map/types';
 
-// Experimental named params
-export type MapX = {
-  map: MapboxMap | null;
-};
-
-export type Map = {
-  map: MapboxMap;
-};
-
-export type PaintData = {
+export type UpdateCountry = {
+  map: Map | null;
   paintData: StylePaintData;
-};
-
-export type CountryId = {
   countryId: number;
 };
 
-export type ChangeCountry = MapX & PaintData & CountryId;
-export type UpdateCountry = Map & PaintData & CountryId;
-export type UpdateSchools = Map & CountryId;
+export type UpdateSchools = {
+  map: Map | null;
+  countryId: number;
+};
+
+export type LeaveCountryRoute = {
+  map: Map | null;
+  paintData: StylePaintData;
+};

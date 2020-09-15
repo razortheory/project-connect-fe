@@ -4,19 +4,15 @@ import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
 import { fetchCountrySchools } from '~/features/map/api';
 import { connectivityStatusPaintData } from '~/features/map/constants';
 
-import { updateSchoolsFx } from './model';
+import { removeSchoolsFx, updateSchoolsFx } from './model';
 
 updateSchoolsFx.use(async ({ map, countryId }) => {
   if (!countryId || !map) return;
 
-  if (map.getLayer('schools')) {
-    map.removeLayer('schools');
-  }
-  if (map.getSource('schools')) {
-    map.removeSource('schools');
-  }
-
-  const schools = await fetchCountrySchools(countryId);
+  const [schools] = await Promise.all([
+    fetchCountrySchools(countryId),
+    removeSchoolsFx(map),
+  ]);
 
   if (schools.features.length > 0) {
     map.addSource('schools', {
