@@ -14,9 +14,9 @@ import { createRequest } from '~/lib/request';
 
 import {
   connectivityStatusPaintData,
-  countriesPaintData,
   defaultCenter,
   defaultZoom,
+  stylePaintData,
   styleUrls,
 } from './constants';
 import {
@@ -31,6 +31,7 @@ import {
   $map,
   $selectedCountryId,
   $style,
+  $stylePaintData,
   changeCountryId,
   changeMap,
   changeStyle,
@@ -46,7 +47,7 @@ import {
   CountryGeometryData,
   InitMapOptions,
   SchoolData,
-  Style,
+  StylePaintData,
 } from './types';
 
 // create request
@@ -86,6 +87,12 @@ $countriesFeatureCollection.on(
 );
 
 sample({
+  source: $style,
+  fn: (style) => stylePaintData[style],
+  target: $stylePaintData,
+});
+
+sample({
   source: guard(mapCountry.params, { filter: Boolean }),
   fn: (params) => Number(params?.id),
   target: changeCountryId,
@@ -100,7 +107,7 @@ sample({
 
 const $mapScope = combine({
   map: $map,
-  style: $style,
+  paintData: $stylePaintData,
 });
 
 const onMapInit = sample({
@@ -141,7 +148,7 @@ const addLoaderToMap = (map: mapboxGL.Map | null) => {
 
 const addCountriesToMap = (
   map: mapboxGL.Map | null,
-  style: Style,
+  paintData: StylePaintData,
   countriesGeometry: FeatureCollection
 ) => {
   let hoveredCountryId = 0;
@@ -153,8 +160,6 @@ const addCountriesToMap = (
     type: 'geojson',
     data: countriesGeometry,
   });
-
-  const paintData = countriesPaintData[style];
 
   map?.addLayer({
     id: 'countries',
@@ -183,6 +188,11 @@ const addCountriesToMap = (
       ],
     },
   });
+
+  // remove loader after loading data
+  if (loaderMarker) {
+    loaderMarker.remove();
+  }
 
   map?.on('click', 'countries', (event: MapLayerMouseEvent) => {
     if (!event.features || !event.features[0]) {
@@ -262,26 +272,22 @@ initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
   addLoaderToMap(map);
 
   map.on('load', () => {
-    // remove loader after loading data
-    if (loaderMarker) {
-      loaderMarker.remove();
-    }
     changeMap(map);
   });
 });
 
 $mapScope.watch(
   $countriesFeatureCollection,
-  ({ map, style }, countriesGeometry: FeatureCollection | null) => {
+  ({ map, paintData }, countriesGeometry: FeatureCollection | null) => {
     if (!countriesGeometry) {
       return;
     }
-    addCountriesToMap(map, style, countriesGeometry);
+    addCountriesToMap(map, paintData, countriesGeometry);
   }
 );
 
-$mapScope.watch(onMapInit, ({ map, style }, countriesGeometry) => {
-  addCountriesToMap(map, style, countriesGeometry);
+$mapScope.watch(onMapInit, ({ map, paintData }, countriesGeometry) => {
+  addCountriesToMap(map, paintData, countriesGeometry);
 });
 
 $map.watch(zoomIn, (map) => {
@@ -307,7 +313,7 @@ $map.watch(changeStyle, (map, style) => {
   });
 });
 
-$mapScope.watch(changeCountryId, async ({ map, style }, countryId) => {
+$mapScope.watch(changeCountryId, async ({ map, paintData }, countryId) => {
   if (!countryId) {
     return;
   }
@@ -328,7 +334,6 @@ $mapScope.watch(changeCountryId, async ({ map, style }, countryId) => {
       properties: {},
     },
   });
-  const paintData = countriesPaintData[style];
   map?.addLayer({
     id: 'selectedCountry',
     type: 'fill',
@@ -428,12 +433,11 @@ $mapScope.watch(changeCountryId, async ({ map, style }, countryId) => {
   }
 });
 
-$mapScope.watch(onLeaveMapCountry, ({ map, style }) => {
+$mapScope.watch(onLeaveMapCountry, ({ map, paintData }) => {
   map?.flyTo({
     center: defaultCenter,
     zoom: defaultZoom,
   });
-  const paintData = countriesPaintData[style];
   map?.setPaintProperty('countries', 'fill-color', [
     'match',
     ['get', 'integration_status'],

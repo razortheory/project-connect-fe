@@ -6,7 +6,7 @@ export type Center = mapboxGl.LngLatLike;
 export type Zoom = number;
 export type Map = mapboxGl.Map;
 
-export type CountriesPaintData = {
+export type StylePaintData = {
   background: string;
   countryNotVerified: string;
   countryVerified: string;

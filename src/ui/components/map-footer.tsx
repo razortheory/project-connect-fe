@@ -4,12 +4,14 @@ import React from 'react';
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import { mapCountry } from '~/core/routes';
+import { connectivityStatusPaintData, styles } from '~/features/map/constants';
 import {
-  connectivityStatusPaintData,
-  countriesPaintData,
-  styles,
-} from '~/features/map/constants';
-import { $style, changeStyle, zoomIn, zoomOut } from '~/features/map/model';
+  $style,
+  $stylePaintData,
+  changeStyle,
+  zoomIn,
+  zoomOut,
+} from '~/features/map/model';
 
 const MapZoom = () => (
   <div className="footer__map-resizer map-resizer">
@@ -32,8 +34,7 @@ const MapZoom = () => (
 );
 
 const MapLegendForCountries = () => {
-  const style = useStore($style);
-  const paintData = countriesPaintData[style];
+  const paintData = useStore($stylePaintData);
   return (
     <ul className="footer__map-legend map-legend">
       <li

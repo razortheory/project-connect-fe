@@ -4,8 +4,8 @@ import React from 'react';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
-import { countriesPaintData, statusPaintField } from '~/features/map/constants';
-import { $countriesData, $style } from '~/features/map/model';
+import { statusPaintField } from '~/features/map/constants';
+import { $countriesData, $stylePaintData } from '~/features/map/model';
 import { CountryData } from '~/features/map/types';
 import { Link, useRoute } from '~/lib/router';
 
@@ -14,8 +14,7 @@ import { SearchResults } from './search-results';
 
 const CountriesList = () => {
   const countries = useStore($countriesData);
-  const style = useStore($style);
-  const paintData = countriesPaintData[style];
+  const paintData = useStore($stylePaintData);
 
   if (!countries) {
     return <>Loading...</>;
