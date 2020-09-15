@@ -1,3 +1,5 @@
+import { FeatureCollection } from 'geojson';
+
 import { Map, StylePaintData } from '~/features/map/types';
 
 export type UpdateCountry = {
@@ -14,4 +16,10 @@ export type UpdateSchools = {
 export type LeaveCountryRoute = {
   map: Map | null;
   paintData: StylePaintData;
+};
+
+export type AddCountries = {
+  map: Map | null;
+  paintData: StylePaintData;
+  countriesGeoJson: FeatureCollection;
 };

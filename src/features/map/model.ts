@@ -36,8 +36,6 @@ export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
   null
 );
 export const $countriesData = createStore<CountryData[] | null>(null);
-export const $countriesFeatureCollection = createStore<FeatureCollection | null>(
-  null
-);
+export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
 
 export const $pending = createStore<boolean>(false);
