@@ -1,12 +1,51 @@
 .week-graph {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.week-graph__days-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.week-graph__button {
+  @include transition;
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  margin-bottom: 2.5rem;
+  padding: 0;
+  color: #808080;
+  font-size: 2rem;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &--prev {
+    margin-right: 1.3rem;
+    margin-left: -0.5rem;
+  }
+
+  &--next {
+    margin-right: -0.5rem;
+    margin-left: 1.3rem;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-primary;
+    background-color: #373c46;
+  }
 }
 
 .week-graph__item {
   display: flex;
   flex-direction: column;
-  margin-right: 2.8rem;
+
+  &:not(:last-child) {
+    margin-right: 2.8rem;
+  }
 }
 
 .week-graph__pillar {
@@ -45,4 +84,36 @@
   font-size: 1.3rem;
   font-family: $font-family-secondary;
   line-height: 2rem;
+}
+
+.week-graph-button {
+  @include transition;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-left: -0.5rem;
+  padding: 0.5rem;
+  color: $color-primary;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: $font-family-primary;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #494f5d;
+  }
+
+  &:active {
+    background-color: #494f5d;
+  }
+}
+
+.week-graph-button__icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
 }

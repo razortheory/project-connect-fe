@@ -1,0 +1,28 @@
+.footer-menu {
+  @include list-unstyled;
+}
+
+.footer-menu__item {
+  //display: inline-flex;
+}
+
+.footer-menu__link {
+  @include transition;
+  color: $text-color-light;
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: $font-family-primary;
+  line-height: 3rem;
+  letter-spacing: 0.167rem;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $color-primary-hover;
+  }
+
+  &:active {
+    color: $color-primary-active;
+  }
+}

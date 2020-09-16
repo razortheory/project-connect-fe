@@ -48,3 +48,137 @@
     display: flex;
   }
 }
+
+.footer__row {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(md) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+}
+
+.footer__info-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(sm) {
+    flex-flow: row nowrap;
+  }
+}
+
+.footer__info {
+  @include media-breakpoint-up(sm) {
+    max-width: 22rem;
+    margin-right: 3rem;
+  }
+}
+
+.footer__main-logo {
+  @include transition;
+  display: inline-flex;
+  margin-top: 0;
+  margin-bottom: 3.6rem;
+  color: $text-color-light;
+  font-weight: 500;
+  font-size: 2rem;
+  font-family: $font-family-primary;
+  line-height: 2.4rem;
+  letter-spacing: 0.16rem;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    color: $color-primary-hover;
+  }
+
+  &:active {
+    color: $color-primary-active;
+  }
+}
+
+.footer__description {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $text-color-light;
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+
+.footer__supporters {
+  display: flex;
+  flex-flow: row wrap;
+
+  @include media-breakpoint-only(md) {
+    flex-direction: column;
+  }
+}
+
+.footer__supporters-title {
+  width: 100%;
+  margin-top: 4rem;
+  color: $text-color-light;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: $font-family-primary;
+  line-height: 1.1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 6.9rem;
+  }
+}
+
+.footer__supporter-logo {
+  height: 4.8rem;
+
+  &:not(:last-child) {
+    margin-right: 3.3rem;
+
+    @include media-breakpoint-only(md) {
+      margin-right: 0;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+
+  @include media-breakpoint-up(xs) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 6rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+.footer__menu {
+  margin-right: 3rem;
+
+  @include media-breakpoint-up(lg) {
+    margin-right: 8rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    margin-right: 17rem;
+  }
+}
+
+.footer__socials {
+  margin-top: 4rem;
+
+  @include media-breakpoint-up(xs) {
+    margin-top: 0;
+  }
+}

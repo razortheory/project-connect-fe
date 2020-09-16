@@ -1,0 +1,60 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-color-light;
+
+  &--inverted {
+    color: $text-color-dark;
+  }
+}
+
+.not-found__icon {
+  width: 3.3rem;
+  height: 4.4rem;
+  margin-bottom: 1.5rem;
+  background-color: #b6bbc6; /* Remove when SVG icon will be added */
+}
+
+.not-found__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 2.3rem;
+  font-family: $font-family-primary;
+  line-height: 3rem;
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.not-found__description {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.3rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.not-found__link {
+  @include transition;
+  color: $color-primary;
+  text-decoration: underline;
+
+  &:hover,
+  &:focus {
+    color: $color-primary-hover;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $color-primary-active;
+    text-decoration: none;
+  }
+}

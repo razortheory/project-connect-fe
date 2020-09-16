@@ -1,0 +1,16 @@
+.textarea {
+  @include transition;
+  min-height: 10rem;
+  padding: 1.3rem 2rem;
+  color: $color-primary;
+  font-size: 1.9rem;
+  font-family: $font-family-secondary;
+  line-height: 2.7rem;
+  border: solid 1px #b6bbc6;
+  border-radius: 5px;
+  outline-color: transparent;
+
+  &:focus {
+    outline-color: #2779ff;
+  }
+}

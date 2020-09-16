@@ -1,0 +1,47 @@
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.radio__label {
+  color: $text-color-light;
+  font-size: 1.9rem;
+  font-family: $font-family-secondary;
+  line-height: 2.7rem;
+}
+
+.radio__marker {
+  @include transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: #6e737d;
+
+  &::after {
+    display: inline-flex;
+    width: 0.4rem;
+    height: 0.7rem;
+    border: solid $text-color-light;
+    border-width: 0 0.2rem 0.2rem 0;
+    transform: rotate(45deg);
+    opacity: 0%;
+    content: '';
+  }
+}
+
+.radio__input {
+  @include visually-hidden;
+}
+
+.radio__input:checked ~ .radio__marker {
+  background-color: $color-primary;
+
+  &::after {
+    opacity: 100%;
+  }
+}

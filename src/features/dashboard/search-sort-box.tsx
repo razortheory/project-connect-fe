@@ -26,7 +26,6 @@ export const SearchSortBox = () => (
       <div className="search-bar__icon">
         <IconSearch />
       </div>
-
       <input
         className="search-bar__input"
         type="text"
@@ -34,9 +33,8 @@ export const SearchSortBox = () => (
         onChange={onChange}
         value={useStore($searchText)}
       />
-
       <button type="button" className="search-bar__close" onClick={onClear}>
-        +
+        <span className="visually-hidden">Clear search</span>
       </button>
     </div>
 

@@ -2,10 +2,10 @@ import { createEvent, createStore, sample } from 'effector';
 import { useStore } from 'effector-react';
 import React, { ChangeEvent } from 'react';
 
+import IconSearch from '~/assets/images/icon-search.svg';
 import { $countriesData } from '~/features/map/country';
 import { CountryData } from '~/features/map/types';
 import { getVoid, setPayload } from '~/lib/effector-kit';
-
 // Helpers
 export const getTargetValue = (event: ChangeEvent<HTMLInputElement>) =>
   event.target.value;
@@ -53,7 +53,9 @@ const onClear = clearSearchText.prepend(getVoid);
 
 export const Search = () => (
   <div className="sidebar__search-bar search-bar">
-    <div className="search-bar__icon" />
+    <div className="search-bar__icon">
+      <IconSearch />
+    </div>
     <input
       className="search-bar__input"
       type="text"
@@ -62,7 +64,7 @@ export const Search = () => (
       value={useStore($searchText)}
     />
     <button className="search-bar__close" type="button" onClick={onClear}>
-      +
+      <span className="visually-hidden">Clear search</span>
     </button>
   </div>
 );

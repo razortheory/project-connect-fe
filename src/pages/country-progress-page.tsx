@@ -26,16 +26,16 @@ export const CountryProgressPage = () => (
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <h3 className="info-list__title">30%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">30%</p>
+                  <h3 className="info-list__title">
                     Countries with real time connectivity data
-                  </p>
+                  </h3>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">78.2%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">78.2%</p>
+                  <h3 className="info-list__title">
                     Countries committed to Project Connect
-                  </p>
+                  </h3>
                 </li>
               </ul>
             </div>

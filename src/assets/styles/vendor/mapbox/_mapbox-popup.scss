@@ -1,0 +1,17 @@
+/* Double class used to force style overrides */
+.mapboxgl-popup-anchor-bottom,
+.mapboxgl-popup-anchor-top,
+.mapboxgl-popup-anchor-right,
+.mapboxgl-popup-anchor-left {
+  .mapboxgl-popup-tip.mapboxgl-popup-tip {
+    border-top-color: #232832;
+  }
+}
+
+.mapboxgl-popup-content.mapboxgl-popup-content {
+  padding: 2.9rem 2rem;
+  background-color: #232832;
+  border-top: 0.9rem solid #8bd432;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.24%);
+}

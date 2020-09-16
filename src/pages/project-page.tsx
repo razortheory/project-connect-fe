@@ -3,11 +3,14 @@ import React from 'react';
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import IconAccountability from '~/assets/images/icon-accountability.svg';
 import IconEquity from '~/assets/images/icon-data-equity.svg';
+import IconFacebook from '~/assets/images/icon-facebook-logo.svg';
+import IconGithub from '~/assets/images/icon-github-logo.svg';
 import IconPlanning from '~/assets/images/icon-information-for-planning.svg';
 import IconInvestment from '~/assets/images/icon-investment.svg';
 import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
 import IconMarket from '~/assets/images/icon-market-data.svg';
 import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
+import IconTwitter from '~/assets/images/icon-twitter-logo.svg';
 import LogoArm from '~/assets/images/logo-arm.svg';
 import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
@@ -119,87 +122,141 @@ export const Media = () => (
 );
 
 export const JoinUs = () => (
-  <section className="section section--inverted">
-    <h2 className="visually-hidden">Partner with us</h2>
-    <div className="container partnership">
-      <div className="partnership__row">
-        <div className="partnership__tabs-list">
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Government
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Non-profit or similar
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            International organization
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            Development bank
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            ISP or Network provider
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            tech company
-          </button>
-          <button
-            type="button"
-            className="partnership__button button button--large button--tertiary"
-          >
-            research institute
-          </button>
-        </div>
-        <div className="partnership__tab-content">
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
-          <h3 className="partnership__title">Share your data</h3>
-          <p className="partnership__description">
-            We are looking for information on locations of schools and their
-            level of online connectivity. However, any piece of information
-            about schools that you are interested in sharing, no matter how
-            small, is extremely useful.
-          </p>
+  <>
+    <section className="section section--inverted">
+      <h2 className="visually-hidden">Partner with us</h2>
+      <div className="container partnership">
+        <div className="partnership__row">
+          <div className="partnership__tabs-list">
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Government
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Non-profit or similar
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              International organization
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              Development bank
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              ISP or Network provider
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              tech company
+            </button>
+            <button
+              type="button"
+              className="partnership__button button button--large button--tertiary"
+            >
+              research institute
+            </button>
+          </div>
+          <div className="partnership__tab-content">
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+            <h3 className="partnership__title">Share your data</h3>
+            <p className="partnership__description">
+              We are looking for information on locations of schools and their
+              level of online connectivity. However, any piece of information
+              about schools that you are interested in sharing, no matter how
+              small, is extremely useful.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+    <section className="section">
+      <div className="container feedback">
+        <h2 className="section__title">Write to us</h2>
+        <div className="feedback__row">
+          <div className="feedback__col">
+            <h3 className="feedback__title">
+              Drop us a few lines about how you would like to engage with us.
+            </h3>
+            <form action="" className="feedback__form form">
+              <div className="form__row">
+                <label htmlFor="name" className="form__item">
+                  <p className="form__label">Full Name</p>
+                  <input id="name" className="form__input input" type="text" />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="organization" className="form__item">
+                  <p className="form__label">Your organisation</p>
+                  <input
+                    id="organization"
+                    className="form__input input"
+                    type="text"
+                  />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="purpose" className="form__item">
+                  <p className="form__label">Purpose</p>
+                  <input
+                    id="purpose"
+                    className="form__input input"
+                    type="text"
+                  />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="message" className="form__item">
+                  <p className="form__label">Your message</p>
+                  <textarea id="message" className="form__input textarea" />
+                </label>
+              </div>
+              <button
+                type="button"
+                className="button button--full-width button--primary"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </>
 );
 
 export const About = () => (
@@ -224,16 +281,16 @@ export const About = () => (
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <h3 className="info-list__title">30%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">30%</p>
+                  <h3 className="info-list__title">
                     Countries with real time connectivity data
-                  </p>
+                  </h3>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">78.2%</h3>
-                  <p className="info-list__description">
+                  <p className="info-list__description">78.2%</p>
+                  <h3 className="info-list__title">
                     Countries committed to Project Connect
-                  </p>
+                  </h3>
                 </li>
               </ul>
             </div>
@@ -573,8 +630,79 @@ export const ProjectPage = () => (
         {useRoute(joinUs) && <JoinUs />}
       </main>
       <footer className="footer">
-        <Giga className="footer__logo" alt="Unicef logo" />
-        <Unicef className="footer__logo" alt="Giga logo" />
+        <div className="container">
+          <div className="footer__row">
+            <div className="footer__info-wrapper">
+              <div className="footer__info">
+                <a href="/" className="footer__main-logo">
+                  Project Connect
+                </a>
+                <p className="footer__description">
+                  Connecting every young person to information, opportunity and
+                  choice.
+                </p>
+              </div>
+              <div className="footer__supporters">
+                <h4 className="footer__supporters-title">Supported by</h4>
+                <Giga className="footer__supporter-logo" alt="Unicef logo" />
+                <Unicef className="footer__supporter-logo" alt="Giga logo" />
+              </div>
+            </div>
+
+            <nav className="footer__nav">
+              <ul className="footer__menu footer-menu">
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Connectivity map
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    About
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Country Progress
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Methods & data privacy
+                  </a>
+                </li>
+                <li className="footer-menu__item">
+                  <a href="/" className="footer-menu__link">
+                    Join us
+                  </a>
+                </li>
+              </ul>
+              <ul className="footer__socials footer-socials">
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <IconTwitter />
+                    </span>
+                  </a>
+                </li>
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <IconFacebook />
+                    </span>
+                  </a>
+                </li>
+                <li className="footer-socials__item">
+                  <a href="/" className="footer-socials__link">
+                    <span className="footer-socials__icon">
+                      <IconGithub />
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </footer>
     </div>
   </AppFrame>

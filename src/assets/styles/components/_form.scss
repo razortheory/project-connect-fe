@@ -1,0 +1,40 @@
+.form {
+  width: 100%;
+}
+
+.form__label {
+  @include transition;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  color: #b6bbc6;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.form__input {
+  // empty
+}
+
+.form__item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &:focus-within {
+    .form__label {
+      color: #0068ea;
+    }
+  }
+}
+
+.form__row {
+  display: flex;
+  flex-direction: row;
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}

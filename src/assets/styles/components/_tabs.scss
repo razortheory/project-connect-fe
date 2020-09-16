@@ -12,6 +12,12 @@
   }
 }
 
+/* Temporary solution, should not be a button inside link */
+.tabs__link {
+  display: inline-flex;
+  height: 100%;
+}
+
 .tabs__button {
   @include transition;
   padding: 1.6rem 1.5rem;
