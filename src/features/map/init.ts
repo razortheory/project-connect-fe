@@ -11,9 +11,8 @@ import { stylePaintData } from './constants';
 import {
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
-  updateCountryFx,
-  updateSchoolsFx,
 } from './country';
+import { fetchCountryDataFx, fetchCountrySchoolsFx } from './country/model';
 import {
   $loader,
   $map,
@@ -42,8 +41,8 @@ sample({
 // Update pending status
 sample({
   source: combine([
-    updateSchoolsFx.pending,
-    updateCountryFx.pending,
+    fetchCountrySchoolsFx.pending,
+    fetchCountryDataFx.pending,
     fetchCountriesDataFx.pending,
     fetchCountriesGeometryDataFx.pending,
     // Other effects
