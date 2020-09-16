@@ -1,51 +1,91 @@
 import React from 'react';
 
-export const DailySpeedGraph = () => (
+import Chevron from '~/assets/images/chevron.svg';
+import IconHistory from '~/assets/images/icon-history.svg';
+
+export interface DailySpeedGraphProps {
+  showButtons?: boolean;
+  showHistory?: boolean;
+}
+
+export const DailySpeedGraph: React.FC<DailySpeedGraphProps> = (
+  props: DailySpeedGraphProps
+) => (
   <>
     <h3 className="sidebar__secondary-title">Daily speed graph (download)</h3>
     <div className="week-graph">
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--good" />
+      {/* eslint-disable-next-line react/destructuring-assignment */}
+      {props.showButtons && (
+        <button
+          type="button"
+          className="week-graph__button week-graph__button--prev"
+        >
+          <Chevron
+            className="chevron chevron--left"
+            alt="Go to previous week"
+          />
+        </button>
+      )}
+      <div className="week-graph__days-wrapper">
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--good" />
+          </div>
+          <span className="week-graph__day">F</span>
         </div>
-        <span className="week-graph__day">F</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--bad" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--bad" />
+          </div>
+          <span className="week-graph__day">Sa</span>
         </div>
-        <span className="week-graph__day">Sa</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--middle" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--middle" />
+          </div>
+          <span className="week-graph__day">Su</span>
         </div>
-        <span className="week-graph__day">Su</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--middle" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--middle" />
+          </div>
+          <span className="week-graph__day">M</span>
         </div>
-        <span className="week-graph__day">M</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--good" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--good" />
+          </div>
+          <span className="week-graph__day">Tu</span>
         </div>
-        <span className="week-graph__day">Tu</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--bad" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--bad" />
+          </div>
+          <span className="week-graph__day">W</span>
         </div>
-        <span className="week-graph__day">W</span>
-      </div>
-      <div className="week-graph__item">
-        <div className="week-graph__pillar">
-          <div className="week-graph__filler week-graph__filler--middle" />
+        <div className="week-graph__item">
+          <div className="week-graph__pillar">
+            <div className="week-graph__filler week-graph__filler--middle" />
+          </div>
+          <span className="week-graph__day">Th</span>
         </div>
-        <span className="week-graph__day">Th</span>
       </div>
+      {/* eslint-disable-next-line react/destructuring-assignment */}
+      {props.showButtons && (
+        <button
+          type="button"
+          className="week-graph__button week-graph__button--next"
+        >
+          <Chevron className="chevron" alt="Go to next week" />
+        </button>
+      )}
     </div>
+    {/* eslint-disable-next-line react/destructuring-assignment */}
+    {props.showHistory && (
+      <button type="button" className="week-graph-button">
+        <IconHistory className="week-graph-button__icon" />
+        View history
+      </button>
+    )}
   </>
 );

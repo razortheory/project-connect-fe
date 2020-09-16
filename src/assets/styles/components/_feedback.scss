@@ -1,0 +1,38 @@
+.feedback {
+  margin-top: 8rem;
+}
+
+.feedback__row {
+  @include make-row;
+}
+
+.feedback__col {
+  @include make-col-ready;
+  @include make-col(12);
+
+  @include media-breakpoint-up(sm) {
+    max-width: 520px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.feedback__title {
+  margin-top: 0;
+  margin-bottom: 3rem;
+  color: $text-color-dark;
+  font-size: 2.6rem;
+  line-height: 3.2rem;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 4.5rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    margin-bottom: 6rem;
+  }
+}
+
+.feedback__form {
+  max-width: 490px;
+}

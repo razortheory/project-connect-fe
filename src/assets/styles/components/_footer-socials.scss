@@ -1,0 +1,45 @@
+.footer-socials {
+  @include list-unstyled;
+  display: flex;
+  flex-direction: row;
+
+  @include media-breakpoint-up(xs) {
+    flex-direction: column;
+  }
+}
+
+.footer-socials__item {
+  display: inline-flex;
+
+  &:not(:last-child) {
+    margin-right: 2.2rem;
+
+    @include media-breakpoint-up(xs) {
+      margin-right: 0;
+      margin-bottom: 2.2rem;
+    }
+  }
+}
+
+.footer-socials__link {
+  display: inline-flex;
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $text-color-light;
+  }
+
+  &:active {
+    color: $color-primary-active;
+  }
+}
+
+.footer-socials__icon {
+  @include transition;
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  font-size: 3.2rem;
+}

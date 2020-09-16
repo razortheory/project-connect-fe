@@ -1,0 +1,10 @@
+.radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-group__item {
+  &:not(:last-child) {
+    margin-bottom: 1.8rem;
+  }
+}

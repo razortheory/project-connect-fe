@@ -10,7 +10,7 @@
     @include transition;
     position: absolute;
     top: 7rem;
-    bottom: 2.4rem;
+    bottom: 8.3rem;
     left: 2.4rem;
     width: 33.4rem;
     height: auto;
@@ -22,6 +22,13 @@
       .sidebar__expander > svg {
         transform: rotate(0deg);
       }
+    }
+  }
+
+  /* add .sidebar--show-map for map tab */
+  &--show-map {
+    @include media-breakpoint-down(sm) {
+      height: auto;
     }
   }
 }
@@ -87,9 +94,25 @@
   text-transform: uppercase;
 }
 
+.sidebar__search-bar {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+}
+
 .sidebar__content {
-  flex: 1 0 auto;
+  flex: 0 1 100%;
   padding: 2.4rem;
+  overflow: auto;
+  background-color: #232832;
+
+  &--hidden {
+    display: none;
+  }
 }
 
 .sidebar__paragraph {

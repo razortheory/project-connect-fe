@@ -47,7 +47,7 @@ export const MapCountry = () => (
         </li>
       </ul>
       <hr className="sidebar__divider" />
-      <DailySpeedGraph />
+      <DailySpeedGraph showHistory showButtons />
     </div>
   </>
 );

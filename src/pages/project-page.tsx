@@ -3,12 +3,15 @@ import React from 'react';
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import IconAccountability from '~/assets/images/icon-accountability.svg';
 import IconEquity from '~/assets/images/icon-data-equity.svg';
+import IconFacebook from '~/assets/images/icon-facebook-logo.svg';
+import IconGithub from '~/assets/images/icon-github-logo.svg';
 import IconPlanning from '~/assets/images/icon-information-for-planning.svg';
 import IconInvestment from '~/assets/images/icon-investment.svg';
 import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
 import IconMarket from '~/assets/images/icon-market-data.svg';
 import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
 import IconSearch from '~/assets/images/icon-search.svg';
+import IconTwitter from '~/assets/images/icon-twitter-logo.svg';
 import LogoArm from '~/assets/images/logo-arm.svg';
 import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
@@ -692,6 +695,58 @@ export const JoinUs = () => (
         </div>
       </div>
     </section>
+    <section className="section">
+      <div className="container feedback">
+        <h2 className="section__title">Write to us</h2>
+        <div className="feedback__row">
+          <div className="feedback__col">
+            <h3 className="feedback__title">
+              Drop us a few lines about how you would like to engage with us.
+            </h3>
+            <form action="" className="feedback__form form">
+              <div className="form__row">
+                <label htmlFor="name" className="form__item">
+                  <p className="form__label">Full Name</p>
+                  <input id="name" className="form__input input" type="text" />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="organization" className="form__item">
+                  <p className="form__label">Your organisation</p>
+                  <input
+                    id="organization"
+                    className="form__input input"
+                    type="text"
+                  />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="purpose" className="form__item">
+                  <p className="form__label">Purpose</p>
+                  <input
+                    id="purpose"
+                    className="form__input input"
+                    type="text"
+                  />
+                </label>
+              </div>
+              <div className="form__row">
+                <label htmlFor="message" className="form__item">
+                  <p className="form__label">Your message</p>
+                  <textarea id="message" className="form__input textarea" />
+                </label>
+              </div>
+              <button
+                type="button"
+                className="button button--full-width button--primary"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </>
 );
 
@@ -1117,54 +1172,21 @@ export const ProjectPage = () => (
                 <li className="footer-socials__item">
                   <a href="/" className="footer-socials__link">
                     <span className="footer-socials__icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                      >
-                        <path
-                          fill="#2779FF"
-                          fillRule="evenodd"
-                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
-                        />
-                      </svg>
+                      <IconTwitter />
                     </span>
                   </a>
                 </li>
                 <li className="footer-socials__item">
                   <a href="/" className="footer-socials__link">
                     <span className="footer-socials__icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                      >
-                        <path
-                          fill="#2779FF"
-                          fillRule="evenodd"
-                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
-                        />
-                      </svg>
+                      <IconFacebook />
                     </span>
                   </a>
                 </li>
                 <li className="footer-socials__item">
                   <a href="/" className="footer-socials__link">
                     <span className="footer-socials__icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                      >
-                        <path
-                          fill="#2779FF"
-                          fillRule="evenodd"
-                          d="M32 0v32H0V0h32zM20.107 7.724c-2.207 0-3.996 1.831-3.996 4.089 0 .32.035.632.103.931-3.32-.17-6.265-1.798-8.236-4.272-.345.602-.54 1.305-.54 2.055 0 1.419.706 2.67 1.777 3.403-.655-.022-1.271-.206-1.81-.513v.051c0 1.98 1.378 3.634 3.205 4.01-.335.092-.688.143-1.053.143-.258 0-.508-.026-.752-.076.508 1.626 1.984 2.808 3.732 2.84-1.367 1.097-3.091 1.748-4.963 1.748-.323 0-.64-.02-.953-.056 1.768 1.163 3.868 1.84 6.125 1.84 7.351 0 11.37-6.23 11.37-11.635l-.014-.53c.785-.572 1.465-1.292 2-2.112-.718.325-1.487.546-2.296.644.826-.506 1.458-1.308 1.757-2.26-.774.467-1.629.808-2.54.992-.728-.796-1.766-1.292-2.916-1.292z"
-                        />
-                      </svg>
+                      <IconGithub />
                     </span>
                   </a>
                 </li>
