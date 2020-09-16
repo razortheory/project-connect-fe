@@ -49,51 +49,49 @@ $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $selectedCountryId.on(changeCountryId, setPayload);
 
-const $changeMapView = combine({
+const $mapScope = combine({
   map: $map,
   countriesGeometry: $countriesGeometryData,
+  paintData: $stylePaintData,
+  countryData: $countryData,
+  countrySchools: $countrySchools,
 });
 
 // Zoom to country bounds
 sample({
-  source: $changeMapView,
+  source: $mapScope,
   clock: changeCountryId,
   fn: ({ map, countriesGeometry }, countryId) => ({
     map,
-    countryId,
     countriesGeometry,
+    countryId,
   }),
   target: zoomToCountryBoundsFx,
 });
 
-// trigger fetch country data and schools data
+// Trigger fetch country data and schools data
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
   to: [fetchCountrySchoolsFx, fetchCountryDataFx],
 });
 
-// check for current country id and response country id
-const onGetCountryData = guard({
+// Check received countryData for relevance
+const countryDataReceived = guard({
   source: sample({
     source: $selectedCountryId,
     clock: fetchCountryDataFx.done,
     fn: (countryId, { params }) => ({
       countryId,
-      params,
+      doneCountryId: params,
     }),
   }),
-  filter: ({ countryId, params }) => countryId === params,
-});
-
-const $changeCountryData = combine({
-  map: $map,
-  paintData: $stylePaintData,
+  filter: ({ countryId, doneCountryId }) => countryId === doneCountryId,
 });
 
 sample({
-  source: combine([$changeCountryData, $countryData]),
-  clock: onGetCountryData,
-  fn: ([{ map, paintData }, countryData]) => ({
+  source: $mapScope,
+  clock: countryDataReceived,
+  fn: ({ map, paintData, countryData }) => ({
     map,
     paintData,
     countryData,
@@ -101,7 +99,7 @@ sample({
   target: updateCountryFx,
 });
 
-const onGetSchools = guard({
+const schoolsReceived = guard({
   source: sample({
     source: $selectedCountryId,
     clock: fetchCountrySchoolsFx.done,
@@ -114,9 +112,9 @@ const onGetSchools = guard({
 });
 
 sample({
-  source: combine([$map, $countrySchools]),
-  clock: onGetSchools,
-  fn: ([map, countrySchools]) => ({
+  source: $mapScope,
+  clock: schoolsReceived,
+  fn: ({ map, countrySchools }) => ({
     map,
     countrySchools,
   }),
@@ -139,10 +137,11 @@ sample({
 
 // Leave country route
 sample({
-  source: $changeCountryData,
+  source: $mapScope,
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
+  fn: ({ map, paintData }) => ({ map, paintData }),
   target: leaveCountryRouteFx,
 });
 
@@ -165,7 +164,7 @@ const onCountriesGeoJson = sample({
 });
 
 sample({
-  source: $changeCountryData,
+  source: $mapScope,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
   fn: ({ map, paintData }, countriesGeoJson) => ({
     map,
