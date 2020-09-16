@@ -1,27 +1,31 @@
 import { createEffect, createEvent, createStore } from 'effector';
-import { FeatureCollection } from 'geojson';
 
-import { defaultStyle } from './constants';
-import { Center, CountryData, InitMapOptions, Map, Style } from './types';
+import { defaultStyle, stylePaintData } from './constants';
+import {
+  Center,
+  InitMapOptions,
+  Map,
+  Marker,
+  Style,
+  StylePaintData,
+} from './types';
 
-export const initMap = createEvent<InitMapOptions>();
 export const changeMap = createEvent<Map>();
 export const changeStyle = createEvent<Style>();
 export const setCenter = createEvent<Center>();
 export const zoomIn = createEvent();
 export const zoomOut = createEvent();
-export const changeCountryId = createEvent<number>();
+export const setLoader = createEvent<Marker>();
 
-export const fetchCountriesGeometryDataFx = createEffect<
-  void,
-  FeatureCollection
->();
-export const fetchCountriesDataFx = createEffect<void, CountryData[]>();
+export const initMapFx = createEffect<InitMapOptions, void>();
+export const addLoaderToMapFx = createEffect<Map | null, void>();
+export const removeLoaderFromMapFx = createEffect<Marker | null, void>();
 
 export const $map = createStore<Map | null>(null);
 export const $style = createStore<Style>(defaultStyle);
-export const $selectedCountryId = createStore<number>(0);
-export const $countriesGeometryData = createStore<FeatureCollection | null>(
-  null
+export const $stylePaintData = createStore<StylePaintData>(
+  stylePaintData[defaultStyle]
 );
-export const $countriesData = createStore<CountryData[] | null>(null);
+
+export const $pending = createStore<boolean>(false);
+export const $loader = createStore<Marker | null>(null);

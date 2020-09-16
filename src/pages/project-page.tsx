@@ -34,6 +34,8 @@ import {
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
 
+// import { CountryProgressPage } from './country-progress-page';
+
 export const Media = () => (
   <section className="section">
     <h2 className="visually-hidden">Blog posts</h2>
