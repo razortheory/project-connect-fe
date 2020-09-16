@@ -2,6 +2,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import CountriesPicture from '~/assets/images/countries-dashboard.jpg';
+import { getReadablePercent } from '~/core/helpers';
 import { Dashboard } from '~/features/dashboard';
 import { $globalStats, fetchGlobalStatsDataFx } from '~/features/map//model';
 import { fetchCountriesDataFx } from '~/features/map/country/model';
@@ -16,10 +17,10 @@ const DescriptionSection = () => {
     $globalStats
   );
 
-  const connectedPercent = (
-    (100 / Number(countries_joined)) *
-    Number(countries_connected_to_realtime)
-  ).toFixed(1);
+  const connectedPercent = getReadablePercent(
+    (100 / Number(countries_joined)) * Number(countries_connected_to_realtime),
+    1
+  );
 
   const commitedCountries = Number(countries_joined) || 'No data';
 

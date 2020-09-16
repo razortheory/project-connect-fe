@@ -3,6 +3,7 @@
 import { format } from 'date-fns';
 
 import MapPreview from '~/assets/images/preview-placeholder.jpg';
+import { getReadablePercent } from '~/core/helpers';
 import { CountryData } from '~/features/map';
 
 import { DashboardCountryData } from './types';
@@ -31,7 +32,10 @@ export const getCountryInfo = (
     : format(new Date(joinDate), 'LLL yyyy');
   const readableDate = `${isListType ? '' : 'Joined in '}${dateFormat}`;
 
-  const progressPercent = Number(schools_with_data_percentage).toFixed(1);
+  const progressPercent = getReadablePercent(
+    Number(schools_with_data_percentage),
+    1
+  );
 
   const progressInfo = new Map([
     [
