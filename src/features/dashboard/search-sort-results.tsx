@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { format } from 'date-fns';
 import { useStore } from 'effector-react';
@@ -37,17 +38,17 @@ export const CountriesFound = () => {
           : format(new Date(joinedDate), 'LLL yyyy');
         const joinedTitle = `${isListType ? '' : 'Joined in '}${dateFormat}`;
 
-        const integrationStatus = integration_status ?? 'No data';
+        const integrationStatus = integration_status || 'No data';
         const countryDescription =
-          description ??
+          description ||
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum urna tortor, eget laoreet arcu fermentum sit amet. Sed aliquet, turpis vel fermentum elementum.';
-        const schoolPercent = schools_with_data_percentage ?? 'No data';
+        const progressPercent = Number(schools_with_data_percentage).toFixed(1);
 
         const progressBarPercent = {
-          width: `${schools_with_data_percentage ?? '5'}%`,
+          width: `${schools_with_data_percentage || '0'}%`,
         };
         const mapPreviewBackground = {
-          backgroundImage: `url(${map_preview ?? MapPreview})`,
+          backgroundImage: `url(${map_preview || MapPreview})`,
         };
 
         return (
@@ -94,7 +95,7 @@ export const CountriesFound = () => {
                   </div>
 
                   <div className="schools-connectivity__percentage-connected">
-                    {schoolPercent}
+                    {progressPercent}%
                   </div>
                 </div>
 
