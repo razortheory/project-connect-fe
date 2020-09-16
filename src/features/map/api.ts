@@ -4,7 +4,12 @@ import { FeatureCollection } from 'geojson';
 import { createRequest } from '~/lib/request';
 
 import { convertSchoolsDataToGeoJson } from './map-data-helpers';
-import { CountryData, CountryGeometryData, SchoolData } from './types';
+import {
+  CountryData,
+  CountryGeometryData,
+  GlobalStatsData,
+  SchoolData,
+} from './types';
 
 export const request = createRequest({
   baseUrl: 'https://api.projectconnect.razortheory.com/',
@@ -28,3 +33,6 @@ export const fetchCountriesData = async (): Promise<CountryData[]> =>
 export const fetchCountriesGeometryData = async (): Promise<
   CountryGeometryData[]
 > => request('api/locations/countries-boundary/');
+
+export const fetchGlobalStatsData = async (): Promise<GlobalStatsData> =>
+  request('api/statistics/global-stat/');

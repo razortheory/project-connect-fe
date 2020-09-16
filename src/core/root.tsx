@@ -6,6 +6,7 @@ import {
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
 } from '~/features/map/country/model';
+import { fetchGlobalStatsDataFx } from '~/features/map/model';
 import { useRoute } from '~/lib/router';
 import { MapPage, ProjectPage } from '~/pages';
 
@@ -17,6 +18,7 @@ export const Root = () => {
   useEffect(() => {
     void fetchCountriesDataFx();
     void fetchCountriesGeometryDataFx();
+    void fetchGlobalStatsDataFx();
   }, []);
 
   return (

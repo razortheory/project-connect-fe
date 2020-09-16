@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/naming-convention */
-import { format } from 'date-fns';
 import { useStore } from 'effector-react';
 import React from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
-import MapPreview from '~/assets/images/preview-placeholder.jpg';
 import { mapCountry } from '~/core/routes';
 import { CountryData } from '~/features/map/types';
 import { Link } from '~/lib/router';
 
+import { getCountryInfo } from './dashboard-helpers';
 import { $isListType, $noSearchResults, $searchResults } from './model';
 
 export const NotFound = () => <h1>Countries not found</h1>;
@@ -23,33 +20,16 @@ export const CountriesFound = () => {
       {searchResults?.map((country: CountryData) => {
         const {
           id,
-          flag,
           name,
+          flag,
+          joinDate,
           description,
-          date_of_join,
-          map_preview,
-          integration_status,
-          schools_with_data_percentage,
-        } = country;
-
-        const joinedDate = new Date(date_of_join as string);
-        const dateFormat = isListType
-          ? format(new Date(joinedDate), 'd LLL yyyy')
-          : format(new Date(joinedDate), 'LLL yyyy');
-        const joinedTitle = `${isListType ? '' : 'Joined in '}${dateFormat}`;
-
-        const integrationStatus = integration_status || 'No data';
-        const countryDescription =
-          description ||
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum urna tortor, eget laoreet arcu fermentum sit amet. Sed aliquet, turpis vel fermentum elementum.';
-        const progressPercent = Number(schools_with_data_percentage).toFixed(1);
-
-        const progressBarPercent = {
-          width: `${schools_with_data_percentage || '0'}%`,
-        };
-        const mapPreviewBackground = {
-          backgroundImage: `url(${map_preview || MapPreview})`,
-        };
+          progressPercent,
+          progressBarStyle,
+          mapPreviewStyle,
+          bubbleProgressClass,
+          progressDescription,
+        } = getCountryInfo(country, isListType);
 
         return (
           <div className="countries-list__item" key={id}>
@@ -66,12 +46,14 @@ export const CountriesFound = () => {
 
                   <h3 className="country__name">{name}</h3>
 
-                  <div className="country__date">{joinedTitle}</div>
+                  <div className="country__date">{joinDate}</div>
                 </div>
 
                 <div className="country__progress country-progress">
                   <h4 className="country__subtitle">Progress</h4>
-                  <div className="country-progress__bubbles country-progress__bubbles--real-time-data">
+                  <div
+                    className={`country-progress__bubbles country-progress__bubbles--${bubbleProgressClass}`}
+                  >
                     <div className="country-progress__bubble" />
                     <div className="country-progress__bubble" />
                     <div className="country-progress__bubble" />
@@ -79,7 +61,7 @@ export const CountriesFound = () => {
                   </div>
 
                   <h5 className="country-progress__title">
-                    {integrationStatus}
+                    {progressDescription}
                   </h5>
                 </div>
 
@@ -90,7 +72,7 @@ export const CountriesFound = () => {
                   <div className="schools-connectivity__bar">
                     <div
                       className="schools-connectivity__filler"
-                      style={progressBarPercent}
+                      style={progressBarStyle}
                     />
                   </div>
 
@@ -101,7 +83,7 @@ export const CountriesFound = () => {
 
                 <div className="country__separator" />
 
-                <p className="country__description">{countryDescription}</p>
+                <p className="country__description">{description}</p>
 
                 <Link
                   className="country__view-on-map view-on-map"
@@ -110,7 +92,7 @@ export const CountriesFound = () => {
                 >
                   <div
                     className="country__view-on-map view-on-map"
-                    style={mapPreviewBackground}
+                    style={mapPreviewStyle}
                   />
                 </Link>
 

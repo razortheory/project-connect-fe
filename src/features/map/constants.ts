@@ -1,6 +1,7 @@
 import {
   Center,
   ConnectivityStatus,
+  GlobalStatsData,
   IntegrationStatus,
   Style,
   StylePaintData,
@@ -79,4 +80,13 @@ export const connectivityStatusPaintData: {
   no: '#ff615b',
   moderate: '#ffc93d',
   good: '#8bd432',
+};
+
+export const defaultGlobalStats: GlobalStatsData = {
+  total_schools: 0,
+  schools_mapped: 0,
+  countries_joined: 0,
+  countries_with_static_data: 0,
+  countries_connected_to_realtime: 0,
+  percent_schools_without_connectivity: 0,
 };

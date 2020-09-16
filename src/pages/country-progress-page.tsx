@@ -1,10 +1,29 @@
+import { useStore } from 'effector-react';
 import React from 'react';
 
 import CountriesPicture from '~/assets/images/countries-dashboard.jpg';
 import { Dashboard } from '~/features/dashboard';
+import { $globalStats, fetchGlobalStatsDataFx } from '~/features/map//model';
+import { fetchCountriesDataFx } from '~/features/map/country/model';
 
-export const CountryProgressPage = () => (
-  <>
+// Model
+const $isLoading =
+  fetchGlobalStatsDataFx.pending || fetchCountriesDataFx.pending;
+
+const DescriptionSection = () => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { countries_joined, countries_connected_to_realtime } = useStore(
+    $globalStats
+  );
+
+  const connectedPercent = (
+    (100 / Number(countries_joined)) *
+    Number(countries_connected_to_realtime)
+  ).toFixed(1);
+
+  const commitedCountries = Number(countries_joined) || 'No data';
+
+  return (
     <section className="section">
       <div className="container">
         <div className="page-heading">
@@ -26,13 +45,13 @@ export const CountryProgressPage = () => (
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <p className="info-list__description">30%</p>
+                  <p className="info-list__description">{connectedPercent}%</p>
                   <h3 className="info-list__title">
                     Countries with real time connectivity data
                   </h3>
                 </li>
                 <li className="info-list__item">
-                  <p className="info-list__description">78.2%</p>
+                  <p className="info-list__description">{commitedCountries}</p>
                   <h3 className="info-list__title">
                     Countries committed to Project Connect
                   </h3>
@@ -43,7 +62,23 @@ export const CountryProgressPage = () => (
         </div>
       </div>
     </section>
+  );
+};
 
-    <Dashboard />
-  </>
-);
+export const CountryProgressPage = () => {
+  const globalStats = useStore($globalStats);
+  const noData = globalStats === null;
+
+  return useStore($isLoading) || noData ? (
+    <section className="section">
+      <div className="container">
+        <h1>Loading...</h1>
+      </div>
+    </section>
+  ) : (
+    <>
+      <DescriptionSection />
+      <Dashboard />
+    </>
+  );
+};

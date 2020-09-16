@@ -17,9 +17,9 @@
     "codestyle": "prettier --check '**/*'",
     "format": "prettier --write '**/*'",
     "fix": "yarn eslint --fix && yarn stylelint --fix",
-    "test": "jest --no-cache",
-    "test-silent": "jest --reporters=jest-silent-reporter",
-    "test-coverage": "jest --coverage",
+    "test": "NODE_ENV=test jest --no-cache",
+    "test-silent": "NODE_ENV=test jest --reporters=jest-silent-reporter",
+    "test-coverage": "NODE_ENV=test jest --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

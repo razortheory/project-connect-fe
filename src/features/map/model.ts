@@ -1,8 +1,9 @@
 import { createEffect, createEvent, createStore } from 'effector';
 
-import { defaultStyle, stylePaintData } from './constants';
+import { defaultGlobalStats, defaultStyle, stylePaintData } from './constants';
 import {
   Center,
+  GlobalStatsData,
   InitMapOptions,
   Map,
   Marker,
@@ -26,6 +27,9 @@ export const $style = createStore<Style>(defaultStyle);
 export const $stylePaintData = createStore<StylePaintData>(
   stylePaintData[defaultStyle]
 );
+export const $globalStats = createStore<GlobalStatsData>(defaultGlobalStats);
 
 export const $pending = createStore<boolean>(false);
 export const $loader = createStore<Marker | null>(null);
+
+export const fetchGlobalStatsDataFx = createEffect<void, GlobalStatsData>();

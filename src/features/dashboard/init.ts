@@ -1,10 +1,12 @@
 import { combine, sample } from 'effector';
 
-import { $countriesData } from '~/features/map/country';
+import { fetchGlobalStatsDataFx } from '~/features/map';
+import { $countriesData, fetchCountriesDataFx } from '~/features/map/country';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
   $isListType,
+  $isLoading,
   $noSearchResults,
   $searchResults,
   $searchText,
@@ -39,4 +41,14 @@ sample({
   source: $searchResults,
   fn: (countriesFound) => !countriesFound?.length,
   target: $noSearchResults,
+});
+
+// Update pending status
+sample({
+  source: combine([
+    fetchCountriesDataFx.pending,
+    fetchGlobalStatsDataFx.pending,
+  ]),
+  fn: (states) => states.some(Boolean),
+  target: $isLoading,
 });

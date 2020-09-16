@@ -55,3 +55,12 @@ export type SchoolData = {
 };
 
 export type ConnectivityStatus = 'no' | 'unknown' | 'moderate' | 'good';
+
+export type GlobalStatsData = {
+  total_schools: number;
+  schools_mapped: number;
+  countries_joined: number;
+  countries_with_static_data: number;
+  countries_connected_to_realtime: number;
+  percent_schools_without_connectivity: number;
+};
