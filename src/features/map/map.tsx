@@ -6,7 +6,7 @@ import React, { CSSProperties } from 'react';
 
 import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
 
-import { $style, initMap } from './model';
+import { $style, initMapFx } from './model';
 
 mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
@@ -16,7 +16,7 @@ sample({
   source: $style,
   clock: guard(onChangeRef, { filter: Boolean }),
   fn: (style, container) => ({ style, container }),
-  target: initMap,
+  target: initMapFx,
 });
 
 const mapStyles: CSSProperties = {

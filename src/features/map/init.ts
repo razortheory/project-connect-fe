@@ -1,16 +1,13 @@
 import './country/init';
+import './init-map';
+import './add-loader-to-map';
+import './remove-loader-from-map';
 
 import { combine, guard, sample } from 'effector';
-import mapboxGL from 'mapbox-gl';
 
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import {
-  defaultCenter,
-  defaultZoom,
-  stylePaintData,
-  styleUrls,
-} from './constants';
+import { stylePaintData } from './constants';
 import {
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
@@ -18,18 +15,20 @@ import {
   updateSchoolsFx,
 } from './country';
 import {
+  $loader,
   $map,
   $pending,
   $style,
   $stylePaintData,
+  addLoaderToMapFx,
   changeMap,
   changeStyle,
-  initMap,
+  initMapFx,
+  removeLoaderFromMapFx,
   setCenter,
   zoomIn,
   zoomOut,
 } from './model';
-import { InitMapOptions } from './types';
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
@@ -39,36 +38,6 @@ sample({
   fn: (style) => stylePaintData[style],
   target: $stylePaintData,
 });
-
-let loaderMarker: mapboxGL.Marker | undefined;
-// create loader
-// a loader with animation that is not wrapped in a container is displayed incorrectly
-const loader = document.createElement('div');
-loader.className = 'map-loader';
-const loaderWrapper = document.createElement('div');
-loaderWrapper.append(loader);
-
-const addLoaderToMap = (map: mapboxGL.Map | null) => {
-  if (!map) return;
-
-  // add loader
-  loaderMarker = new mapboxGL.Marker(loaderWrapper)
-    .setLngLat(map.getCenter())
-    .addTo(map);
-
-  // always display the loader in the center
-  map.on('zoom', () => {
-    if (loaderMarker) {
-      loaderMarker.setLngLat(map.getCenter());
-    }
-  });
-
-  map.on('move', () => {
-    if (loaderMarker) {
-      loaderMarker.setLngLat(map.getCenter());
-    }
-  });
-};
 
 // Update pending status
 sample({
@@ -83,24 +52,28 @@ sample({
   target: $pending,
 });
 
-$map.watch(guard($pending, { filter: Boolean }), addLoaderToMap);
-$map.watch(guard($pending, { filter: getInverted }), () => {
-  loaderMarker?.remove();
+sample({
+  source: guard($map, { filter: Boolean }),
+  clock: changeStyle,
+  fn: (map, style) => ({
+    container: map.getContainer(),
+    zoom: map.getZoom(),
+    center: map.getCenter(),
+    style,
+  }),
+  target: initMapFx,
 });
 
-initMap.watch(({ style, container, center, zoom }: InitMapOptions) => {
-  const map = new mapboxGL.Map({
-    style: styleUrls[style],
-    center: center ?? defaultCenter,
-    zoom: zoom ?? defaultZoom,
-    container,
-  });
+sample({
+  source: $map,
+  clock: guard($pending, { filter: Boolean }),
+  target: addLoaderToMapFx,
+});
 
-  addLoaderToMap(map);
-
-  map.on('load', () => {
-    changeMap(map);
-  });
+sample({
+  source: $loader,
+  clock: guard($pending, { filter: getInverted }),
+  target: removeLoaderFromMapFx,
 });
 
 $map.watch(zoomIn, (map) => {
@@ -113,15 +86,4 @@ $map.watch(zoomOut, (map) => {
 
 $map.watch(setCenter, (map, center) => {
   map?.setCenter(center);
-});
-
-$map.watch(changeStyle, (map, style) => {
-  if (!map) return;
-
-  initMap({
-    container: map.getContainer(),
-    zoom: map.getZoom(),
-    center: map.getCenter(),
-    style,
-  });
 });

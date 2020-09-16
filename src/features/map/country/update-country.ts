@@ -1,7 +1,6 @@
-import { Geometry, MultiPolygon, Polygon } from 'geojson';
+import { Geometry } from 'geojson';
 
 import { fetchCountryData } from '~/features/map/api';
-import { getPolygonBoundingBox } from '~/features/map/map-data-helpers';
 
 import { removeCountryFx, updateCountryFx } from './model';
 
@@ -13,6 +12,8 @@ updateCountryFx.use(async ({ map, paintData, countryId }) => {
     removeCountryFx(map),
   ]);
 
+  setTimeout(() => {}, 5000);
+
   map.addSource('selectedCountry', {
     type: 'geojson',
     data: {
@@ -22,16 +23,20 @@ updateCountryFx.use(async ({ map, paintData, countryId }) => {
     },
   });
 
-  map.addLayer({
-    id: 'selectedCountry',
-    type: 'fill',
-    source: 'selectedCountry',
-    paint: {
-      'fill-color': paintData.countrySelected,
-      'fill-opacity': paintData.opacity,
-      'fill-outline-color': paintData.background,
+  map.addLayer(
+    {
+      id: 'selectedCountry',
+      type: 'fill',
+      source: 'selectedCountry',
+      paint: {
+        'fill-color': paintData.countrySelected,
+        'fill-opacity': paintData.opacity,
+        'fill-outline-color': paintData.background,
+      },
     },
-  });
+    // country layer always below schools layer
+    map.getLayer('schools') ? 'schools' : ''
+  );
 
   map.setPaintProperty('countries', 'fill-color', paintData.countryNotSelected);
 
@@ -41,12 +46,4 @@ updateCountryFx.use(async ({ map, paintData, countryId }) => {
     paintData.countryNotSelected,
     paintData.background,
   ]);
-
-  const bounds = getPolygonBoundingBox(
-    countryData.geometry as Polygon | MultiPolygon
-  );
-
-  map.fitBounds(bounds, {
-    padding: { left: 360, right: 30, top: 30, bottom: 30 },
-  });
 });
