@@ -8,7 +8,7 @@ import { removeSchoolsFx, updateSchoolsFx } from './model';
 updateSchoolsFx.use(async ({ map, countrySchools }) => {
   if (!map || !countrySchools) return;
 
-  await Promise.all([removeSchoolsFx(map)]);
+  await removeSchoolsFx(map);
 
   if (countrySchools.features.length > 0) {
     map.addSource('schools', {

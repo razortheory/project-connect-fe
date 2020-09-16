@@ -5,7 +5,7 @@ import { removeCountryFx, updateCountryFx } from './model';
 updateCountryFx.use(async ({ map, paintData, countryData }) => {
   if (!countryData || !map) return;
 
-  await Promise.all([removeCountryFx(map)]);
+  await removeCountryFx(map);
 
   map.addSource('selectedCountry', {
     type: 'geojson',
