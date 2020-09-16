@@ -10,6 +10,10 @@
   font-family: $font-family-secondary;
   line-height: 2rem;
 
+  &--disabled {
+    pointer-events: none;
+  }
+
   &:not(:last-child) {
     margin-bottom: 1.5rem;
   }
