@@ -7,7 +7,18 @@ import { Link } from '~/lib/router';
 
 import { $noSearchResults, $searchResults } from './search';
 
-export const NotFound = () => <div>Countries not found</div>;
+export const NotFound = () => (
+  <div className="sidebar__not-found not-found">
+    <div className="not-found__icon">{/* Icon to be added here */}</div>
+    <h3 className="not-found__title">Country not found</h3>
+    <p className="not-found__description">
+      Try browsing through our&#160;
+      <a className="not-found__link" href="/">
+        country list
+      </a>
+    </p>
+  </div>
+);
 
 export const CountriesFound = () => (
   <ul className="list">

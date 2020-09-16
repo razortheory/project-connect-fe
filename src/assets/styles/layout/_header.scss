@@ -8,7 +8,7 @@
   height: $header-height;
   background-color: $header-background-color;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     height: $header-height-desktop;
     background-color: transparent;
   }
@@ -49,7 +49,7 @@
   align-self: center;
   margin-left: auto;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     display: none;
   }
 }

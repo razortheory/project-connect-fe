@@ -2,4 +2,8 @@
   position: relative;
   flex: 1 0 auto;
   padding-top: 7rem;
+
+  @include media-breakpoint-down(sm) {
+    height: 100%;
+  }
 }
