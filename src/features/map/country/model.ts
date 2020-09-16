@@ -8,6 +8,7 @@ import {
   LeaveCountryRoute,
   UpdateCountry,
   UpdateSchools,
+  ZoomToCountryBounds,
 } from './types';
 
 export const $selectedCountryId = createStore<number>(0);
@@ -19,6 +20,7 @@ export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
 
 export const updateCountryFx = createEffect<UpdateCountry, void>();
 export const updateSchoolsFx = createEffect<UpdateSchools, void>();
+export const zoomToCountryBoundsFx = createEffect<ZoomToCountryBounds, void>();
 export const removeCountryFx = createEffect<Map, void>();
 export const removeSchoolsFx = createEffect<Map, void>();
 export const leaveCountryRouteFx = createEffect<LeaveCountryRoute, void>();

@@ -5,6 +5,7 @@ export type Style = 'dark' | 'light' | 'satellite' | 'accessible';
 export type Center = mapboxGl.LngLatLike;
 export type Zoom = number;
 export type Map = mapboxGl.Map;
+export type Marker = mapboxGl.Marker;
 
 export type StylePaintData = {
   background: string;

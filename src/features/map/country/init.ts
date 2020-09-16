@@ -1,11 +1,12 @@
 import './update-country';
 import './update-schools';
+import './zoom-to-country-bounds';
 import './remove-country';
 import './remove-schools';
 import './leave-country-route';
 import './add-countries';
 
-import { combine, forward, guard, sample } from 'effector';
+import { combine, forward, guard, merge, sample } from 'effector';
 
 import { mapCountry } from '~/core/routes';
 import {
@@ -13,7 +14,12 @@ import {
   fetchCountriesGeometryData,
 } from '~/features/map/api';
 import { combineCountriesDataToGeoJson } from '~/features/map/map-data-helpers';
-import { $map, $stylePaintData, changeMap } from '~/features/map/model';
+import {
+  $map,
+  $stylePaintData,
+  changeMap,
+  initMapFx,
+} from '~/features/map/model';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
@@ -28,6 +34,7 @@ import {
   leaveCountryRouteFx,
   updateCountryFx,
   updateSchoolsFx,
+  zoomToCountryBoundsFx,
 } from './model';
 
 fetchCountriesDataFx.use(fetchCountriesData);
@@ -40,6 +47,7 @@ $selectedCountryId.on(changeCountryId, setPayload);
 const $changeCountryData = combine({
   map: $map,
   paintData: $stylePaintData,
+  countriesGeometry: $countriesGeometryData,
 });
 
 // Change country
@@ -47,9 +55,14 @@ forward({
   from: sample({
     source: $changeCountryData,
     clock: changeCountryId,
-    fn: ({ map, paintData }, countryId) => ({ map, paintData, countryId }),
+    fn: ({ map, paintData, countriesGeometry }, countryId) => ({
+      map,
+      paintData,
+      countryId,
+      countriesGeometry,
+    }),
   }),
-  to: [updateCountryFx, updateSchoolsFx],
+  to: [updateCountryFx, updateSchoolsFx, zoomToCountryBoundsFx],
 });
 
 // Routing
@@ -88,7 +101,10 @@ $countriesGeoJson.on(
 );
 
 // Add countries
-const onCountriesGeoJson = sample($countriesGeoJson, allCountriesDataLoaded);
+const onCountriesGeoJson = sample({
+  source: $countriesGeoJson,
+  clock: merge([changeMap, allCountriesDataLoaded]),
+});
 
 sample({
   source: $changeCountryData,

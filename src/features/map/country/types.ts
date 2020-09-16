@@ -13,6 +13,12 @@ export type UpdateSchools = {
   countryId: number;
 };
 
+export type ZoomToCountryBounds = {
+  map: Map | null;
+  countryId: number;
+  countriesGeometry: CountryGeometryData[];
+};
+
 export type LeaveCountryRoute = {
   map: Map | null;
   paintData: StylePaintData;
