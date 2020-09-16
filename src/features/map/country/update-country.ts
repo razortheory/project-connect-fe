@@ -1,16 +1,11 @@
 import { Geometry } from 'geojson';
 
-import { fetchCountryData } from '~/features/map/api';
-
 import { removeCountryFx, updateCountryFx } from './model';
 
-updateCountryFx.use(async ({ map, paintData, countryId }) => {
-  if (!countryId || !map) return;
+updateCountryFx.use(async ({ map, paintData, countryData }) => {
+  if (!countryData || !map) return;
 
-  const [countryData] = await Promise.all([
-    fetchCountryData(countryId),
-    removeCountryFx(map),
-  ]);
+  await Promise.all([removeCountryFx(map)]);
 
   map.addSource('selectedCountry', {
     type: 'geojson',
@@ -40,7 +35,7 @@ updateCountryFx.use(async ({ map, paintData, countryId }) => {
 
   map.setPaintProperty('countries', 'fill-outline-color', [
     'case',
-    ['==', ['id'], countryId],
+    ['==', ['id'], countryData.id],
     paintData.countryNotSelected,
     paintData.background,
   ]);
