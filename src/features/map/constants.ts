@@ -28,8 +28,8 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryWithConnectivity: '#0068ea',
     countrySelected: '#141923',
     countryNotSelected: '#373c46',
-    opacity: 1,
-    opacityHover: 0.95,
+    opacity: 0.7,
+    opacityHover: 0.8,
   },
   light: {
     background: '#646973',
@@ -38,8 +38,8 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryWithConnectivity: '#c4dcfa',
     countrySelected: '#ffffff',
     countryNotSelected: '#a9adb6',
-    opacity: 1,
-    opacityHover: 0.95,
+    opacity: 0.7,
+    opacityHover: 0.8,
   },
   satellite: {
     background: '#ffffff',
@@ -58,8 +58,8 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryWithConnectivity: '#63acbe',
     countrySelected: '#141923',
     countryNotSelected: '#373c46',
-    opacity: 1,
-    opacityHover: 0.95,
+    opacity: 0.7,
+    opacityHover: 0.8,
   },
 };
 

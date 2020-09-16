@@ -33,7 +33,12 @@ const CountriesList = () => {
         {countries
           .sort((a, b) => b.integration_status - a.integration_status)
           .map((country: CountryData) => (
-            <li key={country.id} className="list__item list__item--connected">
+            <li
+              key={country.id}
+              className={`list__item ${
+                country.integration_status === 0 ? 'list__item--disabled' : ''
+              }`}
+            >
               <div
                 className="list__circle"
                 style={{

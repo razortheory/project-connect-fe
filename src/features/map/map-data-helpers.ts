@@ -1,4 +1,4 @@
-import { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
+import { FeatureCollection, Geometry, MultiPolygon, Polygon } from 'geojson';
 import { LngLatLike } from 'mapbox-gl';
 
 import { CountryData, CountryGeometryData, SchoolData } from './types';
@@ -28,22 +28,24 @@ export const combineCountriesDataToGeoJson = (
   return {
     type: 'FeatureCollection',
     features:
-      countriesGeometry?.map((country) => {
-        const countryData = countriesProperties?.find(
-          (countryProperties) => countryProperties.id === country.id
-        );
-        return {
-          type: 'Feature',
-          properties: {
-            integration_status: countryData?.integration_status,
-            schools_with_data_percentage:
-              countryData?.schools_with_data_percentage,
-            code: countryData?.code,
-          },
-          geometry: country.geometry_simplified,
-          id: country.id,
-        };
-      }) ?? [],
+      countriesProperties
+        ?.filter((country) => country.integration_status !== 0)
+        .map((country) => {
+          const countryGeometryData = countriesGeometry?.find(
+            (countryGeometry) => countryGeometry.id === country.id
+          );
+          return {
+            type: 'Feature',
+            properties: {
+              integration_status: country.integration_status,
+              schools_with_data_percentage:
+                country.schools_with_data_percentage,
+              code: country.code,
+            },
+            geometry: countryGeometryData?.geometry_simplified as Geometry,
+            id: country.id,
+          };
+        }) ?? [],
   };
 };
 
