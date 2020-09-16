@@ -17,6 +17,8 @@ export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
 );
 export const $countriesData = createStore<CountryData[] | null>(null);
 export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
+export const $countrySchools = createStore<FeatureCollection | null>(null);
+export const $countryData = createStore<CountryData | null>(null);
 
 export const updateCountryFx = createEffect<UpdateCountry, void>();
 export const updateSchoolsFx = createEffect<UpdateSchools, void>();
@@ -31,3 +33,5 @@ export const fetchCountriesGeometryDataFx = createEffect<
   void,
   CountryGeometryData[]
 >();
+export const fetchCountrySchoolsFx = createEffect<number, FeatureCollection>();
+export const fetchCountryDataFx = createEffect<number, CountryData>();

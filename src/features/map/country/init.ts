@@ -12,25 +12,26 @@ import { mapCountry } from '~/core/routes';
 import {
   fetchCountriesData,
   fetchCountriesGeometryData,
+  fetchCountryData,
+  fetchCountrySchools,
 } from '~/features/map/api';
 import { combineCountriesDataToGeoJson } from '~/features/map/map-data-helpers';
-import {
-  $map,
-  $stylePaintData,
-  changeMap,
-  initMapFx,
-} from '~/features/map/model';
+import { $map, $stylePaintData, changeMap } from '~/features/map/model';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
   $countriesData,
   $countriesGeoJson,
   $countriesGeometryData,
+  $countryData,
+  $countrySchools,
   $selectedCountryId,
   addCountriesFx,
   changeCountryId,
   fetchCountriesDataFx,
   fetchCountriesGeometryDataFx,
+  fetchCountryDataFx,
+  fetchCountrySchoolsFx,
   leaveCountryRouteFx,
   updateCountryFx,
   updateSchoolsFx,
@@ -39,30 +40,85 @@ import {
 
 fetchCountriesDataFx.use(fetchCountriesData);
 fetchCountriesGeometryDataFx.use(fetchCountriesGeometryData);
+fetchCountrySchoolsFx.use(fetchCountrySchools);
+fetchCountryDataFx.use(fetchCountryData);
 
 $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
 $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
+$countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
+$countryData.on(fetchCountryDataFx.doneData, setPayload);
 $selectedCountryId.on(changeCountryId, setPayload);
 
-const $changeCountryData = combine({
+const $mapScope = combine({
   map: $map,
-  paintData: $stylePaintData,
   countriesGeometry: $countriesGeometryData,
+  paintData: $stylePaintData,
+  countryData: $countryData,
+  countrySchools: $countrySchools,
 });
 
-// Change country
+// Zoom to country bounds
+sample({
+  source: $mapScope,
+  clock: changeCountryId,
+  fn: ({ map, countriesGeometry }, countryId) => ({
+    map,
+    countriesGeometry,
+    countryId,
+  }),
+  target: zoomToCountryBoundsFx,
+});
+
+// Trigger fetch country data and schools data
 forward({
-  from: sample({
-    source: $changeCountryData,
-    clock: changeCountryId,
-    fn: ({ map, paintData, countriesGeometry }, countryId) => ({
-      map,
-      paintData,
+  from: guard(changeCountryId, { filter: Boolean }),
+  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
+});
+
+// Check received countryData for relevance
+const countryDataReceived = guard({
+  source: sample({
+    source: $selectedCountryId,
+    clock: fetchCountryDataFx.done,
+    fn: (countryId, { params }) => ({
       countryId,
-      countriesGeometry,
+      doneCountryId: params,
     }),
   }),
-  to: [updateCountryFx, updateSchoolsFx, zoomToCountryBoundsFx],
+  filter: ({ countryId, doneCountryId }) => countryId === doneCountryId,
+});
+
+sample({
+  source: $mapScope,
+  clock: countryDataReceived,
+  fn: ({ map, paintData, countryData }) => ({
+    map,
+    paintData,
+    countryData,
+  }),
+  target: updateCountryFx,
+});
+
+const schoolsReceived = guard({
+  source: sample({
+    source: $selectedCountryId,
+    clock: fetchCountrySchoolsFx.done,
+    fn: (countryId, { params }) => ({
+      countryId,
+      params,
+    }),
+  }),
+  filter: ({ countryId, params }) => countryId === params,
+});
+
+sample({
+  source: $mapScope,
+  clock: schoolsReceived,
+  fn: ({ map, countrySchools }) => ({
+    map,
+    countrySchools,
+  }),
+  target: updateSchoolsFx,
 });
 
 // Routing
@@ -81,10 +137,11 @@ sample({
 
 // Leave country route
 sample({
-  source: $changeCountryData,
+  source: $mapScope,
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
+  fn: ({ map, paintData }) => ({ map, paintData }),
   target: leaveCountryRouteFx,
 });
 
@@ -107,7 +164,7 @@ const onCountriesGeoJson = sample({
 });
 
 sample({
-  source: $changeCountryData,
+  source: $mapScope,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
   fn: ({ map, paintData }, countriesGeoJson) => ({
     map,

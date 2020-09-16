@@ -1,23 +1,19 @@
 import { Point } from 'geojson';
 import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
 
-import { fetchCountrySchools } from '~/features/map/api';
 import { connectivityStatusPaintData } from '~/features/map/constants';
 
 import { removeSchoolsFx, updateSchoolsFx } from './model';
 
-updateSchoolsFx.use(async ({ map, countryId }) => {
-  if (!countryId || !map) return;
+updateSchoolsFx.use(async ({ map, countrySchools }) => {
+  if (!map || !countrySchools) return;
 
-  const [schools] = await Promise.all([
-    fetchCountrySchools(countryId),
-    removeSchoolsFx(map),
-  ]);
+  await removeSchoolsFx(map);
 
-  if (schools.features.length > 0) {
+  if (countrySchools.features.length > 0) {
     map.addSource('schools', {
       type: 'geojson',
-      data: schools,
+      data: countrySchools,
     });
 
     map.addLayer({
