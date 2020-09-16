@@ -12,8 +12,6 @@ updateCountryFx.use(async ({ map, paintData, countryId }) => {
     removeCountryFx(map),
   ]);
 
-  setTimeout(() => {}, 5000);
-
   map.addSource('selectedCountry', {
     type: 'geojson',
     data: {
