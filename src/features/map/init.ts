@@ -8,10 +8,7 @@ import { combine, guard, sample } from 'effector';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { stylePaintData } from './constants';
-import {
-  fetchCountriesDataFx,
-  fetchCountriesGeometryDataFx,
-} from './country';
+import { fetchCountriesDataFx, fetchCountriesGeometryDataFx } from './country';
 import { fetchCountryDataFx, fetchCountrySchoolsFx } from './country/model';
 import {
   $loader,
@@ -65,7 +62,10 @@ sample({
 
 sample({
   source: $map,
-  clock: guard($pending, { filter: Boolean }),
+  clock: guard({
+    source: combine([$pending, initMapFx.pending]),
+    filter: ([pending, initMapPending]) => Boolean(pending && !initMapPending),
+  }),
   target: addLoaderToMapFx,
 });
 
