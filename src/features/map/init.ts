@@ -63,8 +63,8 @@ sample({
 sample({
   source: $map,
   clock: guard({
-    source: combine([$pending, initMapFx.pending]),
-    filter: ([pending, initMapPending]) => Boolean(pending && !initMapPending),
+    source: combine([$pending, $map]),
+    filter: ([pending, map]) => Boolean(pending && map),
   }),
   target: addLoaderToMapFx,
 });
