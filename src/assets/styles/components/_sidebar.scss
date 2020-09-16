@@ -105,7 +105,9 @@
 }
 
 .sidebar__content {
+  display: flex;
   flex: 0 1 100%;
+  flex-direction: column;
   padding: 2.4rem;
   overflow: auto;
   background-color: #232832;
@@ -148,4 +150,10 @@
   margin: 2rem -24px;
   border: solid 0.1rem #373c46;
   border-top: 0;
+}
+
+.sidebar__form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

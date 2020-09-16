@@ -24,6 +24,10 @@
     padding-bottom: 1.8rem;
   }
 
+  &--pull-bottom {
+    margin-top: auto;
+  }
+
   &--primary {
     background-color: $color-primary;
 
