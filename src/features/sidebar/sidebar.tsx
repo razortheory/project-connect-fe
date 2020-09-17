@@ -2,9 +2,9 @@ import { createEvent, createStore, guard } from 'effector';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 
-import Chevron from '../../assets/images/chevron.svg';
-import { getInverted } from '../../lib/effector-kit';
-import { Children } from '../../lib/types';
+import Chevron from '~/assets/images/chevron.svg';
+import { getInverted } from '~/lib/effector-kit';
+import { Children } from '~/lib/types';
 
 // Model
 const $isSidebarHidden = createStore(false);

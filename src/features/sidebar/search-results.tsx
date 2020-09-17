@@ -1,9 +1,10 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { mapCountry } from '../../core/routes';
-import { Link } from '../../lib/router';
-import { CountryData } from '../map/types';
+import { mapCountry } from '~/core/routes';
+import { CountryData } from '~/features/map/types';
+import { Link } from '~/lib/router';
+
 import { $noSearchResults, $searchResults } from './search';
 
 export const NotFound = () => (

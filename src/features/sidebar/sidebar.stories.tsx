@@ -1,7 +1,8 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { MapOverview } from '../../ui/components/map-overview';
+import { MapOverview } from '~/ui/components/map-overview';
+
 import { MapCountries } from './map-countries';
 import { MapCountry } from './map-country';
 import { Sidebar } from './sidebar';

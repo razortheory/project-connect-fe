@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Chevron from '../../assets/images/chevron.svg';
-import IconHistory from '../../assets/images/icon-history.svg';
+import Chevron from '~/assets/images/chevron.svg';
+import IconHistory from '~/assets/images/icon-history.svg';
 
 export interface DailySpeedGraphProps {
   showButtons?: boolean;

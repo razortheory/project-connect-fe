@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Chevron from '../../assets/images/chevron.svg';
+import Chevron from '~/assets/images/chevron.svg';
+
 import { DailySpeedGraph } from './daily-speed-graph';
 import { Search } from './search';
 

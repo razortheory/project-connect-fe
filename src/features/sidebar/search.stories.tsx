@@ -1,7 +1,8 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { Children } from '../../lib/types';
+import { Children } from '~/lib/types';
+
 import { Search } from './search';
 
 export default {

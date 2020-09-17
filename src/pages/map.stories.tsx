@@ -2,7 +2,8 @@ import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { AppFrame } from '~/core';
-import { MapCountries, MapCountry, MapOverview } from '~/ui/components';
+import { MapCountries, MapCountry } from '~/features/sidebar';
+import { MapOverview } from '~/ui/components';
 import { MapTemplate } from '~/ui/templates';
 
 export default {
