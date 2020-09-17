@@ -5,12 +5,14 @@ import './remove-loader-from-map';
 
 import { combine, guard, sample } from 'effector';
 
+import { fetchGlobalStatsData } from '~/features/map/api';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { stylePaintData } from './constants';
 import { fetchCountriesDataFx, fetchCountriesGeometryDataFx } from './country';
 import { fetchCountryDataFx, fetchCountrySchoolsFx } from './country/model';
 import {
+  $globalStats,
   $loader,
   $map,
   $pending,
@@ -19,6 +21,7 @@ import {
   addLoaderToMapFx,
   changeMap,
   changeStyle,
+  fetchGlobalStatsDataFx,
   initMapFx,
   removeLoaderFromMapFx,
   setCenter,
@@ -28,6 +31,10 @@ import {
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
+
+fetchGlobalStatsDataFx.use(fetchGlobalStatsData);
+
+$globalStats.on(fetchGlobalStatsDataFx.doneData, setPayload);
 
 sample({
   source: $style,

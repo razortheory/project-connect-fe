@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+
 import { Config, ConfigFn, ConfigNoFn, Url } from './types';
 import { getJson, getResource } from './utils';
 

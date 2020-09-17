@@ -7,6 +7,7 @@ import IconTile from '~/assets/images/tile.svg';
 import { getInverted, getVoid } from '~/lib/effector-kit';
 
 import {
+  $hasSearchText,
   $isListType,
   $searchText,
   changeSearchText,
@@ -33,9 +34,11 @@ export const SearchSortBox = () => (
         onChange={onChange}
         value={useStore($searchText)}
       />
-      <button type="button" className="search-bar__close" onClick={onClear}>
-        <span className="visually-hidden">Clear search</span>
-      </button>
+      {useStore($hasSearchText) && (
+        <button type="button" className="search-bar__close" onClick={onClear}>
+          <span className="visually-hidden">Clear search</span>
+        </button>
+      )}
     </div>
 
     <div className="controls-bar__sort">Sort by: Country progress</div>

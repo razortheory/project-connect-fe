@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const DashboardSidebar = () => (
+export const DashboardDescription = () => (
   <div className="progress-dashboard__legend-col">
     <h2 className="progress-dashboard__title">Country progress dashboard</h2>
 
