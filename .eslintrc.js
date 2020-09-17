@@ -52,7 +52,23 @@ const config = {
       rules: {
         'sort-imports': 'off',
         'import/order': 'off',
-        'simple-import-sort/sort': 'error',
+        'simple-import-sort/sort': [
+          'error',
+          {
+            groups: [
+              // Side effect imports.
+              ['^\\u0000'],
+              // Packages
+              ['^@?\\w'],
+              // Absolute imports
+              ['^[^.]'],
+              // Features
+              ['^@/\\w'],
+              // Relative imports
+              ['^\\.'],
+            ],
+          },
+        ],
         'import/first': 'error',
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',

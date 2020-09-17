@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+
 import { combine, createEvent, createStore } from 'effector';
 import { compile as createCompile, match as createMatch } from 'path-to-regexp';
 

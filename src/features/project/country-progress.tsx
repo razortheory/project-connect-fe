@@ -1,26 +1,20 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import CountriesPicture from '~/assets/images/countries-dashboard.jpg';
-import { getReadablePercent } from '~/core/helpers';
-import { Dashboard } from '~/features/dashboard';
-import { $globalStats, fetchGlobalStatsDataFx } from '~/features/map//model';
-import { fetchCountriesDataFx } from '~/features/map/country/model';
+import CountriesDashboard from '~/assets/images/countries-dashboard.jpg';
+import { formatPercent } from '~/core/formatters';
 
-// Model
-const $isLoading =
-  fetchGlobalStatsDataFx.pending || fetchCountriesDataFx.pending;
+import { $globalStats } from '@/map/model';
+import { Dashboard } from '@/project/dashboard';
+import { $isLoading } from '@/project/dashboard/model';
 
 const DescriptionSection = () => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { countries_joined, countries_connected_to_realtime } = useStore(
     $globalStats
   );
 
-  const connectedPercent = getReadablePercent(
-    (100 / Number(countries_joined)) * Number(countries_connected_to_realtime),
-    1
-  );
+  const connectedPercent = countries_connected_to_realtime / countries_joined;
 
   const commitedCountries = Number(countries_joined) || 'No data';
 
@@ -32,21 +26,23 @@ const DescriptionSection = () => {
             Countries have been listed below with real-time updates on their
             progress with school mapping. The key metric that is used to
             evaluate project progress is the stage of mapping and the percentage
-            of schools mapped.{' '}
+            of schools mapped.
           </h2>
 
           <div className="page-heading__media">
             <div className="page-heading__image-wrapper">
               <img
                 className="page-heading__image"
-                src={CountriesPicture}
+                src={CountriesDashboard}
                 alt="countries-dashboard"
               />
             </div>
             <div className="page-heading__info">
               <ul className="info-list info-list--heading">
                 <li className="info-list__item">
-                  <p className="info-list__description">{connectedPercent}%</p>
+                  <p className="info-list__description">
+                    {formatPercent(connectedPercent)}
+                  </p>
                   <h3 className="info-list__title">
                     Countries with real time connectivity data
                   </h3>
@@ -66,7 +62,7 @@ const DescriptionSection = () => {
   );
 };
 
-export const CountryProgressPage = () => {
+export const CountryProgress = () => {
   const globalStats = useStore($globalStats);
   const noData = globalStats === null;
 

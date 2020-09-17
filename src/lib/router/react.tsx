@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+
 import { useStore } from 'effector-react';
 import React, { useMemo, useRef } from 'react';
 

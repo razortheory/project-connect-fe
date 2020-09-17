@@ -12,7 +12,7 @@ export type DashboardCountryData = {
   name: string;
   joinDate: string;
   description: string;
-  progressPercent: string;
+  progressPercent: number;
   progressBarStyle: ProgressBar;
   bubbleProgressClass: string;
   progressDescription: string;

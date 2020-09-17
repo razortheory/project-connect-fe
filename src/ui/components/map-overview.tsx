@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { getReadableCount, getReadablePercent } from '~/core/helpers';
+import { formatPercent } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { $globalStats } from '~/features/map/model';
+import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
 export const MapOverview = () => {
@@ -29,14 +31,13 @@ export const MapOverview = () => {
         <ul className="sidebar__list info-list">
           <li className="info-list__item">
             <p className="info-list__description">
-              {getReadableCount(schools_mapped)} /{' '}
-              {getReadableCount(total_schools)}
+              {humanFormat(schools_mapped)} / {humanFormat(total_schools)}
             </p>
             <h3 className="info-list__title">Schools mapped</h3>
           </li>
           <li className="info-list__item">
             <p className="info-list__description">
-              {getReadablePercent(percent_schools_without_connectivity, 2)}%
+              {formatPercent(percent_schools_without_connectivity / 100)}
             </p>
             <h3 className="info-list__title">Schools without connectivity</h3>
           </li>
