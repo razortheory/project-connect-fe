@@ -1,15 +1,14 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { mapCountries, mapCountry } from '~/core/routes';
-import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
-import { statusPaintField } from '~/features/map/constants';
-import { $countriesData } from '~/features/map/country';
-import { $stylePaintData } from '~/features/map/model';
-import { CountryData } from '~/features/map/types';
-import { Link, useRoute } from '~/lib/router';
-
+import MapWithHand from '../../assets/images/map-with-hand.svg';
+import { mapCountries, mapCountry } from '../../core/routes';
+import { tabControls, tabInfo, tabMap } from '../../core/tab-routes';
+import { Link, useRoute } from '../../lib/router';
+import { statusPaintField } from '../map/constants';
+import { $countriesData } from '../map/country';
+import { $stylePaintData } from '../map/model';
+import { CountryData } from '../map/types';
 import { $showSearchResults, Search } from './search';
 import { SearchResults } from './search-results';
 
