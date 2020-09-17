@@ -1,11 +1,10 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { MapOverview } from '~/ui/components/map-overview';
-
+import { MapBrowser } from './map-browser';
 import { MapCountries } from './map-countries';
 import { MapCountry } from './map-country';
-import { Sidebar } from './sidebar';
+import { MapOverview } from './map-overview';
 
 export default {
   title: 'Library/MapBrowser',
@@ -18,22 +17,22 @@ export default {
   },
 } as Meta;
 
-export const empty = Sidebar;
+export const empty = MapBrowser;
 
 export const overview = () => (
-  <Sidebar>
+  <MapBrowser>
     <MapOverview />
-  </Sidebar>
+  </MapBrowser>
 );
 
 export const countries = () => (
-  <Sidebar>
+  <MapBrowser>
     <MapCountries />
-  </Sidebar>
+  </MapBrowser>
 );
 
 export const country = () => (
-  <Sidebar>
+  <MapBrowser>
     <MapCountry />
-  </Sidebar>
+  </MapBrowser>
 );

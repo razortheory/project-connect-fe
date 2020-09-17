@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Map } from '~/features/map';
-import { Sidebar } from '~/features/sidebar';
 import { Children } from '~/lib/types';
 import {
   Layout,
   Main,
+  MapBrowser,
   MapFooter,
   MapHeader,
   MapUnderlay,
@@ -18,7 +18,7 @@ export const MapTemplate = ({ children }: Children) => (
     </MapUnderlay>
     <MapHeader />
     <Main>
-      <Sidebar>{children}</Sidebar>
+      <MapBrowser>{children}</MapBrowser>
     </Main>
     <MapFooter />
   </Layout>
