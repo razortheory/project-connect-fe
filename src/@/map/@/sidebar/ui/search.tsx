@@ -1,19 +1,17 @@
 import { useStore } from 'effector-react';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import IconSearch from '~/assets/images/icon-search.svg';
 import { getVoid } from '~/lib/effector-kit';
 
+import { getInputValue } from '@/map/@/sidebar/helpers';
 import {
   $searchText,
   changeSearchText,
   clearSearchText,
 } from '@/map/@/sidebar/model';
 
-export const getTargetValue = (event: ChangeEvent<HTMLInputElement>) =>
-  event.target.value;
-
-const onChange = changeSearchText.prepend(getTargetValue);
+const onChange = changeSearchText.prepend(getInputValue);
 const onClear = clearSearchText.prepend(getVoid);
 
 export const Search = () => (

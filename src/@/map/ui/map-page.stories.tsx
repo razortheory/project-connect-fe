@@ -3,8 +3,6 @@ import React from 'react';
 
 import { AppFrame } from '~/core';
 
-import { CountryInfo, CountryList, WorldView } from '@/map/@/sidebar';
-
 import { MapTemplate } from './map-template';
 
 export default {
@@ -21,24 +19,6 @@ export default {
 
 export const overview = () => (
   <AppFrame>
-    <MapTemplate>
-      <WorldView />
-    </MapTemplate>
-  </AppFrame>
-);
-
-export const countries = () => (
-  <AppFrame>
-    <MapTemplate>
-      <CountryList />
-    </MapTemplate>
-  </AppFrame>
-);
-
-export const country = () => (
-  <AppFrame>
-    <MapTemplate>
-      <CountryInfo />
-    </MapTemplate>
+    <MapTemplate />
   </AppFrame>
 );

@@ -6,55 +6,72 @@ import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 
-import { $countriesData } from '@/map/@/country';
-import { $showSearchResults } from '@/map/@/sidebar/model';
+import {
+  $countryList,
+  $noSearchResults,
+  $searchActive,
+} from '@/map/@/sidebar/model';
+import { NotFound } from '@/map/@/sidebar/ui/search-results';
+import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
 import { CountryData } from '@/map/types';
 
 import { Search } from './search';
-import { SearchResults } from './search-results';
+
+export const ListItem = ({ country }: { country: CountryData }) => {
+  const paintData = useStore($stylePaintData);
+
+  return (
+    <li
+      className={`list__item ${
+        country.integration_status === 0 ? 'list__item--disabled' : ''
+      }`}
+    >
+      <div
+        className="list__circle"
+        style={{
+          backgroundColor: paintData[
+            statusPaintField[country.integration_status]
+          ] as string,
+        }}
+      />
+      <Link to={mapCountry} params={{ id: country.id }}>
+        {country.name}
+      </Link>
+    </li>
+  );
+};
 
 const List = () => {
-  const countries = useStore($countriesData);
-  const paintData = useStore($stylePaintData);
+  const countries = useStore($countryList);
+  const notFound = useStore($noSearchResults);
+  const searchActive = useStore($searchActive);
 
   if (!countries) {
     return <>Loading...</>;
   }
   return (
     <>
-      <div className="map-hint">
-        <MapWithHand className="map-hint__image" alt="Unicef logo" />
-        <p className="map-hint__text">
-          Click on the country of interest to view the connectivity and location
-          of schools.
-        </p>
-      </div>
-      <ul className="list">
-        {countries
-          .sort((a, b) => b.integration_status - a.integration_status)
-          .map((country: CountryData) => (
-            <li
-              key={country.id}
-              className={`list__item ${
-                country.integration_status === 0 ? 'list__item--disabled' : ''
-              }`}
-            >
-              <div
-                className="list__circle"
-                style={{
-                  backgroundColor: paintData[
-                    statusPaintField[country.integration_status]
-                  ] as string,
-                }}
-              />
-              <Link to={mapCountry} params={{ id: country.id }}>
-                {country.name}
-              </Link>
-            </li>
+      <Sort />
+      {!searchActive && (
+        <div className="map-hint">
+          <MapWithHand className="map-hint__image" alt="Map with hand" />
+          <p className="map-hint__text">
+            Click on the country of interest to view the connectivity and
+            location of schools.
+          </p>
+        </div>
+      )}
+      {notFound ? (
+        <NotFound />
+      ) : (
+        <ul className="list">
+          {countries.map((country: CountryData) => (
+            <ListItem country={country} key={country.id} />
           ))}
-      </ul>
+        </ul>
+      )}
     </>
   );
 };
@@ -201,13 +218,13 @@ export const Content = () => (
 export const CountryList = () => (
   <>
     <Search />
-    {!useStore($showSearchResults) && <Tabs />}
+    {!useStore($searchActive) && <Tabs />}
     <div
       className={`sidebar__content ${
         useRoute(tabMap) ? 'sidebar__content--hidden' : ''
       }`}
     >
-      {useStore($showSearchResults) ? <SearchResults /> : <Content />}
+      <Content />
     </div>
   </>
 );

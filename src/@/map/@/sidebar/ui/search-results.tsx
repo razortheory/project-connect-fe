@@ -4,7 +4,7 @@ import React from 'react';
 import { mapCountry } from '~/core/routes';
 import { Link } from '~/lib/router';
 
-import { $noSearchResults, $searchResults } from '@/map/@/sidebar/model';
+import { $countryList, $noSearchResults } from '@/map/@/sidebar/model';
 import { CountryData } from '@/map/types';
 
 export const NotFound = () => (
@@ -22,7 +22,7 @@ export const NotFound = () => (
 
 export const CountriesFound = () => (
   <ul className="list">
-    {useStore($searchResults)?.map((country: CountryData) => (
+    {useStore($countryList)?.map((country: CountryData) => (
       <li key={country.id} className="list__item list__item--not-verified">
         <Link to={mapCountry} params={{ id: country.id }}>
           {country.name}

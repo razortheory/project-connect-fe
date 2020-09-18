@@ -30,12 +30,13 @@ export type CountryData = {
   name: string;
   code: string;
   flag: string;
-  map_preview: null | string;
-  description: null | string;
-  data_source: null | string;
+  map_preview: string;
+  description: string;
+  data_source: string;
   integration_status: IntegrationStatus;
-  date_of_join: null | string;
-  schools_with_data_percentage: null | string;
+  date_of_join: string;
+  schools_with_data_percentage: string;
+  schools_total: number;
   geometry?: Geometry;
 };
 
