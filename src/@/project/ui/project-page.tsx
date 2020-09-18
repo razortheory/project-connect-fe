@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollBar from 'react-perfect-scrollbar';
 
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import IconFacebook from '~/assets/images/icon-facebook-logo.svg';
@@ -100,13 +101,15 @@ export const ProjectPage = () => (
           </Link>
         </div>
       </header>
-      <main className="content">
-        {useRoute(about) && <About />}
-        {useRoute(countryProgress) && <CountryProgress />}
-        {useRoute(privacy) && <br />}
-        {useRoute(media) && <Media />}
-        {useRoute(joinUs) && <JoinUs />}
-      </main>
+      <ScrollBar>
+        <main className="content">
+          {useRoute(about) && <About />}
+          {useRoute(countryProgress) && <CountryProgress />}
+          {useRoute(privacy) && <br />}
+          {useRoute(media) && <Media />}
+          {useRoute(joinUs) && <JoinUs />}
+        </main>
+      </ScrollBar>
       <footer className="footer">
         <div className="container">
           <div className="footer__row">

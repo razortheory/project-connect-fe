@@ -1,5 +1,6 @@
 import { useStore } from 'effector-react';
 import React from 'react';
+import ScrollBar from 'react-perfect-scrollbar';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
@@ -202,12 +203,14 @@ export const CountryList = () => (
   <>
     <Search />
     {!useStore($showSearchResults) && <Tabs />}
-    <div
-      className={`sidebar__content ${
-        useRoute(tabMap) ? 'sidebar__content--hidden' : ''
-      }`}
-    >
-      {useStore($showSearchResults) ? <SearchResults /> : <Content />}
-    </div>
+    <ScrollBar>
+      <div
+        className={`sidebar__content ${
+          useRoute(tabMap) ? 'sidebar__content--hidden' : ''
+        }`}
+      >
+        {useStore($showSearchResults) ? <SearchResults /> : <Content />}
+      </div>
+    </ScrollBar>
   </>
 );
