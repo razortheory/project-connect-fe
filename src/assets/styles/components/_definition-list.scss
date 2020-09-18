@@ -1,0 +1,6 @@
+.definition-list {
+  @include list-unstyled;
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2.5rem;
+}
