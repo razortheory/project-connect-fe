@@ -1,4 +1,5 @@
 import { FeatureCollection, Geometry } from 'geojson';
+import { MapMouseEvent } from 'mapbox-gl';
 
 import { Map, StylePaintData } from '@/map/types';
 
@@ -30,6 +31,12 @@ export type AddCountries = {
   countriesGeoJson: FeatureCollection;
 };
 
+export type AddSchoolPopup = {
+  map: Map | null;
+  popup: HTMLDivElement | null;
+  event: MapMouseEvent;
+};
+
 export type CountryData = {
   id: number;
   name: string;
@@ -49,4 +56,10 @@ export type IntegrationStatus = 0 | 1 | 2 | 3;
 export type CountryGeometryData = {
   id: number;
   geometry_simplified: Geometry;
+};
+
+export type EmptyObject = Record<string, never>;
+
+export type PopupContext = {
+  description: string;
 };

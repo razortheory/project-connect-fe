@@ -19,14 +19,19 @@ import {
   updateSchoolsFx,
   zoomToCountryFx,
 } from './effects';
+import { addSchoolPopupFx } from './effects/add-school-popup-fx';
 import {
   $countriesData,
   $countriesGeoJson,
   $countriesGeometryData,
   $countryData,
   $countrySchools,
+  $popup,
+  $popupContext,
   $selectedCountryId,
   changeCountryId,
+  clickSchool,
+  updatePopupContext,
 } from './model';
 
 $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
@@ -34,6 +39,7 @@ $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $selectedCountryId.on(changeCountryId, setPayload);
+$popupContext.on(updatePopupContext, setPayload);
 
 const $mapScope = combine({
   map: $map,
@@ -41,6 +47,7 @@ const $mapScope = combine({
   paintData: $stylePaintData,
   countryData: $countryData,
   countrySchools: $countrySchools,
+  popup: $popup,
 });
 
 // Zoom to country bounds
@@ -158,4 +165,12 @@ sample({
     countriesGeoJson,
   }),
   target: addCountriesFx,
+});
+
+// Add popup
+sample({
+  source: $mapScope,
+  clock: clickSchool,
+  fn: ({ map, popup }, event) => ({ map, popup, event }),
+  target: addSchoolPopupFx,
 });
