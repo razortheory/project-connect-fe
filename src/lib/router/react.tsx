@@ -12,7 +12,7 @@ export const Route = ({
   of: route,
   component: Component,
   children,
-}: RouteProps): JSX.Element => {
+}: RouteProps) => {
   const element = children ?? (Component && <Component />);
   return <>{useStore(route.visible) && element}</>;
 };

@@ -19,7 +19,7 @@
   color: #808080;
   font-size: 2rem;
   background-color: transparent;
-  border: 0;
+  border: none;
   cursor: pointer;
 
   &--prev {
@@ -100,7 +100,7 @@
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   background-color: transparent;
-  border: 0;
+  border: none;
   cursor: pointer;
 
   &:hover,

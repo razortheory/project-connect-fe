@@ -61,7 +61,7 @@
     height: 2.8rem;
     padding: 0.4rem 0;
     background-color: #141923;
-    border: 0;
+    border: none;
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
     outline: none;
@@ -154,7 +154,7 @@
 .sidebar__divider {
   margin: 2rem -24px;
   border: solid 0.1rem #373c46;
-  border-top: 0;
+  border-top: none;
 }
 
 .sidebar__form {

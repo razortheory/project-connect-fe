@@ -5,6 +5,7 @@
 }
 
 @mixin transition() {
+  // stylelint-disable-next-line declaration-property-value-blacklist
   transition: all 0.3s ease-in-out;
 }
 
