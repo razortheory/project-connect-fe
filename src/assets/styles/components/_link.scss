@@ -1,0 +1,30 @@
+.link {
+  @include transition;
+  display: inline-flex;
+  align-items: center;
+  margin-left: -0.5rem;
+  padding: 0.5rem;
+  color: $color-primary;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: $font-family-primary;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #494f5d;
+  }
+
+  &:active {
+    background-color: #494f5d;
+  }
+}
+
+.link__icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}

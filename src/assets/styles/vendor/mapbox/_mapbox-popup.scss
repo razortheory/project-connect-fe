@@ -1,15 +1,43 @@
 /* Double class used to force style overrides */
-.mapboxgl-popup-anchor-bottom,
-.mapboxgl-popup-anchor-top,
-.mapboxgl-popup-anchor-right,
-.mapboxgl-popup-anchor-left {
-  .mapboxgl-popup-tip.mapboxgl-popup-tip {
+
+.mapboxgl-popup-content {
+  width: 320px;
+}
+
+.mapboxgl-popup-close-button.mapboxgl-popup-close-button {
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: $text-color-light;
+  font-size: 2.6rem;
+  line-height: 2rem;
+}
+
+.mapboxgl-popup-tip.mapboxgl-popup-tip {
+  .mapboxgl-popup-anchor-bottom &,
+  .mapboxgl-popup-anchor-bottom-right &,
+  .mapboxgl-popup-anchor-bottom-left & {
     border-top-color: #232832;
+  }
+  .mapboxgl-popup-anchor-top &,
+  .mapboxgl-popup-anchor-top-right &,
+  .mapboxgl-popup-anchor-top-left & {
+    border-bottom-color: #232832;
+  }
+  .mapboxgl-popup-anchor-left & {
+    border-right-color: #232832;
+  }
+  .mapboxgl-popup-anchor-right & {
+    border-left-color: #232832;
   }
 }
 
 .mapboxgl-popup-content.mapboxgl-popup-content {
-  padding: 2.9rem 2rem;
+  padding: 2rem 2rem 2.9rem;
   background-color: #232832;
   border-top: 0.9rem solid #8bd432;
   border-radius: 2px;

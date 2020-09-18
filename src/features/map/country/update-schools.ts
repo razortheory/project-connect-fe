@@ -65,9 +65,46 @@ updateSchoolsFx.use(async ({ map, countrySchools }) => {
         coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
       }
 
-      new mapboxGL.Popup()
+      new mapboxGL.Popup({ maxWidth: '100%', className: 'country-popup' })
         .setLngLat([coordinates[0], coordinates[1]])
-        .setHTML(`<div>${description}</div>`)
+        .setHTML(
+          `
+          <div>
+            <h2 class="country-popup__title">${description}</h2>
+            <p class="country-popup__description">Matehuala, San Luis Potosí</p>
+            <h3 class="country-popup__subtitle">Connectivity info</h3>
+            <ul class="country-popup__list definition-list">
+              <li class="definition-list__item">
+                Average connection speed <strong>2.2 mb/s</strong>
+              </li>
+              <li class="definition-list__item">
+                Network coverage <strong>3G</strong>
+              </li>
+              <li class="definition-list__item">
+                Connectivity type <strong>Fiber cable</strong>
+              </li>
+            </ul>
+            <hr class="country-popup__divider" />
+            <h3 class="country-popup__subtitle">Location info</h3>
+            <ul class="country-popup__list definition-list">
+              <li class="definition-list__item">
+                Region classification <strong>Suburban</strong>
+              </li>
+              <li class="definition-list__item">
+                Postal code <strong>8940000</strong>
+              </li>
+              <li class="definition-list__item">
+                Latitude <strong>-11.2</strong>
+              </li>
+              <li class="definition-list__item">
+                Longitude <strong>-47.9</strong>
+              </li>
+            </ul>
+            <hr class="country-popup__divider" />
+            <!--  <DailySpeedGraph showHistory showButtons />-->
+            Place for Daily graph (can't be mounted directly to popup)
+          </div>`
+        )
         .addTo(map);
     });
   }

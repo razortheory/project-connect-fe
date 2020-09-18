@@ -1,0 +1,52 @@
+.country-popup {
+  color: $text-color-light;
+
+  /* WIP mobile positioning */
+  //@include media-breakpoint-down(sm) {
+  //  position: fixed;
+  //  top: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  left: 0;
+  //  z-index: 10001;
+  //  width: 100%;
+  //  height: 100%;
+  //  background: #232832;
+  //  transform: none !important;
+  //}
+}
+
+.country-popup__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 1.6rem;
+  font-family: $font-family-secondary;
+  line-height: 2.2rem;
+}
+
+.country-popup__description {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: #b6bbc6;
+  font-size: 1.3rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
+}
+
+.country-popup__subtitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: $font-family-primary;
+  line-height: 1.1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.country-popup__divider {
+  margin: 2rem 0;
+  border: solid 0.1rem #373c46;
+  border-top: 0;
+}

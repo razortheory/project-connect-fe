@@ -1,4 +1,5 @@
 import React from 'react';
+import IconDownload from 'src/assets/images/icon-download.svg';
 
 import Chevron from '~/assets/images/chevron.svg';
 
@@ -47,7 +48,22 @@ export const MapCountry = () => (
         </li>
       </ul>
       <hr className="sidebar__divider" />
-      <DailySpeedGraph showHistory showButtons />
+      <DailySpeedGraph showHistory />
+      <hr className="sidebar__divider" />
+      <h3 className="sidebar__secondary-title">Connectivity distribution</h3>
+      <p>Place for radial graph</p>
+      <hr className="sidebar__divider" />
+      <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
+        Data set
+      </h3>
+      <p className="sidebar__paragraph">
+        You can download the country map data by clicking on the button below.
+        File format for the data set would be CSV and PDF.
+      </p>
+      <button type="button" className="sidebar__link link">
+        <IconDownload className="link__icon" />
+        Download data set
+      </button>
     </div>
   </>
 );

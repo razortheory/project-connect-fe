@@ -92,11 +92,16 @@
 }
 
 .sidebar__secondary-title {
+  margin-top: 0;
   margin-bottom: 2rem;
   font-weight: bold;
   font-size: 0.9rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
+
+  &--mb-sm {
+    margin-bottom: 0.6rem;
+  }
 }
 
 .sidebar__search-bar {
@@ -128,6 +133,10 @@
   font-size: 1.6rem;
   font-family: $font-family-secondary;
   line-height: 2.5rem;
+}
+
+.sidebar__link {
+  margin-top: -1.2rem;
 }
 
 .sidebar__list {
