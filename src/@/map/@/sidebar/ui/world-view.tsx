@@ -2,12 +2,12 @@
 
 import { useStore } from 'effector-react';
 import React from 'react';
-import ScrollBar from 'react-perfect-scrollbar';
 
 import { formatPercent } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
+import { Scroll } from '~/ui/scroll';
 
 import { $globalStats } from '@/map/model';
 
@@ -24,7 +24,7 @@ export const WorldView = () => {
       <h2 className="sidebar__title">
         Connecting every young person to information, opportunity and choice.
       </h2>
-      <ScrollBar>
+      <Scroll>
         <div className="sidebar__content">
           <p className="sidebar__paragraph">
             Project Connect aims to map real-time connectivity of every school
@@ -55,7 +55,7 @@ export const WorldView = () => {
             Select a country
           </Link>
         </div>
-      </ScrollBar>
+      </Scroll>
     </>
   );
 };
