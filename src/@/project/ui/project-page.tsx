@@ -16,6 +16,7 @@ import {
   privacy,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
+import { Scroll } from '~/ui/scroll';
 
 import { About } from './about';
 import { CountryProgress } from './country-progress';
@@ -100,13 +101,15 @@ export const ProjectPage = () => (
           </Link>
         </div>
       </header>
-      <main className="content">
-        {useRoute(about) && <About />}
-        {useRoute(countryProgress) && <CountryProgress />}
-        {useRoute(privacy) && <br />}
-        {useRoute(media) && <Media />}
-        {useRoute(joinUs) && <JoinUs />}
-      </main>
+      <Scroll>
+        <main className="content">
+          {useRoute(about) && <About />}
+          {useRoute(countryProgress) && <CountryProgress />}
+          {useRoute(privacy) && <br />}
+          {useRoute(media) && <Media />}
+          {useRoute(joinUs) && <JoinUs />}
+        </main>
+      </Scroll>
       <footer className="footer">
         <div className="container">
           <div className="footer__row">

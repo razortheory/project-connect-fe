@@ -5,6 +5,7 @@ import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
+import { Scroll } from '~/ui/scroll';
 
 import { $countriesData } from '@/map/@/country';
 import { $showSearchResults } from '@/map/@/sidebar/model';
@@ -202,12 +203,14 @@ export const CountryList = () => (
   <>
     <Search />
     {!useStore($showSearchResults) && <Tabs />}
-    <div
-      className={`sidebar__content ${
-        useRoute(tabMap) ? 'sidebar__content--hidden' : ''
-      }`}
-    >
-      {useStore($showSearchResults) ? <SearchResults /> : <Content />}
-    </div>
+    <Scroll>
+      <div
+        className={`sidebar__content ${
+          useRoute(tabMap) ? 'sidebar__content--hidden' : ''
+        }`}
+      >
+        {useStore($showSearchResults) ? <SearchResults /> : <Content />}
+      </div>
+    </Scroll>
   </>
 );
