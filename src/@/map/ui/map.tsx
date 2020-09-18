@@ -11,7 +11,7 @@ import { $style } from '@/map/model';
 
 mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
 
-export const onChangeRef = createEvent<HTMLDivElement | null>();
+const onChangeRef = createEvent<HTMLDivElement | null>();
 
 sample({
   source: $style,

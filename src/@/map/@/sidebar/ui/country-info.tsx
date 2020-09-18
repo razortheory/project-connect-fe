@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
+import IconDownload from '~/assets/images/icon-download.svg';
 import { Scroll } from '~/ui/scroll';
 
 import { Search } from './search';
@@ -50,6 +51,21 @@ export const CountryInfo = () => (
         </ul>
         <hr className="sidebar__divider" />
         <WeekGraph showHistory showButtons />
+        <hr className="sidebar__divider" />
+        <h3 className="sidebar__secondary-title">Connectivity distribution</h3>
+        <p>Place for radial graph</p>
+        <hr className="sidebar__divider" />
+        <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
+          Data set
+        </h3>
+        <p className="sidebar__paragraph">
+          You can download the country map data by clicking on the button below.
+          File format for the data set would be CSV and PDF.
+        </p>
+        <button type="button" className="sidebar__link link">
+          <IconDownload className="link__icon" />
+          Download data set
+        </button>
       </div>
     </Scroll>
   </>

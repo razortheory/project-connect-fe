@@ -80,8 +80,8 @@ export const WeekGraph: React.FC<WeekGraphProps> = ({
       )}
     </div>
     {showHistory && (
-      <button type="button" className="week-graph-button">
-        <IconHistory className="week-graph-button__icon" />
+      <button type="button" className="week-graph-link link">
+        <IconHistory className="link__icon" />
         View history
       </button>
     )}

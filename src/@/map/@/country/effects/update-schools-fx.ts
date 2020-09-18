@@ -1,7 +1,6 @@
 import { createEffect } from 'effector';
-import { Point } from 'geojson';
-import mapboxGL, { MapMouseEvent } from 'mapbox-gl';
 
+import { clickSchool } from '@/map/@/country/model';
 import { UpdateSchools } from '@/map/@/country/types';
 import { connectivityStatusPaintData } from '@/map/constants';
 
@@ -57,22 +56,7 @@ export const updateSchoolsFx = createEffect(
         map.getCanvas().style.cursor = '';
       });
 
-      map.on('click', 'schools', (event: MapMouseEvent) => {
-        const features = map?.queryRenderedFeatures(event.point);
-        const coordinates = (features[0].geometry as Point).coordinates.slice();
-        const description = ((features[0].properties &&
-          features[0]?.properties.name) ??
-          'no data') as string;
-
-        while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        new mapboxGL.Popup()
-          .setLngLat([coordinates[0], coordinates[1]])
-          .setHTML(`<div>${description}</div>`)
-          .addTo(map);
-      });
+      map.on('click', 'schools', clickSchool);
     }
   }
 );
