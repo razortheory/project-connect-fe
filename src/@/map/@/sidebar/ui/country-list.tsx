@@ -34,7 +34,7 @@ export const ListItem = ({ country }: { country: CountryData }) => {
           ] as string,
         }}
       />
-      <Link to={mapCountry} params={{ id: country.id }} onClick={onClear}>
+      <Link to={mapCountry} params={{ id: country.id }}>
         {country.name}
       </Link>
     </li>
