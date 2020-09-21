@@ -1,8 +1,11 @@
-import { combine, guard, sample } from 'effector';
+import { combine, forward, guard, sample } from 'effector';
+import { KeyboardEvent } from 'react';
 
+import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
+import { changeCountryId } from '@/map/@/country/model';
 import { CountryData } from '@/map/@/country/types';
 
 import { countriesSortData } from './constants';
@@ -10,14 +13,19 @@ import { sortCallbacks } from './helpers';
 import {
   $countryList,
   $isSidebarHidden,
+  $noSearchCountryFound,
   $noSearchResults,
   $searchActive,
   $searchText,
   $sortValue,
+  blurInputFx,
   changeSearchText,
   changeSortValue,
   clearSearchText,
+  goToCountryRoutingFx,
   onClickSidebar,
+  onSearchPressEnter,
+  onSearchPressKey,
   toggleSidebarVisibility,
 } from './model';
 
@@ -68,4 +76,54 @@ sample({
   source: $countryList,
   fn: (countriesFound) => !countriesFound?.length,
   target: $noSearchResults,
+});
+
+blurInputFx.use((event: KeyboardEvent<HTMLInputElement>) =>
+  event.currentTarget.blur()
+);
+
+forward({
+  from: guard({
+    source: onSearchPressKey,
+    filter: (event) => event.key === 'Enter',
+  }),
+  to: [onSearchPressEnter, blurInputFx],
+});
+
+const $searchScope = combine([$countryList, $searchText]);
+
+goToCountryRoutingFx.use((id) => {
+  mapCountry.navigate({ id });
+});
+
+sample({
+  source: guard($searchScope, {
+    filter: ([countryList, searchText]) =>
+      countryList?.length === 1 &&
+      countryList[0].integration_status > 0 &&
+      countryList[0].name.toLowerCase() === searchText.toLowerCase(),
+  }),
+  clock: onSearchPressEnter,
+  fn: ([countryList]) => (countryList?.length ? countryList[0].id : 0),
+  target: goToCountryRoutingFx,
+});
+
+sample({
+  source: changeCountryId,
+  target: clearSearchText,
+});
+
+sample({
+  source: $searchScope,
+  clock: onSearchPressEnter,
+  fn: ([countryList, searchText]) =>
+    countryList?.length !== 1 ||
+    countryList[0].name.toLowerCase() !== searchText.toLowerCase(),
+  target: $noSearchCountryFound,
+});
+
+sample({
+  source: guard($searchText, { filter: getInverted }),
+  fn: () => false,
+  target: $noSearchCountryFound,
 });

@@ -2,7 +2,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { mapCountries, mapCountry } from '~/core/routes';
+import { mapCountries, mapCountry, router } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 
@@ -11,17 +11,15 @@ import {
   $noSearchResults,
   $searchActive,
 } from '@/map/@/sidebar/model';
-import { NotFound } from '@/map/@/sidebar/ui/search-results';
 import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
 import { CountryData } from '@/map/types';
 
-import { Search } from './search';
+import { onClear, Search } from './search';
 
 export const ListItem = ({ country }: { country: CountryData }) => {
   const paintData = useStore($stylePaintData);
-
   return (
     <li
       className={`list__item ${
@@ -36,12 +34,34 @@ export const ListItem = ({ country }: { country: CountryData }) => {
           ] as string,
         }}
       />
-      <Link to={mapCountry} params={{ id: country.id }}>
+      <Link to={mapCountry} params={{ id: country.id }} onClick={onClear}>
         {country.name}
       </Link>
     </li>
   );
 };
+
+export const NotFound = () => (
+  <div className="sidebar__not-found not-found">
+    <div className="not-found__icon">{/* Icon to be added here */}</div>
+    <h3 className="not-found__title">Country not found</h3>
+    <div className="not-found__description">
+      Try browsing through our&#160;
+      <div
+        role="button"
+        tabIndex={0}
+        onKeyPress={() => {}}
+        className="not-found__link"
+        onClick={(event) => {
+          onClear(event);
+          mapCountries.navigate({ tab: '/info' });
+        }}
+      >
+        country list
+      </div>
+    </div>
+  </div>
+);
 
 const List = () => {
   const countries = useStore($countryList);
