@@ -123,7 +123,7 @@ sample({
 });
 
 sample({
-  source: guard($searchText, { filter: getInverted }),
+  source: changeSearchText,
   fn: () => false,
   target: $noSearchCountryFound,
 });
