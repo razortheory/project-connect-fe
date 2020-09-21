@@ -1,4 +1,6 @@
-import { FeatureCollection, Geometry } from 'geojson';
+import { FeatureCollection } from 'geojson';
+
+import { CountryData, CountryGeometryData } from '~/api/types';
 
 import { Map, StylePaintData } from '@/map/types';
 
@@ -28,26 +30,4 @@ export type AddCountries = {
   map: Map | null;
   paintData: StylePaintData;
   countriesGeoJson: FeatureCollection;
-};
-
-export type CountryData = {
-  id: number;
-  name: string;
-  code: string;
-  flag: string;
-  map_preview: string;
-  description: string;
-  data_source: string;
-  integration_status: IntegrationStatus;
-  date_of_join: string;
-  schools_with_data_percentage: string;
-  schools_total: number;
-  geometry?: Geometry;
-};
-
-export type IntegrationStatus = 0 | 1 | 2 | 3;
-
-export type CountryGeometryData = {
-  id: number;
-  geometry_simplified: Geometry;
 };

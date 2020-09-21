@@ -1,14 +1,9 @@
 import { createEvent, createStore } from 'effector';
 
+import { GlobalStatsData } from '~/api/types';
+
 import { defaultGlobalStats, defaultStyle, stylePaintData } from './constants';
-import {
-  Center,
-  GlobalStatsData,
-  Map,
-  Marker,
-  Style,
-  StylePaintData,
-} from './types';
+import { Center, Map, Marker, Style, StylePaintData } from './types';
 
 export const changeMap = createEvent<Map>();
 export const changeStyle = createEvent<Style>();

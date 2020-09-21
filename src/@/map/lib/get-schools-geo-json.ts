@@ -1,6 +1,6 @@
 import { FeatureCollection } from 'geojson';
 
-import { SchoolData } from '@/map/types';
+import { SchoolData } from '~/api/types';
 
 export const getSchoolsGeoJson = (points: SchoolData[]): FeatureCollection => {
   return {

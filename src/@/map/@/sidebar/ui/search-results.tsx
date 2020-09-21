@@ -1,9 +1,10 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import { CountryMetaData } from '~/api/types';
+
 import { $countryList, $noSearchResults } from '@/map/@/sidebar/model';
 import { ListItem } from '@/map/@/sidebar/ui/country-list';
-import { CountryData } from '@/map/types';
 
 export const SearchResults = () => {
   const countiesList = useStore($countryList);
@@ -14,7 +15,7 @@ export const SearchResults = () => {
         <span style={{ padding: 30 }}>Not found</span>
       ) : (
         <ul className="list">
-          {countiesList?.map((country: CountryData) => (
+          {countiesList?.map((country: CountryMetaData) => (
             <ListItem country={country} key={country.id} />
           ))}
         </ul>

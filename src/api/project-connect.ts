@@ -4,12 +4,14 @@ import { FeatureCollection } from 'geojson';
 import { createRequest } from '~/lib/request';
 
 import { getSchoolsGeoJson } from '@/map/lib/get-schools-geo-json';
+
 import {
   CountryData,
   CountryGeometryData,
+  CountryMetaData,
   GlobalStatsData,
   SchoolData,
-} from '@/map/types';
+} from './types';
 
 export const request = createRequest({
   baseUrl: 'https://api.projectconnect.razortheory.com/',
@@ -29,7 +31,7 @@ export const fetchCountrySchoolsFx = createEffect(
 );
 
 export const fetchCountriesDataFx = createEffect(
-  async (): Promise<CountryData[]> => request('api/locations/countries/')
+  async (): Promise<CountryMetaData[]> => request('api/locations/countries/')
 );
 
 export const fetchCountriesGeometryDataFx = createEffect(

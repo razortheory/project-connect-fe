@@ -1,12 +1,12 @@
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
+import { CountryMetaData } from '~/api/types';
 import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
 import { changeCountryId } from '@/map/@/country/model';
-import { CountryData } from '@/map/@/country/types';
 
 import { countriesSortData } from './constants';
 import { sortCallbacks } from './helpers';
@@ -48,7 +48,7 @@ const $sortedList = combine(
       return null;
     }
     return [
-      ...countriesData.sort((a: CountryData, b: CountryData) =>
+      ...countriesData.sort((a: CountryMetaData, b: CountryMetaData) =>
         sortCallbacks(a, b, field, sortType)
       ),
     ];

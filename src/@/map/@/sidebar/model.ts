@@ -1,8 +1,9 @@
 import { createEffect, createEvent, createStore } from 'effector';
 import { KeyboardEvent, MouseEvent } from 'react';
 
+import { CountryMetaData } from '~/api/types';
+
 import { SortValues } from '@/map/@/sidebar/types';
-import { CountryData } from '@/map/types';
 
 import { defaultSortValue } from './constants';
 
@@ -23,7 +24,7 @@ export const blurInputFx = createEffect<
 export const goToCountryRoutingFx = createEffect<number, void>();
 
 export const $isSidebarHidden = createStore(false);
-export const $countryList = createStore<CountryData[] | null>(null);
+export const $countryList = createStore<CountryMetaData[] | null>(null);
 export const $searchText = createStore('');
 export const $searchActive = createStore(false);
 export const $noSearchResults = createStore(false);

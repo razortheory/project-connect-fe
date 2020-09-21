@@ -1,12 +1,10 @@
 import {
-  Center,
   ConnectivityStatus,
   GlobalStatsData,
   IntegrationStatus,
-  Style,
-  StylePaintData,
-  Zoom,
-} from './types';
+} from '~/api/types';
+
+import { Center, Style, StylePaintData, Zoom } from './types';
 
 export const defaultZoom: Zoom = 2;
 export const defaultCenter: Center = [0, 40];

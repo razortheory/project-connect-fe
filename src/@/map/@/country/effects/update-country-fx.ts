@@ -1,5 +1,4 @@
 import { createEffect } from 'effector';
-import { Geometry } from 'geojson';
 
 import { UpdateCountry } from '@/map/@/country/types';
 
@@ -15,7 +14,7 @@ export const updateCountryFx = createEffect(
       type: 'geojson',
       data: {
         type: 'Feature',
-        geometry: countryData.geometry as Geometry,
+        geometry: countryData.geometry,
         properties: {},
       },
     });

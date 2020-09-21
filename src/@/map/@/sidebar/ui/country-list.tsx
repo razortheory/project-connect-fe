@@ -1,8 +1,9 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import { CountryMetaData } from '~/api/types';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { mapCountries, mapCountry, router } from '~/core/routes';
+import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 
@@ -14,12 +15,13 @@ import {
 import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
-import { CountryData } from '@/map/types';
 
 import { onClear, Search } from './search';
 
-export const ListItem = ({ country }: { country: CountryData }) => {
+export const ListItem = ({ country }: { country: CountryMetaData }) => {
   const paintData = useStore($stylePaintData);
+  const paintField = statusPaintField[country.integration_status];
+
   return (
     <li
       className={`list__item ${
@@ -29,9 +31,7 @@ export const ListItem = ({ country }: { country: CountryData }) => {
       <div
         className="list__circle"
         style={{
-          backgroundColor: paintData[
-            statusPaintField[country.integration_status]
-          ] as string,
+          backgroundColor: paintData[paintField].toString(),
         }}
       />
       <Link to={mapCountry} params={{ id: country.id }}>
@@ -87,7 +87,7 @@ const List = () => {
         <NotFound />
       ) : (
         <ul className="list">
-          {countries.map((country: CountryData) => (
+          {countries.map((country: CountryMetaData) => (
             <ListItem country={country} key={country.id} />
           ))}
         </ul>
