@@ -1,20 +1,20 @@
 import { useStore } from 'effector-react';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import IconSearch from '~/assets/images/icon-search.svg';
 import { getVoid } from '~/lib/effector-kit';
 
+import { getInputValue } from '@/map/@/sidebar/helpers';
 import {
+  $searchActive,
   $searchText,
   changeSearchText,
   clearSearchText,
+  onSearchPressKey,
 } from '@/map/@/sidebar/model';
 
-export const getTargetValue = (event: ChangeEvent<HTMLInputElement>) =>
-  event.target.value;
-
-const onChange = changeSearchText.prepend(getTargetValue);
-const onClear = clearSearchText.prepend(getVoid);
+const onChange = changeSearchText.prepend(getInputValue);
+export const onClear = clearSearchText.prepend(getVoid);
 
 export const Search = () => (
   <div className="sidebar__search-bar search-bar">
@@ -25,11 +25,14 @@ export const Search = () => (
       className="search-bar__input"
       type="text"
       placeholder="Search for a country"
+      onKeyPress={onSearchPressKey}
       onChange={onChange}
       value={useStore($searchText)}
     />
-    <button className="search-bar__close" type="button" onClick={onClear}>
-      <span className="visually-hidden">Clear search</span>
-    </button>
+    {useStore($searchActive) && (
+      <button className="search-bar__close" type="button" onClick={onClear}>
+        <span className="visually-hidden">Clear search</span>
+      </button>
+    )}
   </div>
 );

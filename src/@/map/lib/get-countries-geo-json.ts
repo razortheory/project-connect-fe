@@ -1,9 +1,9 @@
 import { FeatureCollection, Geometry } from 'geojson';
 
-import { CountryData, CountryGeometryData } from '@/map/types';
+import { CountryGeometryData, CountryMetaData } from '~/api/types';
 
 export const getCountriesGeoJson = (
-  countriesProperties: CountryData[] | null,
+  countriesProperties: CountryMetaData[] | null,
   countriesGeometry: CountryGeometryData[] | null
 ): FeatureCollection => {
   return {

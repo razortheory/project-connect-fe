@@ -1,12 +1,12 @@
 import { useList, useStore } from 'effector-react';
 import React from 'react';
 
+import { CountryMetaData } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
 import { formatPercent } from '~/core/formatters';
 import { mapCountry } from '~/core/routes';
 import { Link } from '~/lib/router';
 
-import { CountryData } from '@/map/types';
 import { getCountryInfo } from '@/project/@/dashboard/lib/get-country-info';
 import {
   $countries,
@@ -21,7 +21,7 @@ export const CountriesFound = () => {
 
   return (
     <div className="countries-list__row">
-      {useList($countries, (countryData: CountryData) => {
+      {useList($countries, (countryData: CountryMetaData) => {
         const country = getCountryInfo(countryData, isListType);
 
         return (

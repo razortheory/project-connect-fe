@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Children } from '~/lib/types';
 import { Layout, Main } from '~/ui/components';
 
 import { Popup } from '@/map/@/country';
@@ -11,7 +10,7 @@ import { Header } from './header';
 import { Map } from './map';
 import { Underlay } from './underlay';
 
-export const MapTemplate = ({ children }: Children) => (
+export const MapTemplate = () => (
   <Layout>
     <Underlay>
       <Map />
@@ -19,7 +18,7 @@ export const MapTemplate = ({ children }: Children) => (
     </Underlay>
     <Header />
     <Main>
-      <Sidebar>{children}</Sidebar>
+      <Sidebar />
     </Main>
     <Footer />
   </Layout>

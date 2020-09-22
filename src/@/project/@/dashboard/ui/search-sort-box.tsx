@@ -6,11 +6,14 @@ import IconSearch from '~/assets/images/search.svg';
 import IconTile from '~/assets/images/tile.svg';
 import { getInverted, getVoid } from '~/lib/effector-kit';
 
+import { getSelectSortValues } from '@/map/@/sidebar/helpers';
 import {
   $hasSearchText,
   $isListType,
   $searchText,
+  $sortValue,
   changeSearchText,
+  changeSortValue,
   changeViewType,
   clearSearchText,
   getTargetValue,
@@ -20,6 +23,7 @@ import {
 const onChange = changeSearchText.prepend(getTargetValue);
 const onChangeView = changeViewType.prepend(getInverted);
 const onClear = clearSearchText.prepend(getVoid);
+const onSortChange = changeSortValue.prepend(getSelectSortValues);
 
 export const SearchSortBox = () => (
   <div className="progress-dashboard__controls-bar controls-bar">
@@ -41,7 +45,17 @@ export const SearchSortBox = () => (
       )}
     </div>
 
-    <div className="controls-bar__sort">Sort by: Country progress</div>
+    <div className="controls-bar__sort">
+      <span>Sort by:</span>
+      <select onChange={onSortChange} value={useStore($sortValue)}>
+        <option value="amountOfDataAvailable">Amount of data available</option>
+        <option value="dateOfJoining">Date of joining</option>
+        <option value="countryProgress">Country progress</option>
+        <option value="percentSchoolWithConnectivity">
+          % Schools with connectivity
+        </option>
+      </select>
+    </div>
 
     <div className="controls-bar__view-changer">
       <button

@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 
+import { CountryMetaData } from '~/api/types';
 import previewPlaceholder from '~/assets/images/preview-placeholder.jpg';
 import { formatPercent } from '~/core/formatters';
 
-import { CountryData } from '@/map/@/country/types';
 import { DashboardCountryData } from '@/project/@/dashboard/types';
 
 const loremIpsum =
@@ -41,7 +41,7 @@ const progressInfo = new Map([
 ]);
 
 export const getCountryInfo = (
-  country: CountryData,
+  country: CountryMetaData,
   isListType: boolean
 ): DashboardCountryData => {
   const {

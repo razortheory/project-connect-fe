@@ -1,65 +1,100 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import { CountryMetaData } from '~/api/types';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
 import { Scroll } from '~/ui/scroll';
 
-import { $countriesData } from '@/map/@/country';
-import { $showSearchResults } from '@/map/@/sidebar/model';
+import {
+  $countryList,
+  $noSearchResults,
+  $searchActive,
+} from '@/map/@/sidebar/model';
+import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
-import { CountryData } from '@/map/types';
 
-import { Search } from './search';
-import { SearchResults } from './search-results';
+import { onClear, Search } from './search';
+
+export const ListItem = ({ country }: { country: CountryMetaData }) => {
+  const paintData = useStore($stylePaintData);
+  const paintField = statusPaintField[country.integration_status];
+
+  return (
+    <li
+      className={`list__item ${
+        country.integration_status === 0 ? 'list__item--disabled' : ''
+      }`}
+    >
+      <div
+        className="list__circle"
+        style={{
+          backgroundColor: paintData[paintField].toString(),
+        }}
+      />
+      {/* TODO: country.code */}
+      <Link to={mapCountry} params={{ code: country.code.toLowerCase() }}>
+        {country.name}
+      </Link>
+    </li>
+  );
+};
+
+export const NotFound = () => (
+  <div className="sidebar__not-found not-found">
+    <div className="not-found__icon">{/* Icon to be added here */}</div>
+    <h3 className="not-found__title">Country not found</h3>
+    <div className="not-found__description">
+      Try browsing through our&#160;
+      {/* TODO: Replace to Link */}
+      <div
+        role="button"
+        tabIndex={0}
+        onKeyPress={() => {}}
+        className="not-found__link"
+        onClick={(event) => {
+          onClear(event);
+          mapCountries.navigate({ tab: '/info' });
+        }}
+      >
+        country list
+      </div>
+    </div>
+  </div>
+);
 
 const List = () => {
-  const countries = useStore($countriesData);
-  const paintData = useStore($stylePaintData);
+  const countries = useStore($countryList);
+  const notFound = useStore($noSearchResults);
+  const searchActive = useStore($searchActive);
 
   if (!countries) {
     return <>Loading...</>;
   }
-
   return (
     <>
-      <div className="map-hint">
-        <MapWithHand className="map-hint__image" alt="Unicef logo" />
-        <p className="map-hint__text">
-          Click on the country of interest to view the connectivity and location
-          of schools.
-        </p>
-      </div>
-      <ul className="list">
-        {countries
-          .sort((a, b) => b.integration_status - a.integration_status)
-          .map((country: CountryData) => (
-            <li
-              key={country.id}
-              className={`list__item ${
-                country.integration_status === 0 ? 'list__item--disabled' : ''
-              }`}
-            >
-              <div
-                className="list__circle"
-                style={{
-                  backgroundColor: paintData[
-                    statusPaintField[country.integration_status]
-                  ] as string,
-                }}
-              />
-              <Link
-                to={mapCountry}
-                params={{ code: country.code.toLowerCase() }}
-              >
-                {country.name}
-              </Link>
-            </li>
+      <Sort />
+      {!searchActive && (
+        <div className="map-hint">
+          <MapWithHand className="map-hint__image" alt="Map with hand" />
+          <p className="map-hint__text">
+            Click on the country of interest to view the connectivity and
+            location of schools.
+          </p>
+        </div>
+      )}
+      {notFound ? (
+        <NotFound />
+      ) : (
+        <ul className="list">
+          {countries.map((country: CountryMetaData) => (
+            <ListItem country={country} key={country.id} />
           ))}
-      </ul>
+        </ul>
+      )}
     </>
   );
 };
@@ -206,14 +241,14 @@ export const Content = () => (
 export const CountryList = () => (
   <>
     <Search />
-    {!useStore($showSearchResults) && <Tabs />}
+    {!useStore($searchActive) && <Tabs />}
     <Scroll>
       <div
         className={`sidebar__content ${
           useRoute(tabMap) ? 'sidebar__content--hidden' : ''
         }`}
       >
-        {useStore($showSearchResults) ? <SearchResults /> : <Content />}
+        <Content />
       </div>
     </Scroll>
   </>

@@ -4,9 +4,12 @@ import {
   fetchCountriesDataFx,
   fetchGlobalStatsDataFx,
 } from '~/api/project-connect';
+import { CountryMetaData } from '~/api/types';
 import { getInverted, setBoolean, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
+import { countriesSortData } from '@/map/@/sidebar/constants';
+import { sortCallbacks } from '@/map/@/sidebar/helpers';
 
 import {
   $countries,
@@ -15,7 +18,9 @@ import {
   $isLoading,
   $notFound,
   $searchText,
+  $sortValue,
   changeSearchText,
+  changeSortValue,
   changeViewType,
   clearSearchText,
 } from './model';
@@ -28,13 +33,28 @@ $searchText.on(changeSearchText, setPayload);
 $isListType.on(changeViewType, getInverted);
 $searchText.reset(clearSearchText);
 $hasSearchText.on($searchText, setBoolean);
+$sortValue.on(changeSortValue, setPayload);
+
+const $sortedList = combine(
+  [$countriesData, $sortValue],
+  ([countriesData, sortKey]) => {
+    const { field, sortType } = countriesSortData[sortKey];
+    if (!countriesData) {
+      return null;
+    }
+    return [
+      ...countriesData.sort((a: CountryMetaData, b: CountryMetaData) =>
+        sortCallbacks(a, b, field, sortType)
+      ),
+    ];
+  }
+);
 
 sample({
   source: combine({
-    countriesData: $countriesData,
+    countriesData: $sortedList,
     searchText: $searchText,
   }),
-  // TODO: sort
   fn: ({ countriesData, searchText }) =>
     countriesData
       ?.filter((countryData) => hasText(countryData.name, searchText))

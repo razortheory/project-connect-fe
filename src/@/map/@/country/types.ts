@@ -1,5 +1,7 @@
-import { FeatureCollection, Geometry } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { MapMouseEvent } from 'mapbox-gl';
+
+import { CountryData, CountryGeometryData } from '~/api/types';
 
 import { Map, StylePaintData } from '@/map/types';
 
@@ -36,27 +38,6 @@ export type AddSchoolPopup = {
   map: Map | null;
   popup: HTMLDivElement | null;
   event: MapMouseEvent;
-};
-
-export type CountryData = {
-  id: number;
-  name: string;
-  code: string;
-  flag: string;
-  map_preview: null | string;
-  description: null | string;
-  data_source: null | string;
-  integration_status: IntegrationStatus;
-  date_of_join: null | string;
-  schools_with_data_percentage: null | string;
-  geometry?: Geometry;
-};
-
-export type IntegrationStatus = 0 | 1 | 2 | 3;
-
-export type CountryGeometryData = {
-  id: number;
-  geometry_simplified: Geometry;
 };
 
 export type EmptyObject = Record<string, never>;
