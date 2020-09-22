@@ -64,7 +64,7 @@ export const getCountryInfo = (
 
   return {
     id,
-    code,
+    code: code.toLowerCase(),
     flag,
     name,
     joinDate: isListType ? listDate : tileDate,

@@ -45,16 +45,15 @@ export const addCountriesFx = createEffect(
     });
 
     map.on('click', 'countries', (event: MapLayerMouseEvent) => {
-      if (!event.features || !event.features[0]) {
-        return;
-      }
-      const clickedCountryId = event.features[0].id;
-      const clickedCountryGeoJson = countriesGeoJson.features.find(
-        (countryGeoJson) => countryGeoJson.id === clickedCountryId
+      if (!event.features?.[0]) return;
+      const countryId = event.features[0].id;
+      const countryGeoJson = countriesGeoJson.features.find(
+        (geoJson) => geoJson.id === countryId
       );
-      const clickedCountryCode: string = clickedCountryGeoJson?.properties
-        ?.code as string;
-      mapCountry.navigate({ code: clickedCountryCode.toLowerCase() });
+      if (countryGeoJson?.properties?.code) {
+        const code = String(countryGeoJson.properties.code);
+        mapCountry.navigate({ code: code.toLowerCase() });
+      }
     });
 
     map.on('mouseenter', 'countries', () => {

@@ -23,6 +23,7 @@ const List = () => {
   if (!countries) {
     return <>Loading...</>;
   }
+
   return (
     <>
       <div className="map-hint">
