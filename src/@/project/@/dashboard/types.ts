@@ -8,6 +8,7 @@ type MapPreview = {
 
 export type DashboardCountryData = {
   id: number;
+  code: string;
   flag: string;
   name: string;
   joinDate: string;

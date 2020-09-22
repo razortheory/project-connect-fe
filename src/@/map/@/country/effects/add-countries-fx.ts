@@ -50,10 +50,15 @@ export const addCountriesFx = createEffect(
     );
 
     map.on('click', 'countries', (event: MapLayerMouseEvent) => {
-      if (!event.features || !event.features[0]) {
-        return;
+      if (!event.features?.[0]) return;
+      const countryId = event.features[0].id;
+      const countryGeoJson = countriesGeoJson.features.find(
+        (geoJson) => geoJson.id === countryId
+      );
+      if (countryGeoJson?.properties?.code) {
+        const code = String(countryGeoJson.properties.code);
+        mapCountry.navigate({ code: code.toLowerCase() });
       }
-      mapCountry.navigate({ id: event.features[0].id as number });
     });
 
     map.on('mouseenter', 'countries', () => {

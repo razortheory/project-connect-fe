@@ -46,6 +46,7 @@ export const getCountryInfo = (
 ): DashboardCountryData => {
   const {
     id,
+    code,
     flag,
     name,
     description,
@@ -63,6 +64,7 @@ export const getCountryInfo = (
 
   return {
     id,
+    code: code.toLowerCase(),
     flag,
     name,
     joinDate: isListType ? listDate : tileDate,

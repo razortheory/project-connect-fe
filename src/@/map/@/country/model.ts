@@ -10,7 +10,7 @@ export const changeCountryId = createEvent<number>();
 export const clickSchool = createEvent<MapMouseEvent>();
 export const updatePopupContext = createEvent<PopupContext>();
 
-export const $selectedCountryId = createStore<number>(0);
+export const $countryId = createStore<number>(0);
 export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
   null
 );
