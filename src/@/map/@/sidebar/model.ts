@@ -21,7 +21,7 @@ export const blurInputFx = createEffect<
   KeyboardEvent<HTMLInputElement>,
   void
 >();
-export const goToCountryRoutingFx = createEffect<number, void>();
+export const goToCountryRoutingFx = createEffect<string | null, void>();
 
 export const $isSidebarHidden = createStore(false);
 export const $countryList = createStore<CountryMetaData[] | null>(null);

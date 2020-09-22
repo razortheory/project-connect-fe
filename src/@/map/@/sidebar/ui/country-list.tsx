@@ -6,6 +6,7 @@ import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
+import { Scroll } from '~/ui/scroll';
 
 import {
   $countryList,
@@ -34,7 +35,8 @@ export const ListItem = ({ country }: { country: CountryMetaData }) => {
           backgroundColor: paintData[paintField].toString(),
         }}
       />
-      <Link to={mapCountry} params={{ id: country.id }}>
+      {/* TODO: country.code */}
+      <Link to={mapCountry} params={{ code: country.code.toLowerCase() }}>
         {country.name}
       </Link>
     </li>
@@ -47,6 +49,7 @@ export const NotFound = () => (
     <h3 className="not-found__title">Country not found</h3>
     <div className="not-found__description">
       Try browsing through our&#160;
+      {/* TODO: Replace to Link */}
       <div
         role="button"
         tabIndex={0}
@@ -239,12 +242,14 @@ export const CountryList = () => (
   <>
     <Search />
     {!useStore($searchActive) && <Tabs />}
-    <div
-      className={`sidebar__content ${
-        useRoute(tabMap) ? 'sidebar__content--hidden' : ''
-      }`}
-    >
-      <Content />
-    </div>
+    <Scroll>
+      <div
+        className={`sidebar__content ${
+          useRoute(tabMap) ? 'sidebar__content--hidden' : ''
+        }`}
+      >
+        <Content />
+      </div>
+    </Scroll>
   </>
 );

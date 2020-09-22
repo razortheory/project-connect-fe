@@ -92,8 +92,10 @@ forward({
 
 const $searchScope = combine([$countryList, $searchText]);
 
-goToCountryRoutingFx.use((id) => {
-  mapCountry.navigate({ id });
+goToCountryRoutingFx.use((code) => {
+  if (code) {
+    mapCountry.navigate({ code: code.toLowerCase() });
+  }
 });
 
 sample({
@@ -104,7 +106,7 @@ sample({
       countryList[0].name.toLowerCase() === searchText.toLowerCase(),
   }),
   clock: onSearchPressEnter,
-  fn: ([countryList]) => (countryList?.length ? countryList[0].id : 0),
+  fn: ([countryList]) => (countryList?.length ? countryList[0].code : null),
   target: goToCountryRoutingFx,
 });
 
