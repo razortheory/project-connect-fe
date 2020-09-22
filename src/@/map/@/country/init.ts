@@ -48,6 +48,7 @@ const $mapScope = combine({
   countryData: $countryData,
   countrySchools: $countrySchools,
   popup: $popup,
+  isCountryRoute: mapCountry.visible,
 });
 
 // Zoom to country bounds
@@ -159,10 +160,11 @@ const onCountriesGeoJson = sample({
 sample({
   source: $mapScope,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
-  fn: ({ map, paintData }, countriesGeoJson) => ({
+  fn: ({ map, paintData, isCountryRoute }, countriesGeoJson) => ({
     map,
     paintData,
     countriesGeoJson,
+    isCountryRoute,
   }),
   target: addCountriesFx,
 });
