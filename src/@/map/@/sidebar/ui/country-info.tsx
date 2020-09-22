@@ -6,7 +6,7 @@ import IconDownload from '~/assets/images/icon-download.svg';
 import { Scroll } from '~/ui/scroll';
 
 import { $noSearchCountryFound, $searchActive } from '@/map/@/sidebar/model';
-import { NotFound } from '@/map/@/sidebar/ui/country-list';
+import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 
 import { Search } from './search';
@@ -18,6 +18,7 @@ export const CountryInfo = () => {
   return (
     <>
       <Search />
+      <Tabs />
       <Scroll>
         <div className="sidebar__content">
           {searchActive && !noSearchCountryFound && <SearchResults />}

@@ -3,6 +3,7 @@ import React, { MouseEvent } from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
 import { mapCountries, mapCountry, mapOverview } from '~/core/routes';
+import { tabMap } from '~/core/tab-routes';
 import { useRoute } from '~/lib/router';
 
 import {
@@ -25,7 +26,7 @@ export const Sidebar = () => (
   <div
     className={`sidebar${
       useStore($isSidebarHidden) ? ' sidebar--collapsed' : ''
-    }`}
+    }${useStore(tabMap.visible) ? ' sidebar--show-map' : ''}`}
     onClick={onClickSidebar}
   >
     <div className="sidebar__container">

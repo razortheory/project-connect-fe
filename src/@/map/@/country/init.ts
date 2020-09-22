@@ -120,7 +120,6 @@ sample({
 const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
 
-// TODO: Should it trigger in other cases?
 sample({
   source: $countriesData,
   clock: combine([mapCountry.params, $map]),
