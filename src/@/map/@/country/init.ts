@@ -48,16 +48,17 @@ const $mapContext = combine({
   countryData: $countryData,
   countrySchools: $countrySchools,
   popup: $popup,
+  isCountryRoute: mapCountry.visible,
 });
 
 // Zoom to country bounds
 sample({
-  source: $mapContext,
-  clock: changeCountryId,
-  fn: ({ map, countriesGeometry }, countryId) => ({
+  source: $map,
+  clock: combine([$countryId, $countriesGeometryData]),
+  fn: (map, [countryId, countriesGeometry]) => ({
     map,
-    countriesGeometry,
     countryId,
+    countriesGeometry,
   }),
   target: zoomToCountryFx,
 });
@@ -163,10 +164,11 @@ const onCountriesGeoJson = sample({
 sample({
   source: $mapContext,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
-  fn: ({ map, paintData }, countriesGeoJson) => ({
+  fn: ({ map, paintData, isCountryRoute }, countriesGeoJson) => ({
     map,
     paintData,
     countriesGeoJson,
+    isCountryRoute,
   }),
   target: addCountriesFx,
 });

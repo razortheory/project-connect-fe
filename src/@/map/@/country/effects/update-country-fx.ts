@@ -35,18 +35,18 @@ export const updateCountryFx = createEffect(
       // Country layer always below schools layer
       map.getLayer('schools') ? 'schools' : ''
     );
-
-    map.setPaintProperty(
-      'countries',
-      'fill-color',
-      paintData.countryNotSelected
-    );
-
-    map.setPaintProperty('countries', 'fill-outline-color', [
-      'case',
-      ['==', ['id'], countryData.id],
-      paintData.countryNotSelected,
-      paintData.background,
-    ]);
+    if (map.getLayer('countries')) {
+      map.setPaintProperty(
+        'countries',
+        'fill-color',
+        paintData.countryNotSelected
+      );
+      map.setPaintProperty('countries', 'fill-outline-color', [
+        'case',
+        ['==', ['id'], countryData.id],
+        paintData.countryNotSelected,
+        paintData.background,
+      ]);
+    }
   }
 );

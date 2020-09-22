@@ -29,6 +29,7 @@ export type AddCountries = {
   map: Map | null;
   paintData: StylePaintData;
   countriesGeoJson: FeatureCollection;
+  isCountryRoute: boolean;
 };
 
 export type AddSchoolPopup = {
