@@ -2,6 +2,7 @@ import { createEffect, createEvent, createStore } from 'effector';
 import { KeyboardEvent, MouseEvent } from 'react';
 
 import { CountryMetaData } from '~/api/types';
+import { getWeekInterval } from '~/lib/date-fns-kit';
 
 import { SortValues } from '@/map/@/sidebar/types';
 
@@ -30,3 +31,7 @@ export const $searchActive = createStore(false);
 export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);
 export const $sortValue = createStore<SortValues>(defaultSortValue);
+
+export const $week = createStore(getWeekInterval(new Date()));
+export const nextWeek = createEvent();
+export const previousWeek = createEvent();

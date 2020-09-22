@@ -3,18 +3,31 @@ import React from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
+import { getVoid } from '~/lib/effector-kit';
 import { Scroll } from '~/ui/scroll';
 
-import { $noSearchCountryFound, $searchActive } from '@/map/@/sidebar/model';
+import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
+import {
+  $noSearchCountryFound,
+  $searchActive,
+  $week,
+  nextWeek,
+  previousWeek,
+} from '@/map/@/sidebar/model';
 import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 
 import { Search } from './search';
 import { WeekGraph } from './week-graph';
 
+const onNextWeek = nextWeek.prepend(getVoid);
+const onPreviousWeek = previousWeek.prepend(getVoid);
+
 export const CountryInfo = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const searchActive = useStore($searchActive);
+  const week = useStore($week);
+
   return (
     <>
       <Search />
@@ -27,11 +40,21 @@ export const CountryInfo = () => {
           ) : (
             <>
               <div className="sidebar__period-picker period-picker">
-                <button type="button" className="period-picker__button">
+                <button
+                  type="button"
+                  className="period-picker__button"
+                  onClick={onPreviousWeek}
+                >
                   <Chevron className="chevron chevron--left" />
                 </button>
-                <div className="period-picker__period">This week</div>
-                <button type="button" className="period-picker__button">
+                <div className="period-picker__period">
+                  {formatInterval(week)}
+                </div>
+                <button
+                  type="button"
+                  className="period-picker__button"
+                  onClick={onNextWeek}
+                >
                   <Chevron className="chevron" />
                 </button>
               </div>

@@ -1,8 +1,10 @@
+import { add, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
 import { CountryMetaData } from '~/api/types';
 import { mapCountry } from '~/core/routes';
+import { getWeekInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
@@ -18,14 +20,17 @@ import {
   $searchActive,
   $searchText,
   $sortValue,
+  $week,
   blurInputFx,
   changeSearchText,
   changeSortValue,
   clearSearchText,
   navigateToMapCountryFx,
+  nextWeek,
   onClickSidebar,
   onSearchPressEnter,
   onSearchPressKey,
+  previousWeek,
   toggleSidebarVisibility,
 } from './model';
 
@@ -129,3 +134,8 @@ sample({
   fn: () => false,
   target: $noSearchCountryFound,
 });
+
+$week.on(nextWeek, (week) => getWeekInterval(add(week.start, { weeks: 1 })));
+$week.on(previousWeek, (week) =>
+  getWeekInterval(sub(week.start, { weeks: 1 }))
+);
