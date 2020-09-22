@@ -53,12 +53,12 @@ const $mapScope = combine({
 
 // Zoom to country bounds
 sample({
-  source: $mapScope,
-  clock: changeCountryId,
-  fn: ({ map, countriesGeometry }, countryId) => ({
+  source: $map,
+  clock: combine([$selectedCountryId, $countriesGeometryData]),
+  fn: (map, [countryId, countriesGeometry]) => ({
     map,
-    countriesGeometry,
     countryId,
+    countriesGeometry,
   }),
   target: zoomToCountryFx,
 });
