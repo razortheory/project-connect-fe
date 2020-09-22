@@ -24,7 +24,7 @@ export const CountriesFound = () => (
   <ul className="list">
     {useStore($searchResults)?.map((country: CountryData) => (
       <li key={country.id} className="list__item list__item--not-verified">
-        <Link to={mapCountry} params={{ id: country.id }}>
+        <Link to={mapCountry} params={{ code: country.code.toLowerCase() }}>
           {country.name}
         </Link>
       </li>

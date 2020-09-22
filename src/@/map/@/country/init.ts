@@ -25,10 +25,10 @@ import {
   $countriesGeoJson,
   $countriesGeometryData,
   $countryData,
+  $countryId,
   $countrySchools,
   $popup,
   $popupContext,
-  $selectedCountryId,
   changeCountryId,
   clickSchool,
   updatePopupContext,
@@ -38,10 +38,10 @@ $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
 $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
-$selectedCountryId.on(changeCountryId, setPayload);
+$countryId.on(changeCountryId, setPayload);
 $popupContext.on(updatePopupContext, setPayload);
 
-const $mapScope = combine({
+const $mapContext = combine({
   map: $map,
   countriesGeometry: $countriesGeometryData,
   paintData: $stylePaintData,
@@ -52,7 +52,7 @@ const $mapScope = combine({
 
 // Zoom to country bounds
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: changeCountryId,
   fn: ({ map, countriesGeometry }, countryId) => ({
     map,
@@ -71,7 +71,7 @@ forward({
 // Check received countryData for relevance
 const countryDataReceived = guard({
   source: sample({
-    source: $selectedCountryId,
+    source: $countryId,
     clock: fetchCountryDataFx.done,
     fn: (countryId, { params }) => ({
       countryId,
@@ -82,7 +82,7 @@ const countryDataReceived = guard({
 });
 
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: countryDataReceived,
   fn: ({ map, paintData, countryData }) => ({
     map,
@@ -94,7 +94,7 @@ sample({
 
 const schoolsReceived = guard({
   source: sample({
-    source: $selectedCountryId,
+    source: $countryId,
     clock: fetchCountrySchoolsFx.done,
     fn: (countryId, { params }) => ({
       countryId,
@@ -105,7 +105,7 @@ const schoolsReceived = guard({
 });
 
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: schoolsReceived,
   fn: ({ map, countrySchools }) => ({
     map,
@@ -115,22 +115,26 @@ sample({
 });
 
 // Routing
-sample({
-  source: guard(mapCountry.params, { filter: Boolean }),
-  fn: (params) => Number(params?.id),
-  target: changeCountryId,
-});
+const isEqualText = (a: string, b: string) =>
+  a.toLocaleLowerCase() === b.toLocaleLowerCase();
 
+// TODO: Should it trigger in other cases?
 sample({
-  source: mapCountry.params,
-  clock: changeMap,
-  fn: (params) => (params?.id ? Number(params.id) : 0),
+  source: $countriesData,
+  clock: mapCountry.params,
+  fn: (countriesData, routeParams) => {
+    if (!countriesData || !routeParams) return 0;
+    const countryData = countriesData.find((data) =>
+      isEqualText(data.code, routeParams.code)
+    );
+    return countryData?.id ?? 0;
+  },
   target: changeCountryId,
 });
 
 // Leave country route
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
@@ -157,7 +161,7 @@ const onCountriesGeoJson = sample({
 });
 
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
   fn: ({ map, paintData }, countriesGeoJson) => ({
     map,
@@ -169,7 +173,7 @@ sample({
 
 // Add popup
 sample({
-  source: $mapScope,
+  source: $mapContext,
   clock: clickSchool,
   fn: ({ map, popup }, event) => ({ map, popup, event }),
   target: addSchoolPopupFx,

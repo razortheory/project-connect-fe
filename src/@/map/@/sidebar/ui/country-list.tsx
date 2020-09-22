@@ -23,6 +23,7 @@ const List = () => {
   if (!countries) {
     return <>Loading...</>;
   }
+
   return (
     <>
       <div className="map-hint">
@@ -50,7 +51,10 @@ const List = () => {
                   ] as string,
                 }}
               />
-              <Link to={mapCountry} params={{ id: country.id }}>
+              <Link
+                to={mapCountry}
+                params={{ code: country.code.toLowerCase() }}
+              >
                 {country.name}
               </Link>
             </li>
