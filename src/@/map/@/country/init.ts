@@ -49,16 +49,17 @@ const $mapContext = combine({
   countrySchools: $countrySchools,
   popup: $popup,
   isCountryRoute: mapCountry.visible,
+  countryId: $countryId,
 });
 
 // Zoom to country bounds
 sample({
-  source: $map,
-  clock: combine([$countryId, $countriesGeometryData]),
-  fn: (map, [countryId, countriesGeometry]) => ({
+  source: $mapContext,
+  fn: ({ map, countryId, countriesGeometry, countryData }) => ({
     map,
     countryId,
     countriesGeometry,
+    countryData,
   }),
   target: zoomToCountryFx,
 });
@@ -122,8 +123,8 @@ const isEqualText = (a: string, b: string) =>
 // TODO: Should it trigger in other cases?
 sample({
   source: $countriesData,
-  clock: mapCountry.params,
-  fn: (countriesData, routeParams) => {
+  clock: combine([mapCountry.params, $map]),
+  fn: (countriesData, [routeParams]) => {
     if (!countriesData || !routeParams) return 0;
     const countryData = countriesData.find((data) =>
       isEqualText(data.code, routeParams.code)

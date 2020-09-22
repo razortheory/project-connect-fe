@@ -20,6 +20,7 @@ export type ZoomToCountryBounds = {
   map: Map | null;
   countryId: number;
   countriesGeometry: CountryGeometryData[] | null;
+  countryData: CountryData | null;
 };
 
 export type LeaveCountryRoute = {

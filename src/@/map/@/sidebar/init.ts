@@ -22,7 +22,7 @@ import {
   changeSearchText,
   changeSortValue,
   clearSearchText,
-  goToCountryRoutingFx,
+  navigateToMapCountryFx,
   onClickSidebar,
   onSearchPressEnter,
   onSearchPressKey,
@@ -92,7 +92,7 @@ forward({
 
 const $searchScope = combine([$countryList, $searchText]);
 
-goToCountryRoutingFx.use((code) => {
+navigateToMapCountryFx.use((code) => {
   if (code) {
     mapCountry.navigate({ code: code.toLowerCase() });
   }
@@ -107,7 +107,7 @@ sample({
   }),
   clock: onSearchPressEnter,
   fn: ([countryList]) => (countryList?.length ? countryList[0].code : null),
-  target: goToCountryRoutingFx,
+  target: navigateToMapCountryFx,
 });
 
 sample({

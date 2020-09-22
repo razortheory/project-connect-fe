@@ -5,15 +5,17 @@ import { ZoomToCountryBounds } from '@/map/@/country/types';
 import { getPolygonBoundingBox } from '@/map/lib/get-polygon-bounding-box';
 
 export const zoomToCountryFx = createEffect(
-  ({ map, countriesGeometry, countryId }: ZoomToCountryBounds) => {
-    if (!countryId || !map || !countriesGeometry) return;
+  ({ map, countriesGeometry, countryId, countryData }: ZoomToCountryBounds) => {
+    if (!countryId || !map) return;
+    if (!countryId && !countryData) return;
 
-    const countryData = countriesGeometry.find(
-      (countryGeometry) => countryGeometry.id === countryId
-    );
+    const currentCountryGeometry =
+      countriesGeometry?.find(
+        (countryGeometry) => countryGeometry.id === countryId
+      )?.geometry_simplified ?? countryData?.geometry;
 
     const bounds = getPolygonBoundingBox(
-      countryData?.geometry_simplified as Polygon | MultiPolygon
+      currentCountryGeometry as Polygon | MultiPolygon
     );
 
     map.fitBounds(bounds, {
