@@ -48,7 +48,13 @@ export const addCountriesFx = createEffect(
       if (!event.features || !event.features[0]) {
         return;
       }
-      mapCountry.navigate({ id: event.features[0].id as number });
+      const clickedCountryId = event.features[0].id;
+      const clickedCountryGeoJson = countriesGeoJson.features.find(
+        (countryGeoJson) => countryGeoJson.id === clickedCountryId
+      );
+      const clickedCountryCode: string = clickedCountryGeoJson?.properties
+        ?.code as string;
+      mapCountry.navigate({ code: clickedCountryCode.toLowerCase() });
     });
 
     map.on('mouseenter', 'countries', () => {

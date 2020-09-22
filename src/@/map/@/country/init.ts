@@ -115,16 +115,25 @@ sample({
 });
 
 // Routing
+const $routingScope = combine(
+  [mapCountry.params, $countriesData],
+  ([mapCountryParams, countriesData]) => {
+    const country = countriesData?.find(
+      (countryData) =>
+        countryData.code.toLowerCase() === mapCountryParams?.code?.toLowerCase()
+    );
+    return country?.id ?? 0;
+  }
+);
+
 sample({
-  source: guard(mapCountry.params, { filter: Boolean }),
-  fn: (params) => Number(params?.id),
+  source: $routingScope,
   target: changeCountryId,
 });
 
 sample({
-  source: mapCountry.params,
+  source: $routingScope,
   clock: changeMap,
-  fn: (params) => (params?.id ? Number(params.id) : 0),
   target: changeCountryId,
 });
 

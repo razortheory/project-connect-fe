@@ -81,7 +81,7 @@ export const CountriesFound = () => {
                 <Link
                   className="country__view-on-map view-on-map"
                   to={mapCountry}
-                  params={{ id: country.id }}
+                  params={{ code: country.code.toLowerCase() }}
                 >
                   <div
                     className="country__view-on-map view-on-map"
