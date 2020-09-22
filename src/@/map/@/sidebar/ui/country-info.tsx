@@ -8,6 +8,7 @@ import { Scroll } from '~/ui/scroll';
 
 import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
 import {
+  $isThisWeek,
   $noSearchCountryFound,
   $searchActive,
   $week,
@@ -27,6 +28,7 @@ export const CountryInfo = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const searchActive = useStore($searchActive);
   const week = useStore($week);
+  const isThisWeek = useStore($isThisWeek);
 
   return (
     <>
@@ -48,7 +50,7 @@ export const CountryInfo = () => {
                   <Chevron className="chevron chevron--left" />
                 </button>
                 <div className="period-picker__period">
-                  {formatInterval(week)}
+                  {isThisWeek ? 'This week' : formatInterval(week)}
                 </div>
                 <button
                   type="button"

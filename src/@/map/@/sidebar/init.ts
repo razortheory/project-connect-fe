@@ -4,7 +4,7 @@ import { KeyboardEvent } from 'react';
 
 import { CountryMetaData } from '~/api/types';
 import { mapCountry } from '~/core/routes';
-import { getWeekInterval } from '~/lib/date-fns-kit';
+import { getWeekInterval, isThisWeekInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
@@ -15,6 +15,7 @@ import { sortCallbacks } from './helpers';
 import {
   $countryList,
   $isSidebarHidden,
+  $isThisWeek,
   $noSearchCountryFound,
   $noSearchResults,
   $searchActive,
@@ -133,6 +134,12 @@ sample({
   source: changeSearchText,
   fn: () => false,
   target: $noSearchCountryFound,
+});
+
+sample({
+  source: $week,
+  fn: isThisWeekInterval,
+  target: $isThisWeek,
 });
 
 $week.on(nextWeek, (week) => getWeekInterval(add(week.start, { weeks: 1 })));

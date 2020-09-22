@@ -33,5 +33,6 @@ export const $noSearchCountryFound = createStore(false);
 export const $sortValue = createStore<SortValues>(defaultSortValue);
 
 export const $week = createStore(getWeekInterval(new Date()));
+export const $isThisWeek = createStore(true);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();

@@ -1,17 +1,11 @@
-import { endOfWeek, Interval, Locale, startOfWeek } from 'date-fns';
+import { endOfWeek, Interval, startOfWeek } from 'date-fns';
 
-const defaultOptions = {
-  weekStartsOn: 1 as const,
-};
-
-type Options = {
-  locale?: Locale;
-  weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-};
+import { weekOptions } from './defaults';
+import { WeekOptions } from './types';
 
 export const getWeekInterval = (
   date: Date | number,
-  options: Options = defaultOptions
+  options: WeekOptions = weekOptions
 ): Interval => ({
   start: startOfWeek(date, options),
   end: endOfWeek(date, options),
