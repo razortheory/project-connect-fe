@@ -2,7 +2,7 @@ import { CountryMetaData } from '~/api/types';
 
 import { SortTypes, SortValues } from '@/map/@/sidebar/types';
 
-export const defaultSortValue = 'amountOfDataAvailable';
+export const defaultSortValue = 'countryProgress';
 
 export const countriesSortData: {
   [sortValue in SortValues]: {
