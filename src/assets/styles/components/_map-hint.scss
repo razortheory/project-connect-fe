@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
 }
 
 .map-hint__image {

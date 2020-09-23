@@ -39,14 +39,18 @@ export const ListItem = ({ country }: { country: CountryMetaData }) => {
         country.integration_status === 0 ? 'list__item--disabled' : ''
       }`}
     >
-      <div
+      <span
         className="list__circle"
         style={{
           backgroundColor: paintData[paintField].toString(),
         }}
       />
       {/* TODO: country.code */}
-      <Link to={mapCountry} params={{ code: country.code.toLowerCase() }}>
+      <Link
+        className="list__link"
+        to={mapCountry}
+        params={{ code: country.code.toLowerCase() }}
+      >
         {country.name}
       </Link>
     </li>
@@ -86,7 +90,6 @@ const List = () => {
   }
   return (
     <>
-      <Sort />
       {!searchActive && (
         <div className="map-hint">
           <MapWithHand className="map-hint__image" alt="Map with hand" />
@@ -99,7 +102,7 @@ const List = () => {
       {notFound ? (
         <NotFound />
       ) : (
-        <ul className="list">
+        <ul className="sidebar__country-list list">
           {countries.map((country: CountryMetaData) => (
             <ListItem country={country} key={country.id} />
           ))}
@@ -174,6 +177,7 @@ const Controls = () => {
   return (
     <>
       <form className="sidebar__form form" action="/">
+        <h3 className="sidebar__secondary-title">Map</h3>
         <div className="radio-group">
           <label className="radio-group__item radio" htmlFor="connectivity-map">
             <input
@@ -203,6 +207,7 @@ const Controls = () => {
           </label>
         </div>
         <hr className="sidebar__divider" />
+        <h3 className="sidebar__secondary-title">Map styles</h3>
         <div className="radio-group">
           <label className="radio-group__item radio" htmlFor="map-style-dark">
             <input
@@ -264,6 +269,7 @@ const Controls = () => {
           </label>
         </div>
         <hr className="sidebar__divider" />
+        <h3 className="sidebar__secondary-title">Sort countries by</h3>
         <div className="radio-group">
           <label
             className="radio-group__item radio"
@@ -349,7 +355,12 @@ export const Content = () => (
 export const CountryList = () => (
   <>
     <Search />
-    {!useStore($searchActive) && <Tabs />}
+    {!useStore($searchActive) && (
+      <>
+        <Tabs />
+        <Sort />
+      </>
+    )}
     <Scroll>
       <div
         className={`sidebar__content ${
