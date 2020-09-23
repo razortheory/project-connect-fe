@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { format } from 'date-fns';
 
 import { CountryMetaData } from '~/api/types';
@@ -68,7 +69,7 @@ export const getCountryInfo = (
     flag,
     name,
     joinDate: isListType ? listDate : tileDate,
-    description: description ?? loremIpsum,
+    description: description || loremIpsum,
     progressPercent,
     progressBarStyle: {
       width: formatPercent(progressPercent),
@@ -76,7 +77,7 @@ export const getCountryInfo = (
     bubbleProgressClass: '',
     progressDescription: '',
     mapPreviewStyle: {
-      backgroundImage: `url(${mapPreview ?? previewPlaceholder})`,
+      backgroundImage: `url(${mapPreview || previewPlaceholder})`,
     },
     ...progressInfo.get(integrationStatus),
   };

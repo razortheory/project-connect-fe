@@ -10,6 +10,7 @@ const globalStyleCSS = css`
     /* Reset box sizing to border-box */
     box-sizing: border-box;
     font-family: Roboto, Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
   }
 
   /* Make it easier to change the box-sizing later */

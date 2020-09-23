@@ -16,7 +16,6 @@ import {
   privacy,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
-import { Scroll } from '~/ui/scroll';
 
 import { About } from './about';
 import { CountryProgress } from './country-progress';
@@ -46,12 +45,17 @@ export const ProjectPage = () => (
                 <ul className="menu">
                   <li className="menu__item">
                     <button type="button" className="menu__link">
-                      Second level
+                      Case studies
                     </button>
                   </li>
                   <li className="menu__item">
                     <button type="button" className="menu__link">
-                      Second level 2
+                      Why mapping
+                    </button>
+                  </li>
+                  <li className="menu__item">
+                    <button type="button" className="menu__link">
+                      Our partners
                     </button>
                   </li>
                 </ul>
@@ -101,15 +105,13 @@ export const ProjectPage = () => (
           </Link>
         </div>
       </header>
-      <Scroll>
-        <main className="content">
-          {useRoute(about) && <About />}
-          {useRoute(countryProgress) && <CountryProgress />}
-          {useRoute(privacy) && <br />}
-          {useRoute(media) && <Media />}
-          {useRoute(joinUs) && <JoinUs />}
-        </main>
-      </Scroll>
+      <main className="content">
+        {useRoute(about) && <About />}
+        {useRoute(countryProgress) && <CountryProgress />}
+        {useRoute(privacy) && <br />}
+        {useRoute(media) && <Media />}
+        {useRoute(joinUs) && <JoinUs />}
+      </main>
       <footer className="footer">
         <div className="container">
           <div className="footer__row">

@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useStore } from 'effector-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import CountriesDashboard from '~/assets/images/countries-dashboard.jpg';
 import { formatPercent } from '~/core/formatters';
+import { countryProgress, router } from '~/core/routes';
 
 import { $globalStats } from '@/map/model';
 import { Dashboard } from '@/project/@/dashboard';
 import { $isLoading } from '@/project/@/dashboard/model';
+
+import { scrollToAnchor } from './helpers';
 
 const DescriptionSection = () => {
   const { countries_joined, countries_connected_to_realtime } = useStore(
@@ -17,6 +20,16 @@ const DescriptionSection = () => {
   const connectedPercent = countries_connected_to_realtime / countries_joined;
 
   const commitedCountries = Number(countries_joined) || 'No data';
+
+  const isLoading = useStore($isLoading);
+
+  useEffect(() => {
+    countryProgress.visible.watch((visible) => {
+      if (visible && !isLoading) {
+        scrollToAnchor(router.hash.defaultState);
+      }
+    });
+  }, [isLoading]);
 
   return (
     <section className="section">

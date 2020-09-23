@@ -15,7 +15,7 @@ export const humanFormat = (
   }
 
   if (value > thousand) {
-    return `${(value / thousand).toFixed(2)}${separator}k${unit}`;
+    return `${(value / thousand).toFixed(2)}${separator}K${unit}`;
   }
 
   return value.toFixed(0);
