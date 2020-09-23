@@ -152,24 +152,25 @@ export const Tabs = () => (
   </ul>
 );
 
+// controls units
+
+const onChangeMapType = changeControlsMapType.prepend(
+  (event: ChangeEvent<HTMLInputElement>): MapTypes =>
+    event.currentTarget.value as MapTypes
+);
+const onChangeMapStyle = changeControlsMapStyle.prepend(
+  (event: ChangeEvent<HTMLInputElement>): Style =>
+    event.currentTarget.value as Style
+);
+const onChangeSortValue = changeControlsSortValue.prepend(
+  (event: ChangeEvent<HTMLInputElement>): SortValues =>
+    event.currentTarget.value as SortValues
+);
+
 const Controls = () => {
   const mapType = useStore($controlsMapType);
   const mapStyle = useStore($controlsMapStyle);
   const sortValue = useStore($controlsSortValue);
-  const onChangesMapType = changeControlsMapType.prepend(
-    (event: ChangeEvent<HTMLInputElement>): MapTypes =>
-      event.currentTarget.value as MapTypes
-  );
-  const onChangeMapStyle = changeControlsMapStyle.prepend(
-    (event: ChangeEvent<HTMLInputElement>): Style =>
-      event.currentTarget.value as Style
-  );
-  const onChangeSortValue = changeControlsSortValue.prepend(
-    (event: ChangeEvent<HTMLInputElement>): SortValues =>
-      event.currentTarget.value as SortValues
-  );
-
-  const controlsExistsChanges = useStore($isControlsChanged);
   return (
     <>
       <form className="sidebar__form form" action="/">
@@ -182,7 +183,7 @@ const Controls = () => {
               name="map-type"
               value="connectivity"
               checked={mapType === 'connectivity'}
-              onChange={onChangesMapType}
+              onChange={onChangeMapType}
             />
             <span className="radio__label">Connectivity map</span>
             <div className="radio__marker" />
@@ -195,7 +196,7 @@ const Controls = () => {
               name="map-type"
               value="coverage"
               checked={mapType === 'coverage'}
-              onChange={onChangesMapType}
+              onChange={onChangeMapType}
             />
             <span className="radio__label">Coverage map</span>
             <div className="radio__marker" />
@@ -326,7 +327,7 @@ const Controls = () => {
 
         <button
           type="button"
-          disabled={!controlsExistsChanges}
+          disabled={!useStore($isControlsChanged)}
           className="button button--primary button--full-width button--pull-bottom"
           onClick={() => submitControlsChanges()}
         >
