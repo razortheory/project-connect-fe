@@ -46,9 +46,11 @@ const getCountryInfo = (countryData: CountryData | null) => {
       separator: ' ',
     }),
     // TODO: Is it "Schools with no internet"?
-    schoolsWithNoInternet: formatPercent(
-      statistics.schools_connectivity_no / statistics.schools_total
-    ),
+    schoolsWithNoInternet: statistics.schools_total
+      ? formatPercent(
+          statistics.schools_connectivity_no / statistics.schools_total
+        )
+      : 'N/A',
   };
 };
 
