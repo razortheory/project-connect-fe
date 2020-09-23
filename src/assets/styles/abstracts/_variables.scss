@@ -59,6 +59,7 @@ $grid-gutter-widths-lg: (
 $color-primary: #2779ff;
 $color-primary-hover: scale-color($color-primary, $lightness: 5%);
 $color-primary-active: scale-color($color-primary, $lightness: 10%);
+$color-primary-disabled: #6a707a;
 
 $text-color-light: #fff;
 $text-color-dark: #000;

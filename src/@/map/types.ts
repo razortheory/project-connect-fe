@@ -23,3 +23,5 @@ export type InitMapOptions = {
   center?: Center;
   zoom?: Zoom;
 };
+
+export type MapTypes = 'connectivity' | 'coverage';

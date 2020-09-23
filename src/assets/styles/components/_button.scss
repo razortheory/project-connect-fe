@@ -39,6 +39,11 @@
     &-active {
       background-color: $color-primary-active;
     }
+
+    &:disabled {
+      background-color: $color-primary-disabled;
+      cursor: not-allowed;
+    }
   }
 
   &--secondary {
