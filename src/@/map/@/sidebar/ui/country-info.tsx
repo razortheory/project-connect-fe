@@ -3,6 +3,9 @@ import React from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
+import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
+import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
+import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { getVoid } from '~/lib/effector-kit';
 import { Scroll } from '~/ui/scroll';
 
@@ -33,6 +36,24 @@ export const CountryInfo = () => {
   return (
     <>
       <Search />
+      <div className="breadcrumbs">
+        <a className="breadcrumbs__link" href="/map/countries/info">
+          Connectivity map{' '}
+        </a>
+        {' > '}
+        <span>Brazil</span>
+      </div>
+      <label htmlFor="map-type-select" className="select-wrapper">
+        <span className="visually-hidden">Sort map type</span>
+        <select id="map-type-select" className="select">
+          <option className="select__option" value="connectivityMap">
+            Connectivity map
+          </option>
+          <option className="select__option" value="coverageMap">
+            Coverage map
+          </option>
+        </select>
+      </label>
       <Tabs />
       <Scroll>
         <div className="sidebar__content">
@@ -78,9 +99,26 @@ export const CountryInfo = () => {
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">
-                    avg. internet speed (download)
+                    Avg. internet speed (download)
                   </h3>
                   <p className="info-list__description">1.2 Mb/s</p>
+                  <div className="average-speed">
+                    <div className="average-speed__icons">
+                      <div className="average-speed__icon average-speed__icon--active">
+                        <IconSpeedLow />
+                      </div>
+                      <div className="average-speed__icon">
+                        <IconSpeedMedium />
+                      </div>
+                      <div className="average-speed__icon">
+                        <IconSpeedHigh />
+                      </div>
+                    </div>
+                    <p className="average-speed__description">
+                      The average internet speed is good enough for accessing
+                      email and basic internet browsing.
+                    </p>
+                  </div>
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">

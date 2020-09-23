@@ -1,31 +1,44 @@
 .list {
   @include list-unstyled;
-  margin-top: 3rem;
 }
 
 .list__item {
   position: relative;
-  padding-left: 1rem;
   font-size: 1.6rem;
   font-family: $font-family-secondary;
-  line-height: 2rem;
-
-  .list__circle {
-    position: absolute;
-    top: 0.6rem;
-    left: -0.7rem;
-    display: inline-flex;
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    content: '';
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
+  line-height: 3.5rem;
 
   &--disabled {
     pointer-events: none;
+  }
+}
+
+.list__circle {
+  position: absolute;
+  top: 1.4rem;
+  left: 17px;
+  display: inline-flex;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  content: '';
+}
+
+.list__link {
+  @include transition;
+  display: inline-flex;
+  width: 100%;
+  padding-left: 34px;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #373c46;
+  }
+
+  &:active {
+    /* stylelint-disable-next-line */
+    background-color: darken(#373c46, 10%);
   }
 }

@@ -1,0 +1,41 @@
+.average-speed {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.4rem;
+}
+
+.average-speed__icons {
+  width: 100%;
+}
+
+.average-speed__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  color: #6e737d;
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:first-child {
+    margin-left: -0.4rem;
+  }
+
+  &:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+
+  &--active {
+    color: $color-primary;
+  }
+}
+
+.average-speed__description {
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+  color: $text-color-light;
+  font-size: 1.3rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
+}
