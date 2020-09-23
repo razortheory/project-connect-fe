@@ -14,11 +14,11 @@ import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 import { countriesSortData } from './constants';
 import { sortCallbacks } from './helpers';
 import {
-  $controlsExistsChanges,
   $controlsMapStyle,
   $controlsMapType,
   $controlsSortValue,
   $countryList,
+  $isControlsChanged,
   $isSidebarHidden,
   $isThisWeek,
   $noSearchCountryFound,
@@ -198,7 +198,7 @@ sample({
     currentMapType !== mapType ||
     currentStyle !== style ||
     currentSortValue !== sortValue,
-  target: $controlsExistsChanges,
+  target: $isControlsChanged,
 });
 
 const isNotEqual = ([a, b]: [string, string]) => a !== b;

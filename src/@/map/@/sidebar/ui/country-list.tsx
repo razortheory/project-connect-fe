@@ -9,11 +9,11 @@ import { Link, useRoute } from '~/lib/router';
 import { Scroll } from '~/ui/scroll';
 
 import {
-  $controlsExistsChanges,
   $controlsMapStyle,
   $controlsMapType,
   $controlsSortValue,
   $countryList,
+  $isControlsChanged,
   $noSearchResults,
   $searchActive,
   changeControlsMapStyle,
@@ -169,7 +169,7 @@ const Controls = () => {
       event.currentTarget.value as SortValues
   );
 
-  const controlsExistsChanges = useStore($controlsExistsChanges);
+  const controlsExistsChanges = useStore($isControlsChanged);
   return (
     <>
       <form className="sidebar__form form" action="/">
