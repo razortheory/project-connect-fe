@@ -42,6 +42,7 @@
   background-color: $color-primary;
 
   &::after {
-    opacity: 100%;
+    // stylelint-disable-next-line alpha-value-notation
+    opacity: 1; // TODO: Fix "100%" notation
   }
 }
