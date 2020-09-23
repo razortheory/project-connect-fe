@@ -1,14 +1,18 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import { CountryData } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
+import { formatNumber, formatPercent } from '~/core/formatters';
 import { getVoid } from '~/lib/effector-kit';
+import { humanFormat } from '~/lib/human-format';
 import { Scroll } from '~/ui/scroll';
 
+import { $countryData } from '@/map/@/country/model';
 import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
 import {
   $isThisWeek,
@@ -27,11 +31,35 @@ import { WeekGraph } from './week-graph';
 const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
 
+const getCountryInfo = (countryData: CountryData | null) => {
+  if (!countryData) return null;
+
+  const { statistics } = countryData;
+
+  return {
+    dataSource: countryData.data_source || 'N/A',
+    schoolsTotal: formatNumber(statistics.schools_total),
+    schoolsConnected: formatNumber(statistics.schools_connected),
+    // TODO: Is it "avg. internet speed (download)"?
+    averageInternetSpeed: humanFormat(statistics.connectivity_speed, {
+      unit: 'b/s',
+      separator: ' ',
+    }),
+    // TODO: Is it "Schools with no internet"?
+    schoolsWithNoInternet: formatPercent(
+      statistics.schools_connectivity_no / statistics.schools_total
+    ),
+  };
+};
+
+const $countryInfo = $countryData.map(getCountryInfo);
+
 export const CountryInfo = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
+  const countryInfo = useStore($countryInfo);
 
   return (
     <>
@@ -83,25 +111,36 @@ export const CountryInfo = () => {
               </div>
               <ul className="info-list info-list--country-info">
                 <li className="info-list__item">
-                  <h3 className="info-list__title">Data source</h3>
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Data source
+                  </h3>
                   <p className="info-list__paragraph">
-                    Data provided by Ministry of Education, Brazil on 31st June
-                    2019
+                    {countryInfo?.dataSource}
                   </p>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">Total schools</h3>
-                  <p className="info-list__description">53,329</p>
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Total schools
+                  </h3>
+                  <p className="info-list__description">
+                    {countryInfo?.schoolsTotal}
+                  </p>
                 </li>
                 <li className="info-list__item">
-                  <h3 className="info-list__title">Connected schools</h3>
-                  <p className="info-list__description">30,897</p>
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Connected schools
+                  </h3>
+                  <p className="info-list__description">
+                    {countryInfo?.schoolsConnected}
+                  </p>
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">
                     Avg. internet speed (download)
                   </h3>
-                  <p className="info-list__description">1.2 Mb/s</p>
+                  <p className="info-list__description">
+                    {countryInfo?.averageInternetSpeed}
+                  </p>
                   <div className="average-speed">
                     <div className="average-speed__icons">
                       <div className="average-speed__icon average-speed__icon--active">
@@ -124,7 +163,9 @@ export const CountryInfo = () => {
                   <h3 className="info-list__title info-list__title--full-width">
                     Schools with no internet
                   </h3>
-                  <p className="info-list__description">42%</p>
+                  <p className="info-list__description">
+                    {countryInfo?.schoolsWithNoInternet}
+                  </p>
                 </li>
               </ul>
               <hr className="sidebar__divider" />
