@@ -5,6 +5,8 @@ import { CountryMetaData } from '~/api/types';
 import { getWeekInterval } from '~/lib/date-fns-kit';
 
 import { SortValues } from '@/map/@/sidebar/types';
+import { defaultMapType, defaultStyle } from '@/map/constants';
+import { MapTypes, Style } from '@/map/types';
 
 import { defaultSortValue } from './constants';
 
@@ -36,3 +38,12 @@ export const $week = createStore(getWeekInterval(new Date()));
 export const $isThisWeek = createStore(true);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();
+
+export const $controlsMapType = createStore<MapTypes>(defaultMapType);
+export const $controlsMapStyle = createStore<Style>(defaultStyle);
+export const $controlsSortValue = createStore<SortValues>(defaultSortValue);
+export const $controlsExistsChanges = createStore<boolean>(false);
+export const changeControlsMapType = createEvent<MapTypes>();
+export const changeControlsMapStyle = createEvent<Style>();
+export const changeControlsSortValue = createEvent<SortValues>();
+export const submitControlsChanges = createEvent();
