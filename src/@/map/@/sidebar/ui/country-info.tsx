@@ -39,6 +39,7 @@ const getCountryInfo = (countryData: CountryData | null) => {
   const { statistics } = countryData;
 
   return {
+    name: countryData.name,
     dataSource: countryData.data_source || 'N/A',
     schoolsTotal: formatNumber(statistics.schools_total),
     schoolsConnected: formatNumber(statistics.schools_connected),
@@ -78,7 +79,7 @@ export const CountryInfo = () => {
           {mapType} map{' '}
         </a>
         {' > '}
-        <span>Brazil</span>
+        <span>{countryInfo?.name}</span>
       </div>
       <label htmlFor="map-type-select" className="select-wrapper">
         <span className="visually-hidden">Sort map type</span>
