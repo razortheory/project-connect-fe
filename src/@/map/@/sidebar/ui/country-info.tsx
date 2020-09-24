@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { CountryData } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
@@ -24,6 +24,8 @@ import {
 } from '@/map/@/sidebar/model';
 import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
+import { $mapType, changeMapType } from '@/map/model';
+import { MapTypes } from '@/map/types';
 
 import { Search } from './search';
 import { WeekGraph } from './week-graph';
@@ -55,6 +57,10 @@ const getCountryInfo = (countryData: CountryData | null) => {
 };
 
 const $countryInfo = $countryData.map(getCountryInfo);
+const onSelectChange = changeMapType.prepend(
+  (event: ChangeEvent<HTMLSelectElement>): MapTypes =>
+    event.target.value as MapTypes
+);
 
 export const CountryInfo = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
@@ -62,24 +68,30 @@ export const CountryInfo = () => {
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
   const countryInfo = useStore($countryInfo);
+  const mapType = useStore($mapType);
 
   return (
     <>
       <Search />
       <div className="breadcrumbs">
         <a className="breadcrumbs__link" href="/map/countries/info">
-          Connectivity map{' '}
+          {mapType} map{' '}
         </a>
         {' > '}
         <span>Brazil</span>
       </div>
       <label htmlFor="map-type-select" className="select-wrapper">
         <span className="visually-hidden">Sort map type</span>
-        <select id="map-type-select" className="select">
-          <option className="select__option" value="connectivityMap">
+        <select
+          id="map-type-select"
+          className="select"
+          onChange={onSelectChange}
+          value={mapType}
+        >
+          <option className="select__option" value="connectivity">
             Connectivity map
           </option>
-          <option className="select__option" value="coverageMap">
+          <option className="select__option" value="coverage">
             Coverage map
           </option>
         </select>

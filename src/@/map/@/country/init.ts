@@ -10,13 +10,20 @@ import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/lib/get-countries-geo-json';
-import { $map, $stylePaintData, changeMap } from '@/map/model';
+import {
+  $map,
+  $mapType,
+  $stylePaintData,
+  changeMap,
+  changeMapType,
+} from '@/map/model';
 
 import {
   addCountriesFx,
   leaveCountryRouteFx,
   updateCountryFx,
   updateSchoolsFx,
+  updateSchoolsPaintDataFx,
   zoomToCountryFx,
 } from './effects';
 import { addSchoolPopupFx } from './effects/add-school-popup-fx';
@@ -43,6 +50,7 @@ $popupContext.on(updatePopupContext, setPayload);
 
 const $mapContext = combine({
   map: $map,
+  mapType: $mapType,
   countriesGeometry: $countriesGeometryData,
   paintData: $stylePaintData,
   countryData: $countryData,
@@ -109,9 +117,10 @@ const schoolsReceived = guard({
 sample({
   source: $mapContext,
   clock: schoolsReceived,
-  fn: ({ map, countrySchools }) => ({
+  fn: ({ map, countrySchools, mapType }) => ({
     map,
     countrySchools,
+    mapType,
   }),
   target: updateSchoolsFx,
 });
@@ -179,4 +188,13 @@ sample({
   clock: clickSchool,
   fn: ({ map, popup }, event) => ({ map, popup, event }),
   target: addSchoolPopupFx,
+});
+
+// change map type
+
+sample({
+  source: $map,
+  clock: changeMapType,
+  fn: (map, mapType) => ({ map, mapType }),
+  target: updateSchoolsPaintDataFx,
 });

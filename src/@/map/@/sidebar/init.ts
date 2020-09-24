@@ -140,7 +140,7 @@ sample({
 });
 
 sample({
-  source: changeSearchText,
+  source: $searchText,
   fn: () => false,
   target: $noSearchCountryFound,
 });

@@ -3,7 +3,7 @@ import { MapMouseEvent } from 'mapbox-gl';
 
 import { CountryData, CountryGeometryData } from '~/api/types';
 
-import { Map, StylePaintData } from '@/map/types';
+import { Map, MapTypes, StylePaintData } from '@/map/types';
 
 export type UpdateCountry = {
   map: Map | null;
@@ -14,6 +14,12 @@ export type UpdateCountry = {
 export type UpdateSchools = {
   map: Map | null;
   countrySchools: FeatureCollection | null;
+  mapType: MapTypes;
+};
+
+export type UpdateSchoolsPaintData = {
+  map: Map | null;
+  mapType: MapTypes;
 };
 
 export type ZoomToCountryBounds = {
