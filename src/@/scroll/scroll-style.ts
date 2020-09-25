@@ -4,6 +4,8 @@ export const scrollbarStyle = css`
   /* Component style */
   .scrollbar-container {
     position: relative;
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 

@@ -87,6 +87,15 @@ describe('humanFormat', () => {
     expect(formatted).toEqual('12.3 kb/s');
   });
 
+  it('support separator and unit (without prefix)', () => {
+    const formatted = humanFormat(123, {
+      unit: 'b/s',
+      separator: ' ',
+    });
+
+    expect(formatted).toEqual('123 b/s');
+  });
+
   it('support formatFn', () => {
     const formatted = humanFormat(1_234_567.89, { formatFn });
 

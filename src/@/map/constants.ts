@@ -4,11 +4,12 @@ import {
   IntegrationStatus,
 } from '~/api/types';
 
-import { Center, Style, StylePaintData, Zoom } from './types';
+import { Center, MapTypes, Style, StylePaintData, Zoom } from './types';
 
 export const defaultZoom: Zoom = 2;
 export const defaultCenter: Center = [0, 40];
 export const defaultStyle: Style = 'dark';
+export const defaultMapType: MapTypes = 'connectivity';
 
 export const styleUrls: { [style in Style]: string } = {
   dark: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',

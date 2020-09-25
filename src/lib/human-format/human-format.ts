@@ -43,5 +43,5 @@ export const humanFormat = (
     }
   }
 
-  return String(Math.trunc(value));
+  return `${Math.trunc(value)}${separator}${unit}`;
 };

@@ -18,10 +18,12 @@ import {
   $globalStats,
   $loader,
   $map,
+  $mapType,
   $pending,
   $style,
   $stylePaintData,
   changeMap,
+  changeMapType,
   changeStyle,
   setCenter,
   setLoader,
@@ -33,6 +35,7 @@ $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
 $globalStats.on(fetchGlobalStatsDataFx.doneData, setPayload);
 $loader.on(setLoader, setPayload);
+$mapType.on(changeMapType, setPayload);
 
 sample({
   source: $style,

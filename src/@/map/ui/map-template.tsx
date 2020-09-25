@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { Layout, Main } from '~/ui/components';
 
@@ -10,15 +11,21 @@ import { Header } from './header';
 import { Map } from './map';
 import { Underlay } from './underlay';
 
+const PopupContainer = styled.div`
+  display: none;
+`;
+
 export const MapTemplate = () => (
   <Layout>
     <Underlay>
       <Map />
-      <Popup />
     </Underlay>
     <Header />
     <Main>
       <Sidebar />
+      <PopupContainer>
+        <Popup />
+      </PopupContainer>
     </Main>
     <Footer />
   </Layout>

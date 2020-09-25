@@ -4,6 +4,11 @@
   flex-direction: row;
   padding: 0 2.4rem;
   background-color: $color-primary;
+
+  @include media-breakpoint-up(md) {
+    @include transition;
+    display: none;
+  }
 }
 
 .tabs__item {

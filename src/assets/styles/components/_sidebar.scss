@@ -7,6 +7,10 @@
   height: 100%;
   background-color: #232832;
 
+  @include media-breakpoint-down(md) {
+    z-index: 2;
+  }
+
   @include media-breakpoint-up(md) {
     @include transition;
     position: absolute;
@@ -117,7 +121,7 @@
 .sidebar__content {
   position: relative;
   display: flex;
-  flex: 0 1 100%;
+  flex: 1 0 auto;
   flex-direction: column;
   padding: 2.4rem;
   overflow: auto;
@@ -152,6 +156,11 @@
 
 .sidebar__list {
   margin-bottom: 3.5rem;
+}
+
+.sidebar__country-list {
+  margin-right: -24px;
+  margin-left: -24px;
 }
 
 .sidebar__button {

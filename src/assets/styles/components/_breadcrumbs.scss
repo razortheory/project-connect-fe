@@ -1,0 +1,32 @@
+.breadcrumbs {
+  position: relative;
+  padding: 1.5rem 24px 1.7rem;
+  color: $text-color-light;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: $font-family-primary;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: #141923;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 24px;
+    left: 24px;
+    display: inline-flex;
+    height: 0.1rem;
+    background-color: #646973;
+    content: '';
+  }
+}
+
+.breadcrumbs__link {
+  @include transition;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $color-primary;
+  }
+}
