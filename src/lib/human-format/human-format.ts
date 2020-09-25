@@ -1,22 +1,47 @@
 type ReadableConfig = {
   separator?: string;
   unit?: string;
+  formatFn?: (value: number) => string;
+  fractional?: boolean;
 };
 
-const million = 1_000_000;
-const thousand = 1_000;
+// Sorted from big to small
+// See: https://www.bipm.org/en/measurement-units
+const si = [
+  {
+    factor: 10 ** 9,
+    prefix: 'G',
+  },
+  {
+    factor: 10 ** 6,
+    prefix: 'M',
+  },
+  {
+    factor: 10 ** 3,
+    prefix: 'k',
+  },
+];
+
+// eslint-disable-next-line @typescript-eslint/unbound-method
+export const formatDefault = new Intl.NumberFormat('en-US', {
+  maximumFractionDigits: 1,
+  useGrouping: false,
+}).format;
 
 export const humanFormat = (
   value: number,
-  { unit = '', separator = '' }: ReadableConfig = {}
+  {
+    unit = '',
+    separator = '',
+    formatFn = formatDefault,
+    fractional = false,
+  }: ReadableConfig = {}
 ): string => {
-  if (value > million) {
-    return `${(value / million).toFixed(1)}${separator}M${unit}`;
+  for (const { factor, prefix } of si) {
+    if (Math.trunc((value / factor) * 10 ** Number(fractional))) {
+      return `${formatFn(value / factor)}${separator}${prefix}${unit}`;
+    }
   }
 
-  if (value > thousand) {
-    return `${(value / thousand).toFixed(2)}${separator}K${unit}`;
-  }
-
-  return value.toFixed(0);
+  return String(Math.trunc(value));
 };

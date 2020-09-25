@@ -1,3 +1,5 @@
+import './init';
+
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
 
@@ -11,12 +13,6 @@ import { useRoute } from '~/lib/router';
 
 import { MapPage } from '@/map';
 import { ProjectPage } from '@/project';
-
-router.hash.watch(router.navigate, (hash) => {
-  if (!hash) {
-    window.scrollTo(0, 0);
-  }
-});
 
 const NotFound = () => (
   <figure style={{ color: '#000' }}>404: Not Found</figure>

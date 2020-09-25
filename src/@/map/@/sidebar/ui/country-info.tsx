@@ -3,11 +3,11 @@ import React from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
-import { Scroll } from '~/ui/scroll';
 
 import { $noSearchCountryFound, $searchActive } from '@/map/@/sidebar/model';
 import { NotFound } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
+import { Scroll } from '@/scroll/scroll';
 
 import { Search } from './search';
 import { WeekGraph } from './week-graph';

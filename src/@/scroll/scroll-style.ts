@@ -1,6 +1,6 @@
-import { css } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
-export const scrollbarStyleCSS = css`
+export const scrollbarStyle = css`
   /* Component style */
   .scrollbar-container {
     position: relative;
@@ -121,4 +121,12 @@ export const scrollbarStyleCSS = css`
       overflow: auto !important;
     }
   }
+`;
+
+export const ScrollStyle = createGlobalStyle`
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ${scrollbarStyle}
 `;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { format } from 'date-fns';
 
 import { CountryMetaData } from '~/api/types';

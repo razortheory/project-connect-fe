@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useStore } from 'effector-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import AboutMedia from '~/assets/images/about-media.jpg';
 import IconAccountability from '~/assets/images/icon-accountability.svg';
@@ -20,29 +20,17 @@ import LogoLiquid from '~/assets/images/logo-liquid.svg';
 import LogoMaxar from '~/assets/images/logo-maxar.svg';
 import LogoSoftbank from '~/assets/images/logo-softbank.svg';
 import { formatPercent } from '~/core/formatters';
-import { about, joinUs, router } from '~/core/routes';
+import { joinUs } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
 import { $globalStats } from '@/map/model';
 import { $isLoading } from '@/project/@/dashboard/model';
 
-import { scrollToAnchor } from './helpers';
-
 export const AboutContent = () => {
   const { schools_mapped, percent_schools_without_connectivity } = useStore(
     $globalStats
   );
-
-  const isLoading = useStore($isLoading);
-
-  useEffect(() => {
-    about.visible.watch((visible) => {
-      if (visible && !isLoading) {
-        scrollToAnchor(router.hash.defaultState);
-      }
-    });
-  }, [isLoading]);
 
   return (
     <>
