@@ -12,7 +12,7 @@ const { compilerOptions } = require('./tsconfig.json');
 // noinspection JSValidateJSDoc
 /** @type import('@jest/types').Config.InitialOptions */
 const config = {
-  cacheDirectory: '.cache/jest',
+  cacheDirectory: 'node_modules/.cache/jest',
   coverageDirectory: '.coverage',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: `${__dirname}/`,
