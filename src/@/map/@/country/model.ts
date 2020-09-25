@@ -1,16 +1,20 @@
 import { createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
-import { MapMouseEvent } from 'mapbox-gl';
+import { MapLayerMouseEvent } from 'mapbox-gl';
 
-import { CountryData, CountryGeometryData, CountryMetaData } from '~/api/types';
-
-import { EmptyObject, PopupContext } from './types';
+import {
+  CountryData,
+  CountryGeometryData,
+  CountryMetaData,
+  SchoolDetailsData,
+} from '~/api/types';
 
 export const changeCountryId = createEvent<number>();
-export const clickSchool = createEvent<MapMouseEvent>();
-export const updatePopupContext = createEvent<PopupContext>();
+export const changeSchoolId = createEvent<number>();
+export const clickSchool = createEvent<MapLayerMouseEvent>();
 
 export const $countryId = createStore<number>(0);
+export const $schoolId = createStore<number>(0);
 export const $countriesGeometryData = createStore<CountryGeometryData[] | null>(
   null
 );
@@ -19,4 +23,4 @@ export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
 export const $countrySchools = createStore<FeatureCollection | null>(null);
 export const $countryData = createStore<CountryData | null>(null);
 export const $popup = createStore<HTMLDivElement | null>(null);
-export const $popupContext = createStore<PopupContext | EmptyObject>({});
+export const $schoolDetailsData = createStore<SchoolDetailsData | null>(null);

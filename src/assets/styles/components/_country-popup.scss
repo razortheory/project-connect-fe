@@ -51,3 +51,24 @@
   border: solid 0.1rem #373c46;
   border-top: none;
 }
+
+@mixin popup-padding {
+  padding: 2rem 2rem 2.9rem;
+}
+
+.country-popup__unavailable {
+  @include popup-padding;
+  border-top: 0.9rem solid #546fc2;
+}
+.country-popup__no-connectivity {
+  @include popup-padding;
+  border-top: 0.9rem solid #ff615b;
+}
+.country-popup__moderate {
+  @include popup-padding;
+  border-top: 0.9rem solid #ffc93d;
+}
+.country-popup__good {
+  @include popup-padding;
+  border-top: 0.9rem solid #8bd432;
+}

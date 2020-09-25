@@ -5,6 +5,7 @@ import {
   fetchCountriesGeometryDataFx,
   fetchCountryDataFx,
   fetchCountrySchoolsFx,
+  fetchSchoolDetailsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
@@ -28,10 +29,11 @@ import {
   $countryId,
   $countrySchools,
   $popup,
-  $popupContext,
+  $schoolDetailsData,
+  $schoolId,
   changeCountryId,
+  changeSchoolId,
   clickSchool,
-  updatePopupContext,
 } from './model';
 
 $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
@@ -39,7 +41,8 @@ $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
-$popupContext.on(updatePopupContext, setPayload);
+$schoolId.on(changeSchoolId, setPayload);
+$schoolDetailsData.on(fetchSchoolDetailsFx.doneData, setPayload);
 
 const $mapContext = combine({
   map: $map,
@@ -50,6 +53,7 @@ const $mapContext = combine({
   popup: $popup,
   isCountryRoute: mapCountry.visible,
   countryId: $countryId,
+  schoolId: $schoolId,
 });
 
 // Zoom to country bounds
@@ -94,6 +98,13 @@ sample({
   target: updateCountryFx,
 });
 
+sample({
+  source: $mapContext,
+  clock: changeSchoolId,
+  fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
+  target: fetchSchoolDetailsFx,
+});
+
 const schoolsReceived = guard({
   source: sample({
     source: $countryId,
@@ -131,6 +142,17 @@ sample({
     return countryData?.id ?? 0;
   },
   target: changeCountryId,
+});
+
+sample({
+  source: $mapContext,
+  clock: changeCountryId,
+  fn: ({ map, paintData, countryData }) => ({
+    map,
+    paintData,
+    countryData,
+  }),
+  target: updateCountryFx,
 });
 
 // Leave country route
@@ -171,6 +193,15 @@ sample({
     isCountryRoute,
   }),
   target: addCountriesFx,
+});
+
+sample({
+  source: clickSchool,
+  fn: (event) => {
+    const feature = event?.features?.[0];
+    return (feature?.id as number) ?? 0;
+  },
+  target: changeSchoolId,
 });
 
 // Add popup

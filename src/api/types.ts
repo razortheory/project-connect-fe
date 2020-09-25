@@ -1,4 +1,4 @@
-import { Geometry } from 'geojson';
+import { Geometry, Point } from 'geojson';
 
 export type ConnectivityStatus = 'no' | 'unknown' | 'moderate' | 'good';
 
@@ -62,4 +62,31 @@ export type SchoolData = {
   geopoint: Geometry;
   connectivity_status: ConnectivityStatus;
   coverage_status: string;
+};
+
+export type SchoolDetailsData = {
+  id: number;
+  name: string;
+  geopoint: Point;
+  statistics: {
+    num_students: number;
+    num_teachers: number;
+    num_classroom: number;
+    num_latrines: number;
+    running_water: boolean;
+    electricity_availability: boolean;
+    computer_lab: boolean;
+    num_computers: number;
+    connectivity: boolean;
+    connectivity_status: string;
+    connectivity_type: string;
+    connectivity_speed: number;
+    connectivity_latency: number;
+    connectivity_availability: number;
+    created: string;
+    modified: string;
+  };
+  gps_confidence: string | null;
+  address: string;
+  postal_code: string;
 };

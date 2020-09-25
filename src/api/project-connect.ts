@@ -11,6 +11,7 @@ import {
   CountryMetaData,
   GlobalStatsData,
   SchoolData,
+  SchoolDetailsData,
 } from './types';
 
 export const request = createRequest({
@@ -28,6 +29,17 @@ export const fetchCountrySchoolsFx = createEffect(
       url: `api/locations/countries/${countryId}/schools/`,
       fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolData[]),
     })
+);
+
+export const fetchSchoolDetailsFx = createEffect(
+  async ({
+    countryId,
+    schoolId,
+  }: {
+    countryId: number;
+    schoolId: number;
+  }): Promise<SchoolDetailsData> =>
+    request(`api/locations/countries/${countryId}/schools/${schoolId}/`)
 );
 
 export const fetchCountriesDataFx = createEffect(
