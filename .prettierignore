@@ -1,4 +1,7 @@
 # Prettier
+.madgerc
+test.env
+yarn.lock
 yarn.lock
 .yarnclean
 .env.ref

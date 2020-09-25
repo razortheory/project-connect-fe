@@ -1,11 +1,32 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import { AppFrame } from '~/core';
+import { Layout, Main } from '~/ui/components';
 
-import { MapTemplate } from './map-template';
+import { Popup } from '@/map/@/country';
+import { Sidebar } from '@/map/@/sidebar';
+
+import { Footer } from './footer';
+import { Header } from './header';
+import { Map } from './map';
+import { Underlay } from './underlay';
+
+const PopupContainer = styled.div`
+  display: none;
+`;
 
 export const MapPage = () => (
-  <AppFrame>
-    <MapTemplate />
-  </AppFrame>
+  <Layout>
+    <Underlay>
+      <Map />
+    </Underlay>
+    <Header />
+    <Main>
+      <Sidebar />
+      <PopupContainer>
+        <Popup />
+      </PopupContainer>
+    </Main>
+    <Footer />
+  </Layout>
 );

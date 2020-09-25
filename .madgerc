@@ -1,0 +1,13 @@
+{
+  "fileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx"
+  ],
+  "excludeRegExp": [
+    ".(jpg|png|gif|woff2|svg|json|css|scss)$"
+  ],
+  "tsConfig": "tsconfig.json",
+  "layout": "dot"
+}

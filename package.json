@@ -18,7 +18,7 @@
     "format": "prettier --write '**/*'",
     "fix": "yarn eslint --fix && yarn stylelint --fix",
     "test": "jest --no-cache",
-    "test-silent": "jest --reporters=jest-silent-reporter",
+    "test-silent": "dotenv -e test.env -- jest --reporters=jest-silent-reporter",
     "test-coverage": "jest --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -30,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn && yarn ts && yarn test --silent && lint-staged"
+      "pre-commit": "yarn && yarn ts && yarn test-silent && lint-staged"
     }
   },
   "engines": {
@@ -78,6 +78,8 @@
     "browserslist": "^4.13.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.2",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^4.0.0",
     "dotenv-webpack": "^2.0.0",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "^18.2.0",
