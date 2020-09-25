@@ -2,6 +2,8 @@ import { useStore } from 'effector-react';
 import React, { useEffect, useState } from 'react';
 import { CountryData } from 'src/api/types';
 
+import { formatPercent } from '~/core/formatters';
+
 import { $countryData } from '@/map/@/country/model';
 import { connectivityStatusPaintData } from '@/map/constants';
 
@@ -94,16 +96,16 @@ export const PieChart = () => {
       {isAnimationStarted && (
         <div className="pie-chart__explanation">
           <div className="pie-chart__percent-value pie-chart__percent-value--no">
-            {percentConnectivityNo * 100}%
+            {formatPercent(percentConnectivityNo)}
           </div>
           <div className="pie-chart__percent-value pie-chart__percent-value--good">
-            {percentConnectivityGood * 100}%
+            {formatPercent(percentConnectivityGood)}
           </div>
           <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
-            {percentConnectivityModerate * 100}%
+            {formatPercent(percentConnectivityModerate)}
           </div>
           <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
-            {percentConnectivityUnknown * 100}%
+            {formatPercent(percentConnectivityUnknown)}
           </div>
         </div>
       )}
