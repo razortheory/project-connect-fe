@@ -1,15 +1,17 @@
-import { combine, sample } from 'effector';
+import { combine, guard, sample } from 'effector';
 
 import {
   fetchCountriesDataFx,
   fetchGlobalStatsDataFx,
 } from '~/api/project-connect';
 import { CountryMetaData } from '~/api/types';
+import { router } from '~/core/routes';
 import { getInverted, setBoolean, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
 import { countriesSortData } from '@/map/@/sidebar/constants';
 import { sortCallbacks } from '@/map/@/sidebar/helpers';
+import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 
 import {
   $countries,
@@ -76,4 +78,15 @@ sample({
   ]),
   fn: (states) => states.some(Boolean),
   target: $isLoading,
+});
+
+// Scroll to hash
+
+sample({
+  source: router.hash,
+  clock: guard({
+    source: $isLoading,
+    filter: getInverted,
+  }),
+  target: scrollToHashFx,
 });

@@ -6,7 +6,6 @@ import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
-import { Scroll } from '~/ui/scroll';
 
 import {
   $controlsMapStyle,
@@ -26,6 +25,7 @@ import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
 import { MapTypes, Style } from '@/map/types';
+import { Scroll } from '@/scroll/scroll';
 
 import { onClear, Search } from './search';
 

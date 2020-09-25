@@ -1,5 +1,10 @@
 import React from 'react';
 
+import postImage1 from '~/assets/images/media-post-1.jpg';
+import postImage2 from '~/assets/images/media-post-2.jpg';
+import postImage3 from '~/assets/images/media-post-3.jpg';
+import postImage4 from '~/assets/images/media-post-4.jpg';
+
 export const Media = () => (
   <section className="section">
     <h2 className="visually-hidden">Blog posts</h2>
@@ -7,11 +12,7 @@ export const Media = () => (
       <div className="posts-row">
         <article className="post">
           <div className="post__image-wrapper">
-            <img
-              className="post__image"
-              src="http://placehold.it/500x300.jpg"
-              alt=""
-            />
+            <img className="post__image" src={postImage1} alt="" />
           </div>
           <div className="post__info">
             <div className="post__metadata">
@@ -26,11 +27,7 @@ export const Media = () => (
         </article>
         <article className="post">
           <div className="post__image-wrapper">
-            <img
-              className="post__image"
-              src="http://placehold.it/500x300.jpg"
-              alt=""
-            />
+            <img className="post__image" src={postImage2} alt="" />
           </div>
           <div className="post__info">
             <div className="post__metadata">
@@ -45,11 +42,7 @@ export const Media = () => (
         </article>
         <article className="post">
           <div className="post__image-wrapper">
-            <img
-              className="post__image"
-              src="http://placehold.it/500x300.jpg"
-              alt=""
-            />
+            <img className="post__image" src={postImage3} alt="" />
           </div>
           <div className="post__info">
             <div className="post__metadata">
@@ -64,11 +57,7 @@ export const Media = () => (
         </article>
         <article className="post">
           <div className="post__image-wrapper">
-            <img
-              className="post__image"
-              src="http://placehold.it/500x300.jpg"
-              alt=""
-            />
+            <img className="post__image" src={postImage4} alt="" />
           </div>
           <div className="post__info">
             <div className="post__metadata">

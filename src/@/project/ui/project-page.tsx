@@ -45,12 +45,17 @@ export const ProjectPage = () => (
                 <ul className="menu">
                   <li className="menu__item">
                     <button type="button" className="menu__link">
-                      Second level
+                      Case studies
                     </button>
                   </li>
                   <li className="menu__item">
                     <button type="button" className="menu__link">
-                      Second level 2
+                      Why mapping
+                    </button>
+                  </li>
+                  <li className="menu__item">
+                    <button type="button" className="menu__link">
+                      Our partners
                     </button>
                   </li>
                 </ul>

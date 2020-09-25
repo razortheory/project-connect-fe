@@ -10,7 +10,6 @@ import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { formatNumber, formatPercent } from '~/core/formatters';
 import { getVoid } from '~/lib/effector-kit';
 import { humanFormat } from '~/lib/human-format';
-import { Scroll } from '~/ui/scroll';
 
 import { $countryData } from '@/map/@/country/model';
 import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
@@ -24,6 +23,7 @@ import {
 } from '@/map/@/sidebar/model';
 import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
+import { Scroll } from '@/scroll/scroll';
 
 import { Search } from './search';
 import { WeekGraph } from './week-graph';

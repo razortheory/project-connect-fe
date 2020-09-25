@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { media } from '~/core/routes';
+import { about } from '~/core/routes';
 import { Link } from '~/lib/router';
 import { Button, Logo } from '~/ui/atoms';
 
@@ -8,7 +8,7 @@ export const Header = () => (
   <header className="header">
     <div className="container-fluid">
       <Logo />
-      <Link to={media} className="header__button">
+      <Link to={about} className="header__button">
         <Button>Project info</Button>
       </Link>
     </div>
