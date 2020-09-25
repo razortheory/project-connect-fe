@@ -37,6 +37,6 @@
 }
 
 .pie-chart__progress {
-  transition: stroke-dasharray 1s ease-in;
+  transition: stroke-dasharray 1s linear;
   transition-delay: 0.3s;
 }
