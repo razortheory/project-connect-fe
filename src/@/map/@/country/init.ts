@@ -40,6 +40,7 @@ $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
 $popupContext.on(updatePopupContext, setPayload);
+$countryData.reset(changeCountryId);
 
 const $mapContext = combine({
   map: $map,
