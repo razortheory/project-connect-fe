@@ -3,7 +3,7 @@ import React from 'react';
 
 import { AppFrame } from '~/core';
 
-import { MapTemplate } from './map-template';
+import { MapPage } from './map-page';
 
 export default {
   title: 'Pages/Map',
@@ -19,6 +19,6 @@ export default {
 
 export const overview = () => (
   <AppFrame>
-    <MapTemplate />
+    <MapPage />
   </AppFrame>
 );
