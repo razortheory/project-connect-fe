@@ -40,12 +40,10 @@ const getCountryInfo = (countryData: CountryData | null) => {
     dataSource: countryData.data_source || 'N/A',
     schoolsTotal: formatNumber(statistics.schools_total),
     schoolsConnected: formatNumber(statistics.schools_connected),
-    // TODO: Is it "avg. internet speed (download)"?
     averageInternetSpeed: humanFormat(statistics.connectivity_speed, {
       unit: 'b/s',
       separator: ' ',
     }),
-    // TODO: Is it "Schools with no internet"?
     schoolsWithNoInternet: statistics.schools_total
       ? formatPercent(
           statistics.schools_connectivity_no / statistics.schools_total

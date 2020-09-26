@@ -8,7 +8,7 @@ import {
   fetchSchoolDetailsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, setPayload } from '~/lib/effector-kit';
+import { getInverted, setNull, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/lib/get-countries-geo-json';
 import { $map, $stylePaintData, changeMap } from '@/map/model';
@@ -43,6 +43,7 @@ $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
 $schoolDetailsData.on(fetchSchoolDetailsFx.doneData, setPayload);
+$schoolDetailsData.on(fetchSchoolDetailsFx.fail, setNull);
 
 const $mapContext = combine({
   map: $map,
@@ -68,7 +69,7 @@ sample({
   target: zoomToCountryFx,
 });
 
-// Trigger fetch country data and schools data
+// Fetch country data and schools data
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
   to: [fetchCountrySchoolsFx, fetchCountryDataFx],
@@ -87,6 +88,7 @@ const countryDataReceived = guard({
   filter: ({ countryId, doneCountryId }) => countryId === doneCountryId,
 });
 
+// Update country
 sample({
   source: $mapContext,
   clock: countryDataReceived,
@@ -98,13 +100,7 @@ sample({
   target: updateCountryFx,
 });
 
-sample({
-  source: $mapContext,
-  clock: changeSchoolId,
-  fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
-  target: fetchSchoolDetailsFx,
-});
-
+// Check received countrySchools for relevance
 const schoolsReceived = guard({
   source: sample({
     source: $countryId,
@@ -142,17 +138,6 @@ sample({
     return countryData?.id ?? 0;
   },
   target: changeCountryId,
-});
-
-sample({
-  source: $mapContext,
-  clock: changeCountryId,
-  fn: ({ map, paintData, countryData }) => ({
-    map,
-    paintData,
-    countryData,
-  }),
-  target: updateCountryFx,
 });
 
 // Leave country route
@@ -195,6 +180,15 @@ sample({
   target: addCountriesFx,
 });
 
+// Add popup
+sample({
+  source: $mapContext,
+  clock: clickSchool,
+  fn: ({ map, popup }, event) => ({ map, popup, event }),
+  target: addSchoolPopupFx,
+});
+
+// Update school id
 sample({
   source: clickSchool,
   fn: (event) => {
@@ -204,10 +198,10 @@ sample({
   target: changeSchoolId,
 });
 
-// Add popup
+// Fetch school data
 sample({
   source: $mapContext,
-  clock: clickSchool,
-  fn: ({ map, popup }, event) => ({ map, popup, event }),
-  target: addSchoolPopupFx,
+  clock: $schoolId,
+  fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
+  target: fetchSchoolDetailsFx,
 });

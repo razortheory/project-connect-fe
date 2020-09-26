@@ -1,11 +1,13 @@
-export type SchoolDetails = {
+import { ConnectivityStatus } from '~/api/types';
+
+export type SchoolInfo = {
   id: number;
-  schoolName: string;
-  schoolAddress: string;
+  name: string;
+  address: string;
   postalCode: string;
   gpsConfidence: string | null;
-  popupClassname: string;
-  internetSpeed: string;
+  connectivityStatus: ConnectivityStatus;
+  connectivitySpeed: string;
   connectivityType: string;
   latitude: number;
   longitude: number;

@@ -18,7 +18,7 @@ export const addSchoolPopupFx = createEffect(
 
     new mapboxGL.Popup({
       maxWidth: '100%',
-      className: `country-popup`,
+      className: 'country-popup',
     })
       .setLngLat([coordinates[0], coordinates[1]])
       .setDOMContent(popup)
