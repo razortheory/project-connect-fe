@@ -45,7 +45,6 @@ export const ListItem = ({ country }: { country: CountryMetaData }) => {
           backgroundColor: paintData[paintField].toString(),
         }}
       />
-      {/* TODO: country.code */}
       <Link
         className="list__link"
         to={mapCountry}

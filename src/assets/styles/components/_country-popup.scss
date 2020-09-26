@@ -14,6 +14,26 @@
   //  background: #232832;
   //  transform: none !important;
   //}
+
+  &--no-connectivity {
+    border-top: 0.9rem solid #ff615b;
+  }
+
+  &--moderate {
+    border-top: 0.9rem solid #ffc93d;
+  }
+
+  &--good {
+    border-top: 0.9rem solid #8bd432;
+  }
+
+  &--unavailable {
+    border-top: 0.9rem solid #546fc2;
+  }
+}
+
+.country-popup__content {
+  padding: 2rem 2rem 2.9rem;
 }
 
 .country-popup__title {
