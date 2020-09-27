@@ -1,10 +1,12 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { getSelectSortValues } from '@/map/@/sidebar/helpers';
-import { $sortValue, changeSortValue } from '@/map/@/sidebar/model';
+import { selectValue } from '~/lib/event-reducers/select-value';
 
-const onChange = changeSortValue.prepend(getSelectSortValues);
+import { $sortValue, changeSortValue } from '@/map/@/sidebar/model';
+import { SortValue } from '@/map/@/sidebar/types';
+
+const onChange = changeSortValue.prepend(selectValue<SortValue>());
 
 export const Sort = () => (
   <label htmlFor="sorting-select" className="select-wrapper">

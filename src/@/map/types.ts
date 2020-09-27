@@ -24,4 +24,4 @@ export type InitMapOptions = {
   zoom?: Zoom;
 };
 
-export type MapTypes = 'connectivity' | 'coverage';
+export type MapType = 'connectivity' | 'coverage';

@@ -9,7 +9,7 @@ import { getInverted, setBoolean, setPayload } from '~/lib/effector-kit';
 
 import { $countriesData } from '@/map/@/country';
 import { countriesSortData } from '@/map/@/sidebar/constants';
-import { sortCallbacks } from '@/map/@/sidebar/helpers';
+import { sortCallbacks } from '@/map/@/sidebar/sort-callbacks';
 
 import {
   $countries,

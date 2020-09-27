@@ -1,21 +1,12 @@
-import { ChangeEvent } from 'react';
-
 import { CountryMetaData } from '~/api/types';
 
-import { SortTypes, SortValues } from '@/map/@/sidebar/types';
-
-export const getInputValue = (event: ChangeEvent<HTMLInputElement>): string =>
-  event.target.value;
-
-export const getSelectSortValues = (
-  event: ChangeEvent<HTMLSelectElement>
-): SortValues => event.target.value as SortValues;
+import { SortType } from '@/map/@/sidebar/types';
 
 export const sortCallbacks = (
   a: CountryMetaData,
   b: CountryMetaData,
   field: keyof CountryMetaData,
-  sortType: SortTypes
+  sortType: SortType
 ): number => {
   switch (sortType) {
     case 'number':

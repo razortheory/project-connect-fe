@@ -5,8 +5,10 @@ import IconList from '~/assets/images/list.svg';
 import IconSearch from '~/assets/images/search.svg';
 import IconTile from '~/assets/images/tile.svg';
 import { getInverted, getVoid } from '~/lib/effector-kit';
+import { getInputValue } from '~/lib/event-reducers';
+import { selectValue } from '~/lib/event-reducers/select-value';
 
-import { getSelectSortValues } from '@/map/@/sidebar/helpers';
+import { SortValue } from '@/map/@/sidebar/types';
 import {
   $hasSearchText,
   $isListType,
@@ -16,14 +18,13 @@ import {
   changeSortValue,
   changeViewType,
   clearSearchText,
-  getTargetValue,
 } from '@/project/@/dashboard/model';
 
 // View
-const onChange = changeSearchText.prepend(getTargetValue);
+const onChange = changeSearchText.prepend(getInputValue);
 const onChangeView = changeViewType.prepend(getInverted);
 const onClear = clearSearchText.prepend(getVoid);
-const onSortChange = changeSortValue.prepend(getSelectSortValues);
+const onSortChange = changeSortValue.prepend(selectValue<SortValue>());
 
 export const SearchSortBox = () => (
   <div className="progress-dashboard__controls-bar controls-bar">

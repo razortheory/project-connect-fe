@@ -1,10 +1,11 @@
 import { useStore } from 'effector-react';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import { CountryMetaData } from '~/api/types';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
+import { inputValue } from '~/lib/event-reducers';
 import { Link, useRoute } from '~/lib/router';
 import { Scroll } from '~/ui/scroll';
 
@@ -21,11 +22,11 @@ import {
   changeControlsSortValue,
   submitControlsChanges,
 } from '@/map/@/sidebar/model';
-import { SortValues } from '@/map/@/sidebar/types';
+import { SortValue } from '@/map/@/sidebar/types';
 import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
-import { MapTypes, Style } from '@/map/types';
+import { MapType, Style } from '@/map/types';
 
 import { onClear, Search } from './search';
 
@@ -155,19 +156,11 @@ export const Tabs = () => (
   </ul>
 );
 
-// controls units
-
-const onChangeMapType = changeControlsMapType.prepend(
-  (event: ChangeEvent<HTMLInputElement>): MapTypes =>
-    event.currentTarget.value as MapTypes
-);
-const onChangeMapStyle = changeControlsMapStyle.prepend(
-  (event: ChangeEvent<HTMLInputElement>): Style =>
-    event.currentTarget.value as Style
-);
+// Controls' units
+const onChangeMapType = changeControlsMapType.prepend(inputValue<MapType>());
+const onChangeMapStyle = changeControlsMapStyle.prepend(inputValue<Style>());
 const onChangeSortValue = changeControlsSortValue.prepend(
-  (event: ChangeEvent<HTMLInputElement>): SortValues =>
-    event.currentTarget.value as SortValues
+  inputValue<SortValue>()
 );
 
 const Controls = () => {

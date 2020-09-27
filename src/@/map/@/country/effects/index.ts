@@ -5,4 +5,4 @@ export { updateSchoolsFx } from './update-schools-fx';
 export { zoomToCountryFx } from './zoom-to-country-fx';
 export { removeCountryFx } from './remove-country-fx';
 export { removeSchoolsFx } from './remove-schools-fx';
-export { updateSchoolsPaintDataFx } from './update-schools-paint-data';
+export { updateSchoolsColorsFx } from './update-schools-colors-fx';

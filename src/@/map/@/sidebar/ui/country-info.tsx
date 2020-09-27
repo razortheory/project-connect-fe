@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import { CountryData } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
@@ -8,8 +8,12 @@ import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { formatNumber, formatPercent } from '~/core/formatters';
+import { mapCountries } from '~/core/routes';
+import { tabInfo } from '~/core/tab-routes';
 import { getVoid } from '~/lib/effector-kit';
+import { selectValue } from '~/lib/event-reducers/select-value';
 import { humanFormat } from '~/lib/human-format';
+import { Link } from '~/lib/router';
 import { Scroll } from '~/ui/scroll';
 
 import { $countryData } from '@/map/@/country/model';
@@ -25,7 +29,7 @@ import {
 import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 import { $mapType, changeMapType } from '@/map/model';
-import { MapTypes } from '@/map/types';
+import { MapType } from '@/map/types';
 
 import { Search } from './search';
 import { WeekGraph } from './week-graph';
@@ -58,10 +62,7 @@ const getCountryInfo = (countryData: CountryData | null) => {
 };
 
 const $countryInfo = $countryData.map(getCountryInfo);
-const onSelectChange = changeMapType.prepend(
-  (event: ChangeEvent<HTMLSelectElement>): MapTypes =>
-    event.target.value as MapTypes
-);
+const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
 export const CountryInfo = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
@@ -75,9 +76,13 @@ export const CountryInfo = () => {
     <>
       <Search />
       <div className="breadcrumbs">
-        <a className="breadcrumbs__link" href="/map/countries/info">
+        <Link
+          to={mapCountries}
+          className="breadcrumbs__link"
+          params={{ tab: tabInfo.compile() }}
+        >
           {mapType} map{' '}
-        </a>
+        </Link>
         {' > '}
         <span>{countryInfo?.name}</span>
       </div>

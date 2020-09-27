@@ -22,8 +22,8 @@ import {
   addCountriesFx,
   leaveCountryRouteFx,
   updateCountryFx,
+  updateSchoolsColorsFx,
   updateSchoolsFx,
-  updateSchoolsPaintDataFx,
   zoomToCountryFx,
 } from './effects';
 import { addSchoolPopupFx } from './effects/add-school-popup-fx';
@@ -190,11 +190,10 @@ sample({
   target: addSchoolPopupFx,
 });
 
-// change map type
-
+// Change map type
 sample({
   source: $map,
   clock: changeMapType,
   fn: (map, mapType) => ({ map, mapType }),
-  target: updateSchoolsPaintDataFx,
+  target: updateSchoolsColorsFx,
 });

@@ -1,7 +1,6 @@
 import { Geometry } from 'geojson';
 
 export type ConnectivityStatus = 'no' | 'unknown' | 'moderate' | 'good';
-// TODO change the coverage status options when they are known
 export type CoverageStatus = 'unknown' | 'known';
 
 export type GlobalStatsData = {

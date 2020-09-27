@@ -12,7 +12,6 @@ import { changeCountryId } from '@/map/@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import { countriesSortData } from './constants';
-import { sortCallbacks } from './helpers';
 import {
   $controlsMapStyle,
   $controlsMapType,
@@ -43,6 +42,7 @@ import {
   submitControlsChanges,
   toggleSidebarVisibility,
 } from './model';
+import { sortCallbacks } from './sort-callbacks';
 
 $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);

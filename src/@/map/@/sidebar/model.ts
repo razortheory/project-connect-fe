@@ -4,9 +4,9 @@ import { KeyboardEvent, MouseEvent } from 'react';
 import { CountryMetaData } from '~/api/types';
 import { getWeekInterval } from '~/lib/date-fns-kit';
 
-import { SortValues } from '@/map/@/sidebar/types';
+import { SortValue } from '@/map/@/sidebar/types';
 import { defaultMapType, defaultStyle } from '@/map/constants';
-import { MapTypes, Style } from '@/map/types';
+import { MapType, Style } from '@/map/types';
 
 import { defaultSortValue } from './constants';
 
@@ -18,7 +18,7 @@ export const onSearchPressKey = createEvent<KeyboardEvent<HTMLInputElement>>();
 export const onSearchPressEnter = createEvent<
   KeyboardEvent<HTMLInputElement>
 >();
-export const changeSortValue = createEvent<SortValues>();
+export const changeSortValue = createEvent<SortValue>();
 
 export const blurInputFx = createEffect<
   KeyboardEvent<HTMLInputElement>,
@@ -32,18 +32,18 @@ export const $searchText = createStore('');
 export const $searchActive = createStore(false);
 export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);
-export const $sortValue = createStore<SortValues>(defaultSortValue);
+export const $sortValue = createStore<SortValue>(defaultSortValue);
 
 export const $week = createStore(getWeekInterval(new Date()));
 export const $isThisWeek = createStore(true);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();
 
-export const $controlsMapType = createStore<MapTypes>(defaultMapType);
+export const $controlsMapType = createStore<MapType>(defaultMapType);
 export const $controlsMapStyle = createStore<Style>(defaultStyle);
-export const $controlsSortValue = createStore<SortValues>(defaultSortValue);
+export const $controlsSortValue = createStore<SortValue>(defaultSortValue);
 export const $isControlsChanged = createStore<boolean>(false);
-export const changeControlsMapType = createEvent<MapTypes>();
+export const changeControlsMapType = createEvent<MapType>();
 export const changeControlsMapStyle = createEvent<Style>();
-export const changeControlsSortValue = createEvent<SortValues>();
+export const changeControlsSortValue = createEvent<SortValue>();
 export const submitControlsChanges = createEvent();

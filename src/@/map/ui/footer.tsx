@@ -112,10 +112,14 @@ const CoverageTypeLegend = () => (
 );
 
 const LegendForSchools = () => {
-  const mapType = useStore($mapType);
-  if (mapType === 'connectivity') return <ConnectivityTypeLegend />;
-  if (mapType === 'coverage') return <CoverageTypeLegend />;
-  return null;
+  switch (useStore($mapType)) {
+    case 'connectivity':
+      return <ConnectivityTypeLegend />;
+    case 'coverage':
+      return <CoverageTypeLegend />;
+    default:
+      return null;
+  }
 };
 
 const StyleControl = () => {
