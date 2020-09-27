@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { useStore } from 'effector-react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CountryData } from 'src/api/types';
 
 import { formatPercent } from '~/core/formatters';
@@ -7,39 +9,34 @@ import { formatPercent } from '~/core/formatters';
 import { $countryData } from '@/map/@/country/model';
 import { connectivityStatusPaintData } from '@/map/constants';
 
-const getPercentage = (value: number, total: number): number => {
-  if (total === 0) {
-    return 0;
-  }
-  return Number((value / total).toFixed(3));
-};
+const getPercentage = (value: number, total: number): number =>
+  total && value / total;
 
-const getSchoolsData = (countryData: CountryData | false) => {
-  if (!countryData) {
-    // return object for destructuring with initial values
-    return {};
-  }
+const getSchoolsData = (countryData: CountryData) => {
   const {
-    schools_connectivity_no: schoolsWithNoInternet,
-    schools_connectivity_good: schoolsWithGoodInternet,
-    schools_connectivity_moderate: schoolsWithModerateInternet,
-    schools_connectivity_unknown: schoolsWithUnknownInternet,
-    schools_total: schoolsTotal,
+    schools_connectivity_no,
+    schools_connectivity_good,
+    schools_connectivity_moderate,
+    schools_connectivity_unknown,
+    schools_total,
   } = countryData.statistics;
 
   return {
-    percentConnectivityNo: getPercentage(schoolsWithNoInternet, schoolsTotal),
+    percentConnectivityNo: getPercentage(
+      schools_connectivity_no,
+      schools_total
+    ),
     percentConnectivityGood: getPercentage(
-      schoolsWithGoodInternet,
-      schoolsTotal
+      schools_connectivity_good,
+      schools_total
     ),
     percentConnectivityModerate: getPercentage(
-      schoolsWithModerateInternet,
-      schoolsTotal
+      schools_connectivity_moderate,
+      schools_total
     ),
     percentConnectivityUnknown: getPercentage(
-      schoolsWithUnknownInternet,
-      schoolsTotal
+      schools_connectivity_unknown,
+      schools_total
     ),
   };
 };
@@ -63,22 +60,12 @@ const getOffsetAngle = (offsetPercent: number): number =>
 export const PieChart = () => {
   const countryData = useStore($countryData);
 
-  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setIsAnimationStarted(Boolean(countryData)));
-  }, [countryData]);
-
-  if (!countryData) {
-    return null;
-  }
-
   const {
     percentConnectivityNo = 0,
     percentConnectivityGood = 0,
     percentConnectivityModerate = 0,
     percentConnectivityUnknown = 0,
-  } = getSchoolsData(isAnimationStarted && countryData);
+  } = countryData ? getSchoolsData(countryData) : {};
 
   const noConnectivityOffsetAngle = getOffsetAngle(0);
   const goodConnectivityOffsetAngle = getOffsetAngle(percentConnectivityNo);
@@ -93,25 +80,23 @@ export const PieChart = () => {
 
   return (
     <div className="pie-chart">
-      {isAnimationStarted && (
-        <div className="pie-chart__explanation">
-          <div className="pie-chart__percent-value pie-chart__percent-value--no">
-            {formatPercent(percentConnectivityNo)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--good">
-            {formatPercent(percentConnectivityGood)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
-            {formatPercent(percentConnectivityModerate)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
-            {formatPercent(percentConnectivityUnknown)}
-          </div>
+      <div className="pie-chart__explanation">
+        <div className="pie-chart__percent-value pie-chart__percent-value--no">
+          {formatPercent(percentConnectivityNo)}
         </div>
-      )}
+        <div className="pie-chart__percent-value pie-chart__percent-value--good">
+          {formatPercent(percentConnectivityGood)}
+        </div>
+        <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
+          {formatPercent(percentConnectivityModerate)}
+        </div>
+        <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
+          {formatPercent(percentConnectivityUnknown)}
+        </div>
+      </div>
       <div className="pie-chart__graph">
         <svg viewBox={`0 0 ${SVG_VIEW_BOX_WIDTH} ${SVG_VIEW_BOX_HEIGHT}`}>
-          {/* NO */}
+          {/* No connectivity */}
 
           <circle
             className="pie-chart__progress"
@@ -130,7 +115,7 @@ export const PieChart = () => {
             r={CIRCLE_RADIUS}
           />
 
-          {/* GOOD */}
+          {/* Good connectivity */}
 
           <circle
             className="pie-chart__progress"
@@ -149,7 +134,7 @@ export const PieChart = () => {
             r={CIRCLE_RADIUS}
           />
 
-          {/*  MODERATE */}
+          {/* Unknown connectivity */}
 
           <circle
             className="pie-chart__progress"
@@ -168,7 +153,7 @@ export const PieChart = () => {
             r={CIRCLE_RADIUS}
           />
 
-          {/*  UNKNOWN */}
+          {/*  Moderate connectivity */}
 
           <circle
             className="pie-chart__progress"

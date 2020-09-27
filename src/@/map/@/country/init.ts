@@ -40,7 +40,9 @@ $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
 $popupContext.on(updatePopupContext, setPayload);
-$countryData.reset(changeCountryId);
+
+$countryData.reset(changeCountryId, fetchCountryDataFx.fail);
+$countrySchools.reset(changeCountryId, fetchCountrySchoolsFx.fail);
 
 const $mapContext = combine({
   map: $map,
@@ -53,6 +55,12 @@ const $mapContext = combine({
   countryId: $countryId,
 });
 
+// Trigger fetch country data and schools data
+forward({
+  from: guard(changeCountryId, { filter: Boolean }),
+  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
+});
+
 // Zoom to country bounds
 sample({
   source: $mapContext,
@@ -63,12 +71,6 @@ sample({
     countryData,
   }),
   target: zoomToCountryFx,
-});
-
-// Trigger fetch country data and schools data
-forward({
-  from: guard(changeCountryId, { filter: Boolean }),
-  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
 });
 
 // Check received countryData for relevance
