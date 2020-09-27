@@ -45,6 +45,9 @@ $schoolId.on(changeSchoolId, setPayload);
 $schoolDetailsData.on(fetchSchoolDetailsFx.doneData, setPayload);
 $schoolDetailsData.on(fetchSchoolDetailsFx.fail, setNull);
 
+$countryData.reset(changeCountryId, fetchCountryDataFx.fail);
+$countrySchools.reset(changeCountryId, fetchCountrySchoolsFx.fail);
+
 const $mapContext = combine({
   map: $map,
   countriesGeometry: $countriesGeometryData,
@@ -57,6 +60,12 @@ const $mapContext = combine({
   schoolId: $schoolId,
 });
 
+// Fetch country data and schools data
+forward({
+  from: guard(changeCountryId, { filter: Boolean }),
+  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
+});
+
 // Zoom to country bounds
 sample({
   source: $mapContext,
@@ -67,12 +76,6 @@ sample({
     countryData,
   }),
   target: zoomToCountryFx,
-});
-
-// Fetch country data and schools data
-forward({
-  from: guard(changeCountryId, { filter: Boolean }),
-  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
 });
 
 // Check received countryData for relevance

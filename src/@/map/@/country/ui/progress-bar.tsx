@@ -6,7 +6,7 @@ const HorizontalLine = styled.div`
   display: flex;
   align-items: flex-end;
   height: 1px;
-  background-color: #2a4464;
+  background-color: #335a85;
 `;
 
 const fadeIn = keyframes`
@@ -37,7 +37,7 @@ const progressLoop = keyframes`
 
 const ProgressBarFill = styled.div`
   width: 50%;
-  background-color: #5d8bc3;
+  background-color: #529ae9;
   animation: ${progressLoop} 1.7s linear infinite, ${fadeIn} 0.2s ease-in;
 `;
 
