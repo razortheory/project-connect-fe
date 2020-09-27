@@ -41,6 +41,7 @@ const ZoomControl = () => (
 
 const LegendForCountries = () => {
   const paintData = useStore($stylePaintData);
+
   return (
     <ul className="footer__map-legend map-legend">
       <li

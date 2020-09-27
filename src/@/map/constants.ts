@@ -1,7 +1,7 @@
 import {
   ConnectivityStatus,
   CoverageStatus,
-  GlobalStatsData,
+  GlobalStats,
   IntegrationStatus,
 } from '~/api/types';
 
@@ -90,7 +90,7 @@ export const coverageStatusPaintData: {
   unknown: '#7511BF',
 };
 
-export const defaultGlobalStats: GlobalStatsData = {
+export const defaultGlobalStats: GlobalStats = {
   total_schools: 0,
   schools_mapped: 0,
   countries_joined: 0,

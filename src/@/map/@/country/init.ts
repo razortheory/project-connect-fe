@@ -1,16 +1,16 @@
 import { combine, forward, guard, merge, sample } from 'effector';
 
 import {
-  fetchCountriesDataFx,
-  fetchCountriesGeometryDataFx,
-  fetchCountryDataFx,
-  fetchCountrySchoolsFx,
-  fetchSchoolDetailsFx,
+  fetchCountriesFx,
+  fetchCountriesGeometryFx,
+  fetchCountryFx,
+  fetchSchoolFx,
+  fetchSchoolsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, setNull, setPayload } from '~/lib/effector-kit';
+import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import { getCountriesGeoJson } from '@/map/lib/get-countries-geo-json';
+import { getCountriesGeoJson } from '@/map/@/country/lib';
 import {
   $map,
   $mapType,
@@ -29,39 +29,39 @@ import {
 } from './effects';
 import { addSchoolPopupFx } from './effects/add-school-popup-fx';
 import {
-  $countriesData,
+  $countries,
   $countriesGeoJson,
-  $countriesGeometryData,
-  $countryData,
+  $countriesGeometry,
+  $country,
   $countryId,
-  $countrySchools,
   $popup,
-  $schoolDetailsData,
+  $school,
   $schoolId,
+  $schools,
   changeCountryId,
   changeSchoolId,
   clickSchool,
 } from './model';
 
-$countriesData.on(fetchCountriesDataFx.doneData, setPayload);
-$countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
-$countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
-$countryData.on(fetchCountryDataFx.doneData, setPayload);
+$countries.on(fetchCountriesFx.doneData, setPayload);
+$countriesGeometry.on(fetchCountriesGeometryFx.doneData, setPayload);
+$country.on(fetchCountryFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
+$schools.on(fetchSchoolsFx.doneData, setPayload);
+$school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
-$schoolDetailsData.on(fetchSchoolDetailsFx.doneData, setPayload);
-$schoolDetailsData.on(fetchSchoolDetailsFx.fail, setNull);
 
-$countryData.reset(changeCountryId, fetchCountryDataFx.fail);
-$countrySchools.reset(changeCountryId, fetchCountrySchoolsFx.fail);
+$country.reset(changeCountryId, fetchCountryFx.fail);
+$schools.reset(changeCountryId, fetchSchoolsFx.fail);
+$school.reset(fetchSchoolFx.fail);
 
 const $mapContext = combine({
   map: $map,
   mapType: $mapType,
-  countriesGeometry: $countriesGeometryData,
+  countriesGeometry: $countriesGeometry,
   paintData: $stylePaintData,
-  countryData: $countryData,
-  countrySchools: $countrySchools,
+  country: $country,
+  schools: $schools,
   popup: $popup,
   isCountryRoute: mapCountry.visible,
   countryId: $countryId,
@@ -71,26 +71,26 @@ const $mapContext = combine({
 // Fetch country data and schools data
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
-  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
+  to: [fetchSchoolsFx, fetchCountryFx],
 });
 
 // Zoom to country bounds
 sample({
   source: $mapContext,
-  fn: ({ map, countryId, countriesGeometry, countryData }) => ({
+  fn: ({ map, countryId, countriesGeometry, country }) => ({
     map,
     countryId,
     countriesGeometry,
-    countryData,
+    country,
   }),
   target: zoomToCountryFx,
 });
 
-// Check received countryData for relevance
-const countryDataReceived = guard({
+// Check received country for relevance
+const countryReceived = guard({
   source: sample({
     source: $countryId,
-    clock: fetchCountryDataFx.done,
+    clock: fetchCountryFx.done,
     fn: (countryId, { params }) => ({
       countryId,
       doneCountryId: params,
@@ -102,20 +102,20 @@ const countryDataReceived = guard({
 // Update country
 sample({
   source: $mapContext,
-  clock: countryDataReceived,
-  fn: ({ map, paintData, countryData }) => ({
+  clock: countryReceived,
+  fn: ({ map, paintData, country }) => ({
     map,
     paintData,
-    countryData,
+    country,
   }),
   target: updateCountryFx,
 });
 
-// Check received countrySchools for relevance
+// Check received schools for relevance
 const schoolsReceived = guard({
   source: sample({
     source: $countryId,
-    clock: fetchCountrySchoolsFx.done,
+    clock: fetchSchoolsFx.done,
     fn: (countryId, { params }) => ({
       countryId,
       params,
@@ -127,9 +127,9 @@ const schoolsReceived = guard({
 sample({
   source: $mapContext,
   clock: schoolsReceived,
-  fn: ({ map, countrySchools, mapType }) => ({
+  fn: ({ map, schools, mapType }) => ({
     map,
-    countrySchools,
+    schools,
     mapType,
   }),
   target: updateSchoolsFx,
@@ -140,14 +140,14 @@ const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
 
 sample({
-  source: $countriesData,
+  source: $countries,
   clock: combine([mapCountry.params, $map]),
-  fn: (countriesData, [routeParams]) => {
-    if (!countriesData || !routeParams) return 0;
-    const countryData = countriesData.find((data) =>
+  fn: (countries, [routeParams]) => {
+    if (!countries || !routeParams) return 0;
+    const country = countries.find((data) =>
       isEqualText(data.code, routeParams.code)
     );
-    return countryData?.id ?? 0;
+    return country?.id ?? 0;
   },
   target: changeCountryId,
 });
@@ -162,22 +162,22 @@ sample({
   target: leaveCountryRouteFx,
 });
 
-const allCountriesDataLoaded = guard({
-  source: combine([$countriesData, $countriesGeometryData]),
-  filter: ([countriesData, countriesGeometryData]) =>
-    Boolean(countriesData && countriesGeometryData),
+const onCountriesAndGeometry = guard({
+  source: combine([$countries, $countriesGeometry]),
+  filter: ([countries, countriesGeometry]) =>
+    Boolean(countries && countriesGeometry),
 });
 
 $countriesGeoJson.on(
-  allCountriesDataLoaded,
-  (_, [countriesData, countriesGeometryData]) =>
-    getCountriesGeoJson(countriesData, countriesGeometryData)
+  onCountriesAndGeometry,
+  (_, [countries, countriesGeometry]) =>
+    getCountriesGeoJson(countries, countriesGeometry)
 );
 
 // Add countries
 const onCountriesGeoJson = sample({
   source: $countriesGeoJson,
-  clock: merge([changeMap, allCountriesDataLoaded]),
+  clock: merge([changeMap, onCountriesAndGeometry]),
 });
 
 sample({
@@ -215,7 +215,7 @@ sample({
   source: $mapContext,
   clock: $schoolId,
   fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
-  target: fetchSchoolDetailsFx,
+  target: fetchSchoolFx,
 });
 
 // Change map type

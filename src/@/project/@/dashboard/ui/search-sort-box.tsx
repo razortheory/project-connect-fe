@@ -8,14 +8,14 @@ import { getInverted, getVoid } from '~/lib/effector-kit';
 import { getInputValue } from '~/lib/event-reducers';
 import { selectValue } from '~/lib/event-reducers/select-value';
 
-import { SortValue } from '@/map/@/sidebar/types';
+import { SortKey } from '@/map/@/sidebar/types';
 import {
   $hasSearchText,
   $isListType,
   $searchText,
-  $sortValue,
+  $sortKey,
   changeSearchText,
-  changeSortValue,
+  changeSortKey,
   changeViewType,
   clearSearchText,
 } from '@/project/@/dashboard/model';
@@ -24,7 +24,7 @@ import {
 const onChange = changeSearchText.prepend(getInputValue);
 const onChangeView = changeViewType.prepend(getInverted);
 const onClear = clearSearchText.prepend(getVoid);
-const onSortChange = changeSortValue.prepend(selectValue<SortValue>());
+const onSortChange = changeSortKey.prepend(selectValue<SortKey>());
 
 export const SearchSortBox = () => (
   <div className="progress-dashboard__controls-bar controls-bar">
@@ -48,7 +48,7 @@ export const SearchSortBox = () => (
 
     <div className="controls-bar__sort">
       <span>Sort by:</span>
-      <select onChange={onSortChange} value={useStore($sortValue)}>
+      <select onChange={onSortChange} value={useStore($sortKey)}>
         <option value="amountOfDataAvailable">Amount of data available</option>
         <option value="dateOfJoining">Date of joining</option>
         <option value="countryProgress">Country progress</option>

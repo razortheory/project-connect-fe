@@ -1,28 +1,24 @@
 import { combine, guard, sample } from 'effector';
 
-import {
-  fetchCountriesDataFx,
-  fetchGlobalStatsDataFx,
-} from '~/api/project-connect';
-import { CountryMetaData } from '~/api/types';
+import { fetchCountriesFx, fetchGlobalStatsFx } from '~/api/project-connect';
+import { CountryBasic } from '~/api/types';
 import { router } from '~/core/routes';
 import { getInverted, setBoolean, setPayload } from '~/lib/effector-kit';
 
-import { $countriesData } from '@/map/@/country';
-import { countriesSortData } from '@/map/@/sidebar/constants';
-import { sortCallbacks } from '@/map/@/sidebar/sort-callbacks';
+import { $countries } from '@/map/@/country';
+import { sortCountries } from '@/map/@/sidebar/sort-countries';
 import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 
 import {
-  $countries,
+  $countriesList,
   $hasSearchText,
   $isListType,
   $isLoading,
-  $notFound,
+  $noSearchResults,
   $searchText,
-  $sortValue,
+  $sortKey,
   changeSearchText,
-  changeSortValue,
+  changeSortKey,
   changeViewType,
   clearSearchText,
 } from './model';
@@ -35,47 +31,39 @@ $searchText.on(changeSearchText, setPayload);
 $isListType.on(changeViewType, getInverted);
 $searchText.reset(clearSearchText);
 $hasSearchText.on($searchText, setBoolean);
-$sortValue.on(changeSortValue, setPayload);
+$sortKey.on(changeSortKey, setPayload);
 
-const $sortedList = combine(
-  [$countriesData, $sortValue],
-  ([countriesData, sortKey]) => {
-    const { field, sortType } = countriesSortData[sortKey];
-    if (!countriesData) {
-      return null;
-    }
+const $sortedCountries = combine(
+  [$countries, $sortKey],
+  ([countries, sortKey]) => {
+    if (!countries) return null;
+
     return [
-      ...countriesData.sort((a: CountryMetaData, b: CountryMetaData) =>
-        sortCallbacks(a, b, field, sortType)
+      ...countries.sort((a: CountryBasic, b: CountryBasic) =>
+        sortCountries(a, b, sortKey)
       ),
     ];
   }
 );
 
 sample({
-  source: combine({
-    countriesData: $sortedList,
-    searchText: $searchText,
-  }),
-  fn: ({ countriesData, searchText }) =>
-    countriesData
-      ?.filter((countryData) => hasText(countryData.name, searchText))
+  source: combine([$sortedCountries, $searchText]),
+  fn: ([sortedCountries, searchText]) =>
+    sortedCountries
+      ?.filter((country) => hasText(country.name, searchText))
       ?.slice(0, 8) ?? [],
-  target: $countries,
+  target: $countriesList,
 });
 
 sample({
-  source: $countries,
+  source: $countriesList,
   fn: (countriesFound) => !countriesFound.length,
-  target: $notFound,
+  target: $noSearchResults,
 });
 
 // Update pending status
 sample({
-  source: combine([
-    fetchCountriesDataFx.pending,
-    fetchGlobalStatsDataFx.pending,
-  ]),
+  source: combine([fetchCountriesFx.pending, fetchGlobalStatsFx.pending]),
   fn: (states) => states.some(Boolean),
   target: $isLoading,
 });

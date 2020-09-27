@@ -1,7 +1,8 @@
 import { createEffect } from 'effector';
 
-import { getSchoolsColors } from '@/map/@/country/helpers';
 import { UpdateSchoolsColors } from '@/map/@/country/types';
+
+import { getSchoolsColors } from './get-schools-colors';
 
 export const updateSchoolsColorsFx = createEffect(
   ({ map, mapType }: UpdateSchoolsColors) => {

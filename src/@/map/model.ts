@@ -1,6 +1,6 @@
 import { createEvent, createStore } from 'effector';
 
-import { GlobalStatsData } from '~/api/types';
+import { GlobalStats } from '~/api/types';
 
 import {
   defaultGlobalStats,
@@ -24,6 +24,6 @@ export const $style = createStore<Style>(defaultStyle);
 export const $stylePaintData = createStore<StylePaintData>(
   stylePaintData[defaultStyle]
 );
-export const $globalStats = createStore<GlobalStatsData>(defaultGlobalStats);
+export const $globalStats = createStore<GlobalStats>(defaultGlobalStats);
 export const $pending = createStore<boolean>(false);
 export const $loader = createStore<Marker | null>(null);

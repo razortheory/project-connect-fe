@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
@@ -11,26 +11,27 @@ import { Link, useRoute } from '~/lib/router';
 import {
   $controlsMapStyle,
   $controlsMapType,
-  $controlsSortValue,
-  $countryList,
+  $controlsSortKey,
+  $countriesList,
+  $countriesPending,
   $isControlsChanged,
   $noSearchResults,
   $searchActive,
   changeControlsMapStyle,
   changeControlsMapType,
-  changeControlsSortValue,
+  changeControlsSortKey,
   submitControlsChanges,
 } from '@/map/@/sidebar/model';
-import { SortValue } from '@/map/@/sidebar/types';
+import { SortKey } from '@/map/@/sidebar/types';
 import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
 import { MapType, Style } from '@/map/types';
-import { Scroll } from '@/scroll/scroll';
+import { Scroll } from '@/scroll';
 
 import { onClear, Search } from './search';
 
-export const ListItem = ({ country }: { country: CountryMetaData }) => {
+export const ListItem = ({ country }: { country: CountryBasic }) => {
   const paintData = useStore($stylePaintData);
   const paintField = statusPaintField[country.integration_status];
 
@@ -81,13 +82,15 @@ export const NotFound = () => (
 );
 
 const List = () => {
-  const countries = useStore($countryList);
-  const notFound = useStore($noSearchResults);
+  const countriesList = useStore($countriesList);
+  const noSearchResults = useStore($noSearchResults);
   const searchActive = useStore($searchActive);
+  const isLoading = useStore($countriesPending);
 
-  if (!countries) {
+  if (isLoading) {
     return <>Loading...</>;
   }
+
   return (
     <>
       {!searchActive && (
@@ -99,11 +102,11 @@ const List = () => {
           </p>
         </div>
       )}
-      {notFound ? (
+      {noSearchResults ? (
         <NotFound />
       ) : (
         <ul className="sidebar__country-list list">
-          {countries.map((country: CountryMetaData) => (
+          {countriesList.map((country: CountryBasic) => (
             <ListItem country={country} key={country.id} />
           ))}
         </ul>
@@ -158,14 +161,13 @@ export const Tabs = () => (
 // Controls' units
 const onChangeMapType = changeControlsMapType.prepend(inputValue<MapType>());
 const onChangeMapStyle = changeControlsMapStyle.prepend(inputValue<Style>());
-const onChangeSortValue = changeControlsSortValue.prepend(
-  inputValue<SortValue>()
-);
+const onChangeSortKey = changeControlsSortKey.prepend(inputValue<SortKey>());
 
 const Controls = () => {
   const mapType = useStore($controlsMapType);
   const mapStyle = useStore($controlsMapStyle);
-  const sortValue = useStore($controlsSortValue);
+  const sortKey = useStore($controlsSortKey);
+
   return (
     <>
       <form className="sidebar__form form" action="/">
@@ -273,8 +275,8 @@ const Controls = () => {
               type="radio"
               name="countries-sort"
               value="amountOfDataAvailable"
-              checked={sortValue === 'amountOfDataAvailable'}
-              onChange={onChangeSortValue}
+              checked={sortKey === 'amountOfDataAvailable'}
+              onChange={onChangeSortKey}
             />
             <span className="radio__label">Amount of data available</span>
             <div className="radio__marker" />
@@ -286,8 +288,8 @@ const Controls = () => {
               type="radio"
               name="countries-sort"
               value="dateOfJoining"
-              checked={sortValue === 'dateOfJoining'}
-              onChange={onChangeSortValue}
+              checked={sortKey === 'dateOfJoining'}
+              onChange={onChangeSortKey}
             />
             <span className="radio__label">Date of joining</span>
             <div className="radio__marker" />
@@ -299,8 +301,8 @@ const Controls = () => {
               type="radio"
               name="countries-sort"
               value="countryProgress"
-              checked={sortValue === 'countryProgress'}
-              onChange={onChangeSortValue}
+              checked={sortKey === 'countryProgress'}
+              onChange={onChangeSortKey}
             />
             <span className="radio__label">Country progress</span>
             <div className="radio__marker" />
@@ -315,8 +317,8 @@ const Controls = () => {
               type="radio"
               name="countries-sort"
               value="percentSchoolWithConnectivity"
-              checked={sortValue === 'percentSchoolWithConnectivity'}
-              onChange={onChangeSortValue}
+              checked={sortKey === 'percentSchoolWithConnectivity'}
+              onChange={onChangeSortKey}
             />
             <span className="radio__label">% Schools with connectivity</span>
             <div className="radio__marker" />

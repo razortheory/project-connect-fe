@@ -9,7 +9,7 @@ import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
 import { $globalStats } from '@/map/model';
-import { Scroll } from '@/scroll/scroll';
+import { Scroll } from '@/scroll';
 
 export const WorldView = () => {
   const {

@@ -1,14 +1,15 @@
 import { createEffect, createEvent, createStore } from 'effector';
 import { KeyboardEvent, MouseEvent } from 'react';
 
-import { CountryMetaData } from '~/api/types';
+import { fetchCountriesFx } from '~/api/project-connect';
+import { CountryBasic } from '~/api/types';
 import { getWeekInterval } from '~/lib/date-fns-kit';
 
-import { SortValue } from '@/map/@/sidebar/types';
+import { SortKey } from '@/map/@/sidebar/types';
 import { defaultMapType, defaultStyle } from '@/map/constants';
 import { MapType, Style } from '@/map/types';
 
-import { defaultSortValue } from './constants';
+import { defaultSortKey } from './constants';
 
 export const onClickSidebar = createEvent<MouseEvent<HTMLDivElement>>();
 export const toggleSidebarVisibility = createEvent();
@@ -18,7 +19,7 @@ export const onSearchPressKey = createEvent<KeyboardEvent<HTMLInputElement>>();
 export const onSearchPressEnter = createEvent<
   KeyboardEvent<HTMLInputElement>
 >();
-export const changeSortValue = createEvent<SortValue>();
+export const changeSortKey = createEvent<SortKey>();
 
 export const blurInputFx = createEffect<
   KeyboardEvent<HTMLInputElement>,
@@ -27,12 +28,13 @@ export const blurInputFx = createEffect<
 export const navigateToMapCountryFx = createEffect<string | null, void>();
 
 export const $isSidebarHidden = createStore(false);
-export const $countryList = createStore<CountryMetaData[] | null>(null);
+export const $countriesList = createStore<CountryBasic[]>([]);
+export const $countriesPending = fetchCountriesFx.pending;
 export const $searchText = createStore('');
 export const $searchActive = createStore(false);
 export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);
-export const $sortValue = createStore<SortValue>(defaultSortValue);
+export const $sortKey = createStore<SortKey>(defaultSortKey);
 
 export const $week = createStore(getWeekInterval(new Date()));
 export const $isThisWeek = createStore(true);
@@ -41,9 +43,9 @@ export const previousWeek = createEvent();
 
 export const $controlsMapType = createStore<MapType>(defaultMapType);
 export const $controlsMapStyle = createStore<Style>(defaultStyle);
-export const $controlsSortValue = createStore<SortValue>(defaultSortValue);
+export const $controlsSortKey = createStore<SortKey>(defaultSortKey);
 export const $isControlsChanged = createStore<boolean>(false);
 export const changeControlsMapType = createEvent<MapType>();
 export const changeControlsMapStyle = createEvent<Style>();
-export const changeControlsSortValue = createEvent<SortValue>();
+export const changeControlsSortKey = createEvent<SortKey>();
 export const submitControlsChanges = createEvent();

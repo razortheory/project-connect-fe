@@ -5,8 +5,8 @@ import { UpdateCountry } from '@/map/@/country/types';
 import { removeCountryFx } from './remove-country-fx';
 
 export const updateCountryFx = createEffect(
-  async ({ map, paintData, countryData }: UpdateCountry) => {
-    if (!countryData || !map) return;
+  async ({ map, paintData, country }: UpdateCountry) => {
+    if (!country || !map) return;
 
     await removeCountryFx(map);
 
@@ -14,7 +14,7 @@ export const updateCountryFx = createEffect(
       type: 'geojson',
       data: {
         type: 'Feature',
-        geometry: countryData.geometry,
+        geometry: country.geometry,
         properties: {},
       },
     });
@@ -42,7 +42,7 @@ export const updateCountryFx = createEffect(
       );
       map.setPaintProperty('countries', 'fill-outline-color', [
         'case',
-        ['==', ['id'], countryData.id],
+        ['==', ['id'], country.id],
         paintData.countryNotSelected,
         paintData.background,
       ]);

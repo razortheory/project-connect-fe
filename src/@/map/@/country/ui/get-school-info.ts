@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { SchoolDetailsData } from '~/api/types';
+import { School } from '~/api/types';
 import { humanFormat } from '~/lib/human-format';
 
 import { SchoolInfo } from './types';
 
-export const getSchoolInfo = (school: SchoolDetailsData): SchoolInfo => {
+export const getSchoolInfo = (school: School): SchoolInfo => {
   const {
     id,
     name,

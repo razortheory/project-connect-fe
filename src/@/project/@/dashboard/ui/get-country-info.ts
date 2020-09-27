@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 import previewPlaceholder from '~/assets/images/preview-placeholder.jpg';
 import { formatPercent } from '~/core/formatters';
 
-import { DashboardCountryData } from '@/project/@/dashboard/types';
+import { CountryInfo } from '@/project/@/dashboard/types';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum urna tortor, eget laoreet arcu fermentum sit amet. Sed aliquet, turpis vel fermentum elementum.';
@@ -41,9 +41,9 @@ const progressInfo = new Map([
 ]);
 
 export const getCountryInfo = (
-  country: CountryMetaData,
+  country: CountryBasic,
   isListType: boolean
-): DashboardCountryData => {
+): CountryInfo => {
   const {
     id,
     code,

@@ -3,10 +3,10 @@ import React from 'react';
 
 import { selectValue } from '~/lib/event-reducers/select-value';
 
-import { $sortValue, changeSortValue } from '@/map/@/sidebar/model';
-import { SortValue } from '@/map/@/sidebar/types';
+import { $sortKey, changeSortKey } from '@/map/@/sidebar/model';
+import { SortKey } from '@/map/@/sidebar/types';
 
-const onChange = changeSortValue.prepend(selectValue<SortValue>());
+const onChange = changeSortKey.prepend(selectValue<SortKey>());
 
 export const Sort = () => (
   <label htmlFor="sorting-select" className="select-wrapper">
@@ -15,7 +15,7 @@ export const Sort = () => (
       id="sorting-select"
       className="select"
       onChange={onChange}
-      value={useStore($sortValue)}
+      value={useStore($sortKey)}
     >
       <option className="select__option" value="amountOfDataAvailable">
         Amount of data available

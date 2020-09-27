@@ -1,21 +1,21 @@
 import { createEffect } from 'effector';
 
-import { getSchoolsColors } from '@/map/@/country/helpers';
 import { clickSchool } from '@/map/@/country/model';
 import { UpdateSchools } from '@/map/@/country/types';
 
+import { getSchoolsColors } from './get-schools-colors';
 import { removeSchoolsFx } from './remove-schools-fx';
 
 export const updateSchoolsFx = createEffect(
-  async ({ map, countrySchools, mapType }: UpdateSchools) => {
-    if (!map || !countrySchools) return;
+  async ({ map, schools, mapType }: UpdateSchools) => {
+    if (!map || !schools) return;
 
     await removeSchoolsFx(map);
 
-    if (countrySchools.features.length > 0) {
+    if (schools.features.length > 0) {
       map.addSource('schools', {
         type: 'geojson',
-        data: countrySchools,
+        data: schools,
       });
 
       map.addLayer({

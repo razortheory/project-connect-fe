@@ -1,6 +1,7 @@
 import { MultiPolygon, Polygon } from 'geojson';
 import { LngLatLike } from 'mapbox-gl';
 
+// noinspection FunctionWithMultipleLoopsJS
 export const getPolygonBoundingBox = (
   geometry: Polygon | MultiPolygon
 ): [LngLatLike, LngLatLike] => {

@@ -1,22 +1,19 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { CountryData } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
-import { formatNumber, formatPercent } from '~/core/formatters';
+import { formatDateInterval } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { tabInfo } from '~/core/tab-routes';
 import { getVoid } from '~/lib/effector-kit';
 import { selectValue } from '~/lib/event-reducers/select-value';
-import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
-import { $countryData } from '@/map/@/country/model';
-import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
+import { $country } from '@/map/@/country/model';
 import {
   $isThisWeek,
   $noSearchCountryFound,
@@ -29,8 +26,9 @@ import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 import { $mapType, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
-import { Scroll } from '@/scroll/scroll';
+import { Scroll } from '@/scroll';
 
+import { getCountryInfo } from './get-country-info';
 import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { WeekGraph } from './week-graph';
@@ -38,29 +36,7 @@ import { WeekGraph } from './week-graph';
 const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
 
-const getCountryInfo = (countryData: CountryData | null) => {
-  if (!countryData) return null;
-
-  const { statistics } = countryData;
-
-  return {
-    name: countryData.name,
-    dataSource: countryData.data_source || 'N/A',
-    schoolsTotal: formatNumber(statistics.schools_total),
-    schoolsConnected: formatNumber(statistics.schools_connected),
-    averageInternetSpeed: humanFormat(statistics.connectivity_speed, {
-      unit: 'b/s',
-      separator: ' ',
-    }),
-    schoolsWithNoInternet: statistics.schools_total
-      ? formatPercent(
-          statistics.schools_connectivity_no / statistics.schools_total
-        )
-      : 'N/A',
-  };
-};
-
-const $countryInfo = $countryData.map(getCountryInfo);
+const $countryInfo = $country.map(getCountryInfo);
 const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
 export const CountryInfo = () => {
@@ -68,8 +44,16 @@ export const CountryInfo = () => {
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
-  const countryInfo = useStore($countryInfo);
   const mapType = useStore($mapType);
+
+  const {
+    name,
+    dataSource,
+    schoolsTotal,
+    schoolsConnected,
+    connectivitySpeed,
+    schoolsWithNoInternet,
+  } = useStore($countryInfo) ?? {};
 
   return (
     <>
@@ -83,7 +67,7 @@ export const CountryInfo = () => {
           {mapType} map{' '}
         </Link>
         {' > '}
-        <span>{countryInfo?.name}</span>
+        <span>{name}</span>
       </div>
       <label htmlFor="map-type-select" className="select-wrapper">
         <span className="visually-hidden">Sort map type</span>
@@ -118,7 +102,7 @@ export const CountryInfo = () => {
                   <Chevron className="chevron chevron--left" />
                 </button>
                 <div className="period-picker__period">
-                  {isThisWeek ? 'This week' : formatInterval(week)}
+                  {isThisWeek ? 'This week' : formatDateInterval(week)}
                 </div>
                 <button
                   type="button"
@@ -133,33 +117,25 @@ export const CountryInfo = () => {
                   <h3 className="info-list__title info-list__title--full-width">
                     Data source
                   </h3>
-                  <p className="info-list__paragraph">
-                    {countryInfo?.dataSource}
-                  </p>
+                  <p className="info-list__paragraph">{dataSource}</p>
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">
                     Total schools
                   </h3>
-                  <p className="info-list__description">
-                    {countryInfo?.schoolsTotal}
-                  </p>
+                  <p className="info-list__description">{schoolsTotal}</p>
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">
                     Connected schools
                   </h3>
-                  <p className="info-list__description">
-                    {countryInfo?.schoolsConnected}
-                  </p>
+                  <p className="info-list__description">{schoolsConnected}</p>
                 </li>
                 <li className="info-list__item">
                   <h3 className="info-list__title info-list__title--full-width">
                     Avg. internet speed (download)
                   </h3>
-                  <p className="info-list__description">
-                    {countryInfo?.averageInternetSpeed}
-                  </p>
+                  <p className="info-list__description">{connectivitySpeed}</p>
                   <div className="average-speed">
                     <div className="average-speed__icons">
                       <div className="average-speed__icon average-speed__icon--active">
@@ -183,7 +159,7 @@ export const CountryInfo = () => {
                     Schools with no internet
                   </h3>
                   <p className="info-list__description">
-                    {countryInfo?.schoolsWithNoInternet}
+                    {schoolsWithNoInternet}
                   </p>
                 </li>
               </ul>

@@ -5,7 +5,7 @@ import { Geometry, Point } from 'geojson';
 export type ConnectivityStatus = 'no' | 'moderate' | 'good' | 'unknown';
 export type CoverageStatus = 'unknown' | 'known';
 
-export type GlobalStatsData = {
+export type GlobalStats = {
   total_schools: number;
   schools_mapped: number;
   countries_joined: number;
@@ -16,7 +16,7 @@ export type GlobalStatsData = {
 
 export type IntegrationStatus = 0 | 1 | 2 | 3;
 
-export type CountryMetaData = {
+export type CountryBasic = {
   id: number;
   name: string;
   code: string;
@@ -30,7 +30,7 @@ export type CountryMetaData = {
   schools_total: number;
 };
 
-export type CountryData = {
+export type Country = {
   id: number;
   name: string;
   code: string;
@@ -54,12 +54,12 @@ export type CountryData = {
   geometry: Geometry;
 };
 
-export type CountryGeometryData = {
+export type CountryGeometry = {
   id: number;
   geometry_simplified: Geometry;
 };
 
-export type SchoolData = {
+export type SchoolBasic = {
   id: number;
   name: string;
   geopoint: Geometry;
@@ -67,7 +67,7 @@ export type SchoolData = {
   coverage_status: CoverageStatus;
 };
 
-export type SchoolDetailsData = {
+export type School = {
   // TODO: Add coverage_status on back-end
   id: number;
   name: string;

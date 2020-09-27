@@ -4,7 +4,7 @@ import React from 'react';
 import {
   $isListType,
   $isLoading,
-  $notFound,
+  $noSearchResults,
 } from '@/project/@/dashboard/model';
 
 import { DashboardDescription } from './dashboard-description';
@@ -27,7 +27,7 @@ export const Dashboard = () => (
                     : 'countries-list--grid-view'
                 }`}
             >
-              {useStore($notFound) ? null : (
+              {useStore($noSearchResults) ? null : (
                 <div className="countries-list__grid-header">
                   <div className="countries-list__grid-row">
                     <div className="countries-list__grid-col countries-list__grid-col--country">

@@ -1,1 +1,1 @@
-export const defaultSortValue = 'countryProgress';
+export const defaultSortKey = 'countryProgress';

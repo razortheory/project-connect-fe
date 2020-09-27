@@ -1,12 +1,12 @@
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 
-import { SortType, SortValue } from '@/map/@/sidebar/types';
+import { SortKey, SortType } from '@/map/@/sidebar/types';
 
-export const defaultSortValue = 'countryProgress';
+export const defaultSortKey = 'countryProgress';
 
 export const countriesSortData: {
-  [sortValue in SortValue]: {
-    field: keyof CountryMetaData;
+  [key in SortKey]: {
+    field: keyof CountryBasic;
     sortType: SortType;
   };
 } = {

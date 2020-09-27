@@ -1,13 +1,16 @@
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 
-import { SortType } from '@/map/@/sidebar/types';
+import { SortKey } from '@/map/@/sidebar/types';
 
-export const sortCallbacks = (
-  a: CountryMetaData,
-  b: CountryMetaData,
-  field: keyof CountryMetaData,
-  sortType: SortType
+import { countriesSortData } from './constants';
+
+export const sortCountries = (
+  a: CountryBasic,
+  b: CountryBasic,
+  sortKey: SortKey
 ): number => {
+  const { field, sortType } = countriesSortData[sortKey];
+
   switch (sortType) {
     case 'number':
       return (

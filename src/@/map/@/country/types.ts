@@ -1,19 +1,19 @@
 import { FeatureCollection } from 'geojson';
 import { MapMouseEvent } from 'mapbox-gl';
 
-import { CountryData, CountryGeometryData } from '~/api/types';
+import { Country, CountryGeometry } from '~/api/types';
 
 import { Map, MapType, StylePaintData } from '@/map/types';
 
 export type UpdateCountry = {
   map: Map | null;
   paintData: StylePaintData;
-  countryData: CountryData | null;
+  country: Country | null;
 };
 
 export type UpdateSchools = {
   map: Map | null;
-  countrySchools: FeatureCollection | null;
+  schools: FeatureCollection | null;
   mapType: MapType;
 };
 
@@ -25,8 +25,8 @@ export type UpdateSchoolsColors = {
 export type ZoomToCountryBounds = {
   map: Map | null;
   countryId: number;
-  countriesGeometry: CountryGeometryData[] | null;
-  countryData: CountryData | null;
+  countriesGeometry: CountryGeometry[] | null;
+  country: Country | null;
 };
 
 export type LeaveCountryRoute = {
