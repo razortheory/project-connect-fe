@@ -45,6 +45,7 @@ const config = {
       'border-bottom': [0],
       'border-left': [0],
     },
+    'comment-word-blacklist': null,
   },
 };
 

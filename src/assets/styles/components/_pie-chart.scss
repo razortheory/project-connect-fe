@@ -1,0 +1,42 @@
+.pie-chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pie-chart__explanation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pie-chart__percent-value {
+  font-size: 2.6rem;
+
+  &--no {
+    color: #ff615b;
+  }
+
+  &--good {
+    color: #8bd432;
+  }
+
+  &--moderate {
+    color: #ffc93d;
+  }
+
+  &--unknown {
+    color: #546fc2;
+  }
+}
+
+.pie-chart__graph {
+  width: 15.5rem;
+  height: 15.5rem;
+  margin-right: 2.4rem;
+}
+
+.pie-chart__progress {
+  transition: stroke-dasharray 1s linear;
+  transition-delay: 0.3s;
+}

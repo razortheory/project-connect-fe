@@ -7,9 +7,9 @@ import { formatPercent } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
-import { Scroll } from '~/ui/scroll';
 
 import { $globalStats } from '@/map/model';
+import { Scroll } from '@/scroll/scroll';
 
 export const WorldView = () => {
   const {

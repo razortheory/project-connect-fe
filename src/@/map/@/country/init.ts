@@ -5,9 +5,10 @@ import {
   fetchCountriesGeometryDataFx,
   fetchCountryDataFx,
   fetchCountrySchoolsFx,
+  fetchSchoolDetailsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, setPayload } from '~/lib/effector-kit';
+import { getInverted, setNull, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/lib/get-countries-geo-json';
 import {
@@ -35,10 +36,11 @@ import {
   $countryId,
   $countrySchools,
   $popup,
-  $popupContext,
+  $schoolDetailsData,
+  $schoolId,
   changeCountryId,
+  changeSchoolId,
   clickSchool,
-  updatePopupContext,
 } from './model';
 
 $countriesData.on(fetchCountriesDataFx.doneData, setPayload);
@@ -46,7 +48,12 @@ $countriesGeometryData.on(fetchCountriesGeometryDataFx.doneData, setPayload);
 $countrySchools.on(fetchCountrySchoolsFx.doneData, setPayload);
 $countryData.on(fetchCountryDataFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
-$popupContext.on(updatePopupContext, setPayload);
+$schoolId.on(changeSchoolId, setPayload);
+$schoolDetailsData.on(fetchSchoolDetailsFx.doneData, setPayload);
+$schoolDetailsData.on(fetchSchoolDetailsFx.fail, setNull);
+
+$countryData.reset(changeCountryId, fetchCountryDataFx.fail);
+$countrySchools.reset(changeCountryId, fetchCountrySchoolsFx.fail);
 
 const $mapContext = combine({
   map: $map,
@@ -58,6 +65,13 @@ const $mapContext = combine({
   popup: $popup,
   isCountryRoute: mapCountry.visible,
   countryId: $countryId,
+  schoolId: $schoolId,
+});
+
+// Fetch country data and schools data
+forward({
+  from: guard(changeCountryId, { filter: Boolean }),
+  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
 });
 
 // Zoom to country bounds
@@ -70,12 +84,6 @@ sample({
     countryData,
   }),
   target: zoomToCountryFx,
-});
-
-// Trigger fetch country data and schools data
-forward({
-  from: guard(changeCountryId, { filter: Boolean }),
-  to: [fetchCountrySchoolsFx, fetchCountryDataFx],
 });
 
 // Check received countryData for relevance
@@ -91,6 +99,7 @@ const countryDataReceived = guard({
   filter: ({ countryId, doneCountryId }) => countryId === doneCountryId,
 });
 
+// Update country
 sample({
   source: $mapContext,
   clock: countryDataReceived,
@@ -102,6 +111,7 @@ sample({
   target: updateCountryFx,
 });
 
+// Check received countrySchools for relevance
 const schoolsReceived = guard({
   source: sample({
     source: $countryId,
@@ -188,6 +198,24 @@ sample({
   clock: clickSchool,
   fn: ({ map, popup }, event) => ({ map, popup, event }),
   target: addSchoolPopupFx,
+});
+
+// Update school id
+sample({
+  source: clickSchool,
+  fn: (event) => {
+    const feature = event?.features?.[0];
+    return (feature?.id as number) ?? 0;
+  },
+  target: changeSchoolId,
+});
+
+// Fetch school data
+sample({
+  source: $mapContext,
+  clock: $schoolId,
+  fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
+  target: fetchSchoolDetailsFx,
 });
 
 // Change map type

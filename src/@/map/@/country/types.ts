@@ -48,7 +48,3 @@ export type AddSchoolPopup = {
 };
 
 export type EmptyObject = Record<string, never>;
-
-export type PopupContext = {
-  description: string;
-};

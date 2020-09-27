@@ -8,4 +8,4 @@ export const formatPercent = new Intl.NumberFormat(numberLocale, {
   useGrouping: false,
 }).format;
 
-export const formatNumber = new Intl.NumberFormat('en-US').format;
+export const formatNumber = new Intl.NumberFormat(numberLocale).format;

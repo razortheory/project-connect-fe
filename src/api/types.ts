@@ -1,6 +1,8 @@
-import { Geometry } from 'geojson';
+// TODO: Get null from back-end if there is no data
 
-export type ConnectivityStatus = 'no' | 'unknown' | 'moderate' | 'good';
+import { Geometry, Point } from 'geojson';
+
+export type ConnectivityStatus = 'no' | 'moderate' | 'good' | 'unknown';
 export type CoverageStatus = 'unknown' | 'known';
 
 export type GlobalStatsData = {
@@ -63,4 +65,32 @@ export type SchoolData = {
   geopoint: Geometry;
   connectivity_status: ConnectivityStatus;
   coverage_status: CoverageStatus;
+};
+
+export type SchoolDetailsData = {
+  // TODO: Add coverage_status on back-end
+  id: number;
+  name: string;
+  geopoint: Point;
+  statistics: {
+    num_students: number;
+    num_teachers: number;
+    num_classroom: number;
+    num_latrines: number;
+    running_water: boolean;
+    electricity_availability: boolean;
+    computer_lab: boolean;
+    num_computers: number;
+    connectivity: boolean;
+    connectivity_status: ConnectivityStatus;
+    connectivity_type: string;
+    connectivity_speed: number;
+    connectivity_latency: number;
+    connectivity_availability: number;
+    created: string;
+    modified: string;
+  };
+  gps_confidence: string | null;
+  address: string;
+  postal_code: string;
 };

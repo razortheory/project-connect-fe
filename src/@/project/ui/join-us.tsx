@@ -1,7 +1,41 @@
 import React from 'react';
 
+import joinUsImage from '~/assets/images/join-us.jpg';
+import { joinUs } from '~/core/routes';
+import { Link } from '~/lib/router';
+
+import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
+
 export const JoinUs = () => (
   <>
+    <section className="section">
+      <div className="container">
+        <div className="page-heading">
+          <h2 className="page-heading__title">
+            Project Connect’s mission to map the connectivity of every school in
+            the world is ambitious and we need your help to succeed. There are a
+            multitude of ways in which we can work together.
+          </h2>
+          <div className="page-heading__media">
+            <div className="page-heading__image-wrapper">
+              <img
+                className="page-heading__image"
+                src={joinUsImage}
+                alt="countries-dashboard"
+              />
+            </div>
+          </div>
+        </div>
+        <Link
+          to={joinUs}
+          hash="write-to-us"
+          className="header__button button button--primary"
+          onClick={async () => scrollToHashFx('write-to-us')}
+        >
+          Write to us
+        </Link>
+      </div>
+    </section>
     <section className="section section--inverted">
       <h2 className="visually-hidden">Partner with us</h2>
       <div className="container partnership">
@@ -85,7 +119,9 @@ export const JoinUs = () => (
     </section>
     <section className="section">
       <div className="container feedback">
-        <h2 className="section__title">Write to us</h2>
+        <a href="#write-to-us" id="write-to-us">
+          <h2 className="section__title">Write to us</h2>
+        </a>
         <div className="feedback__row">
           <div className="feedback__col">
             <h3 className="feedback__title">

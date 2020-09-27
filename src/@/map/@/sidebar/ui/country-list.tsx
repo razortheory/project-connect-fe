@@ -7,7 +7,6 @@ import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { inputValue } from '~/lib/event-reducers';
 import { Link, useRoute } from '~/lib/router';
-import { Scroll } from '~/ui/scroll';
 
 import {
   $controlsMapStyle,
@@ -27,6 +26,7 @@ import { Sort } from '@/map/@/sidebar/ui/sort';
 import { statusPaintField } from '@/map/constants';
 import { $stylePaintData } from '@/map/model';
 import { MapType, Style } from '@/map/types';
+import { Scroll } from '@/scroll/scroll';
 
 import { onClear, Search } from './search';
 
@@ -46,7 +46,6 @@ export const ListItem = ({ country }: { country: CountryMetaData }) => {
           backgroundColor: paintData[paintField].toString(),
         }}
       />
-      {/* TODO: country.code */}
       <Link
         className="list__link"
         to={mapCountry}

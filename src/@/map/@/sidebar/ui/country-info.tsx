@@ -14,7 +14,6 @@ import { getVoid } from '~/lib/effector-kit';
 import { selectValue } from '~/lib/event-reducers/select-value';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
-import { Scroll } from '~/ui/scroll';
 
 import { $countryData } from '@/map/@/country/model';
 import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
@@ -30,7 +29,9 @@ import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 import { $mapType, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
+import { Scroll } from '@/scroll/scroll';
 
+import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { WeekGraph } from './week-graph';
 
@@ -47,12 +48,10 @@ const getCountryInfo = (countryData: CountryData | null) => {
     dataSource: countryData.data_source || 'N/A',
     schoolsTotal: formatNumber(statistics.schools_total),
     schoolsConnected: formatNumber(statistics.schools_connected),
-    // TODO: Is it "avg. internet speed (download)"?
     averageInternetSpeed: humanFormat(statistics.connectivity_speed, {
       unit: 'b/s',
       separator: ' ',
     }),
-    // TODO: Is it "Schools with no internet"?
     schoolsWithNoInternet: statistics.schools_total
       ? formatPercent(
           statistics.schools_connectivity_no / statistics.schools_total
@@ -194,7 +193,7 @@ export const CountryInfo = () => {
               <h3 className="sidebar__secondary-title">
                 Connectivity distribution
               </h3>
-              <p>Place for radial graph</p>
+              <PieChart />
               <hr className="sidebar__divider" />
               <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
                 Data set

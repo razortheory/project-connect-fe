@@ -68,7 +68,7 @@ export const getCountryInfo = (
     flag,
     name,
     joinDate: isListType ? listDate : tileDate,
-    description: description ?? loremIpsum,
+    description: description || loremIpsum,
     progressPercent,
     progressBarStyle: {
       width: formatPercent(progressPercent),
@@ -76,7 +76,7 @@ export const getCountryInfo = (
     bubbleProgressClass: '',
     progressDescription: '',
     mapPreviewStyle: {
-      backgroundImage: `url(${mapPreview ?? previewPlaceholder})`,
+      backgroundImage: `url(${mapPreview || previewPlaceholder})`,
     },
     ...progressInfo.get(integrationStatus),
   };
