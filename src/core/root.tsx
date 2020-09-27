@@ -1,3 +1,5 @@
+import './init';
+
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
 

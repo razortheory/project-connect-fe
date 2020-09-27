@@ -35,7 +35,7 @@ export const createRequest = <
   if (config.onBeforeRequest) {
     try {
       config = await config.onBeforeRequest({ config });
-    } catch (error) {
+    } catch (error: unknown) {
       initPromise = Promise.reject(error);
     }
   }

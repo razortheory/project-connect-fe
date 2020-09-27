@@ -17,5 +17,6 @@
         "entrypoints",
         "pathinfo",
         "prettierrc"
-    ]
+    ],
+    "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?"
 }

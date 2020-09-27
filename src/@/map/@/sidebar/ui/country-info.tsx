@@ -10,7 +10,6 @@ import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { formatNumber, formatPercent } from '~/core/formatters';
 import { getVoid } from '~/lib/effector-kit';
 import { humanFormat } from '~/lib/human-format';
-import { Scroll } from '~/ui/scroll';
 
 import { $countryData } from '@/map/@/country/model';
 import { formatInterval } from '@/map/@/sidebar/lib/format-interval';
@@ -24,6 +23,7 @@ import {
 } from '@/map/@/sidebar/model';
 import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
 import { SearchResults } from '@/map/@/sidebar/ui/search-results';
+import { Scroll } from '@/scroll/scroll';
 
 import { PieChart } from './pie-chart';
 import { Search } from './search';
@@ -41,12 +41,10 @@ const getCountryInfo = (countryData: CountryData | null) => {
     dataSource: countryData.data_source || 'N/A',
     schoolsTotal: formatNumber(statistics.schools_total),
     schoolsConnected: formatNumber(statistics.schools_connected),
-    // TODO: Is it "avg. internet speed (download)"?
     averageInternetSpeed: humanFormat(statistics.connectivity_speed, {
       unit: 'b/s',
       separator: ' ',
     }),
-    // TODO: Is it "Schools with no internet"?
     schoolsWithNoInternet: statistics.schools_total
       ? formatPercent(
           statistics.schools_connectivity_no / statistics.schools_total

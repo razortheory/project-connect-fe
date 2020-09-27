@@ -1,9 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
-import { scrollbarStyleCSS } from './scrollbar-style';
-
-const globalStyleCSS = css`
+const globalStyle = css`
   ${normalize};
 
   html {
@@ -24,9 +22,6 @@ const globalStyleCSS = css`
     color: inherit;
     text-decoration: none;
   }
-
-  /* Scrollbar style */
-  ${scrollbarStyleCSS};
 `;
 
-export const GlobalStyle = createGlobalStyle`${globalStyleCSS}`;
+export const GlobalStyle = createGlobalStyle`${globalStyle}`;

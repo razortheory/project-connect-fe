@@ -278,6 +278,7 @@ const config = {
         ignoreFunctionalComponents: true,
       },
     ],
+    '@typescript-eslint/comma-dangle': 'off',
   },
 };
 
