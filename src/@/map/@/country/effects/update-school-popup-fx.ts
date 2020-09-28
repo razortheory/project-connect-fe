@@ -1,12 +1,11 @@
 import { createEffect } from 'effector';
 import { Point } from 'geojson';
-import mapboxGL from 'mapbox-gl';
 
-import { AddSchoolPopup } from '@/map/@/country/types';
+import { UpdateSchoolPopup } from '@/map/@/country/types';
 
-export const addSchoolPopupFx = createEffect(
-  ({ map, popup, event }: AddSchoolPopup) => {
-    if (!map || !popup) return;
+export const updateSchoolPopupFx = createEffect(
+  ({ map, popup, event, popupContent }: UpdateSchoolPopup) => {
+    if (!map || !popup || popup.isOpen()) return;
 
     const feature = map.queryRenderedFeatures(event.point)[0];
     const point = feature.geometry as Point;
@@ -16,12 +15,9 @@ export const addSchoolPopupFx = createEffect(
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxGL.Popup({
-      maxWidth: '100%',
-      className: 'country-popup',
-    })
+    popup
       .setLngLat([coordinates[0], coordinates[1]])
-      .setDOMContent(popup)
+      .setDOMContent(popupContent)
       .addTo(map);
   }
 );

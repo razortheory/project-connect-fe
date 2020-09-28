@@ -1,4 +1,5 @@
 import { FeatureCollection } from 'geojson';
+import type mapboxGl from 'mapbox-gl';
 import { MapMouseEvent } from 'mapbox-gl';
 
 import { Country, CountryGeometry } from '~/api/types';
@@ -32,6 +33,7 @@ export type ZoomToCountryBounds = {
 export type LeaveCountryRoute = {
   map: Map | null;
   paintData: StylePaintData;
+  popup: mapboxGl.Popup;
 };
 
 export type AddCountries = {
@@ -41,10 +43,11 @@ export type AddCountries = {
   isCountryRoute: boolean;
 };
 
-export type AddSchoolPopup = {
+export type UpdateSchoolPopup = {
   map: Map | null;
-  popup: HTMLDivElement | null;
   event: MapMouseEvent;
+  popup: mapboxGl.Popup;
+  popupContent: HTMLDivElement;
 };
 
 export type EmptyObject = Record<string, never>;

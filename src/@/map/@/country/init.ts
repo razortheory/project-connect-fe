@@ -27,7 +27,7 @@ import {
   updateSchoolsFx,
   zoomToCountryFx,
 } from './effects';
-import { addSchoolPopupFx } from './effects/add-school-popup-fx';
+import { updateSchoolPopupFx } from './effects/update-school-popup-fx';
 import {
   $countries,
   $countriesGeoJson,
@@ -35,6 +35,7 @@ import {
   $country,
   $countryId,
   $popup,
+  $popupContent,
   $school,
   $schoolId,
   $schools,
@@ -62,6 +63,7 @@ const $mapContext = combine({
   paintData: $stylePaintData,
   country: $country,
   schools: $schools,
+  popupContent: $popupContent,
   popup: $popup,
   isCountryRoute: mapCountry.visible,
   countryId: $countryId,
@@ -158,7 +160,7 @@ sample({
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
-  fn: ({ map, paintData }) => ({ map, paintData }),
+  fn: ({ map, paintData, popup }) => ({ map, paintData, popup }),
   target: leaveCountryRouteFx,
 });
 
@@ -192,12 +194,17 @@ sample({
   target: addCountriesFx,
 });
 
-// Add popup
+// Add popup content
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, event) => ({ map, popup, event }),
-  target: addSchoolPopupFx,
+  fn: ({ map, popupContent, popup }, event) => ({
+    map,
+    popupContent,
+    popup,
+    event,
+  }),
+  target: updateSchoolPopupFx,
 });
 
 // Update school id
