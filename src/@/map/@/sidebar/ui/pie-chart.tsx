@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { useStore } from 'effector-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Country } from 'src/api/types';
 
 import { formatPercent } from '~/core/formatters';
@@ -60,12 +60,22 @@ const getOffsetAngle = (offsetPercent: number): number =>
 export const PieChart = () => {
   const country = useStore($country);
 
+  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsAnimationStarted(Boolean(country)));
+  }, [country]);
+
+  if (!country) {
+    return null;
+  }
+
   const {
     percentConnectivityNo = 0,
     percentConnectivityGood = 0,
     percentConnectivityModerate = 0,
     percentConnectivityUnknown = 0,
-  } = country ? getSchoolsData(country) : {};
+  } = isAnimationStarted ? getSchoolsData(country) : {};
 
   const noConnectivityOffsetAngle = getOffsetAngle(0);
   const goodConnectivityOffsetAngle = getOffsetAngle(percentConnectivityNo);
@@ -80,20 +90,22 @@ export const PieChart = () => {
 
   return (
     <div className="pie-chart">
-      <div className="pie-chart__explanation">
-        <div className="pie-chart__percent-value pie-chart__percent-value--no">
-          {formatPercent(percentConnectivityNo)}
+      {isAnimationStarted && (
+        <div className="pie-chart__explanation">
+          <div className="pie-chart__percent-value pie-chart__percent-value--no">
+            {formatPercent(percentConnectivityNo)}
+          </div>
+          <div className="pie-chart__percent-value pie-chart__percent-value--good">
+            {formatPercent(percentConnectivityGood)}
+          </div>
+          <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
+            {formatPercent(percentConnectivityModerate)}
+          </div>
+          <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
+            {formatPercent(percentConnectivityUnknown)}
+          </div>
         </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--good">
-          {formatPercent(percentConnectivityGood)}
-        </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
-          {formatPercent(percentConnectivityModerate)}
-        </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
-          {formatPercent(percentConnectivityUnknown)}
-        </div>
-      </div>
+      )}
       <div className="pie-chart__graph">
         <svg viewBox={`0 0 ${SVG_VIEW_BOX_WIDTH} ${SVG_VIEW_BOX_HEIGHT}`}>
           {/* No connectivity */}
@@ -134,7 +146,7 @@ export const PieChart = () => {
             r={CIRCLE_RADIUS}
           />
 
-          {/* Unknown connectivity */}
+          {/*  Moderate connectivity */}
 
           <circle
             className="pie-chart__progress"
@@ -153,7 +165,7 @@ export const PieChart = () => {
             r={CIRCLE_RADIUS}
           />
 
-          {/*  Moderate connectivity */}
+          {/* Unknown connectivity */}
 
           <circle
             className="pie-chart__progress"
