@@ -2,20 +2,20 @@ import { createEffect } from 'effector';
 
 import { clickSchool } from '@/map/@/country/model';
 import { UpdateSchools } from '@/map/@/country/types';
-import { connectivityStatusPaintData } from '@/map/constants';
 
+import { getSchoolsColors } from './get-schools-colors';
 import { removeSchoolsFx } from './remove-schools-fx';
 
 export const updateSchoolsFx = createEffect(
-  async ({ map, countrySchools }: UpdateSchools) => {
-    if (!map || !countrySchools) return;
+  async ({ map, schools, mapType }: UpdateSchools) => {
+    if (!map || !schools) return;
 
     await removeSchoolsFx(map);
 
-    if (countrySchools.features.length > 0) {
+    if (schools.features.length > 0) {
       map.addSource('schools', {
         type: 'geojson',
-        data: countrySchools,
+        data: schools,
       });
 
       map.addLayer({
@@ -30,19 +30,7 @@ export const updateSchoolsFx = createEffect(
               [21, 10],
             ],
           },
-          'circle-color': [
-            'match',
-            ['get', 'connectivity_status'],
-            'no',
-            connectivityStatusPaintData.no,
-            'unknown',
-            connectivityStatusPaintData.unknown,
-            'moderate',
-            connectivityStatusPaintData.moderate,
-            'good',
-            connectivityStatusPaintData.good,
-            connectivityStatusPaintData.unknown,
-          ],
+          'circle-color': getSchoolsColors(mapType),
         },
       });
 

@@ -4,11 +4,7 @@ import React from 'react';
 
 import { setPayload } from '~/lib/effector-kit';
 
-import {
-  $popup,
-  $schoolDetailsData,
-  $schoolDetailsPending,
-} from '@/map/@/country/model';
+import { $popup, $school, $schoolPending } from '@/map/@/country/model';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -19,10 +15,10 @@ export const onChangeRef = createEvent<HTMLDivElement | null>();
 $popup.on(onChangeRef, setPayload); // Save popup element
 
 export const Popup = () => {
-  const schoolData = useStore($schoolDetailsData);
-  const isLoading = useStore($schoolDetailsPending);
+  const school = useStore($school);
+  const isLoading = useStore($schoolPending);
 
-  if (!schoolData || isLoading) {
+  if (!school || isLoading) {
     return (
       <div ref={onChangeRef} className="country-popup">
         <ProgressLine visible={isLoading} />
@@ -45,7 +41,7 @@ export const Popup = () => {
     longitude,
     coverage,
     region,
-  } = getSchoolInfo(schoolData);
+  } = getSchoolInfo(school);
 
   return (
     <div

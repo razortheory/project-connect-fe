@@ -4,11 +4,11 @@ import './@/sidebar/init';
 import { combine, guard, sample } from 'effector';
 
 import {
-  fetchCountriesDataFx,
-  fetchCountriesGeometryDataFx,
-  fetchCountryDataFx,
-  fetchCountrySchoolsFx,
-  fetchGlobalStatsDataFx,
+  fetchCountriesFx,
+  fetchCountriesGeometryFx,
+  fetchCountryFx,
+  fetchGlobalStatsFx,
+  fetchSchoolsFx,
 } from '~/api/project-connect';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
@@ -33,7 +33,7 @@ import {
 
 $map.on(changeMap, setPayload);
 $style.on(changeStyle, setPayload);
-$globalStats.on(fetchGlobalStatsDataFx.doneData, setPayload);
+$globalStats.on(fetchGlobalStatsFx.doneData, setPayload);
 $loader.on(setLoader, setPayload);
 $mapType.on(changeMapType, setPayload);
 
@@ -46,10 +46,10 @@ sample({
 // Update pending status
 sample({
   source: combine([
-    fetchCountrySchoolsFx.pending,
-    fetchCountryDataFx.pending,
-    fetchCountriesDataFx.pending,
-    fetchCountriesGeometryDataFx.pending,
+    fetchSchoolsFx.pending,
+    fetchCountryFx.pending,
+    fetchCountriesFx.pending,
+    fetchCountriesGeometryFx.pending,
     // Other effects
   ]),
   fn: (states) => states.some(Boolean),

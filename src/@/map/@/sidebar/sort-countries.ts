@@ -1,22 +1,16 @@
-import { ChangeEvent } from 'react';
+import { CountryBasic } from '~/api/types';
 
-import { CountryMetaData } from '~/api/types';
+import { SortKey } from '@/map/@/sidebar/types';
 
-import { SortTypes, SortValues } from '@/map/@/sidebar/types';
+import { countriesSortData } from './constants';
 
-export const getInputValue = (event: ChangeEvent<HTMLInputElement>): string =>
-  event.target.value;
-
-export const getSelectSortValues = (
-  event: ChangeEvent<HTMLSelectElement>
-): SortValues => event.target.value as SortValues;
-
-export const sortCallbacks = (
-  a: CountryMetaData,
-  b: CountryMetaData,
-  field: keyof CountryMetaData,
-  sortType: SortTypes
+export const sortCountries = (
+  a: CountryBasic,
+  b: CountryBasic,
+  sortKey: SortKey
 ): number => {
+  const { field, sortType } = countriesSortData[sortKey];
+
   switch (sortType) {
     case 'number':
       return (

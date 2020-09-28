@@ -2,22 +2,20 @@ import { add, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 import { mapCountry } from '~/core/routes';
 import { getWeekInterval, isThisWeekInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import { $countriesData } from '@/map/@/country';
+import { $countries } from '@/map/@/country';
 import { changeCountryId } from '@/map/@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
-import { countriesSortData } from './constants';
-import { sortCallbacks } from './helpers';
 import {
   $controlsMapStyle,
   $controlsMapType,
-  $controlsSortValue,
-  $countryList,
+  $controlsSortKey,
+  $countriesList,
   $isControlsChanged,
   $isSidebarHidden,
   $isThisWeek,
@@ -25,14 +23,14 @@ import {
   $noSearchResults,
   $searchActive,
   $searchText,
-  $sortValue,
+  $sortKey,
   $week,
   blurInputFx,
   changeControlsMapStyle,
   changeControlsMapType,
-  changeControlsSortValue,
+  changeControlsSortKey,
   changeSearchText,
-  changeSortValue,
+  changeSortKey,
   clearSearchText,
   navigateToMapCountryFx,
   nextWeek,
@@ -43,11 +41,15 @@ import {
   submitControlsChanges,
   toggleSidebarVisibility,
 } from './model';
+import { sortCountries } from './sort-countries';
+
+const hasText = (haystack: string, needle: string): boolean =>
+  haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
 
 $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);
 $isSidebarHidden.on(toggleSidebarVisibility, getInverted);
-$sortValue.on(changeSortValue, setPayload);
+$sortKey.on(changeSortKey, setPayload);
 
 guard({
   source: onClickSidebar,
@@ -55,30 +57,26 @@ guard({
   target: toggleSidebarVisibility,
 });
 
-const $sortedList = combine(
-  [$countriesData, $sortValue],
-  ([countriesData, sortKey]) => {
-    const { field, sortType } = countriesSortData[sortKey];
-    if (!countriesData) {
-      return null;
-    }
+const $sortedCountries = combine(
+  [$countries, $sortKey],
+  ([countries, sortKey]) => {
+    if (!countries) return null;
+
     return [
-      ...countriesData.sort((a: CountryMetaData, b: CountryMetaData) =>
-        sortCallbacks(a, b, field, sortType)
+      ...countries.sort((a: CountryBasic, b: CountryBasic) =>
+        sortCountries(a, b, sortKey)
       ),
     ];
   }
 );
 
 sample({
-  source: combine([$sortedList, $searchText]),
-  fn: ([countryList, searchText]) =>
-    countryList?.filter((countryData) =>
-      countryData.name
-        .toLocaleLowerCase()
-        .includes(searchText.toLocaleLowerCase())
-    ) ?? null,
-  target: $countryList,
+  source: combine([$sortedCountries, $searchText]),
+  fn: ([sortedCountries, searchText]) =>
+    sortedCountries
+      // prettier-ignore
+      ?.filter((country) => hasText(country.name, searchText)) ?? [],
+  target: $countriesList,
 });
 
 sample({
@@ -88,8 +86,8 @@ sample({
 });
 
 sample({
-  source: $countryList,
-  fn: (countriesFound) => !countriesFound?.length,
+  source: $countriesList,
+  fn: (countriesList) => !countriesList.length,
   target: $noSearchResults,
 });
 
@@ -105,8 +103,6 @@ forward({
   to: [onSearchPressEnter, blurInputFx],
 });
 
-const $searchScope = combine([$countryList, $searchText]);
-
 navigateToMapCountryFx.use((code) => {
   if (code) {
     mapCountry.navigate({ code: code.toLowerCase() });
@@ -114,7 +110,7 @@ navigateToMapCountryFx.use((code) => {
 });
 
 sample({
-  source: guard($searchScope, {
+  source: guard(combine([$countriesList, $searchText]), {
     filter: ([countryList, searchText]) =>
       countryList?.length === 1 &&
       countryList[0].integration_status > 0 &&
@@ -131,7 +127,7 @@ sample({
 });
 
 sample({
-  source: $searchScope,
+  source: combine([$countriesList, $searchText]),
   clock: onSearchPressEnter,
   fn: ([countryList, searchText]) =>
     countryList?.length !== 1 ||
@@ -140,7 +136,7 @@ sample({
 });
 
 sample({
-  source: changeSearchText,
+  source: $searchText,
   fn: () => false,
   target: $noSearchCountryFound,
 });
@@ -159,7 +155,7 @@ $week.on(previousWeek, (week) =>
 // controls
 $controlsMapType.on(changeControlsMapType, setPayload);
 $controlsMapStyle.on(changeControlsMapStyle, setPayload);
-$controlsSortValue.on(changeControlsSortValue, setPayload);
+$controlsSortKey.on(changeControlsSortKey, setPayload);
 
 forward({
   from: $mapType,
@@ -172,8 +168,8 @@ forward({
 });
 
 forward({
-  from: $sortValue,
-  to: $controlsSortValue,
+  from: $sortKey,
+  to: $controlsSortKey,
 });
 
 const $controlsContext = combine({
@@ -181,8 +177,8 @@ const $controlsContext = combine({
   mapType: $controlsMapType,
   currentStyle: $style,
   style: $controlsMapStyle,
-  currentSortValue: $sortValue,
-  sortValue: $controlsSortValue,
+  currentSortKey: $sortKey,
+  sortKey: $controlsSortKey,
 });
 
 sample({
@@ -192,12 +188,12 @@ sample({
     mapType,
     currentStyle,
     style,
-    currentSortValue,
-    sortValue,
+    currentSortKey,
+    sortKey,
   }) =>
     currentMapType !== mapType ||
     currentStyle !== style ||
-    currentSortValue !== sortValue,
+    currentSortKey !== sortKey,
   target: $isControlsChanged,
 });
 
@@ -218,10 +214,10 @@ sample({
 });
 
 sample({
-  source: guard(combine([$controlsSortValue, $sortValue]), {
+  source: guard(combine([$controlsSortKey, $sortKey]), {
     filter: isNotEqual,
   }),
   clock: submitControlsChanges,
-  fn: ([controlsSortValue]) => controlsSortValue,
-  target: changeSortValue,
+  fn: ([controlsSortkey]) => controlsSortkey,
+  target: changeSortKey,
 });

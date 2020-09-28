@@ -1,18 +1,19 @@
 import { useList, useStore } from 'effector-react';
 import React from 'react';
 
-import { CountryMetaData } from '~/api/types';
+import { CountryBasic } from '~/api/types';
 import Chevron from '~/assets/images/chevron.svg';
 import { formatPercent } from '~/core/formatters';
 import { mapCountry } from '~/core/routes';
 import { Link } from '~/lib/router';
 
-import { getCountryInfo } from '@/project/@/dashboard/lib/get-country-info';
 import {
-  $countries,
+  $countriesList,
   $isListType,
-  $notFound,
+  $noSearchResults,
 } from '@/project/@/dashboard/model';
+
+import { getCountryInfo } from './get-country-info';
 
 export const NotFound = () => <h1>Countries not found</h1>;
 
@@ -21,31 +22,43 @@ export const CountriesFound = () => {
 
   return (
     <div className="countries-list__row">
-      {useList($countries, (countryData: CountryMetaData) => {
-        const country = getCountryInfo(countryData, isListType);
+      {useList($countriesList, (countryBasic: CountryBasic) => {
+        const {
+          id,
+          code,
+          flag,
+          name,
+          joinDate,
+          description,
+          progressPercent,
+          progressBarStyle,
+          mapPreviewStyle,
+          bubbleProgressClass,
+          progressDescription,
+        } = getCountryInfo(countryBasic, isListType);
 
         return (
-          <div className="countries-list__item" key={country.id}>
+          <div className="countries-list__item" key={id}>
             <div className="country">
               <div className="country__inner">
                 <div className="country__meta-wrapper">
                   <div className="country__flag-wrapper">
                     <img
                       className="country__flag"
-                      src={country.flag}
-                      alt={`${country.name}-flag`}
+                      src={flag}
+                      alt={`${name}-flag`}
                     />
                   </div>
 
-                  <h3 className="country__name">{country.name}</h3>
+                  <h3 className="country__name">{name}</h3>
 
-                  <div className="country__date">{country.joinDate}</div>
+                  <div className="country__date">{joinDate}</div>
                 </div>
 
                 <div className="country__progress country-progress">
                   <h4 className="country__subtitle">Progress</h4>
                   <div
-                    className={`country-progress__bubbles country-progress__bubbles--${country.bubbleProgressClass}`}
+                    className={`country-progress__bubbles country-progress__bubbles--${bubbleProgressClass}`}
                   >
                     <div className="country-progress__bubble" />
                     <div className="country-progress__bubble" />
@@ -54,7 +67,7 @@ export const CountriesFound = () => {
                   </div>
 
                   <h5 className="country-progress__title">
-                    {country.progressDescription}
+                    {progressDescription}
                   </h5>
                 </div>
 
@@ -65,27 +78,27 @@ export const CountriesFound = () => {
                   <div className="schools-connectivity__bar">
                     <div
                       className="schools-connectivity__filler"
-                      style={country.progressBarStyle}
+                      style={progressBarStyle}
                     />
                   </div>
 
                   <div className="schools-connectivity__percentage-connected">
-                    {formatPercent(country.progressPercent)}
+                    {formatPercent(progressPercent)}
                   </div>
                 </div>
 
                 <div className="country__separator" />
 
-                <p className="country__description">{country.description}</p>
+                <p className="country__description">{description}</p>
 
                 <Link
                   className="country__view-on-map view-on-map"
                   to={mapCountry}
-                  params={{ code: country.code }}
+                  params={{ code }}
                 >
                   <div
                     className="country__view-on-map view-on-map"
-                    style={country.mapPreviewStyle}
+                    style={mapPreviewStyle}
                   />
                 </Link>
 
@@ -102,5 +115,5 @@ export const CountriesFound = () => {
 };
 
 export const SearchResults = () => (
-  <>{useStore($notFound) ? <NotFound /> : <CountriesFound />}</>
+  <>{useStore($noSearchResults) ? <NotFound /> : <CountriesFound />}</>
 );

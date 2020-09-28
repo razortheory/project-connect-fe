@@ -3,8 +3,8 @@ import React from 'react';
 
 import IconSearch from '~/assets/images/icon-search.svg';
 import { getVoid } from '~/lib/effector-kit';
+import { getInputValue } from '~/lib/event-reducers';
 
-import { getInputValue } from '@/map/@/sidebar/helpers';
 import {
   $searchActive,
   $searchText,

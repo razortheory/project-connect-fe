@@ -1,10 +1,12 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { getSelectSortValues } from '@/map/@/sidebar/helpers';
-import { $sortValue, changeSortValue } from '@/map/@/sidebar/model';
+import { selectValue } from '~/lib/event-reducers/select-value';
 
-const onChange = changeSortValue.prepend(getSelectSortValues);
+import { $sortKey, changeSortKey } from '@/map/@/sidebar/model';
+import { SortKey } from '@/map/@/sidebar/types';
+
+const onChange = changeSortKey.prepend(selectValue<SortKey>());
 
 export const Sort = () => (
   <label htmlFor="sorting-select" className="select-wrapper">
@@ -13,7 +15,7 @@ export const Sort = () => (
       id="sorting-select"
       className="select"
       onChange={onChange}
-      value={useStore($sortValue)}
+      value={useStore($sortKey)}
     >
       <option className="select__option" value="amountOfDataAvailable">
         Amount of data available

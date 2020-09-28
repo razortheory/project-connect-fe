@@ -6,7 +6,7 @@ type MapPreview = {
   backgroundImage: string;
 };
 
-export type DashboardCountryData = {
+export type CountryInfo = {
   id: number;
   code: string;
   flag: string;

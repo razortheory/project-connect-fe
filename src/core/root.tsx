@@ -4,9 +4,9 @@ import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
 
 import {
-  fetchCountriesDataFx,
-  fetchCountriesGeometryDataFx,
-  fetchGlobalStatsDataFx,
+  fetchCountriesFx,
+  fetchCountriesGeometryFx,
+  fetchGlobalStatsFx,
 } from '~/api/project-connect';
 import { map, project, router } from '~/core/routes';
 import { useRoute } from '~/lib/router';
@@ -20,9 +20,9 @@ const NotFound = () => (
 
 export const Root = () => {
   useEffect(() => {
-    void fetchCountriesDataFx();
-    void fetchCountriesGeometryDataFx();
-    void fetchGlobalStatsDataFx();
+    void fetchCountriesFx();
+    void fetchCountriesGeometryFx();
+    void fetchGlobalStatsFx();
   }, []);
 
   return (

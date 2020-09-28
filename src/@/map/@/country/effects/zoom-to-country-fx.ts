@@ -1,17 +1,17 @@
 import { createEffect } from 'effector';
 import { MultiPolygon, Polygon } from 'geojson';
 
+import { getPolygonBoundingBox } from '@/map/@/country/lib';
 import { ZoomToCountryBounds } from '@/map/@/country/types';
-import { getPolygonBoundingBox } from '@/map/lib/get-polygon-bounding-box';
 
 export const zoomToCountryFx = createEffect(
-  ({ map, countriesGeometry, countryId, countryData }: ZoomToCountryBounds) => {
+  ({ map, countriesGeometry, countryId, country }: ZoomToCountryBounds) => {
     if (!countryId || !map) return;
 
     const currentCountryGeometry =
       countriesGeometry?.find(
         (countryGeometry) => countryGeometry.id === countryId
-      )?.geometry_simplified ?? countryData?.geometry;
+      )?.geometry_simplified ?? country?.geometry;
 
     if (currentCountryGeometry) {
       const bounds = getPolygonBoundingBox(

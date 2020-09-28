@@ -5,8 +5,13 @@ import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import { mapCountry } from '~/core/routes';
 
-import { connectivityStatusPaintData, styles } from '@/map/constants';
 import {
+  connectivityStatusPaintData,
+  coverageStatusPaintData,
+  styles,
+} from '@/map/constants';
+import {
+  $mapType,
   $style,
   $stylePaintData,
   changeStyle,
@@ -36,6 +41,7 @@ const ZoomControl = () => (
 
 const LegendForCountries = () => {
   const paintData = useStore($stylePaintData);
+
   return (
     <ul className="footer__map-legend map-legend">
       <li
@@ -60,35 +66,61 @@ const LegendForCountries = () => {
   );
 };
 
+const ConnectivityTypeLegend = () => (
+  <ul className="footer__map-legend map-legend">
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: connectivityStatusPaintData.unknown }}
+    >
+      Data unavailable
+    </li>
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: connectivityStatusPaintData.no }}
+    >
+      No connectivity
+    </li>
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: connectivityStatusPaintData.moderate }}
+    >
+      Moderate
+    </li>
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: connectivityStatusPaintData.good }}
+    >
+      Good
+    </li>
+  </ul>
+);
+
+const CoverageTypeLegend = () => (
+  <ul className="footer__map-legend map-legend">
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: coverageStatusPaintData.unknown }}
+    >
+      Unknown
+    </li>
+    <li
+      className="map-legend__item"
+      style={{ borderTopColor: coverageStatusPaintData.known }}
+    >
+      Known
+    </li>
+  </ul>
+);
+
 const LegendForSchools = () => {
-  return (
-    <ul className="footer__map-legend map-legend">
-      <li
-        className="map-legend__item"
-        style={{ borderTopColor: connectivityStatusPaintData.unknown }}
-      >
-        Data unavailable
-      </li>
-      <li
-        className="map-legend__item"
-        style={{ borderTopColor: connectivityStatusPaintData.no }}
-      >
-        No connectivity
-      </li>
-      <li
-        className="map-legend__item"
-        style={{ borderTopColor: connectivityStatusPaintData.moderate }}
-      >
-        Moderate
-      </li>
-      <li
-        className="map-legend__item"
-        style={{ borderTopColor: connectivityStatusPaintData.good }}
-      >
-        Good
-      </li>
-    </ul>
-  );
+  switch (useStore($mapType)) {
+    case 'connectivity':
+      return <ConnectivityTypeLegend />;
+    case 'coverage':
+      return <CoverageTypeLegend />;
+    default:
+      return null;
+  }
 };
 
 const StyleControl = () => {

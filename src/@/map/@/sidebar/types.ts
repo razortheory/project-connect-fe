@@ -1,6 +1,6 @@
-export type SortTypes = 'number' | 'date';
+export type SortType = 'number' | 'date';
 
-export type SortValues =
+export type SortKey =
   | 'amountOfDataAvailable'
   | 'dateOfJoining'
   | 'countryProgress'

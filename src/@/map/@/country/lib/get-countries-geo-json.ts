@@ -1,10 +1,10 @@
 import { FeatureCollection, Geometry } from 'geojson';
 
-import { CountryGeometryData, CountryMetaData } from '~/api/types';
+import { CountryBasic, CountryGeometry } from '~/api/types';
 
 export const getCountriesGeoJson = (
-  countriesProperties: CountryMetaData[] | null,
-  countriesGeometry: CountryGeometryData[] | null
+  countriesProperties: CountryBasic[] | null,
+  countriesGeometry: CountryGeometry[] | null
 ): FeatureCollection => {
   return {
     type: 'FeatureCollection',
@@ -12,8 +12,8 @@ export const getCountriesGeoJson = (
       countriesProperties
         ?.filter((country) => country.integration_status !== 0)
         .map((country) => {
-          const countryGeometryData = countriesGeometry?.find(
-            (countryGeometry) => countryGeometry.id === country.id
+          const countryGeometry = countriesGeometry?.find(
+            (geometry) => geometry.id === country.id
           );
           return {
             type: 'Feature',
@@ -23,7 +23,7 @@ export const getCountriesGeoJson = (
                 country.schools_with_data_percentage,
               code: country.code,
             },
-            geometry: countryGeometryData?.geometry_simplified as Geometry,
+            geometry: countryGeometry?.geometry_simplified as Geometry,
             id: country.id,
           };
         }) ?? [],

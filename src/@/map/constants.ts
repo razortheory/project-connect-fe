@@ -1,15 +1,16 @@
 import {
   ConnectivityStatus,
-  GlobalStatsData,
+  CoverageStatus,
+  GlobalStats,
   IntegrationStatus,
 } from '~/api/types';
 
-import { Center, MapTypes, Style, StylePaintData, Zoom } from './types';
+import { Center, MapType, Style, StylePaintData, Zoom } from './types';
 
 export const defaultZoom: Zoom = 2;
 export const defaultCenter: Center = [0, 40];
 export const defaultStyle: Style = 'dark';
-export const defaultMapType: MapTypes = 'connectivity';
+export const defaultMapType: MapType = 'connectivity';
 
 export const styleUrls: { [style in Style]: string } = {
   dark: 'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4',
@@ -81,7 +82,15 @@ export const connectivityStatusPaintData: {
   good: '#8bd432',
 };
 
-export const defaultGlobalStats: GlobalStatsData = {
+// TODO change the coverage status colors when they are known
+export const coverageStatusPaintData: {
+  [key in CoverageStatus]: string;
+} = {
+  known: '#FC7A08',
+  unknown: '#7511BF',
+};
+
+export const defaultGlobalStats: GlobalStats = {
   total_schools: 0,
   schools_mapped: 0,
   countries_joined: 0,
