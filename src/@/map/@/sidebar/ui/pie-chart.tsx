@@ -2,24 +2,24 @@
 
 import { useStore } from 'effector-react';
 import React, { useEffect, useState } from 'react';
-import { Country } from 'src/api/types';
+import { CountryStatistics } from 'src/api/types';
 
 import { formatPercent } from '~/core/formatters';
 
-import { $country } from '@/map/@/country/model';
+import { $countryStatistics } from '@/map/@/country/model';
 import { connectivityStatusPaintData } from '@/map/constants';
 
 const getPercentage = (value: number, total: number): number =>
   total && value / total;
 
-const getSchoolsData = (country: Country) => {
+const getSchoolsData = (countryStatistics: CountryStatistics) => {
   const {
     schools_connectivity_no,
     schools_connectivity_good,
     schools_connectivity_moderate,
     schools_connectivity_unknown,
     schools_total,
-  } = country.statistics;
+  } = countryStatistics;
 
   return {
     percentConnectivityNo: getPercentage(
@@ -58,15 +58,15 @@ const getOffsetAngle = (offsetPercent: number): number =>
   FULL_CIRCLE_ANGLE * offsetPercent + START_OFFSET_ANGLE;
 
 export const PieChart = () => {
-  const country = useStore($country);
+  const countryStatistics = useStore($countryStatistics);
 
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsAnimationStarted(Boolean(country)));
-  }, [country]);
+    setTimeout(() => setIsAnimationStarted(Boolean(countryStatistics)));
+  }, [countryStatistics]);
 
-  if (!country) {
+  if (!countryStatistics) {
     return null;
   }
 
@@ -75,7 +75,7 @@ export const PieChart = () => {
     percentConnectivityGood = 0,
     percentConnectivityModerate = 0,
     percentConnectivityUnknown = 0,
-  } = isAnimationStarted ? getSchoolsData(country) : {};
+  } = isAnimationStarted ? getSchoolsData(countryStatistics) : {};
 
   const noConnectivityOffsetAngle = getOffsetAngle(0);
   const goodConnectivityOffsetAngle = getOffsetAngle(percentConnectivityNo);

@@ -1,3 +1,4 @@
+import { getWeek, getYear, Interval } from 'date-fns';
 import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
@@ -9,6 +10,7 @@ import {
   Country,
   CountryBasic,
   CountryGeometry,
+  CountryStatistics,
   GlobalStats,
   School,
   SchoolBasic,
@@ -21,6 +23,22 @@ export const request = createRequest({
 export const fetchCountryFx = createEffect(
   async (countryId: number): Promise<Country> =>
     request(`api/locations/countries/${countryId}/`)
+);
+
+export const fetchCountryStatistics = createEffect(
+  async ({
+    countryId,
+    week,
+  }: {
+    countryId: number;
+    week: Interval;
+  }): Promise<CountryStatistics> => {
+    const weekNumber = getWeek(week.start);
+    const year = getYear(week.start);
+    return request(
+      `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`
+    );
+  }
 );
 
 export const fetchSchoolsFx = createEffect(

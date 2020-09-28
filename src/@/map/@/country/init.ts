@@ -4,6 +4,7 @@ import {
   fetchCountriesFx,
   fetchCountriesGeometryFx,
   fetchCountryFx,
+  fetchCountryStatistics,
   fetchSchoolFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
@@ -11,6 +12,7 @@ import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
+import { $week, nextWeek, previousWeek } from '@/map/@/sidebar/model';
 import {
   $map,
   $mapType,
@@ -34,6 +36,7 @@ import {
   $countriesGeometry,
   $country,
   $countryId,
+  $countryStatistics,
   $popup,
   $school,
   $schoolId,
@@ -50,10 +53,17 @@ $countryId.on(changeCountryId, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
 $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
+$countryStatistics.on(fetchCountryStatistics.doneData, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+$countryStatistics.reset(
+  changeCountryId,
+  fetchCountryStatistics,
+  nextWeek,
+  previousWeek
+);
 
 const $mapContext = combine({
   map: $map,
@@ -72,6 +82,12 @@ const $mapContext = combine({
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
   to: [fetchSchoolsFx, fetchCountryFx],
+});
+
+sample({
+  source: combine([$countryId, $week]),
+  fn: ([countryId, week]) => ({ countryId, week }),
+  target: fetchCountryStatistics,
 });
 
 // Zoom to country bounds

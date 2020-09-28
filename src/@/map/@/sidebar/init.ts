@@ -151,6 +151,7 @@ $week.on(nextWeek, (week) => getWeekInterval(add(week.start, { weeks: 1 })));
 $week.on(previousWeek, (week) =>
   getWeekInterval(sub(week.start, { weeks: 1 }))
 );
+$week.reset(changeCountryId);
 
 // controls
 $controlsMapType.on(changeControlsMapType, setPayload);
