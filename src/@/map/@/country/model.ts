@@ -29,3 +29,4 @@ export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $popup = createStore<HTMLDivElement | null>(null);
 export const $school = createStore<School | null>(null);
 export const $schoolPending = fetchSchoolFx.pending;
+export const $schoolDailyStats = createStore<DailyStats[] | null>(null);

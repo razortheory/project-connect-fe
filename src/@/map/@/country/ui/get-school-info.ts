@@ -20,7 +20,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
 
   const connectivitySpeed = humanFormat(connectivity_speed, {
     // TODO: Format unit on front-end
-    unit: 'Mb/s',
+    unit: 'b/s',
     separator: ' ',
   });
 

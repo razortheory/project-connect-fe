@@ -6,6 +6,7 @@ import {
   fetchCountryDailyStatsFx,
   fetchCountryFx,
   fetchCountryStatisticsFx,
+  fetchSchoolDailyStatsFx,
   fetchSchoolFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
@@ -42,6 +43,7 @@ import {
   $countryStatistics,
   $popup,
   $school,
+  $schoolDailyStats,
   $schoolId,
   $schools,
   changeCountryId,
@@ -58,6 +60,7 @@ $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
 $countryStatistics.on(fetchCountryStatisticsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
+$schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
@@ -73,6 +76,13 @@ $countryStatistics.reset(
 $countryDailyStats.reset(
   changeCountryId,
   fetchCountryDailyStatsFx,
+  nextWeek,
+  previousWeek
+);
+
+$schoolDailyStats.reset(
+  changeSchoolId,
+  fetchSchoolDailyStatsFx,
   nextWeek,
   previousWeek
 );
@@ -261,4 +271,13 @@ sample({
   clock: changeMapType,
   fn: (map, mapType) => ({ map, mapType }),
   target: updateSchoolsColorsFx,
+});
+
+guard({
+  source: combine([$schoolId, $week], ([schoolId, week]) => ({
+    schoolId,
+    week,
+  })),
+  filter: ({ schoolId }) => Boolean(schoolId),
+  target: fetchSchoolDailyStatsFx,
 });

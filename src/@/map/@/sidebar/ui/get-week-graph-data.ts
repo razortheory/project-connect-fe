@@ -62,7 +62,7 @@ const getFillColor = (speed: number): string => {
 export const getWeekGraphData = (
   dailyStats: DailyStats[] | null
 ): WeekGraphData | null => {
-  if (!dailyStats) {
+  if (!dailyStats || dailyStats.length === 0) {
     return null;
   }
   // eslint-disable-next-line unicorn/no-reduce

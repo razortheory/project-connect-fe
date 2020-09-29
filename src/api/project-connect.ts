@@ -60,6 +60,24 @@ export const fetchCountryDailyStatsFx = createEffect(
   }
 );
 
+export const fetchSchoolDailyStatsFx = createEffect(
+  async ({
+    schoolId,
+    week,
+  }: {
+    schoolId: number;
+    week: Interval;
+  }): Promise<DailyStats[] | null> => {
+    const startDate = format(week.start, 'yyyy-MM-dd');
+    const endDate = format(week.end, 'yyyy-MM-dd');
+
+    return request({
+      url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    });
+  }
+);
+
 export const fetchSchoolsFx = createEffect(
   async (countryId: number): Promise<FeatureCollection> =>
     request({

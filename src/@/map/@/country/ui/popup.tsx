@@ -4,7 +4,14 @@ import React from 'react';
 
 import { setPayload } from '~/lib/effector-kit';
 
-import { $popup, $school, $schoolPending } from '@/map/@/country/model';
+import {
+  $popup,
+  $school,
+  $schoolDailyStats,
+  $schoolPending,
+} from '@/map/@/country/model';
+import { getWeekGraphData } from '@/map/@/sidebar/ui/get-week-graph-data';
+import { WeekGraph } from '@/map/@/sidebar/ui/week-graph';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -14,9 +21,13 @@ export const onChangeRef = createEvent<HTMLDivElement | null>();
 
 $popup.on(onChangeRef, setPayload); // Save popup element
 
+const $weekGraphData = $schoolDailyStats.map(getWeekGraphData);
+
 export const Popup = () => {
   const school = useStore($school);
   const isLoading = useStore($schoolPending);
+  const weekGraphData = useStore($weekGraphData);
+  console.log(weekGraphData);
 
   if (!school || isLoading) {
     return (
@@ -99,8 +110,12 @@ export const Popup = () => {
             </li>
           )}
         </ul>
-        <hr className="country-popup__divider" />
-        Place for Daily graph
+        {weekGraphData && (
+          <>
+            <hr className="country-popup__divider" />
+            <WeekGraph weekGraphData={weekGraphData} />
+          </>
+        )}
       </div>
     </div>
   );
