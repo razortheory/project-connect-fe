@@ -8,6 +8,7 @@ import {
   CountryBasic,
   CountryGeometry,
   CountryStatistics,
+  DailyStats,
   School,
 } from '~/api/types';
 
@@ -24,6 +25,7 @@ export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
 export const $schools = createStore<FeatureCollection | null>(null);
 export const $country = createStore<Country | null>(null);
 export const $countryStatistics = createStore<CountryStatistics | null>(null);
+export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $popup = createStore<HTMLDivElement | null>(null);
 export const $school = createStore<School | null>(null);
 export const $schoolPending = fetchSchoolFx.pending;

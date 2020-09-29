@@ -3,6 +3,7 @@ import { combine, forward, guard, merge, sample } from 'effector';
 import {
   fetchCountriesFx,
   fetchCountriesGeometryFx,
+  fetchCountryDailyStatsFx,
   fetchCountryFx,
   fetchCountryStatisticsFx,
   fetchSchoolFx,
@@ -36,6 +37,7 @@ import {
   $countriesGeometry,
   $country,
   $countryCode,
+  $countryDailyStats,
   $countryId,
   $countryStatistics,
   $popup,
@@ -55,13 +57,22 @@ $schools.on(fetchSchoolsFx.doneData, setPayload);
 $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
 $countryStatistics.on(fetchCountryStatisticsFx.doneData, setPayload);
+$countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+
 $countryStatistics.reset(
   changeCountryId,
   fetchCountryStatisticsFx,
+  nextWeek,
+  previousWeek
+);
+
+$countryDailyStats.reset(
+  changeCountryId,
+  fetchCountryDailyStatsFx,
   nextWeek,
   previousWeek
 );
@@ -85,10 +96,15 @@ forward({
   to: [fetchSchoolsFx, fetchCountryFx],
 });
 
-sample({
-  source: combine([$countryId, $week]),
-  fn: ([countryId, week]) => ({ countryId, week }),
-  target: fetchCountryStatisticsFx,
+forward({
+  from: guard({
+    source: combine([$countryId, $week], ([countryId, week]) => ({
+      countryId,
+      week,
+    })),
+    filter: ({ countryId }) => Boolean(countryId),
+  }),
+  to: [fetchCountryStatisticsFx, fetchCountryDailyStatsFx],
 });
 
 // Zoom to country bounds

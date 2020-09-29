@@ -96,3 +96,14 @@ export type School = {
   address: string;
   postal_code: string;
 };
+
+export type DailyStats = {
+  connectivity_latency: number;
+  connectivity_speed: number;
+  date: string;
+  week: number;
+  weekday: WeekDay;
+  year: number;
+};
+
+export type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;

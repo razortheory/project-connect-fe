@@ -1,4 +1,4 @@
-import { getWeek, getYear, Interval } from 'date-fns';
+import { format, getWeek, getYear, Interval } from 'date-fns';
 import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
@@ -11,6 +11,7 @@ import {
   CountryBasic,
   CountryGeometry,
   CountryStatistics,
+  DailyStats,
   GlobalStats,
   School,
   SchoolBasic,
@@ -38,6 +39,24 @@ export const fetchCountryStatisticsFx = createEffect(
     return request(
       `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`
     );
+  }
+);
+
+export const fetchCountryDailyStatsFx = createEffect(
+  async ({
+    countryId,
+    week,
+  }: {
+    countryId: number;
+    week: Interval;
+  }): Promise<DailyStats[] | null> => {
+    const startDate = format(week.start, 'yyyy-MM-dd');
+    const endDate = format(week.end, 'yyyy-MM-dd');
+
+    return request({
+      url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    });
   }
 );
 
