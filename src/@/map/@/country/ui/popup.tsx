@@ -27,7 +27,6 @@ export const Popup = () => {
   const school = useStore($school);
   const isLoading = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
-  console.log(weekGraphData);
 
   if (!school || isLoading) {
     return (
