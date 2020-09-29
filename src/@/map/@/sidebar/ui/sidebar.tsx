@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 
@@ -7,9 +9,9 @@ import { tabMap } from '~/core/tab-routes';
 import { useRoute } from '~/lib/router';
 
 import {
-  $isSidebarHidden,
+  $isSidebarCollapsed,
   onClickSidebar,
-  toggleSidebarVisibility,
+  toggleSidebar,
 } from '@/map/@/sidebar/model';
 
 import { CountryInfo } from './country-info';
@@ -17,16 +19,23 @@ import { CountryList } from './country-list';
 import { WorldView } from './world-view';
 
 // View logic
-const onToggleSidebarVisibility = toggleSidebarVisibility.prepend<
-  MouseEvent<HTMLButtonElement>
->((event) => event.stopPropagation());
+const $showMap = combine(
+  [tabMap.visible, mapOverview.visible],
+  ([tabMapVisible, mapCountriesVisible]) =>
+    tabMapVisible && !mapCountriesVisible
+);
+
+const onToggleSidebar = toggleSidebar.prepend<MouseEvent<HTMLButtonElement>>(
+  (event) => event.stopPropagation()
+);
 
 export const Sidebar = () => (
   // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
   <div
-    className={`sidebar${
-      useStore($isSidebarHidden) ? ' sidebar--collapsed' : ''
-    }${useStore(tabMap.visible) ? ' sidebar--show-map' : ''}`}
+    className={clsx('sidebar', {
+      'sidebar--collapsed': useStore($isSidebarCollapsed),
+      'sidebar--show-map': useStore($showMap),
+    })}
     onClick={onClickSidebar}
   >
     <div className="sidebar__container">
@@ -37,7 +46,7 @@ export const Sidebar = () => (
     <button
       className="sidebar__expander"
       type="button"
-      onClick={onToggleSidebarVisibility}
+      onClick={onToggleSidebar}
     >
       <Chevron alt="Expand/collapse sidebar" />
     </button>

@@ -147,6 +147,7 @@
     "webpack-merge": "^5.1.4"
   },
   "dependencies": {
+    "clsx": "^1.1.1",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
     "effector": "^21.3.0",

@@ -12,7 +12,7 @@ import { MapType, Style } from '@/map/types';
 import { defaultSortKey } from './constants';
 
 export const onClickSidebar = createEvent<MouseEvent<HTMLDivElement>>();
-export const toggleSidebarVisibility = createEvent();
+export const toggleSidebar = createEvent();
 export const changeSearchText = createEvent<string>();
 export const clearSearchText = createEvent();
 export const onSearchPressKey = createEvent<KeyboardEvent<HTMLInputElement>>();
@@ -25,9 +25,8 @@ export const blurInputFx = createEffect<
   KeyboardEvent<HTMLInputElement>,
   void
 >();
-export const navigateToMapCountryFx = createEffect<string | null, void>();
 
-export const $isSidebarHidden = createStore(false);
+export const $isSidebarCollapsed = createStore(false);
 export const $countriesList = createStore<CountryBasic[]>([]);
 export const $countriesPending = fetchCountriesFx.pending;
 export const $searchText = createStore('');

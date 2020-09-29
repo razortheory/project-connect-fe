@@ -8,7 +8,7 @@ import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { formatDateInterval } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
-import { tabInfo } from '~/core/tab-routes';
+import { tabMap } from '~/core/tab-routes';
 import { getVoid } from '~/lib/effector-kit';
 import { selectValue } from '~/lib/event-reducers/select-value';
 import { Link } from '~/lib/router';
@@ -22,15 +22,18 @@ import {
   nextWeek,
   previousWeek,
 } from '@/map/@/sidebar/model';
-import { NotFound, Tabs } from '@/map/@/sidebar/ui/country-list';
-import { SearchResults } from '@/map/@/sidebar/ui/search-results';
 import { $mapType, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
 import { Scroll } from '@/scroll';
 
+import { Controls } from './controls';
+import { NotFound } from './country-list';
 import { getCountryInfo } from './get-country-info';
 import { PieChart } from './pie-chart';
 import { Search } from './search';
+import { SearchResults } from './search-results';
+import { Tabs } from './tabs';
+import { $isContentTab, $isControlsTab, $isMapTab } from './view-model';
 import { WeekGraph } from './week-graph';
 
 const onNextWeek = nextWeek.prepend(getVoid);
@@ -39,15 +42,13 @@ const onPreviousWeek = previousWeek.prepend(getVoid);
 const $countryInfo = $country.map(getCountryInfo);
 const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
-export const CountryInfo = () => {
+const CountryInfoContent = () => {
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
-  const mapType = useStore($mapType);
 
   const {
-    name,
     dataSource,
     schoolsTotal,
     schoolsConnected,
@@ -57,12 +58,119 @@ export const CountryInfo = () => {
 
   return (
     <>
+      {searchActive && !noSearchCountryFound && <SearchResults />}
+      {noSearchCountryFound ? (
+        <NotFound />
+      ) : (
+        <>
+          <div className="sidebar__period-picker period-picker">
+            <button
+              type="button"
+              className="period-picker__button"
+              onClick={onPreviousWeek}
+            >
+              <Chevron className="chevron chevron--left" />
+            </button>
+            <div className="period-picker__period">
+              {isThisWeek ? 'This week' : formatDateInterval(week)}
+            </div>
+            <button
+              type="button"
+              className="period-picker__button"
+              onClick={onNextWeek}
+            >
+              <Chevron className="chevron" />
+            </button>
+          </div>
+          <ul className="info-list info-list--country-info">
+            <li className="info-list__item">
+              <h3 className="info-list__title info-list__title--full-width">
+                Data source
+              </h3>
+              <p className="info-list__paragraph">{dataSource}</p>
+            </li>
+            <li className="info-list__item">
+              <h3 className="info-list__title info-list__title--full-width">
+                Total schools
+              </h3>
+              <p className="info-list__description">{schoolsTotal}</p>
+            </li>
+            <li className="info-list__item">
+              <h3 className="info-list__title info-list__title--full-width">
+                Connected schools
+              </h3>
+              <p className="info-list__description">{schoolsConnected}</p>
+            </li>
+            <li className="info-list__item">
+              <h3 className="info-list__title info-list__title--full-width">
+                Avg. internet speed (download)
+              </h3>
+              <p className="info-list__description">{connectivitySpeed}</p>
+              <div className="average-speed">
+                <div className="average-speed__icons">
+                  <div className="average-speed__icon average-speed__icon--active">
+                    <IconSpeedLow />
+                  </div>
+                  <div className="average-speed__icon">
+                    <IconSpeedMedium />
+                  </div>
+                  <div className="average-speed__icon">
+                    <IconSpeedHigh />
+                  </div>
+                </div>
+                <p className="average-speed__description">
+                  The average internet speed is good enough for accessing email
+                  and basic internet browsing.
+                </p>
+              </div>
+            </li>
+            <li className="info-list__item">
+              <h3 className="info-list__title info-list__title--full-width">
+                Schools with no internet
+              </h3>
+              <p className="info-list__description">{schoolsWithNoInternet}</p>
+            </li>
+          </ul>
+          <hr className="sidebar__divider" />
+          <WeekGraph showHistory showButtons />
+          <hr className="sidebar__divider" />
+          <h3 className="sidebar__secondary-title">
+            Connectivity distribution
+          </h3>
+          <PieChart />
+          <hr className="sidebar__divider" />
+          <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
+            Data set
+          </h3>
+          <p className="sidebar__paragraph">
+            You can download the country map data by clicking on the button
+            below. File format for the data set would be CSV and PDF.
+          </p>
+          <button type="button" className="sidebar__link link">
+            <IconDownload className="link__icon" />
+            Download data set
+          </button>
+        </>
+      )}
+    </>
+  );
+};
+
+export const CountryInfo = () => {
+  const mapType = useStore($mapType);
+
+  const { name } = useStore($countryInfo) ?? {};
+
+  return (
+    <>
       <Search />
       <div className="breadcrumbs">
         <Link
           to={mapCountries}
           className="breadcrumbs__link"
-          params={{ tab: tabInfo.compile() }}
+          onClick={() => {
+            tabMap.navigate();
+          }}
         >
           {mapType} map{' '}
         </Link>
@@ -87,103 +195,13 @@ export const CountryInfo = () => {
       </label>
       <Tabs />
       <Scroll>
-        <div className="sidebar__content">
-          {searchActive && !noSearchCountryFound && <SearchResults />}
-          {noSearchCountryFound ? (
-            <NotFound />
-          ) : (
-            <>
-              <div className="sidebar__period-picker period-picker">
-                <button
-                  type="button"
-                  className="period-picker__button"
-                  onClick={onPreviousWeek}
-                >
-                  <Chevron className="chevron chevron--left" />
-                </button>
-                <div className="period-picker__period">
-                  {isThisWeek ? 'This week' : formatDateInterval(week)}
-                </div>
-                <button
-                  type="button"
-                  className="period-picker__button"
-                  onClick={onNextWeek}
-                >
-                  <Chevron className="chevron" />
-                </button>
-              </div>
-              <ul className="info-list info-list--country-info">
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Data source
-                  </h3>
-                  <p className="info-list__paragraph">{dataSource}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Total schools
-                  </h3>
-                  <p className="info-list__description">{schoolsTotal}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Connected schools
-                  </h3>
-                  <p className="info-list__description">{schoolsConnected}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Avg. internet speed (download)
-                  </h3>
-                  <p className="info-list__description">{connectivitySpeed}</p>
-                  <div className="average-speed">
-                    <div className="average-speed__icons">
-                      <div className="average-speed__icon average-speed__icon--active">
-                        <IconSpeedLow />
-                      </div>
-                      <div className="average-speed__icon">
-                        <IconSpeedMedium />
-                      </div>
-                      <div className="average-speed__icon">
-                        <IconSpeedHigh />
-                      </div>
-                    </div>
-                    <p className="average-speed__description">
-                      The average internet speed is good enough for accessing
-                      email and basic internet browsing.
-                    </p>
-                  </div>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Schools with no internet
-                  </h3>
-                  <p className="info-list__description">
-                    {schoolsWithNoInternet}
-                  </p>
-                </li>
-              </ul>
-              <hr className="sidebar__divider" />
-              <WeekGraph showHistory showButtons />
-              <hr className="sidebar__divider" />
-              <h3 className="sidebar__secondary-title">
-                Connectivity distribution
-              </h3>
-              <PieChart />
-              <hr className="sidebar__divider" />
-              <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
-                Data set
-              </h3>
-              <p className="sidebar__paragraph">
-                You can download the country map data by clicking on the button
-                below. File format for the data set would be CSV and PDF.
-              </p>
-              <button type="button" className="sidebar__link link">
-                <IconDownload className="link__icon" />
-                Download data set
-              </button>
-            </>
-          )}
+        <div
+          className={`sidebar__content ${
+            useStore($isMapTab) ? 'sidebar__content--hidden' : ''
+          }`}
+        >
+          {useStore($isContentTab) && <CountryInfoContent />}
+          {useStore($isControlsTab) && <Controls />}
         </div>
       </Scroll>
     </>
