@@ -35,6 +35,7 @@ import {
   $countriesGeoJson,
   $countriesGeometry,
   $country,
+  $countryCode,
   $countryId,
   $countryStatistics,
   $popup,
@@ -156,13 +157,17 @@ const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
 
 sample({
+  source: combine([mapCountry.params, $map]),
+  fn: ([params]) => params?.code ?? '',
+  target: $countryCode,
+});
+
+sample({
   source: $countries,
-  clock: combine([mapCountry.params, $map]),
-  fn: (countries, [routeParams]) => {
-    if (!countries || !routeParams) return 0;
-    const country = countries.find((data) =>
-      isEqualText(data.code, routeParams.code)
-    );
+  clock: $countryCode,
+  fn: (countries, code) => {
+    if (!countries || !code) return 0;
+    const country = countries.find((data) => isEqualText(data.code, code));
     return country?.id ?? 0;
   },
   target: changeCountryId,

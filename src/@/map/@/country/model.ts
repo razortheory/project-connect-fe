@@ -15,6 +15,7 @@ export const changeCountryId = createEvent<number>();
 export const changeSchoolId = createEvent<number>();
 export const clickSchool = createEvent<MapLayerMouseEvent>();
 
+export const $countryCode = createStore('');
 export const $countryId = createStore(0);
 export const $schoolId = createStore(0);
 export const $countriesGeometry = createStore<CountryGeometry[] | null>(null);
