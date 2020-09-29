@@ -8,7 +8,7 @@ import { getWeekInterval, isThisWeekInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countries } from '@/map/@/country';
-import { changeCountryId } from '@/map/@/country/model';
+import { $countryId, changeCountryId } from '@/map/@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -17,7 +17,7 @@ import {
   $controlsSortKey,
   $countriesList,
   $isControlsChanged,
-  $isSidebarHidden,
+  $isSidebarCollapsed,
   $isThisWeek,
   $noSearchCountryFound,
   $noSearchResults,
@@ -32,14 +32,13 @@ import {
   changeSearchText,
   changeSortKey,
   clearSearchText,
-  navigateToMapCountryFx,
   nextWeek,
   onClickSidebar,
   onSearchPressEnter,
   onSearchPressKey,
   previousWeek,
   submitControlsChanges,
-  toggleSidebarVisibility,
+  toggleSidebar,
 } from './model';
 import { sortCountries } from './sort-countries';
 
@@ -48,13 +47,13 @@ const hasText = (haystack: string, needle: string): boolean =>
 
 $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);
-$isSidebarHidden.on(toggleSidebarVisibility, getInverted);
+$isSidebarCollapsed.on(toggleSidebar, getInverted);
 $sortKey.on(changeSortKey, setPayload);
 
 guard({
   source: onClickSidebar,
-  filter: $isSidebarHidden,
-  target: toggleSidebarVisibility,
+  filter: $isSidebarCollapsed,
+  target: toggleSidebar,
 });
 
 const $sortedCountries = combine(
@@ -103,12 +102,6 @@ forward({
   to: [onSearchPressEnter, blurInputFx],
 });
 
-navigateToMapCountryFx.use((code) => {
-  if (code) {
-    mapCountry.navigate({ code: code.toLowerCase() });
-  }
-});
-
 sample({
   source: guard(combine([$countriesList, $searchText]), {
     filter: ([countryList, searchText]) =>
@@ -117,12 +110,13 @@ sample({
       countryList[0].name.toLowerCase() === searchText.toLowerCase(),
   }),
   clock: onSearchPressEnter,
-  fn: ([countryList]) => (countryList?.length ? countryList[0].code : null),
-  target: navigateToMapCountryFx,
+  fn: ([countryList]) =>
+    countryList?.length ? { code: countryList[0].code } : undefined,
+  target: mapCountry.navigate,
 });
 
 sample({
-  source: changeCountryId,
+  source: $countryId,
   target: clearSearchText,
 });
 
@@ -153,7 +147,8 @@ $week.on(previousWeek, (week) =>
 );
 $week.reset(changeCountryId);
 
-// controls
+// Controls
+
 $controlsMapType.on(changeControlsMapType, setPayload);
 $controlsMapStyle.on(changeControlsMapStyle, setPayload);
 $controlsSortKey.on(changeControlsSortKey, setPayload);
@@ -219,6 +214,6 @@ sample({
     filter: isNotEqual,
   }),
   clock: submitControlsChanges,
-  fn: ([controlsSortkey]) => controlsSortkey,
+  fn: ([controlsSortKey]) => controlsSortKey,
   target: changeSortKey,
 });

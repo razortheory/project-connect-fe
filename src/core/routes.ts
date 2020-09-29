@@ -1,20 +1,20 @@
 import { createRouter, history } from '~/lib/router';
 
-import { tabRouter } from './tab-routes';
-
 // Create router and use Browser History
 export const router = createRouter({ history });
 
 // This route is only for redirection
 export const exactRoot = router.add({ path: '/' });
 
+type Code = { code: string };
+
 // Map section
-export const map = router.add('/map(/.*)?');
+export const map = router.add('/map:path(/.*)?');
 export const mapOverview = router.add('/map');
-export const mapCountries = router
-  .add<{ tab: string }>('/map/countries:tab(.*)?')
-  .bind('tab', { router: tabRouter });
-export const mapCountry = router.add<{ code: string }>('/map/country/:code');
+export const mapCountries = router.add('/map/countries:path(/.*)?');
+export const mapCountry = router.add<Code>('/map/country/:code:path(/.*)?');
+export const mapCountriesList = router.add('/map/countries/list');
+export const mapCountryInfo = router.add<Code>('/map/country/:code/info');
 
 // Project section
 export const media = router.add('/media');

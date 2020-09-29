@@ -1,87 +1,41 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
 import { CountryBasic } from '~/api/types';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { mapCountries, mapCountry } from '~/core/routes';
-import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
-import { inputValue } from '~/lib/event-reducers';
-import { Link, useRoute } from '~/lib/router';
+import { tabInfo } from '~/core/tab-routes';
+import { Link } from '~/lib/router';
 
 import {
-  $controlsMapStyle,
-  $controlsMapType,
-  $controlsSortKey,
   $countriesList,
   $countriesPending,
-  $isControlsChanged,
   $noSearchResults,
   $searchActive,
-  changeControlsMapStyle,
-  changeControlsMapType,
-  changeControlsSortKey,
-  submitControlsChanges,
 } from '@/map/@/sidebar/model';
-import { SortKey } from '@/map/@/sidebar/types';
-import { Sort } from '@/map/@/sidebar/ui/sort';
-import { statusPaintField } from '@/map/constants';
-import { $stylePaintData } from '@/map/model';
-import { MapType, Style } from '@/map/types';
 import { Scroll } from '@/scroll';
 
+import { Controls } from './controls';
+import { CountryListItem } from './country-list-item';
 import { onClear, Search } from './search';
-
-export const ListItem = ({ country }: { country: CountryBasic }) => {
-  const paintData = useStore($stylePaintData);
-  const paintField = statusPaintField[country.integration_status];
-
-  return (
-    <li
-      className={`list__item ${
-        country.integration_status === 0 ? 'list__item--disabled' : ''
-      }`}
-    >
-      <span
-        className="list__circle"
-        style={{
-          backgroundColor: paintData[paintField].toString(),
-        }}
-      />
-      <Link
-        className="list__link"
-        to={mapCountry}
-        params={{ code: country.code.toLowerCase() }}
-      >
-        {country.name}
-      </Link>
-    </li>
-  );
-};
+import { Sort } from './sort';
+import { Tabs } from './tabs';
+import { $isContentTab, $isControlsTab, $isMapTab } from './view-model';
 
 export const NotFound = () => (
   <div className="sidebar__not-found not-found">
     <div className="not-found__icon">{/* Icon to be added here */}</div>
     <h3 className="not-found__title">Country not found</h3>
     <div className="not-found__description">
-      Try browsing through our&#160;
-      {/* TODO: Replace to Link */}
-      <div
-        role="button"
-        tabIndex={0}
-        onKeyPress={() => {}}
-        className="not-found__link"
-        onClick={(event) => {
-          onClear(event);
-          mapCountries.navigate({ tab: '/info' });
-        }}
-      >
+      Try browsing through our{' '}
+      <Link to={tabInfo} className="not-found__link" onClick={onClear}>
         country list
-      </div>
+      </Link>
     </div>
   </div>
 );
 
-const List = () => {
+const CountryListContent = () => {
   const countriesList = useStore($countriesList);
   const noSearchResults = useStore($noSearchResults);
   const searchActive = useStore($searchActive);
@@ -107,244 +61,13 @@ const List = () => {
       ) : (
         <ul className="sidebar__country-list list">
           {countriesList.map((country: CountryBasic) => (
-            <ListItem country={country} key={country.id} />
+            <CountryListItem country={country} key={country.id} />
           ))}
         </ul>
       )}
     </>
   );
 };
-
-export const Tabs = () => (
-  <ul className="sidebar__tabs tabs">
-    <li className="tabs__item">
-      <Link to={mapCountries} params={{ tab: tabMap.compile() }}>
-        <button
-          type="button"
-          className={`tabs__button ${
-            useRoute(tabMap) ? 'tabs__button--active' : ''
-          }`}
-        >
-          Map
-        </button>
-      </Link>
-    </li>
-
-    <li className="tabs__item">
-      <Link to={mapCountries} params={{ tab: tabInfo.compile() }}>
-        <button
-          type="button"
-          className={`tabs__button ${
-            useRoute(tabInfo) ? 'tabs__button--active' : ''
-          }`}
-        >
-          Info
-        </button>
-      </Link>
-    </li>
-
-    <li className="tabs__item">
-      <Link to={mapCountries} params={{ tab: tabControls.compile() }}>
-        <button
-          type="button"
-          className={`tabs__button ${
-            useRoute(tabControls) ? 'tabs__button--active' : ''
-          }`}
-        >
-          Controls
-        </button>
-      </Link>
-    </li>
-  </ul>
-);
-
-// Controls' units
-const onChangeMapType = changeControlsMapType.prepend(inputValue<MapType>());
-const onChangeMapStyle = changeControlsMapStyle.prepend(inputValue<Style>());
-const onChangeSortKey = changeControlsSortKey.prepend(inputValue<SortKey>());
-
-const Controls = () => {
-  const mapType = useStore($controlsMapType);
-  const mapStyle = useStore($controlsMapStyle);
-  const sortKey = useStore($controlsSortKey);
-
-  return (
-    <>
-      <form className="sidebar__form form" action="/">
-        <h3 className="sidebar__secondary-title">Map</h3>
-        <div className="radio-group">
-          <label className="radio-group__item radio" htmlFor="connectivity-map">
-            <input
-              className="radio__input"
-              id="connectivity-map"
-              type="radio"
-              name="map-type"
-              value="connectivity"
-              checked={mapType === 'connectivity'}
-              onChange={onChangeMapType}
-            />
-            <span className="radio__label">Connectivity map</span>
-            <div className="radio__marker" />
-          </label>
-          <label className="radio-group__item radio" htmlFor="coverage-map">
-            <input
-              className="radio__input"
-              id="coverage-map"
-              type="radio"
-              name="map-type"
-              value="coverage"
-              checked={mapType === 'coverage'}
-              onChange={onChangeMapType}
-            />
-            <span className="radio__label">Coverage map</span>
-            <div className="radio__marker" />
-          </label>
-        </div>
-        <hr className="sidebar__divider" />
-        <h3 className="sidebar__secondary-title">Map styles</h3>
-        <div className="radio-group">
-          <label className="radio-group__item radio" htmlFor="map-style-dark">
-            <input
-              className="radio__input"
-              id="map-style-dark"
-              type="radio"
-              name="map-style"
-              value="dark"
-              checked={mapStyle === 'dark'}
-              onChange={onChangeMapStyle}
-            />
-            <span className="radio__label">Dark</span>
-            <div className="radio__marker" />
-          </label>
-          <label className="radio-group__item radio" htmlFor="map-style-light">
-            <input
-              className="radio__input"
-              id="map-style-light"
-              type="radio"
-              name="map-style"
-              value="light"
-              checked={mapStyle === 'light'}
-              onChange={onChangeMapStyle}
-            />
-            <span className="radio__label">Light</span>
-            <div className="radio__marker" />
-          </label>
-          <label
-            className="radio-group__item radio"
-            htmlFor="map-style-satellite"
-          >
-            <input
-              className="radio__input"
-              id="map-style-satellite"
-              type="radio"
-              name="map-style"
-              value="satellite"
-              checked={mapStyle === 'satellite'}
-              onChange={onChangeMapStyle}
-            />
-            <span className="radio__label">Satellite</span>
-            <div className="radio__marker" />
-          </label>
-          <label
-            className="radio-group__item radio"
-            htmlFor="map-style-accessible"
-          >
-            <input
-              className="radio__input"
-              id="map-style-accessible"
-              type="radio"
-              name="map-style"
-              value="accessible"
-              checked={mapStyle === 'accessible'}
-              onChange={onChangeMapStyle}
-            />
-            <span className="radio__label">Accessible</span>
-            <div className="radio__marker" />
-          </label>
-        </div>
-        <hr className="sidebar__divider" />
-        <h3 className="sidebar__secondary-title">Sort countries by</h3>
-        <div className="radio-group">
-          <label
-            className="radio-group__item radio"
-            htmlFor="amountOfDataAvailable"
-          >
-            <input
-              className="radio__input"
-              id="amountOfDataAvailable"
-              type="radio"
-              name="countries-sort"
-              value="amountOfDataAvailable"
-              checked={sortKey === 'amountOfDataAvailable'}
-              onChange={onChangeSortKey}
-            />
-            <span className="radio__label">Amount of data available</span>
-            <div className="radio__marker" />
-          </label>
-          <label className="radio-group__item radio" htmlFor="dateOfJoining">
-            <input
-              className="radio__input"
-              id="dateOfJoining"
-              type="radio"
-              name="countries-sort"
-              value="dateOfJoining"
-              checked={sortKey === 'dateOfJoining'}
-              onChange={onChangeSortKey}
-            />
-            <span className="radio__label">Date of joining</span>
-            <div className="radio__marker" />
-          </label>
-          <label className="radio-group__item radio" htmlFor="countryProgress">
-            <input
-              className="radio__input"
-              id="countryProgress"
-              type="radio"
-              name="countries-sort"
-              value="countryProgress"
-              checked={sortKey === 'countryProgress'}
-              onChange={onChangeSortKey}
-            />
-            <span className="radio__label">Country progress</span>
-            <div className="radio__marker" />
-          </label>
-          <label
-            className="radio-group__item radio"
-            htmlFor="percentSchoolWithConnectivity"
-          >
-            <input
-              className="radio__input"
-              id="percentSchoolWithConnectivity"
-              type="radio"
-              name="countries-sort"
-              value="percentSchoolWithConnectivity"
-              checked={sortKey === 'percentSchoolWithConnectivity'}
-              onChange={onChangeSortKey}
-            />
-            <span className="radio__label">% Schools with connectivity</span>
-            <div className="radio__marker" />
-          </label>
-        </div>
-
-        <button
-          type="button"
-          disabled={!useStore($isControlsChanged)}
-          className="button button--primary button--full-width button--pull-bottom"
-          onClick={() => submitControlsChanges()}
-        >
-          Apply
-        </button>
-      </form>
-    </>
-  );
-};
-
-export const Content = () => (
-  <>
-    {useRoute(tabMap) && <p>Map</p>}
-    {useRoute(tabInfo) && <List />}
-    {useRoute(tabControls) && <Controls />}
-  </>
-);
 
 export const CountryList = () => (
   <>
@@ -357,11 +80,14 @@ export const CountryList = () => (
     )}
     <Scroll>
       <div
-        className={`sidebar__content ${
-          useRoute(tabMap) ? 'sidebar__content--hidden' : ''
-        }`}
+        className={clsx('sidebar__content', {
+          'sidebar__content--hidden': useStore($isMapTab),
+        })}
       >
-        <Content />
+        <>
+          {useStore($isContentTab) && <CountryListContent />}
+          {useStore($isControlsTab) && <Controls />}
+        </>
       </div>
     </Scroll>
   </>

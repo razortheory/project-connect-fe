@@ -32,6 +32,7 @@ export const Link = <P extends Params>({
   query,
   hash,
   compileOptions,
+  onClick,
   ...props
 }: LinkProps<P>) => {
   const paramsRef = useShouldUpdateRef(params);
@@ -60,6 +61,7 @@ export const Link = <P extends Params>({
       href={href}
       onClick={(event) => {
         event.preventDefault();
+        if (onClick) onClick(event);
         to.router.navigate(href);
       }}
       {...props}

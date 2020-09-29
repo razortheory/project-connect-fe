@@ -12,3 +12,5 @@ export const setPayload = <Payload = unknown>(
   state: unknown,
   payload: Payload
 ): Payload => payload;
+export const onTrue = { filter: Boolean };
+export const onFalse = { filter: getInverted };

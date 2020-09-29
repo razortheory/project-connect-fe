@@ -4,7 +4,8 @@ import React from 'react';
 import { CountryBasic } from '~/api/types';
 
 import { $countriesList, $noSearchResults } from '@/map/@/sidebar/model';
-import { ListItem } from '@/map/@/sidebar/ui/country-list';
+
+import { CountryListItem } from './country-list-item';
 
 export const SearchResults = () => {
   const countiesList = useStore($countriesList);
@@ -17,7 +18,7 @@ export const SearchResults = () => {
       ) : (
         <ul className="sidebar__country-list list">
           {countiesList.map((country: CountryBasic) => (
-            <ListItem country={country} key={country.id} />
+            <CountryListItem country={country} key={country.id} />
           ))}
         </ul>
       )}
