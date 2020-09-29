@@ -19,7 +19,6 @@ import {
   $stylePaintData,
   changeMap,
   changeMapType,
-  changeStyle,
 } from '@/map/model';
 
 import {
