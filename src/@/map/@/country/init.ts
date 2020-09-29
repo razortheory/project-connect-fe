@@ -19,6 +19,7 @@ import {
   $stylePaintData,
   changeMap,
   changeMapType,
+  changeStyle,
 } from '@/map/model';
 
 import {
@@ -119,7 +120,7 @@ const countryReceived = guard({
 // Update country
 sample({
   source: $mapContext,
-  clock: countryReceived,
+  clock: merge([countryReceived, changeMap]),
   fn: ({ map, paintData, country }) => ({
     map,
     paintData,
@@ -143,7 +144,7 @@ const schoolsReceived = guard({
 
 sample({
   source: $mapContext,
-  clock: schoolsReceived,
+  clock: merge([schoolsReceived, changeMap]),
   fn: ({ map, schools, mapType }) => ({
     map,
     schools,
