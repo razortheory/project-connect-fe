@@ -33,7 +33,7 @@ export type ZoomToCountryBounds = {
 export type LeaveCountryRoute = {
   map: Map | null;
   paintData: StylePaintData;
-  popup: mapboxGl.Popup;
+  popup: mapboxGl.Popup | null;
 };
 
 export type AddCountries = {
@@ -45,9 +45,8 @@ export type AddCountries = {
 
 export type UpdateSchoolPopup = {
   map: Map | null;
+  popup: mapboxGl.Popup | null;
   event: MapMouseEvent;
-  popup: mapboxGl.Popup;
-  popupContent: HTMLDivElement;
 };
 
 export type EmptyObject = Record<string, never>;
