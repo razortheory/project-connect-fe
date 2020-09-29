@@ -25,7 +25,7 @@ export const fetchCountryFx = createEffect(
     request(`api/locations/countries/${countryId}/`)
 );
 
-export const fetchCountryStatistics = createEffect(
+export const fetchCountryStatisticsFx = createEffect(
   async ({
     countryId,
     week,

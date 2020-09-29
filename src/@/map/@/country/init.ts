@@ -4,7 +4,7 @@ import {
   fetchCountriesFx,
   fetchCountriesGeometryFx,
   fetchCountryFx,
-  fetchCountryStatistics,
+  fetchCountryStatisticsFx,
   fetchSchoolFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
@@ -54,14 +54,14 @@ $countryId.on(changeCountryId, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
 $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
-$countryStatistics.on(fetchCountryStatistics.doneData, setPayload);
+$countryStatistics.on(fetchCountryStatisticsFx.doneData, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
 $countryStatistics.reset(
   changeCountryId,
-  fetchCountryStatistics,
+  fetchCountryStatisticsFx,
   nextWeek,
   previousWeek
 );
@@ -88,7 +88,7 @@ forward({
 sample({
   source: combine([$countryId, $week]),
   fn: ([countryId, week]) => ({ countryId, week }),
-  target: fetchCountryStatistics,
+  target: fetchCountryStatisticsFx,
 });
 
 // Zoom to country bounds

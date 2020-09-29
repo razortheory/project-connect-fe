@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { fetchCountryStatistics } from '~/api/project-connect';
+import { fetchCountryStatisticsFx } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
@@ -51,7 +51,7 @@ const CountryInfoContent = () => {
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
-  const pending = useStore(fetchCountryStatistics.pending) || !country;
+  const pending = useStore(fetchCountryStatisticsFx.pending) || !country;
 
   const {
     schoolsTotal,
