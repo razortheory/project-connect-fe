@@ -43,7 +43,7 @@ export type AddCountries = {
   isCountryRoute: boolean;
 };
 
-export type UpdateSchoolPopup = {
+export type AddSchoolPopup = {
   map: Map | null;
   popup: mapboxGl.Popup | null;
   event: MapMouseEvent;
