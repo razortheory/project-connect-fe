@@ -58,21 +58,6 @@
 
 .week-graph__filler {
   width: 0.7rem;
-
-  &--good {
-    height: 100%;
-    background-color: #8bd432;
-  }
-
-  &--middle {
-    height: 75%;
-    background-color: #ffc93d;
-  }
-
-  &--bad {
-    height: 30%;
-    background-color: #ff615b;
-  }
 }
 
 .week-graph__day {

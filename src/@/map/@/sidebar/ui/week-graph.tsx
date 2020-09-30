@@ -3,13 +3,33 @@ import React from 'react';
 import Chevron from '~/assets/images/chevron.svg';
 import IconHistory from '~/assets/images/icon-history.svg';
 
-import { WeekGraphData } from './get-week-graph-data';
+import { DayGraphData, WeekGraphData } from './get-week-graph-data';
 
 export interface WeekGraphProps {
   showButtons?: boolean;
   showHistory?: boolean;
   weekGraphData: WeekGraphData;
 }
+
+type WeekGraphDayProps = {
+  dayGraphData: DayGraphData;
+  title: string;
+};
+
+const WeekGraphDay = ({ dayGraphData, title }: WeekGraphDayProps) => (
+  <div className="week-graph__item">
+    <div className="week-graph__pillar">
+      <div
+        className="week-graph__filler"
+        style={{
+          height: dayGraphData?.speedPercent,
+          backgroundColor: dayGraphData?.fillColor,
+        }}
+      />
+    </div>
+    <span className="week-graph__day">{title}</span>
+  </div>
+);
 
 export const WeekGraph: React.FC<WeekGraphProps> = ({
   weekGraphData,
@@ -32,90 +52,13 @@ export const WeekGraph: React.FC<WeekGraphProps> = ({
           </button>
         )}
         <div className="week-graph__days-wrapper">
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.monday?.speedPercent,
-                  backgroundColor: weekGraphData?.monday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">M</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.tuesday?.speedPercent,
-                  backgroundColor: weekGraphData?.tuesday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">Tu</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.wednesday?.speedPercent,
-                  backgroundColor: weekGraphData?.wednesday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">W</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.thursday?.speedPercent,
-                  backgroundColor: weekGraphData?.thursday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">Th</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.friday?.speedPercent,
-                  backgroundColor: weekGraphData?.friday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">F</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.saturday?.speedPercent,
-                  backgroundColor: weekGraphData?.saturday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">Sa</span>
-          </div>
-          <div className="week-graph__item">
-            <div className="week-graph__pillar">
-              <div
-                className="week-graph__filler"
-                style={{
-                  height: weekGraphData?.sunday?.speedPercent,
-                  backgroundColor: weekGraphData?.sunday?.fillColor,
-                }}
-              />
-            </div>
-            <span className="week-graph__day">Su</span>
-          </div>
+          <WeekGraphDay dayGraphData={weekGraphData?.monday} title="M" />
+          <WeekGraphDay dayGraphData={weekGraphData?.tuesday} title="Tu" />
+          <WeekGraphDay dayGraphData={weekGraphData?.wednesday} title="W" />
+          <WeekGraphDay dayGraphData={weekGraphData?.thursday} title="Th" />
+          <WeekGraphDay dayGraphData={weekGraphData?.friday} title="F" />
+          <WeekGraphDay dayGraphData={weekGraphData?.saturday} title="Sa" />
+          <WeekGraphDay dayGraphData={weekGraphData?.sunday} title="Su" />
         </div>
         {showButtons && (
           <button

@@ -2,7 +2,7 @@ import { DailyStats, WeekDay } from '~/api/types';
 import { humanFormat } from '~/lib/human-format';
 
 // types
-type Days =
+export type Days =
   | 'monday'
   | 'tuesday'
   | 'wednesday'
@@ -13,7 +13,7 @@ type Days =
 
 export type WeekGraphData = { [day in Days]: DayGraphData };
 
-type DayGraphData = {
+export type DayGraphData = {
   date: string;
   speed: string;
   latency: number;
