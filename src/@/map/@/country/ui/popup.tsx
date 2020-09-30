@@ -40,7 +40,7 @@ export const Popup = () => {
     latitude,
     longitude,
     coverage,
-    region,
+    regionClassification,
   } = getSchoolInfo(school);
 
   return (
@@ -75,9 +75,9 @@ export const Popup = () => {
         <hr className="school-popup__divider" />
         <h3 className="school-popup__subtitle">Location info</h3>
         <ul className="school-popup__list definition-list">
-          {region && (
+          {regionClassification && (
             <li className="definition-list__item">
-              Region classification <strong>{region}</strong>
+              Region classification <strong>{regionClassification}</strong>
             </li>
           )}
 

@@ -37,6 +37,6 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     latitude,
     longitude,
     coverage: 'No data',
-    region: environment || 'No data',
+    regionClassification: environment || 'No data',
   };
 };
