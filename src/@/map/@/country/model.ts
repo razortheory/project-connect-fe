@@ -19,3 +19,4 @@ export const $country = createStore<Country | null>(null);
 export const $popup = createStore<HTMLDivElement | null>(null);
 export const $school = createStore<School | null>(null);
 export const $schoolPending = fetchSchoolFx.pending;
+export const $zoomedCountryId = createStore(0);

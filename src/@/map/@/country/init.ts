@@ -38,6 +38,7 @@ import {
   $school,
   $schoolId,
   $schools,
+  $zoomedCountryId,
   changeCountryId,
   changeSchoolId,
   clickSchool,
@@ -66,6 +67,7 @@ const $mapContext = combine({
   isCountryRoute: mapCountry.visible,
   countryId: $countryId,
   schoolId: $schoolId,
+  zoomedCountryId: $zoomedCountryId,
 });
 
 // Fetch country data and schools data
@@ -76,7 +78,10 @@ forward({
 
 // Zoom to country bounds
 sample({
-  source: $mapContext,
+  source: guard($mapContext, {
+    filter: ({ countryId, zoomedCountryId }) =>
+      Boolean(countryId && countryId !== zoomedCountryId),
+  }),
   fn: ({ map, countryId, countriesGeometry, country }) => ({
     map,
     countryId,
@@ -85,6 +90,9 @@ sample({
   }),
   target: zoomToCountryFx,
 });
+
+$zoomedCountryId.on(zoomToCountryFx.doneData, setPayload);
+$zoomedCountryId.reset(leaveCountryRouteFx.done);
 
 // Check received country for relevance
 const countryReceived = guard({
