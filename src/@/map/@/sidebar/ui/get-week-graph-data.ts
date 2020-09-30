@@ -32,10 +32,10 @@ const weekDayNames: Map<WeekDay, Days> = new Map([
   [7, 'sunday'],
 ]);
 
-const MEGABYTES_PER_SEC = 1000000;
-const LOW_SPEED_MAX = MEGABYTES_PER_SEC; // 1Mb/s
-const MED_SPEED_MAX = 2 * MEGABYTES_PER_SEC; // 2Mb/s
-const HIGH_SPEED_MAX = 3 * MEGABYTES_PER_SEC; // 3Mb/s
+const MEGABYTE_PER_SEC = 1000000;
+const LOW_SPEED_MAX = 2 * MEGABYTE_PER_SEC; // 2Mb/s
+const MED_SPEED_MAX = 5 * MEGABYTE_PER_SEC; // 5Mb/s
+const HIGH_SPEED_MAX = 10 * MEGABYTE_PER_SEC; // 10Mb/s
 
 // helpers
 const getDayName = (weekday: WeekDay): Days => {
