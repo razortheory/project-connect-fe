@@ -22,7 +22,7 @@ export const $schoolPending = fetchSchoolFx.pending;
 export const $popup = createStore<mapboxGL.Popup>(
   new mapboxGL.Popup({
     maxWidth: '100%',
-    className: 'country-popup',
+    className: 'school-popup',
     anchor: 'center',
   })
 );
