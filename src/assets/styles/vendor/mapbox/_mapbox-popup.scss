@@ -1,7 +1,36 @@
 /* Double class used to force style overrides */
 
+@include media-breakpoint-down(sm) {
+  .mapboxgl-popup {
+    width: 100%;
+    height: 100%;
+    /* stylelint-disable-next-line declaration-no-important */
+    transform: none !important;
+  }
+
+  .mapboxgl-popup-tip {
+    display: none;
+  }
+
+  .mapboxgl-popup-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .country-popup {
+    height: 100%;
+  }
+
+  .country-popup__content {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
 .mapboxgl-popup-content {
-  width: 320px;
+  @include media-breakpoint-up(md) {
+    width: 320px;
+  }
 }
 
 .mapboxgl-popup-close-button.mapboxgl-popup-close-button {

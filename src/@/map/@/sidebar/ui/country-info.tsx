@@ -107,15 +107,25 @@ const CountryInfoContent = () => {
               </h3>
               <p className="info-list__description">{connectivitySpeed}</p>
               <div className="average-speed">
-                <div className="average-speed__icons">
-                  <div className="average-speed__icon average-speed__icon--active">
+                <div className="average-speed__icons average-speed__icons--medium">
+                  <div className="average-speed__icon">
                     <IconSpeedLow />
+                    <div className="average-speed__tooltip tooltip tooltip--dark">
+                      Internet speed good for{' '}
+                      <strong>emails and texting</strong>
+                    </div>
                   </div>
                   <div className="average-speed__icon">
                     <IconSpeedMedium />
+                    <div className="average-speed__tooltip tooltip tooltip--dark">
+                      Internet speed good for <strong>video streaming</strong>
+                    </div>
                   </div>
                   <div className="average-speed__icon">
                     <IconSpeedHigh />
+                    <div className="average-speed__tooltip tooltip tooltip--dark">
+                      Internet speed bad for <strong>e-learning</strong>
+                    </div>
                   </div>
                 </div>
                 <p className="average-speed__description">
