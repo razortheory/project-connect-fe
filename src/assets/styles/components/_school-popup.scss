@@ -1,4 +1,4 @@
-.country-popup {
+.school-popup {
   color: $text-color-light;
 
   /* WIP mobile positioning */
@@ -32,11 +32,11 @@
   }
 }
 
-.country-popup__content {
+.school-popup__content {
   padding: 2rem 2rem 2.9rem;
 }
 
-.country-popup__title {
+.school-popup__title {
   margin-top: 0;
   margin-bottom: 0;
   padding-right: 1rem;
@@ -46,7 +46,7 @@
   line-height: 2.2rem;
 }
 
-.country-popup__description {
+.school-popup__description {
   margin-top: 0;
   margin-bottom: 2rem;
   color: #b6bbc6;
@@ -55,7 +55,7 @@
   line-height: 2rem;
 }
 
-.country-popup__subtitle {
+.school-popup__subtitle {
   margin-top: 0;
   margin-bottom: 1rem;
   font-weight: bold;
@@ -66,7 +66,7 @@
   text-transform: uppercase;
 }
 
-.country-popup__divider {
+.school-popup__divider {
   margin: 2rem 0;
   border: solid 0.1rem #373c46;
   border-top: none;

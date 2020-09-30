@@ -93,4 +93,14 @@ export type School = {
   gps_confidence: string | null;
   address: string;
   postal_code: string;
+  admin_1_name: string;
+  admin_2_name: string;
+  admin_3_name: string;
+  admin_4_name: string;
+  timezone: string | null;
+  altitude: number;
+  email: string | null;
+  education_level: string;
+  environment: string;
+  school_type: string;
 };

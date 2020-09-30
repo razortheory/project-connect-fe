@@ -8,9 +8,10 @@ import {
   fetchSchoolsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, setPayload } from '~/lib/effector-kit';
+import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
+import { initMapFx } from '@/map/effects';
 import {
   $map,
   $mapType,
@@ -21,13 +22,14 @@ import {
 
 import {
   addCountriesFx,
+  addSchoolPopupFx,
+  createSchoolPopupFx,
   leaveCountryRouteFx,
   updateCountryFx,
   updateSchoolsColorsFx,
   updateSchoolsFx,
   zoomToCountryFx,
 } from './effects';
-import { addSchoolPopupFx } from './effects/add-school-popup-fx';
 import {
   $countries,
   $countriesGeoJson,
@@ -158,7 +160,7 @@ sample({
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
-  fn: ({ map, paintData }) => ({ map, paintData }),
+  fn: ({ map, paintData, popup }) => ({ map, paintData, popup }),
   target: leaveCountryRouteFx,
 });
 
@@ -192,11 +194,27 @@ sample({
   target: addCountriesFx,
 });
 
-// Add popup
+// Create school popup
+sample({
+  source: initMapFx.done,
+  fn: getVoid,
+  target: createSchoolPopupFx,
+});
+
+sample({
+  source: createSchoolPopupFx.doneData,
+  target: $popup,
+});
+
+// Add school popup
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, event) => ({ map, popup, event }),
+  fn: ({ map, popup }, event) => ({
+    map,
+    popup,
+    event,
+  }),
   target: addSchoolPopupFx,
 });
 
