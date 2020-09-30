@@ -25,7 +25,12 @@ const WeekGraphDay = ({ dayGraphData, title }: WeekGraphDayProps) => (
           height: dayGraphData?.speedPercent,
           backgroundColor: dayGraphData?.fillColor,
         }}
-      />
+      >
+        <div className="week-graph__tooltip">
+          <span>{dayGraphData?.speed}</span>
+          <span>{dayGraphData?.date}</span>
+        </div>
+      </div>
     </div>
     <span className="week-graph__day">{title}</span>
   </div>

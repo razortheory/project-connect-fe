@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { DailyStats, WeekDay } from '~/api/types';
 import { humanFormat } from '~/lib/human-format';
 
@@ -42,6 +44,10 @@ const getDayName = (weekday: WeekDay): Days => {
   return weekDayNames.get(weekday) as Days;
 };
 
+const formatDate = (date: string): string => {
+  return format(new Date(date), 'dd MMM yyyy');
+};
+
 const getPercent = (speed: number): string => {
   if (speed > HIGH_SPEED_MAX) {
     return '100%';
@@ -69,7 +75,7 @@ export const getWeekGraphData = (
   return dailyStats.reduce<WeekGraphData>((result, dayStats) => {
     // eslint-disable-next-line no-param-reassign
     result[getDayName(dayStats.weekday)] = {
-      date: dayStats.date,
+      date: formatDate(dayStats.date),
       speed: humanFormat(dayStats.connectivity_speed, {
         unit: 'b/s',
         separator: ' ',
