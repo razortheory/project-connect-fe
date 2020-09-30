@@ -2,9 +2,7 @@ import { createEvent } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { setPayload } from '~/lib/effector-kit';
-
-import { $popupContent, $school, $schoolPending } from '@/map/@/country/model';
+import { $popup, $school, $schoolPending } from '@/map/@/country/model';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -12,7 +10,9 @@ import { ProgressLine } from './progress-bar';
 
 export const onChangeRef = createEvent<HTMLDivElement | null>();
 
-$popupContent.on(onChangeRef, setPayload); // Save popup element
+$popup.on(onChangeRef, (popup, element) => {
+  if (element) popup?.setDOMContent(element);
+});
 
 export const Popup = () => {
   const school = useStore($school);

@@ -3,8 +3,8 @@ import { Point } from 'geojson';
 
 import { UpdateSchoolPopup } from '@/map/@/country/types';
 
-export const updateSchoolPopupFx = createEffect(
-  ({ map, popup, event, popupContent }: UpdateSchoolPopup) => {
+export const addSchoolPopupFx = createEffect(
+  ({ map, popup, event }: UpdateSchoolPopup) => {
     if (!map || !popup || popup.isOpen()) return;
 
     const feature = map.queryRenderedFeatures(event.point)[0];
@@ -15,9 +15,6 @@ export const updateSchoolPopupFx = createEffect(
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    popup
-      .setLngLat([coordinates[0], coordinates[1]])
-      .setDOMContent(popupContent)
-      .addTo(map);
+    popup.setLngLat([coordinates[0], coordinates[1]]).addTo(map);
   }
 );

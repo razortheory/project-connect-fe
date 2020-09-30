@@ -10,7 +10,7 @@ export const leaveCountryRouteFx = createEffect(
   async ({ map, paintData, popup }: LeaveCountryRoute) => {
     if (!map) return;
 
-    popup.remove();
+    popup?.remove();
 
     map.flyTo({
       center: defaultCenter,
