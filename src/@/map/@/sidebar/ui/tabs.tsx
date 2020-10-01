@@ -1,8 +1,11 @@
+import { useStore } from 'effector-react';
 import React from 'react';
 
 import { mapCountries, mapCountry } from '~/core/routes';
 import { tabControls, tabInfo, tabMap } from '~/core/tab-routes';
 import { Link, useRoute } from '~/lib/router';
+
+import { $isOpenPopup } from '@/map/@/country/model';
 
 export const Tabs = () => (
   <ul className="sidebar__tabs tabs">
@@ -14,7 +17,7 @@ export const Tabs = () => (
             useRoute(tabMap) ? 'tabs__button--active' : ''
           }`}
         >
-          Map
+          {useStore($isOpenPopup) ? 'School' : 'Map'}
         </button>
       </Link>
     </li>
