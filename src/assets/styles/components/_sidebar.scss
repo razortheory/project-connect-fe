@@ -51,6 +51,10 @@
   border-radius: 0.5rem;
 }
 
+.sidebar--show-map .sidebar__container {
+  border-radius: unset;
+}
+
 .sidebar__expander {
   display: none;
   color: $color-primary;
