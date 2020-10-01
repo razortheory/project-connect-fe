@@ -12,12 +12,12 @@ export interface WeekGraphProps {
 }
 
 type WeekGraphItemProps = {
-  data: WeekGraphItemData;
+  data?: WeekGraphItemData;
   title: string;
 };
 
 const WeekGraphItem = ({
-  data: { speed, speedPercent, fillColor, date },
+  data,
   title,
 }: WeekGraphItemProps) => (
   <div className="week-graph__item">
@@ -25,13 +25,13 @@ const WeekGraphItem = ({
       <div
         className="week-graph__filler"
         style={{
-          height: speedPercent.toString(),
-          backgroundColor: fillColor.toString(),
+          height: data?.speedPercent.toString(),
+          backgroundColor: data?.fillColor.toString(),
         }}
       >
         <div className="week-graph__tooltip">
-          <span>{speed}</span>
-          <span>{date}</span>
+          <span>{data?.speed}</span>
+          <span>{data?.date}</span>
         </div>
       </div>
     </div>
