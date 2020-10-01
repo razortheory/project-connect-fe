@@ -5,7 +5,7 @@ export const createSchoolPopupFx = createEffect(
   () =>
     new mapboxGL.Popup({
       maxWidth: '100%',
-      className: 'country-popup', // TODO: Rename to school-popup
+      className: 'school-popup',
       anchor: 'center',
     })
 );
