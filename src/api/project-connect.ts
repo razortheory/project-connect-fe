@@ -18,7 +18,7 @@ import {
 } from './types';
 
 export const request = createRequest({
-  baseUrl: 'https://api.projectconnect.razortheory.com/',
+  baseUrl: 'http://proco-lb-test.th13f.live/',
 });
 
 export const fetchCountryFx = createEffect(
