@@ -16,10 +16,7 @@ type WeekGraphItemProps = {
   title: string;
 };
 
-const WeekGraphItem = ({
-  data,
-  title,
-}: WeekGraphItemProps) => (
+const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => (
   <div className="week-graph__item">
     <div className="week-graph__pillar">
       <div

@@ -30,3 +30,4 @@ export const $popup = createStore<mapboxGL.Popup | null>(null);
 export const $countryWeeklyStats = createStore<CountryWeeklyStats | null>(null);
 export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $schoolDailyStats = createStore<DailyStats[] | null>(null);
+export const $zoomedCountryId = createStore(0);
