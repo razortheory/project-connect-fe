@@ -1,7 +1,6 @@
 import { createEffect } from 'effector';
 import { Point } from 'geojson';
 
-import { changeIsOpenPopup } from '@/map/@/country/model';
 import { AddSchoolPopup } from '@/map/@/country/types';
 
 export const addSchoolPopupFx = createEffect(
@@ -19,9 +18,6 @@ export const addSchoolPopupFx = createEffect(
     popup.remove();
 
     // TODO: Fix bug when popup closes and new one doesn't open
-    popup.on('open', () => changeIsOpenPopup(true));
-    popup.on('close', () => changeIsOpenPopup(false));
-
     setTimeout(() => {
       popup.setLngLat([coordinates[0], coordinates[1]]).addTo(map);
     });
