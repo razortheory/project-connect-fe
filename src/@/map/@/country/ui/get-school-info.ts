@@ -16,6 +16,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
       coordinates: [latitude, longitude],
     },
     statistics: { connectivity_type, connectivity_speed, connectivity_status },
+    environment,
   } = school;
 
   const connectionSpeed = formatConnectionSpeed(connectivity_speed);
@@ -32,6 +33,6 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     latitude,
     longitude,
     coverage: 'No data',
-    region: 'No data',
+    regionClassification: environment || 'No data',
   };
 };

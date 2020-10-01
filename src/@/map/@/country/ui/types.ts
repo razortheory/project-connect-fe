@@ -12,5 +12,5 @@ export type SchoolInfo = {
   latitude: number;
   longitude: number;
   coverage: string;
-  region: string;
+  regionClassification: string;
 };

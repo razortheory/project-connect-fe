@@ -1,6 +1,6 @@
 import { createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
-import { MapLayerMouseEvent } from 'mapbox-gl';
+import mapboxGL, { MapLayerMouseEvent } from 'mapbox-gl';
 
 import { fetchSchoolFx } from '~/api/project-connect';
 import {
@@ -24,9 +24,9 @@ export const $countries = createStore<CountryBasic[] | null>(null);
 export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
 export const $schools = createStore<FeatureCollection | null>(null);
 export const $country = createStore<Country | null>(null);
-export const $popup = createStore<HTMLDivElement | null>(null);
 export const $school = createStore<School | null>(null);
 export const $schoolPending = fetchSchoolFx.pending;
+export const $popup = createStore<mapboxGL.Popup | null>(null);
 export const $countryWeeklyStats = createStore<CountryWeeklyStats | null>(null);
 export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $schoolDailyStats = createStore<DailyStats[] | null>(null);

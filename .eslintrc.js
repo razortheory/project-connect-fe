@@ -244,7 +244,10 @@ const config = {
       'WithStatement',
       'SequenceExpression',
     ],
-    'no-restricted-imports': ['error', { patterns: ['../*', '~/@/*'] }],
+    'no-restricted-imports': [
+      'error',
+      { patterns: ['../*', '~/@/*', '*/effects/*'] },
+    ],
     'unicorn/prevent-abbreviations': [
       'error',
       {
