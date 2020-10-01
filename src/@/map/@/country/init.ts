@@ -11,7 +11,7 @@ import {
   fetchSchoolsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
+import { getInverted, getVoid, onFalse, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
 import { $week, nextWeek, previousWeek } from '@/map/@/sidebar/model';
@@ -37,6 +37,7 @@ import {
   $countryDailyStats,
   $countryId,
   $countryWeeklyStats,
+  $isOpenPopup,
   $popup,
   $school,
   $schoolDailyStats,
@@ -44,9 +45,9 @@ import {
   $schools,
   $zoomedCountryId,
   changeCountryId,
+  changeIsOpenPopup,
   changeSchoolId,
   clickSchool,
-  onClosePopup,
 } from './model';
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
@@ -59,10 +60,13 @@ $schoolId.on(changeSchoolId, setPayload);
 $countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
 $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
+$isOpenPopup.on(changeIsOpenPopup, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+
+const onClosePopup = guard($isOpenPopup, onFalse);
 $schoolId.reset(onClosePopup);
 
 $countryWeeklyStats.reset(
