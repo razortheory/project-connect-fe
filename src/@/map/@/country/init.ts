@@ -46,6 +46,7 @@ import {
   changeCountryId,
   changeSchoolId,
   clickSchool,
+  closePopup,
 } from './model';
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
@@ -62,6 +63,7 @@ $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+$schoolId.reset(closePopup);
 
 $countryWeeklyStats.reset(
   changeCountryId,
@@ -289,7 +291,7 @@ sample({
 // Fetch school data
 sample({
   source: $mapContext,
-  clock: $schoolId,
+  clock: guard($schoolId, { filter: Boolean }),
   fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
   target: fetchSchoolFx,
 });
