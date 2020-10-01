@@ -46,7 +46,7 @@ import {
   changeCountryId,
   changeSchoolId,
   clickSchool,
-  closePopup,
+  onClosePopup,
 } from './model';
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
@@ -63,7 +63,7 @@ $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
-$schoolId.reset(closePopup);
+$schoolId.reset(onClosePopup);
 
 $countryWeeklyStats.reset(
   changeCountryId,

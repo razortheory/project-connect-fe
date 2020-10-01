@@ -15,7 +15,7 @@ import {
 export const changeCountryId = createEvent<number>();
 export const changeSchoolId = createEvent<number>();
 export const clickSchool = createEvent<MapLayerMouseEvent>();
-export const closePopup = createEvent();
+export const onClosePopup = createEvent();
 
 export const $countryCode = createStore<string | null>('');
 export const $countryId = createStore(0); // TODO: Use nullable value <number | null> for $countryId and $schoolId
