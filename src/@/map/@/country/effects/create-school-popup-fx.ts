@@ -1,11 +1,14 @@
 import { createEffect } from 'effector';
 import mapboxGL from 'mapbox-gl';
 
-export const createSchoolPopupFx = createEffect(
-  () =>
-    new mapboxGL.Popup({
-      maxWidth: '100%',
-      className: 'school-popup',
-      anchor: 'center',
-    })
+import { changeIsOpenPopup } from '@/map/@/country/model';
+
+export const createSchoolPopupFx = createEffect(() =>
+  new mapboxGL.Popup({
+    maxWidth: '100%',
+    className: 'school-popup',
+    anchor: 'center',
+  })
+    .on('open', () => changeIsOpenPopup(true))
+    .on('close', () => changeIsOpenPopup(false))
 );
