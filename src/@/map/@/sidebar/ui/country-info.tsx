@@ -1,3 +1,4 @@
+import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -18,6 +19,7 @@ import {
   $country,
   $countryDailyStats,
   $countryWeeklyStats,
+  $isOpenPopup,
 } from '@/map/@/country/model';
 import {
   $isThisWeek,
@@ -198,6 +200,12 @@ const CountryInfoContent = () => {
   );
 };
 
+const $showBreadcrumbs = combine(
+  $isOpenPopup,
+  tabMap.visible,
+  (isOpenPopup, tabMapVisible) => !isOpenPopup || !tabMapVisible
+);
+
 export const CountryInfo = () => {
   const mapType = useStore($mapType);
   const country = useStore($country);
@@ -206,19 +214,21 @@ export const CountryInfo = () => {
   return (
     <>
       <Search />
-      <div className="breadcrumbs">
-        <Link
-          to={mapCountries}
-          className="breadcrumbs__link"
-          onClick={() => {
-            tabMap.navigate();
-          }}
-        >
-          {mapType} map{' '}
-        </Link>
-        {' > '}
-        <span>{countryName}</span>
-      </div>
+      {useStore($showBreadcrumbs) && (
+        <div className="breadcrumbs">
+          <Link
+            to={mapCountries}
+            className="breadcrumbs__link"
+            onClick={() => {
+              tabMap.navigate();
+            }}
+          >
+            {mapType} map{' '}
+          </Link>
+          {' > '}
+          <span>{countryName}</span>
+        </div>
+      )}
       <label htmlFor="map-type-select" className="select-wrapper">
         <span className="visually-hidden">Sort map type</span>
         <select
