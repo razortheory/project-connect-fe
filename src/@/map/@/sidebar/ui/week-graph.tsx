@@ -16,6 +16,7 @@ type WeekGraphItemProps = {
   title: string;
 };
 
+// TODO: Fix argument types (WeekGraphItemProps mismatch)
 const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => (
   <div className="week-graph__item">
     <div className="week-graph__pillar">

@@ -1,3 +1,5 @@
+// TODO: Refactor controls (improve form management)
+
 import { createEffect, createEvent, createStore } from 'effector';
 import { KeyboardEvent, MouseEvent } from 'react';
 
