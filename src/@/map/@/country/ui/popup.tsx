@@ -2,7 +2,13 @@ import { createEvent } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { $popup, $school, $schoolPending } from '@/map/@/country/model';
+import {
+  $popup,
+  $school,
+  $schoolDailyStats,
+  $schoolPending,
+} from '@/map/@/country/model';
+import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -14,9 +20,12 @@ $popup.on(onChangeRef, (popup, element) => {
   if (element) popup?.setDOMContent(element);
 });
 
+const $weekGraphData = $schoolDailyStats.map(getWeekGraphData);
+
 export const Popup = () => {
   const school = useStore($school);
   const isLoading = useStore($schoolPending);
+  const weekGraphData = useStore($weekGraphData);
 
   if (!school || isLoading) {
     return (
@@ -35,7 +44,7 @@ export const Popup = () => {
     address,
     postalCode,
     connectivityStatus,
-    connectivitySpeed,
+    connectionSpeed,
     connectivityType,
     latitude,
     longitude,
@@ -54,9 +63,9 @@ export const Popup = () => {
         <p className="school-popup__description">{address}</p>
         <h3 className="school-popup__subtitle">Connectivity info</h3>
         <ul className="school-popup__list definition-list">
-          {connectivitySpeed && (
+          {connectionSpeed && (
             <li className="definition-list__item">
-              Average connection speed <strong>{connectivitySpeed}</strong>
+              Average connection speed <strong>{connectionSpeed}</strong>
             </li>
           )}
 
@@ -99,8 +108,12 @@ export const Popup = () => {
             </li>
           )}
         </ul>
-        <hr className="school-popup__divider" />
-        Place for Daily graph
+        {weekGraphData && (
+          <>
+            <hr className="school-popup__divider" />
+            <WeekGraph weekGraphData={weekGraphData} />
+          </>
+        )}
       </div>
     </div>
   );

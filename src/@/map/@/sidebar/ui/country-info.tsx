@@ -1,6 +1,7 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import { fetchCountryWeeklyStatsFx } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
@@ -13,7 +14,11 @@ import { getVoid } from '~/lib/effector-kit';
 import { selectValue } from '~/lib/event-reducers/select-value';
 import { Link } from '~/lib/router';
 
-import { $country } from '@/map/@/country/model';
+import {
+  $country,
+  $countryDailyStats,
+  $countryWeeklyStats,
+} from '@/map/@/country/model';
 import {
   $isThisWeek,
   $noSearchCountryFound,
@@ -29,6 +34,7 @@ import { Scroll } from '@/scroll';
 import { Controls } from './controls';
 import { NotFound } from './country-list';
 import { getCountryInfo } from './get-country-info';
+import { getWeekGraphData } from './get-week-graph-data';
 import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { SearchResults } from './search-results';
@@ -39,21 +45,29 @@ import { WeekGraph } from './week-graph';
 const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
 
-const $countryInfo = $country.map(getCountryInfo);
+const $countryInfo = $countryWeeklyStats.map(getCountryInfo);
 const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
+const $weekGraphData = $countryDailyStats.map(getWeekGraphData);
+
 const CountryInfoContent = () => {
+  const country = useStore($country);
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const dataSource = country?.data_source || 'N/A';
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
+  const pending = useStore(fetchCountryWeeklyStatsFx.pending) || !country;
+
+  const weekGraphData = useStore($weekGraphData);
 
   const {
-    dataSource,
     schoolsTotal,
     schoolsConnected,
-    connectivitySpeed,
+    connectionSpeed,
     schoolsWithNoInternet,
+    hasStatistics,
   } = useStore($countryInfo) ?? {};
 
   return (
@@ -77,79 +91,96 @@ const CountryInfoContent = () => {
             <button
               type="button"
               className="period-picker__button"
+              disabled={isThisWeek}
               onClick={onNextWeek}
             >
               <Chevron className="chevron" />
             </button>
           </div>
-          <ul className="info-list info-list--country-info">
-            <li className="info-list__item">
-              <h3 className="info-list__title info-list__title--full-width">
-                Data source
-              </h3>
-              <p className="info-list__paragraph">{dataSource}</p>
-            </li>
-            <li className="info-list__item">
-              <h3 className="info-list__title info-list__title--full-width">
-                Total schools
-              </h3>
-              <p className="info-list__description">{schoolsTotal}</p>
-            </li>
-            <li className="info-list__item">
-              <h3 className="info-list__title info-list__title--full-width">
-                Connected schools
-              </h3>
-              <p className="info-list__description">{schoolsConnected}</p>
-            </li>
-            <li className="info-list__item">
-              <h3 className="info-list__title info-list__title--full-width">
-                Avg. internet speed (download)
-              </h3>
-              <p className="info-list__description">{connectivitySpeed}</p>
-              <div className="average-speed">
-                <div className="average-speed__icons">
-                  <div className="average-speed__icon average-speed__icon--active">
-                    <IconSpeedLow />
+
+          {/* TODO add loader */}
+          {pending && <p>Loading</p>}
+
+          {!pending && !hasStatistics && <p>No data</p>}
+
+          {!pending && hasStatistics && (
+            <>
+              <ul className="info-list info-list--country-info">
+                <li className="info-list__item">
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Data source
+                  </h3>
+                  <p className="info-list__paragraph">{dataSource}</p>
+                </li>
+                <li className="info-list__item">
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Total schools
+                  </h3>
+                  <p className="info-list__description">{schoolsTotal}</p>
+                </li>
+                <li className="info-list__item">
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Connected schools
+                  </h3>
+                  <p className="info-list__description">{schoolsConnected}</p>
+                </li>
+                <li className="info-list__item">
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Avg. internet speed (download)
+                  </h3>
+                  <p className="info-list__description">{connectionSpeed}</p>
+                  <div className="average-speed">
+                    <div className="average-speed__icons">
+                      <div className="average-speed__icon average-speed__icon--active">
+                        <IconSpeedLow />
+                      </div>
+                      <div className="average-speed__icon">
+                        <IconSpeedMedium />
+                      </div>
+                      <div className="average-speed__icon">
+                        <IconSpeedHigh />
+                      </div>
+                    </div>
+                    <p className="average-speed__description">
+                      The average internet speed is good enough for accessing
+                      email and basic internet browsing.
+                    </p>
                   </div>
-                  <div className="average-speed__icon">
-                    <IconSpeedMedium />
-                  </div>
-                  <div className="average-speed__icon">
-                    <IconSpeedHigh />
-                  </div>
-                </div>
-                <p className="average-speed__description">
-                  The average internet speed is good enough for accessing email
-                  and basic internet browsing.
-                </p>
-              </div>
-            </li>
-            <li className="info-list__item">
-              <h3 className="info-list__title info-list__title--full-width">
-                Schools with no internet
+                </li>
+                <li className="info-list__item">
+                  <h3 className="info-list__title info-list__title--full-width">
+                    Schools with no internet
+                  </h3>
+                  <p className="info-list__description">
+                    {schoolsWithNoInternet}
+                  </p>
+                </li>
+              </ul>
+              {weekGraphData && (
+                <>
+                  <hr className="sidebar__divider" />
+                  <WeekGraph weekGraphData={weekGraphData} showHistory />
+                </>
+              )}
+              <hr className="sidebar__divider" />
+              <h3 className="sidebar__secondary-title">
+                Connectivity distribution
               </h3>
-              <p className="info-list__description">{schoolsWithNoInternet}</p>
-            </li>
-          </ul>
-          <hr className="sidebar__divider" />
-          <WeekGraph showHistory showButtons />
-          <hr className="sidebar__divider" />
-          <h3 className="sidebar__secondary-title">
-            Connectivity distribution
-          </h3>
-          <PieChart />
-          <hr className="sidebar__divider" />
-          <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
-            Data set
-          </h3>
-          <p className="sidebar__paragraph">
-            You can download the country map data by clicking on the button
-            below. File format for the data set would be CSV and PDF.
-          </p>
-          <button type="button" className="sidebar__link link">
-            <IconDownload className="link__icon" />
-            Download data set
-          </button>
+              <PieChart />
+              <hr className="sidebar__divider" />
+              <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
+                Data set
+              </h3>
+              <p className="sidebar__paragraph">
+                You can download the country map data by clicking on the button
+                below. File format for the data set would be CSV and PDF.
+              </p>
+              <button type="button" className="sidebar__link link">
+                <IconDownload className="link__icon" />
+                Download data set
+              </button>
+            </>
+          )}
         </>
       )}
     </>
@@ -158,8 +189,8 @@ const CountryInfoContent = () => {
 
 export const CountryInfo = () => {
   const mapType = useStore($mapType);
-
-  const { name } = useStore($countryInfo) ?? {};
+  const country = useStore($country);
+  const countryName = country?.name ?? '';
 
   return (
     <>
@@ -175,7 +206,7 @@ export const CountryInfo = () => {
           {mapType} map{' '}
         </Link>
         {' > '}
-        <span>{name}</span>
+        <span>{countryName}</span>
       </div>
       <label htmlFor="map-type-select" className="select-wrapper">
         <span className="visually-hidden">Sort map type</span>

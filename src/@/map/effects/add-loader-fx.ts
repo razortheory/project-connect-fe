@@ -7,19 +7,18 @@ import { Map } from '@/map/types';
 export const addLoaderToMapFx = createEffect((map: Map | null) => {
   if (!map) return;
 
-  // create loader
-  // a loader with animation that is not wrapped in a container is displayed incorrectly
+  // Create loader (should be wrapped in a container)
   const loader = document.createElement('div');
   loader.className = 'map-loader';
   const loaderWrapper = document.createElement('div');
   loaderWrapper.append(loader);
 
-  // add loader
+  // Add loader
   const loaderMarker = new mapboxGL.Marker(loaderWrapper)
     .setLngLat(map.getCenter())
     .addTo(map);
 
-  // always display the loader in the center
+  // Always display the loader in the center
   map.on('zoom', () => {
     if (loaderMarker) {
       loaderMarker.setLngLat(map.getCenter());

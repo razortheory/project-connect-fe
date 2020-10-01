@@ -52,7 +52,7 @@ export const createRules = (options: Options = {}): RuleSetRule[] => {
       {
         loader: 'sass-loader',
         options: {
-          sourceMap: true, // required for resolve-url-loader
+          sourceMap: true, // Required for resolve-url-loader
           sassOptions: {
             sourceMapContents: false,
           },

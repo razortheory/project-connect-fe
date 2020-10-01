@@ -15,7 +15,7 @@ const presetEnv = {
   corejs: 3,
   modules: isTest ? 'commonjs' : false,
   shippedProposals: true,
-  bugfixes: true, // remove later in babel 8
+  bugfixes: true, // Remove later in babel 8
 };
 
 const presetTypescript = {

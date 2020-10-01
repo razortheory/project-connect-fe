@@ -38,20 +38,22 @@ export type Country = {
   map_preview: string;
   description: string;
   data_source: string;
-  statistics: {
-    schools_total: number;
-    schools_connected: number;
-    schools_connectivity_unknown: number;
-    schools_connectivity_no: number;
-    schools_connectivity_moderate: number;
-    schools_connectivity_good: number;
-    connectivity_speed: number;
-    integration_status: number;
-    avg_distance_school: number;
-    created: string;
-    modified: string;
-  };
+  statistics: CountryWeeklyStats;
   geometry: Geometry;
+};
+
+export type CountryWeeklyStats = {
+  schools_total: number;
+  schools_connected: number;
+  schools_connectivity_unknown: number;
+  schools_connectivity_no: number;
+  schools_connectivity_moderate: number;
+  schools_connectivity_good: number;
+  connectivity_speed: number;
+  integration_status: number;
+  avg_distance_school: number;
+  created: string;
+  modified: string;
 };
 
 export type CountryGeometry = {
@@ -104,3 +106,14 @@ export type School = {
   environment: string;
   school_type: string;
 };
+
+export type DailyStats = {
+  connectivity_latency: number;
+  connectivity_speed: number;
+  date: string;
+  week: number;
+  weekday: WeekDay;
+  year: number;
+};
+
+export type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
