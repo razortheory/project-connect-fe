@@ -41,7 +41,12 @@ import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { SearchResults } from './search-results';
 import { Tabs } from './tabs';
-import { $isContentTab, $isControlsTab, $isMapTab } from './view-model';
+import {
+  $isContentTab,
+  $isControlsTab,
+  $isMapTab,
+  $isMobile,
+} from './view-model';
 import { WeekGraph } from './week-graph';
 
 const onNextWeek = nextWeek.prepend(getVoid);
@@ -201,9 +206,11 @@ const CountryInfoContent = () => {
 };
 
 const $showBreadcrumbs = combine(
+  $isMobile,
   $isOpenPopup,
   tabMap.visible,
-  (isOpenPopup, tabMapVisible) => !isOpenPopup || !tabMapVisible
+  (isMobile, isOpenPopup, tabMapVisible) =>
+    !isMobile || !isOpenPopup || !tabMapVisible
 );
 
 export const CountryInfo = () => {
