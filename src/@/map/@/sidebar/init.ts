@@ -1,3 +1,5 @@
+// TODO: Refactor search/sort logic
+
 import { add, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';

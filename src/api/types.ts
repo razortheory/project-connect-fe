@@ -38,11 +38,11 @@ export type Country = {
   map_preview: string;
   description: string;
   data_source: string;
-  statistics: CountryStatistics;
+  statistics: CountryWeeklyStats;
   geometry: Geometry;
 };
 
-export type CountryStatistics = {
+export type CountryWeeklyStats = {
   schools_total: number;
   schools_connected: number;
   schools_connectivity_unknown: number;

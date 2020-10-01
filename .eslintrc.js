@@ -279,6 +279,14 @@ const config = {
       },
     ],
     '@typescript-eslint/comma-dangle': 'off',
+    'capitalized-comments': [
+      'error',
+      'always',
+      {
+        ignorePattern: 'prettier|noinspection',
+        ignoreInlineComments: true,
+      },
+    ],
   },
 };
 

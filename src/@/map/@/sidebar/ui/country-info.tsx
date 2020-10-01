@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { fetchCountryStatisticsFx } from '~/api/project-connect';
+import { fetchCountryWeeklyStatsFx } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
@@ -17,7 +17,7 @@ import { Link } from '~/lib/router';
 import {
   $country,
   $countryDailyStats,
-  $countryStatistics,
+  $countryWeeklyStats,
 } from '@/map/@/country/model';
 import {
   $isThisWeek,
@@ -45,7 +45,7 @@ import { WeekGraph } from './week-graph';
 const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
 
-const $countryInfo = $countryStatistics.map(getCountryInfo);
+const $countryInfo = $countryWeeklyStats.map(getCountryInfo);
 const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
 const $weekGraphData = $countryDailyStats.map(getWeekGraphData);
@@ -58,14 +58,14 @@ const CountryInfoContent = () => {
   const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
-  const pending = useStore(fetchCountryStatisticsFx.pending) || !country;
+  const pending = useStore(fetchCountryWeeklyStatsFx.pending) || !country;
 
   const weekGraphData = useStore($weekGraphData);
 
   const {
     schoolsTotal,
     schoolsConnected,
-    connectivitySpeed,
+    connectionSpeed,
     schoolsWithNoInternet,
     hasStatistics,
   } = useStore($countryInfo) ?? {};
@@ -128,7 +128,7 @@ const CountryInfoContent = () => {
                   <h3 className="info-list__title info-list__title--full-width">
                     Avg. internet speed (download)
                   </h3>
-                  <p className="info-list__description">{connectivitySpeed}</p>
+                  <p className="info-list__description">{connectionSpeed}</p>
                   <div className="average-speed">
                     <div className="average-speed__icons">
                       <div className="average-speed__icon average-speed__icon--active">

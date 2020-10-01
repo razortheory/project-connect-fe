@@ -10,8 +10,7 @@ import {
   $schoolDailyStats,
   $schoolPending,
 } from '@/map/@/country/model';
-import { getWeekGraphData } from '@/map/@/sidebar/ui/get-week-graph-data';
-import { WeekGraph } from '@/map/@/sidebar/ui/week-graph';
+import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -45,7 +44,7 @@ export const Popup = () => {
     address,
     postalCode,
     connectivityStatus,
-    connectivitySpeed,
+    connectionSpeed,
     connectivityType,
     latitude,
     longitude,
@@ -64,9 +63,9 @@ export const Popup = () => {
         <p className="country-popup__description">{address}</p>
         <h3 className="country-popup__subtitle">Connectivity info</h3>
         <ul className="country-popup__list definition-list">
-          {connectivitySpeed && (
+          {connectionSpeed && (
             <li className="definition-list__item">
-              Average connection speed <strong>{connectivitySpeed}</strong>
+              Average connection speed <strong>{connectionSpeed}</strong>
             </li>
           )}
 

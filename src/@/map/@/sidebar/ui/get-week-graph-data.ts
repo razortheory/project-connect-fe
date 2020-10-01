@@ -1,9 +1,11 @@
+// TODO: Refactor getWeekGraphData
+
 import { format } from 'date-fns';
 
 import { DailyStats, WeekDay } from '~/api/types';
-import { humanFormat } from '~/lib/human-format';
+import { formatConnectionSpeed } from '~/core/formatters';
 
-// types
+// Types
 export type Days =
   | 'monday'
   | 'tuesday'
@@ -13,9 +15,9 @@ export type Days =
   | 'saturday'
   | 'sunday';
 
-export type WeekGraphData = { [day in Days]: DayGraphData };
+export type WeekGraphData = { [day in Days]: WeekGraphItemData };
 
-export type DayGraphData = {
+export type WeekGraphItemData = {
   date: string;
   speed: string;
   latency: number;
@@ -23,7 +25,7 @@ export type DayGraphData = {
   fillColor: string;
 };
 
-// constants
+// Constants
 const weekDayNames: Map<WeekDay, Days> = new Map([
   [1, 'monday'],
   [2, 'tuesday'],
@@ -34,12 +36,12 @@ const weekDayNames: Map<WeekDay, Days> = new Map([
   [7, 'sunday'],
 ]);
 
-const MEGABYTE_PER_SEC = 1000000;
-const LOW_SPEED_MAX = 2 * MEGABYTE_PER_SEC; // 2Mb/s
-const MED_SPEED_MAX = 5 * MEGABYTE_PER_SEC; // 5Mb/s
-const HIGH_SPEED_MAX = 10 * MEGABYTE_PER_SEC; // 10Mb/s
+const megabytesPerSecond = 10 ** 6;
+const LOW_SPEED_MAX = 2 * megabytesPerSecond; // 2Mb/s
+const MED_SPEED_MAX = 5 * megabytesPerSecond; // 5Mb/s
+const HIGH_SPEED_MAX = 10 * megabytesPerSecond; // 10Mb/s
 
-// helpers
+// Helpers
 const getDayName = (weekday: WeekDay): Days => {
   return weekDayNames.get(weekday) as Days;
 };
@@ -76,10 +78,7 @@ export const getWeekGraphData = (
     // eslint-disable-next-line no-param-reassign
     result[getDayName(dayStats.weekday)] = {
       date: formatDate(dayStats.date),
-      speed: humanFormat(dayStats.connectivity_speed, {
-        unit: 'b/s',
-        separator: ' ',
-      }),
+      speed: formatConnectionSpeed(dayStats.connectivity_speed),
       latency: dayStats.connectivity_latency,
       speedPercent: getPercent(dayStats.connectivity_speed),
       fillColor: getFillColor(dayStats.connectivity_speed),

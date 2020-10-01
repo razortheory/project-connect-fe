@@ -41,7 +41,7 @@ export const commonConfig: webpack.Configuration = {
   },
   optimization: {
     noEmitOnErrors: true,
-    namedModules: true, // better gzipped
+    namedModules: true, // Better gzipped
     namedChunks: true,
   },
   stats: {

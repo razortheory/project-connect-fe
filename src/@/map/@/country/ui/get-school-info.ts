@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { School } from '~/api/types';
-import { humanFormat } from '~/lib/human-format';
+import { formatConnectionSpeed } from '~/core/formatters';
 
 import { SchoolInfo } from './types';
 
@@ -18,11 +18,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     statistics: { connectivity_type, connectivity_speed, connectivity_status },
   } = school;
 
-  const connectivitySpeed = humanFormat(connectivity_speed, {
-    // TODO: Format unit on front-end
-    unit: 'b/s',
-    separator: ' ',
-  });
+  const connectionSpeed = formatConnectionSpeed(connectivity_speed);
 
   return {
     id,
@@ -31,7 +27,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     postalCode: postal_code,
     gpsConfidence: gps_confidence,
     connectivityStatus: connectivity_status,
-    connectivitySpeed,
+    connectionSpeed,
     connectivityType: connectivity_type,
     latitude,
     longitude,
