@@ -39,6 +39,10 @@
     color: $color-primary-active;
     background-color: #494f5d;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .period-picker__period {

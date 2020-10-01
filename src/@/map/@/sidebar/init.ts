@@ -1,3 +1,5 @@
+// TODO: Refactor search/sort logic
+
 import { add, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
@@ -8,7 +10,7 @@ import { getWeekInterval, isThisWeekInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countries } from '@/map/@/country';
-import { $countryId } from '@/map/@/country/model';
+import { $countryId, changeCountryId } from '@/map/@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -145,6 +147,7 @@ $week.on(nextWeek, (week) => getWeekInterval(add(week.start, { weeks: 1 })));
 $week.on(previousWeek, (week) =>
   getWeekInterval(sub(week.start, { weeks: 1 }))
 );
+$week.reset(changeCountryId);
 
 // Controls
 

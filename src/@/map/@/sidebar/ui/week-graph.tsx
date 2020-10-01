@@ -3,12 +3,49 @@ import React from 'react';
 import Chevron from '~/assets/images/chevron.svg';
 import IconHistory from '~/assets/images/icon-history.svg';
 
+import { WeekGraphData, WeekGraphItemData } from './get-week-graph-data';
+
 export interface WeekGraphProps {
   showButtons?: boolean;
   showHistory?: boolean;
+  weekGraphData: WeekGraphData;
 }
 
-export const WeekGraph: React.FC<WeekGraphProps> = ({
+type WeekGraphItemProps = {
+  data?: WeekGraphItemData;
+  title: string;
+};
+
+const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => (
+  <div className="week-graph__item">
+    <div className="week-graph__pillar">
+      <div
+        className="week-graph__filler"
+        style={{
+          height: data?.speedPercent.toString(),
+          backgroundColor: data?.fillColor.toString(),
+        }}
+      >
+        <div className="week-graph__tooltip">
+          <span>{data?.speed}</span>
+          <span>{data?.date}</span>
+        </div>
+      </div>
+    </div>
+    <span className="week-graph__day">{title}</span>
+  </div>
+);
+
+export const WeekGraph = ({
+  weekGraphData: {
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  },
   showButtons,
   showHistory,
 }: WeekGraphProps) => (
@@ -27,48 +64,13 @@ export const WeekGraph: React.FC<WeekGraphProps> = ({
         </button>
       )}
       <div className="week-graph__days-wrapper">
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--good" />
-          </div>
-          <span className="week-graph__day">F</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--bad" />
-          </div>
-          <span className="week-graph__day">Sa</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--middle" />
-          </div>
-          <span className="week-graph__day">Su</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--middle" />
-          </div>
-          <span className="week-graph__day">M</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--good" />
-          </div>
-          <span className="week-graph__day">Tu</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--bad" />
-          </div>
-          <span className="week-graph__day">W</span>
-        </div>
-        <div className="week-graph__item">
-          <div className="week-graph__pillar">
-            <div className="week-graph__filler week-graph__filler--middle" />
-          </div>
-          <span className="week-graph__day">Th</span>
-        </div>
+        <WeekGraphItem data={monday} title="M" />
+        <WeekGraphItem data={tuesday} title="Tu" />
+        <WeekGraphItem data={wednesday} title="W" />
+        <WeekGraphItem data={thursday} title="Th" />
+        <WeekGraphItem data={friday} title="F" />
+        <WeekGraphItem data={saturday} title="Sa" />
+        <WeekGraphItem data={sunday} title="Su" />
       </div>
       {showButtons && (
         <button

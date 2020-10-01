@@ -1,7 +1,36 @@
 /* Double class used to force style overrides */
 
+@include media-breakpoint-down(sm) {
+  .mapboxgl-popup {
+    width: 100%;
+    height: 100%;
+    /* stylelint-disable-next-line declaration-no-important */
+    transform: none !important;
+  }
+
+  .mapboxgl-popup-tip {
+    display: none;
+  }
+
+  .mapboxgl-popup-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .country-popup {
+    height: 100%;
+  }
+
+  .country-popup__content {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
 .mapboxgl-popup-content {
-  width: 320px;
+  @include media-breakpoint-up(md) {
+    width: 320px;
+  }
 }
 
 .mapboxgl-popup-close-button.mapboxgl-popup-close-button {
@@ -38,7 +67,12 @@
 
 .mapboxgl-popup-content.mapboxgl-popup-content {
   padding: 0;
+  overflow: hidden;
   background-color: #232832;
-  border-radius: 2px;
+  border-radius: 0.5rem;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.24%);
+
+  @include media-breakpoint-down(md) {
+    border-radius: unset;
+  }
 }

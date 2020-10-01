@@ -2,7 +2,7 @@ import fs from 'fs';
 // eslint-disable-next-line unicorn/import-style
 import { normalize } from 'path';
 
-// normalize paths for Windows
+// Normalize paths for Windows
 export const root = normalize(fs.realpathSync(`${__dirname}/..`));
 
 export const source = normalize(`${root}/src`);

@@ -1,6 +1,5 @@
 import { createEffect } from 'effector';
 import { Point } from 'geojson';
-import mapboxGL from 'mapbox-gl';
 
 import { AddSchoolPopup } from '@/map/@/country/types';
 
@@ -16,12 +15,11 @@ export const addSchoolPopupFx = createEffect(
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxGL.Popup({
-      maxWidth: '100%',
-      className: 'country-popup',
-    })
-      .setLngLat([coordinates[0], coordinates[1]])
-      .setDOMContent(popup)
-      .addTo(map);
+    popup.remove();
+
+    // TODO: Fix bug when popup closes and new one doesn't open
+    setTimeout(() => {
+      popup.setLngLat([coordinates[0], coordinates[1]]).addTo(map);
+    });
   }
 );

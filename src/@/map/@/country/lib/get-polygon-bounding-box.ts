@@ -5,8 +5,8 @@ import { LngLatLike } from 'mapbox-gl';
 export const getPolygonBoundingBox = (
   geometry: Polygon | MultiPolygon
 ): [LngLatLike, LngLatLike] => {
-  // longitude -180 - 180
-  // latitude -90 - 90
+  // Longitude -180 - 180
+  // Latitude -90 - 90
   let maxLng = -180;
   let minLng = 180;
   let maxLat = -90;
@@ -24,7 +24,7 @@ export const getPolygonBoundingBox = (
       maxLat = Math.max(maxLat, latitude);
     }
   }
-  // bounds [xMin, yMin][xMax, yMax]
+  // Bounds [xMin, yMin][xMax, yMax]
   return [
     [minLng, minLat],
     [maxLng, maxLat],

@@ -1,21 +1,16 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { createEvent, guard, sample } from 'effector';
-import mapboxGL from 'mapbox-gl';
 import React, { CSSProperties } from 'react';
-
-import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
 
 import { initMapFx } from '@/map/effects';
 import { $style } from '@/map/model';
 
-mapboxGL.accessToken = API_MAPBOX_ACCESS_TOKEN;
-
-const onChangeRef = createEvent<HTMLDivElement | null>();
+const onMapRef = createEvent<HTMLDivElement | null>();
 
 sample({
   source: $style,
-  clock: guard(onChangeRef, { filter: Boolean }),
+  clock: guard(onMapRef, { filter: Boolean }),
   fn: (style, container) => ({ style, container }),
   target: initMapFx,
 });
@@ -29,4 +24,4 @@ const mapStyles: CSSProperties = {
   zIndex: 1,
 };
 
-export const Map = () => <div id="map" ref={onChangeRef} style={mapStyles} />;
+export const Map = () => <div id="map" ref={onMapRef} style={mapStyles} />;

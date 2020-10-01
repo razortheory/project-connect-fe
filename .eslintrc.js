@@ -244,7 +244,10 @@ const config = {
       'WithStatement',
       'SequenceExpression',
     ],
-    'no-restricted-imports': ['error', { patterns: ['../*', '~/@/*'] }],
+    'no-restricted-imports': [
+      'error',
+      { patterns: ['../*', '~/@/*', '*/effects/*'] },
+    ],
     'unicorn/prevent-abbreviations': [
       'error',
       {
@@ -279,6 +282,14 @@ const config = {
       },
     ],
     '@typescript-eslint/comma-dangle': 'off',
+    'capitalized-comments': [
+      'error',
+      'always',
+      {
+        ignorePattern: 'prettier|noinspection',
+        ignoreInlineComments: true,
+      },
+    ],
   },
 };
 

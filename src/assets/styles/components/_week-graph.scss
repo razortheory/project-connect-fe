@@ -56,22 +56,47 @@
   height: 7.8rem;
 }
 
+.week-graph__tooltip {
+  position: absolute;
+  bottom: calc(100% + 1.2rem);
+  left: 50%;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0.7rem 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.7;
+  white-space: nowrap;
+  background-color: #6e737d;
+  border-radius: 0.2rem;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
+  transform: translate(-50%, 0);
+
+  &::after {
+    position: absolute;
+    bottom: -0.6rem;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-top: 0.6rem solid #6e737d;
+    border-right: 0.6rem solid transparent;
+    border-left: 0.6rem solid transparent;
+    transform: translate(-50%, 0);
+    content: '';
+  }
+}
+
 .week-graph__filler {
-  width: 0.7rem;
+  position: relative;
+  width: 1.2rem;
+  cursor: pointer;
 
-  &--good {
-    height: 100%;
-    background-color: #8bd432;
-  }
-
-  &--middle {
-    height: 75%;
-    background-color: #ffc93d;
-  }
-
-  &--bad {
-    height: 30%;
-    background-color: #ff615b;
+  &:hover {
+    .week-graph__tooltip {
+      display: flex;
+    }
   }
 }
 

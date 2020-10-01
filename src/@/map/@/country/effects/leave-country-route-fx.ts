@@ -7,8 +7,10 @@ import { removeCountryFx } from './remove-country-fx';
 import { removeSchoolsFx } from './remove-schools-fx';
 
 export const leaveCountryRouteFx = createEffect(
-  async ({ map, paintData }: LeaveCountryRoute) => {
+  async ({ map, paintData, popup }: LeaveCountryRoute) => {
     if (!map) return;
+
+    popup?.remove();
 
     map.flyTo({
       center: defaultCenter,

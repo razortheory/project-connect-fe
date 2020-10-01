@@ -89,8 +89,7 @@ export const addCountriesFx = createEffect(
       }
     });
 
-    // When the mouse leaves the countries layer, update the country state of the
-    // previously hovered feature.
+    // When the mouse leaves the countries layer, update the country state of the previously hovered feature
     map.on('mouseleave', 'countries', () => {
       if (hoveredCountryId) {
         map.setFeatureState(
