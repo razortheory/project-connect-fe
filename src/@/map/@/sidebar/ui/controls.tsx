@@ -180,7 +180,7 @@ export const Controls = () => {
           <div className="radio__marker" />
         </label>
       </div>
-
+      <hr className="sidebar__divider" />
       <button
         type="button"
         disabled={!useStore($isControlsChanged)}
