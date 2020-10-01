@@ -7,10 +7,10 @@ export type SchoolInfo = {
   postalCode: string;
   gpsConfidence: string | null;
   connectivityStatus: ConnectivityStatus;
-  connectivitySpeed: string;
+  connectionSpeed: string;
   connectivityType: string;
   latitude: number;
   longitude: number;
   coverage: string;
-  region: string;
+  regionClassification: string;
 };

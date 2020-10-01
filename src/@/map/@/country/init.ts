@@ -3,39 +3,43 @@ import { combine, forward, guard, merge, sample } from 'effector';
 import {
   fetchCountriesFx,
   fetchCountriesGeometryFx,
+  fetchCountryDailyStatsFx,
   fetchCountryFx,
+  fetchCountryWeeklyStatsFx,
+  fetchSchoolDailyStatsFx,
   fetchSchoolFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
 import { mapCountry } from '~/core/routes';
-import { getInverted, setPayload } from '~/lib/effector-kit';
+import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
-import {
-  $map,
-  $mapType,
-  $stylePaintData,
-  changeMap,
-  changeMapType,
-} from '@/map/model';
+import { $week, nextWeek, previousWeek } from '@/map/@/sidebar/model';
+import { initMapFx } from '@/map/effects';
+import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
 
 import {
   addCountriesFx,
+  addSchoolPopupFx,
+  createSchoolPopupFx,
   leaveCountryRouteFx,
   updateCountryFx,
   updateSchoolsColorsFx,
   updateSchoolsFx,
   zoomToCountryFx,
 } from './effects';
-import { addSchoolPopupFx } from './effects/add-school-popup-fx';
 import {
   $countries,
   $countriesGeoJson,
   $countriesGeometry,
   $country,
+  $countryCode,
+  $countryDailyStats,
   $countryId,
+  $countryWeeklyStats,
   $popup,
   $school,
+  $schoolDailyStats,
   $schoolId,
   $schools,
   changeCountryId,
@@ -50,10 +54,34 @@ $countryId.on(changeCountryId, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
 $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
+$countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
+$countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
+$schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+
+$countryWeeklyStats.reset(
+  changeCountryId,
+  fetchCountryWeeklyStatsFx,
+  nextWeek,
+  previousWeek
+);
+
+$countryDailyStats.reset(
+  changeCountryId,
+  fetchCountryDailyStatsFx,
+  nextWeek,
+  previousWeek
+);
+
+$schoolDailyStats.reset(
+  changeSchoolId,
+  fetchSchoolDailyStatsFx,
+  nextWeek,
+  previousWeek
+);
 
 const $mapContext = combine({
   map: $map,
@@ -72,6 +100,26 @@ const $mapContext = combine({
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
   to: [fetchSchoolsFx, fetchCountryFx],
+});
+
+forward({
+  from: guard({
+    source: combine([$countryId, $week], ([countryId, week]) => ({
+      countryId,
+      week,
+    })),
+    filter: ({ countryId }) => Boolean(countryId),
+  }),
+  to: [fetchCountryWeeklyStatsFx, fetchCountryDailyStatsFx],
+});
+
+guard({
+  source: combine([$schoolId, $week], ([schoolId, week]) => ({
+    schoolId,
+    week,
+  })),
+  filter: ({ schoolId }) => Boolean(schoolId),
+  target: fetchSchoolDailyStatsFx,
 });
 
 // Zoom to country bounds
@@ -102,7 +150,7 @@ const countryReceived = guard({
 // Update country
 sample({
   source: $mapContext,
-  clock: countryReceived,
+  clock: merge([countryReceived, $map]),
   fn: ({ map, paintData, country }) => ({
     map,
     paintData,
@@ -126,7 +174,7 @@ const schoolsReceived = guard({
 
 sample({
   source: $mapContext,
-  clock: schoolsReceived,
+  clock: merge([schoolsReceived, $map]),
   fn: ({ map, schools, mapType }) => ({
     map,
     schools,
@@ -140,13 +188,17 @@ const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
 
 sample({
+  source: combine([mapCountry.params, $map]),
+  fn: ([params]) => params?.code ?? null,
+  target: $countryCode,
+});
+
+sample({
   source: $countries,
-  clock: combine([mapCountry.params, $map]),
-  fn: (countries, [routeParams]) => {
-    if (!countries || !routeParams) return 0;
-    const country = countries.find((data) =>
-      isEqualText(data.code, routeParams.code)
-    );
+  clock: $countryCode,
+  fn: (countries, code) => {
+    if (!countries || !code) return 0;
+    const country = countries.find((data) => isEqualText(data.code, code));
     return country?.id ?? 0;
   },
   target: changeCountryId,
@@ -158,7 +210,7 @@ sample({
   clock: guard(mapCountry.visible, {
     filter: getInverted,
   }),
-  fn: ({ map, paintData }) => ({ map, paintData }),
+  fn: ({ map, paintData, popup }) => ({ map, paintData, popup }),
   target: leaveCountryRouteFx,
 });
 
@@ -177,7 +229,7 @@ $countriesGeoJson.on(
 // Add countries
 const onCountriesGeoJson = sample({
   source: $countriesGeoJson,
-  clock: merge([changeMap, onCountriesAndGeometry]),
+  clock: merge([onCountriesAndGeometry, $map]),
 });
 
 sample({
@@ -192,11 +244,27 @@ sample({
   target: addCountriesFx,
 });
 
-// Add popup
+// Create school popup
+sample({
+  source: initMapFx.done,
+  fn: getVoid,
+  target: createSchoolPopupFx,
+});
+
+sample({
+  source: createSchoolPopupFx.doneData,
+  target: $popup,
+});
+
+// Add school popup
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, event) => ({ map, popup, event }),
+  fn: ({ map, popup }, event) => ({
+    map,
+    popup,
+    event,
+  }),
   target: addSchoolPopupFx,
 });
 

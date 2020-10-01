@@ -5,13 +5,13 @@ export const getPopupClassName = (
 ): string => {
   switch (connectivityStatus) {
     case 'no':
-      return 'country-popup--no-connectivity';
+      return 'school-popup--no-connectivity';
     case 'moderate':
-      return 'country-popup--moderate';
+      return 'school-popup--moderate';
     case 'good':
-      return 'country-popup--good';
+      return 'school-popup--good';
     case 'unknown':
     default:
-      return 'country-popup--unavailable';
+      return 'school-popup--unavailable';
   }
 };

@@ -1,3 +1,4 @@
+import { format, getWeek, getYear, Interval } from 'date-fns';
 import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
@@ -9,6 +10,8 @@ import {
   Country,
   CountryBasic,
   CountryGeometry,
+  CountryWeeklyStats,
+  DailyStats,
   GlobalStats,
   School,
   SchoolBasic,
@@ -53,4 +56,56 @@ export const fetchCountriesGeometryFx = createEffect(
 
 export const fetchGlobalStatsFx = createEffect(
   async (): Promise<GlobalStats> => request('api/statistics/global-stat/')
+);
+
+export const fetchCountryWeeklyStatsFx = createEffect(
+  async ({
+    countryId,
+    week,
+  }: {
+    countryId: number;
+    week: Interval;
+  }): Promise<CountryWeeklyStats> => {
+    const weekNumber = getWeek(week.start);
+    const year = getYear(week.start);
+    return request(
+      `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`
+    );
+  }
+);
+
+export const fetchCountryDailyStatsFx = createEffect(
+  async ({
+    countryId,
+    week,
+  }: {
+    countryId: number;
+    week: Interval;
+  }): Promise<DailyStats[] | null> => {
+    const startDate = format(week.start, 'yyyy-MM-dd');
+    const endDate = format(week.end, 'yyyy-MM-dd');
+
+    return request({
+      url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    });
+  }
+);
+
+export const fetchSchoolDailyStatsFx = createEffect(
+  async ({
+    schoolId,
+    week,
+  }: {
+    schoolId: number;
+    week: Interval;
+  }): Promise<DailyStats[] | null> => {
+    const startDate = format(week.start, 'yyyy-MM-dd');
+    const endDate = format(week.end, 'yyyy-MM-dd');
+
+    return request({
+      url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    });
+  }
 );
