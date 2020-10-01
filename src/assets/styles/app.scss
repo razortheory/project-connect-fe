@@ -60,11 +60,16 @@
 
 .map-placeholder {
   position: absolute;
-  top: 0;
+  top: 20.9rem;
   right: 0;
-  bottom: 0;
+  bottom: 5.7rem;
   left: 0;
   background-color: #808080;
+
+  @include media-breakpoint-up(md) {
+    top: 0;
+    bottom: 0;
+  }
 }
 
 .mapboxgl-ctrl {

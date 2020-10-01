@@ -1,0 +1,16 @@
+.tooltip {
+  position: absolute;
+  padding: 1rem 1.2rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
+
+  &--dark {
+    color: #141923;
+    background-color: #b6bbc6;
+  }
+
+  &--light {
+    color: $text-color-light;
+    background-color: #6e737d;
+  }
+}

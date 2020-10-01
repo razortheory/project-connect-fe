@@ -1,11 +1,18 @@
 .average-speed {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 1.4rem;
 }
 
-.average-speed__icons {
-  width: 100%;
+.average-speed__tooltip {
+  top: -4.3rem;
+  left: -24px;
+  display: none;
+  height: 4rem;
+  font-size: 1.3rem;
+  font-family: $font-family-secondary;
+  line-height: 2rem;
 }
 
 .average-speed__icon {
@@ -26,8 +33,34 @@
     margin-right: 1.5rem;
   }
 
-  &--active {
-    color: $color-primary;
+  &:hover,
+  &:focus {
+    > .average-speed__tooltip {
+      display: block;
+    }
+  }
+}
+
+.average-speed__icons {
+  width: 100%;
+
+  &--high {
+    .average-speed__icon {
+      color: $color-primary;
+    }
+  }
+
+  &--medium {
+    .average-speed__icon:nth-child(1),
+    .average-speed__icon:nth-child(2) {
+      color: $color-primary;
+    }
+  }
+
+  &--low {
+    .average-speed__icon:nth-child(1) {
+      color: $color-primary;
+    }
   }
 }
 
