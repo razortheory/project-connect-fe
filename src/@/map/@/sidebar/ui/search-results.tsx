@@ -2,6 +2,8 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import { CountryBasic } from '~/api/types';
+import { mapCountries } from '~/core/routes';
+import { Link } from '~/lib/router';
 
 import { $countriesList, $noSearchResults } from '@/map/@/sidebar/model';
 
@@ -13,8 +15,12 @@ export const SearchResults = () => {
   return (
     <div className="sidebar__content sidebar__search-results">
       {useStore($noSearchResults) ? (
-        // TODO: Style according to design
-        <span style={{ padding: 30 }}>Not found</span>
+        <div className="not-found">
+          <span>Not found</span>
+          <Link to={mapCountries} className="not-found-link">
+            View country list
+          </Link>
+        </div>
       ) : (
         <ul className="sidebar__country-list list">
           {countiesList.map((country: CountryBasic) => (

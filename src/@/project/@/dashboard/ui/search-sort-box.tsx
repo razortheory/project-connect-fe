@@ -47,8 +47,12 @@ export const SearchSortBox = () => (
     </div>
 
     <div className="controls-bar__sort">
-      <span>Sort by:</span>
-      <select onChange={onSortChange} value={useStore($sortKey)}>
+      <span>Sort by:</span>{' '}
+      <select
+        onChange={onSortChange}
+        value={useStore($sortKey)}
+        className="select-dashboard"
+      >
         <option value="amountOfDataAvailable">Amount of data available</option>
         <option value="dateOfJoining">Date of joining</option>
         <option value="countryProgress">Country progress</option>
