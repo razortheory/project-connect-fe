@@ -45,7 +45,7 @@ import {
 import { sortCountries } from './sort-countries';
 
 const hasText = (haystack: string, needle: string): boolean =>
-  haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
+  haystack.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase());
 
 $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);

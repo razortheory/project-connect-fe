@@ -24,7 +24,7 @@ import {
 } from './model';
 
 const hasText = (haystack: string, needle: string): boolean =>
-  haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
+  haystack.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase());
 
 // Init
 $searchText.on(changeSearchText, setPayload);
