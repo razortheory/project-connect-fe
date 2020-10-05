@@ -70,3 +70,19 @@
     @include make-col(8);
   }
 }
+
+.progress-dashboard__last-data {
+  display: flex;
+  margin-top: 9rem;
+  @include media-breakpoint-down(md) {
+    margin: 3rem 0;
+  }
+
+  span {
+    width: 19.4rem;
+    color: #b6bbc6;
+    font-size: 1.3rem;
+    font-family: $font-family-secondary;
+    line-height: 1.54;
+  }
+}
