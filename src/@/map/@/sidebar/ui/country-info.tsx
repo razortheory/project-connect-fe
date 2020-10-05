@@ -103,7 +103,7 @@ const CountryInfoContent = () => {
           </div>
 
           {/* TODO add loader */}
-          {pending && <p>Loading</p>}
+          {pending && <p>Loading...</p>}
 
           {!pending && !hasStatistics && <p>No data</p>}
 
