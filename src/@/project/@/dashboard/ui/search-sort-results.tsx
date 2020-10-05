@@ -6,6 +6,7 @@ import Chevron from '~/assets/images/chevron.svg';
 import { formatPercent } from '~/core/formatters';
 import { mapCountry } from '~/core/routes';
 import { Link } from '~/lib/router';
+import { Button } from '~/ui/atoms';
 
 import {
   $countriesList,
@@ -95,11 +96,13 @@ export const CountriesFound = () => {
                   className="country__view-on-map view-on-map"
                   to={mapCountry}
                   params={{ code }}
+                  style={mapPreviewStyle}
                 >
-                  <div
-                    className="country__view-on-map view-on-map"
-                    style={mapPreviewStyle}
-                  />
+                  <div className="view-on-map__link">
+                    View schools on map
+                    <Chevron />
+                  </div>
+                  <Button>View map</Button>
                 </Link>
 
                 <div className="country__link">

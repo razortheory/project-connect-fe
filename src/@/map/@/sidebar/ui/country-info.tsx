@@ -152,7 +152,7 @@ const CountryInfoContent = () => {
                       <div className="average-speed__icon">
                         <IconSpeedHigh />
                         <div className="average-speed__tooltip tooltip tooltip--dark">
-                          Internet speed bad for <strong>e-learning</strong>
+                          Internet speed good for <strong>e-learning</strong>
                         </div>
                       </div>
                     </div>
