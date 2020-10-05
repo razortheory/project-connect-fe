@@ -40,7 +40,7 @@ export const WorldView = () => {
             </li>
             <li className="info-list__item">
               <p className="info-list__description">
-                {formatPercent(percent_schools_without_connectivity / 100)}
+                {formatPercent(percent_schools_without_connectivity)}
               </p>
               <h3 className="info-list__title">Schools without connectivity</h3>
             </li>

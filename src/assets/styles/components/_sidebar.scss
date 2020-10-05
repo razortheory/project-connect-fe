@@ -49,6 +49,28 @@
   height: 100%;
   overflow-y: auto;
   border-radius: 0.5rem;
+
+  .sidebar__search-results {
+    position: absolute;
+    top: 5.3rem;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    padding-top: 1.7rem;
+    padding-bottom: 1.7rem;
+    background-color: #141923;
+
+    .not-found {
+      align-items: flex-start;
+      font-size: 1.6rem;
+      line-height: 2.6rem;
+    }
+
+    .not-found-link {
+      color: $color-primary;
+      text-decoration: underline;
+    }
+  }
 }
 
 .sidebar--show-map .sidebar__container {
@@ -134,16 +156,6 @@
 
   &--hidden {
     display: none;
-  }
-
-  &.sidebar__search-results {
-    position: absolute;
-    top: -1.5rem;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    padding-bottom: 1.5rem;
-    background-color: #141923;
   }
 }
 

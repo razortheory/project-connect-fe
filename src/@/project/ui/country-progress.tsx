@@ -19,7 +19,7 @@ const DescriptionSection = () => {
   const commitedCountries = Number(countries_joined) || 'No data';
 
   return (
-    <section className="section">
+    <section className="section section-dashboard">
       <div className="container">
         <div className="page-heading">
           <h2 className="page-heading__title">
@@ -57,6 +57,12 @@ const DescriptionSection = () => {
             </div>
           </div>
         </div>
+        <a href="#dashboard" id="dashboard">
+          <h2 className="section__title">
+            Country progress <br />
+            dashboard
+          </h2>
+        </a>
       </div>
     </section>
   );
