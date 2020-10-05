@@ -6,8 +6,7 @@ import IconLastData from '~/assets/images/icon-last-data.svg';
 import { $globalStats } from '@/map/model';
 
 export const DashboardDescription = () => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { last_date_updated } = useStore($globalStats);
+  const { last_date_updated: lastDateUpdated } = useStore($globalStats);
 
   return (
     <div className="progress-dashboard__legend-col">
@@ -86,10 +85,12 @@ export const DashboardDescription = () => {
             </div>
           </li>
         </ul>
-        <div className="progress-dashboard__last-data">
-          <IconLastData />
-          <span>Data displayed was last updated in {last_date_updated}</span>
-        </div>
+        {lastDateUpdated && (
+          <div className="progress-dashboard__last-data">
+            <IconLastData />
+            <span>Data displayed was last updated in {lastDateUpdated}</span>
+          </div>
+        )}
       </div>
     </div>
   );

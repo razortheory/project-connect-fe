@@ -12,7 +12,7 @@ export type GlobalStats = {
   countries_with_static_data: number;
   countries_connected_to_realtime: number;
   percent_schools_without_connectivity: number;
-  last_date_updated: string;
+  last_date_updated: string | null;
 };
 
 export type IntegrationStatus = 0 | 1 | 2 | 3;
