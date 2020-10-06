@@ -10,6 +10,9 @@
   height: 10rem;
   border-bottom: 1px solid #b6bbc6;
 
+  @media (max-height: 768px) {
+    height: 7rem;
+  }
 
   &:nth-child(2n) {
     border-color: #373c46;
