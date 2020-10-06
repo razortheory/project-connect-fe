@@ -105,7 +105,6 @@ const CountryInfoContent = () => {
             </button>
           </div>
 
-          {/* TODO add loader */}
           {pending && (
             <div className="sidebar__loader">
               <div className="map-loader" />
