@@ -106,7 +106,11 @@ const CountryInfoContent = () => {
           </div>
 
           {/* TODO add loader */}
-          {pending && <p>Loading</p>}
+          {pending && (
+            <div className="sidebar__loader">
+              <div className="map-loader" />
+            </div>
+          )}
 
           {!pending && !hasStatistics && <p>No data</p>}
 
