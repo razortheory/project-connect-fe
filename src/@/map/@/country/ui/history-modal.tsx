@@ -71,8 +71,6 @@ const HistoryGraphContent = ({
 };
 
 const HistoryGraph = () => {
-  const pending = useStore($historyDataPending);
-
   const historyData = useStore($historyData);
   const historyInterval = useStore($historyInterval);
 
@@ -91,38 +89,30 @@ const HistoryGraph = () => {
 
   return (
     <div className="history-modal__graph">
-      {pending ? (
-        <ProgressLine visible />
-      ) : (
-        <>
-          <div className="history-modal__vertical-scale">
-            <span className="history-modal__vertical-scale-value">50 mb/s</span>
-          </div>
-          <div className="history-modal__vertical-scale" />
-          <div className="history-modal__vertical-scale">
-            <span className="history-modal__vertical-scale-value">25 mb/s</span>
-          </div>
-          <div className="history-modal__vertical-scale" />
-          <div className="history-modal__vertical-scale">
-            <span className="history-modal__vertical-scale-value">0 mb/s</span>
-          </div>
-          {averageLineBottom && (
-            <div
-              className="history-modal__average"
-              style={{
-                bottom: averageLineBottom.toString(),
-              }}
-            >
-              <span className="history-modal__average-value">
-                {averageValue}
-              </span>
-            </div>
-          )}
-          <div className="history-modal__graph-content">
-            <HistoryGraphContent daysData={historyGraphData?.daysData} />
-          </div>
-        </>
+      <div className="history-modal__vertical-scale">
+        <span className="history-modal__vertical-scale-value">50 mb/s</span>
+      </div>
+      <div className="history-modal__vertical-scale" />
+      <div className="history-modal__vertical-scale">
+        <span className="history-modal__vertical-scale-value">25 mb/s</span>
+      </div>
+      <div className="history-modal__vertical-scale" />
+      <div className="history-modal__vertical-scale">
+        <span className="history-modal__vertical-scale-value">0 mb/s</span>
+      </div>
+      {averageLineBottom && (
+        <div
+          className="history-modal__average"
+          style={{
+            bottom: averageLineBottom.toString(),
+          }}
+        >
+          <span className="history-modal__average-value">{averageValue}</span>
+        </div>
       )}
+      <div className="history-modal__graph-content">
+        <HistoryGraphContent daysData={historyGraphData?.daysData} />
+      </div>
     </div>
   );
 };
@@ -139,10 +129,12 @@ export const HistoryModal = () => {
   );
 
   const placeName = useStore($historyPlaceName);
+  const pending = useStore($historyDataPending);
 
   return (
     <div className="history-modal__wrapper">
       <div className="history-modal">
+        {pending && <ProgressLine visible />}
         <Scroll>
           <div className="history-modal__scrollable">
             <div className="history-modal__header">
