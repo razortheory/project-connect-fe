@@ -73,6 +73,7 @@ const HistoryGraphContent = ({
 const HistoryGraph = () => {
   const historyData = useStore($historyData);
   const historyInterval = useStore($historyInterval);
+  const pending = useStore($historyDataPending);
 
   const historyGraphData = getHistoryGraphData(historyData, historyInterval);
 
@@ -100,19 +101,25 @@ const HistoryGraph = () => {
       <div className="history-modal__vertical-scale">
         <span className="history-modal__vertical-scale-value">0 mb/s</span>
       </div>
-      {averageLineBottom && (
-        <div
-          className="history-modal__average"
-          style={{
-            bottom: averageLineBottom.toString(),
-          }}
-        >
-          <span className="history-modal__average-value">{averageValue}</span>
-        </div>
+      {!pending && (
+        <>
+          {averageLineBottom && (
+            <div
+              className="history-modal__average"
+              style={{
+                bottom: averageLineBottom.toString(),
+              }}
+            >
+              <span className="history-modal__average-value">
+                {averageValue}
+              </span>
+            </div>
+          )}
+          <div className="history-modal__graph-content">
+            <HistoryGraphContent daysData={historyGraphData?.daysData} />
+          </div>
+        </>
       )}
-      <div className="history-modal__graph-content">
-        <HistoryGraphContent daysData={historyGraphData?.daysData} />
-      </div>
     </div>
   );
 };
@@ -173,17 +180,17 @@ export const HistoryModal = () => {
               </div>
 
               <div className="history-modal__period-unit-picker">
-                <button
-                  type="button"
-                  onClick={() => changeHistoryIntervalUnit('day')}
-                  className={`history-modal__period-unit ${
-                    intervalUnit === 'day'
-                      ? 'history-modal__period-unit--active'
-                      : ''
-                  }`}
-                >
-                  daily
-                </button>
+                {/* <button */}
+                {/*  type="button" */}
+                {/*  onClick={() => changeHistoryIntervalUnit('day')} */}
+                {/*  className={`history-modal__period-unit ${ */}
+                {/*    intervalUnit === 'day' */}
+                {/*      ? 'history-modal__period-unit--active' */}
+                {/*      : '' */}
+                {/*  }`} */}
+                {/* > */}
+                {/*  daily */}
+                {/* </button> */}
                 <button
                   type="button"
                   onClick={() => changeHistoryIntervalUnit('week')}
