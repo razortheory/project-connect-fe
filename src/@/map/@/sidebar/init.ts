@@ -6,7 +6,7 @@ import { KeyboardEvent } from 'react';
 
 import { CountryBasic } from '~/api/types';
 import { mapCountry } from '~/core/routes';
-import { getWeekInterval, isThisWeekInterval } from '~/lib/date-fns-kit';
+import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { $countries } from '@/map/@/country';
@@ -139,13 +139,15 @@ sample({
 
 sample({
   source: $week,
-  fn: isThisWeekInterval,
+  fn: (week) => isCurrentInterval(week, 'week'),
   target: $isThisWeek,
 });
 
-$week.on(nextWeek, (week) => getWeekInterval(add(week.start, { weeks: 1 })));
+$week.on(nextWeek, (week) =>
+  getInterval(add(week.start, { weeks: 1 }), 'week')
+);
 $week.on(previousWeek, (week) =>
-  getWeekInterval(sub(week.start, { weeks: 1 }))
+  getInterval(sub(week.start, { weeks: 1 }), 'week')
 );
 $week.reset(changeCountryId);
 

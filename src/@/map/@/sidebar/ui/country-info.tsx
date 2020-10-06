@@ -8,7 +8,7 @@ import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
-import { formatDateInterval } from '~/core/formatters';
+import { formatWeekInterval } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { tabMap } from '~/core/tab-routes';
 import { getVoid } from '~/lib/effector-kit';
@@ -93,7 +93,7 @@ const CountryInfoContent = () => {
               <Chevron className="chevron chevron--left" />
             </button>
             <div className="period-picker__period">
-              {isThisWeek ? 'This week' : formatDateInterval(week)}
+              {isThisWeek ? 'This week' : formatWeekInterval(week)}
             </div>
             <button
               type="button"
@@ -177,7 +177,11 @@ const CountryInfoContent = () => {
               {weekGraphData && (
                 <>
                   <hr className="sidebar__divider" />
-                  <WeekGraph weekGraphData={weekGraphData} showHistory />
+                  <WeekGraph
+                    weekGraphData={weekGraphData}
+                    showHistory
+                    dataType="country"
+                  />
                 </>
               )}
               <hr className="sidebar__divider" />
