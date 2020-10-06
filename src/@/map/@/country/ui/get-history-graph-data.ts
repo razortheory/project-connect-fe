@@ -6,7 +6,6 @@ import { formatConnectionSpeed } from '~/core/formatters';
 import {
   formatDate,
   getFillColor,
-  getPercent,
   megabytesPerSecond,
 } from '@/map/@/sidebar/ui/get-week-graph-data';
 
@@ -31,12 +30,12 @@ export type HistoryGraphData = {
 
 export type HistoryGraphItem = {
   date: string;
-  speed?: string;
-  speedPercent?: string;
+  speedFormatted?: string;
+  speed?: number;
   fillColor?: string;
 };
 
-const HIGH_SPEED_MAX = 50 * megabytesPerSecond;
+const MULTIPLE_SCALE_UNIT = 5 * megabytesPerSecond;
 
 export const getHistoryGraphData = (
   historyData: DailyStats[] | null,
@@ -60,20 +59,25 @@ export const getHistoryGraphData = (
 
       const dayData = {
         date: formatDate(dayStats.date),
-        speed: formatConnectionSpeed(dayStats.connectivity_speed),
-        speedPercent: getPercent(dayStats.connectivity_speed, HIGH_SPEED_MAX),
+        speedFormatted: formatConnectionSpeed(dayStats.connectivity_speed),
+        speed: dayStats.connectivity_speed,
         fillColor: getFillColor(dayStats.connectivity_speed),
       };
       accumulator.daysData.push(dayData);
       accumulator.itemsCount += 1;
       accumulator.speedSum += dayStats.connectivity_speed;
+      accumulator.maxSpeed = Math.max(
+        accumulator.maxSpeed,
+        Math.ceil(dayStats.connectivity_speed / MULTIPLE_SCALE_UNIT) *
+          MULTIPLE_SCALE_UNIT
+      );
       return accumulator;
     },
     {
       daysData: [],
       speedSum: 0,
       itemsCount: 0,
-      maxSpeed: HIGH_SPEED_MAX,
+      maxSpeed: 0,
     }
   );
 };

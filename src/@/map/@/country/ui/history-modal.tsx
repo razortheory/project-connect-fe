@@ -22,23 +22,20 @@ import { Scroll } from '@/scroll';
 
 import {
   getHistoryGraphData,
-  HistoryGraphItem,
+  HistoryGraphData,
 } from './get-history-graph-data';
 import { ProgressLine } from './progress-bar';
 
-const HistoryGraphContent = ({
-  daysData,
-}: {
-  daysData: HistoryGraphItem[];
-}) => {
+const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);
-  if (!daysData) {
+  if (!data) {
     return null;
   }
 
   return (
     <>
-      {daysData.map((item) => {
+      {data.daysData.map((item) => {
+        const height = getPercent(item.speed ?? 0, data.maxSpeed);
         return (
           <div
             className={`history-modal__graph-item history-modal__graph-item--${intervalUnit}`}
@@ -48,12 +45,12 @@ const HistoryGraphContent = ({
               <div
                 className="history-modal__graph-filler"
                 style={{
-                  height: item.speedPercent,
+                  height,
                   backgroundColor: item.fillColor,
                 }}
               >
                 <div className="week-graph__tooltip">
-                  <span>{item?.speed}</span>
+                  <span>{item?.speedFormatted}</span>
                   <span>{item?.date}</span>
                 </div>
               </div>
@@ -80,7 +77,6 @@ const HistoryGraph = () => {
   const averageValue = formatConnectionSpeed(
     historyGraphData.speedSum / historyGraphData.itemsCount
   );
-
   const averageLineBottom = historyGraphData.itemsCount
     ? getPercent(
         historyGraphData.speedSum / historyGraphData.itemsCount,
@@ -91,11 +87,15 @@ const HistoryGraph = () => {
   return (
     <div className="history-modal__graph">
       <div className="history-modal__vertical-scale">
-        <span className="history-modal__vertical-scale-value">50 mb/s</span>
+        <span className="history-modal__vertical-scale-value">
+          {formatConnectionSpeed(historyGraphData.maxSpeed)}
+        </span>
       </div>
       <div className="history-modal__vertical-scale" />
       <div className="history-modal__vertical-scale">
-        <span className="history-modal__vertical-scale-value">25 mb/s</span>
+        <span className="history-modal__vertical-scale-value">
+          {formatConnectionSpeed(historyGraphData.maxSpeed / 2)}
+        </span>
       </div>
       <div className="history-modal__vertical-scale" />
       <div className="history-modal__vertical-scale">
@@ -116,7 +116,7 @@ const HistoryGraph = () => {
             </div>
           )}
           <div className="history-modal__graph-content">
-            <HistoryGraphContent daysData={historyGraphData?.daysData} />
+            <HistoryGraphContent data={historyGraphData} />
           </div>
         </>
       )}
