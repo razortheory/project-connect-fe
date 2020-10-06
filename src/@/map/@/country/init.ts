@@ -336,8 +336,13 @@ sample({
 $historyIntervalUnit.on(changeHistoryIntervalUnit, setPayload);
 $historyDataType.on(changeHistoryDataType, setPayload);
 $historyDataType.reset(closeHistoryModal);
-$historyInterval.reset(closeHistoryModal);
 $historyIntervalUnit.reset(closeHistoryModal);
+
+sample({
+  source: $week,
+  clock: guard($isOpenHistoryModal, { filter: Boolean }),
+  target: $historyInterval,
+});
 
 sample({
   source: $historyDataType,
