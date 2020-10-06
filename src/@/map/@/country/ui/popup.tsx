@@ -8,6 +8,7 @@ import {
   $schoolDailyStats,
   $schoolPending,
 } from '@/map/@/country/model';
+import { $controlsMapType } from '@/map/@/sidebar/model';
 import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
 
 import { getPopupClassName } from './get-popup-class-name';
@@ -26,6 +27,7 @@ export const Popup = () => {
   const school = useStore($school);
   const isLoading = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
+  const mapType = useStore($controlsMapType);
 
   if (!school || isLoading) {
     return (
@@ -48,14 +50,18 @@ export const Popup = () => {
     connectivityType,
     latitude,
     longitude,
-    coverage,
+    coverageNetwork,
+    coverageStatus,
     regionClassification,
   } = getSchoolInfo(school);
+
+  const schoolMapStatus =
+    mapType === 'coverage' ? coverageStatus : connectivityStatus;
 
   return (
     <div
       ref={onChangeRef}
-      className={`school-popup ${getPopupClassName(connectivityStatus)}`}
+      className={`school-popup ${getPopupClassName(mapType, schoolMapStatus)}`}
       data-id={id}
     >
       <div className="school-popup__content">
@@ -69,9 +75,9 @@ export const Popup = () => {
             </li>
           )}
 
-          {coverage && (
+          {coverageNetwork && (
             <li className="definition-list__item">
-              Network coverage <strong>{coverage}</strong>
+              Network coverage <strong>{coverageNetwork}</strong>
             </li>
           )}
 

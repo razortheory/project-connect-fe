@@ -1,4 +1,4 @@
-import { ConnectivityStatus } from '~/api/types';
+import { ConnectivityStatus, CoverageStatus } from '~/api/types';
 
 export type SchoolInfo = {
   id: number;
@@ -11,6 +11,7 @@ export type SchoolInfo = {
   connectivityType: string;
   latitude: number;
   longitude: number;
-  coverage: string;
+  coverageNetwork: string;
+  coverageStatus: CoverageStatus;
   regionClassification: string;
 };

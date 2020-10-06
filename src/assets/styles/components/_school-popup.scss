@@ -30,6 +30,14 @@
   &--unavailable {
     border-top: 0.9rem solid #546fc2;
   }
+
+  &--known {
+    border-top: 0.9rem solid #fc7a08;
+  }
+
+  &--unknown {
+    border-top: 0.9rem solid #7511bf;
+  }
 }
 
 .school-popup__content {

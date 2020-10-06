@@ -8,6 +8,7 @@
   background-position: center center;
   background-size: cover;
   border-radius: 0.5rem;
+  opacity: 1;
 
   .view-on-map__link {
     display: none;
@@ -31,7 +32,7 @@
   }
 
   &:hover {
-    opacity: 60%;
+    opacity: 0.6;
 
     .view-on-map__link {
       display: flex;
