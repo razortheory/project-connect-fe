@@ -58,7 +58,7 @@
   padding-left: 15rem;
 
   @include media-breakpoint-down(sm) {
-    padding-left: 5rem
+    padding-left: 6rem
   }
 }
 
@@ -106,7 +106,7 @@
   height: 100%;
 
   @include media-breakpoint-down(sm) {
-    width: 0.5rem;
+    width: 0.4rem;
   }
 }
 
@@ -135,4 +135,8 @@
   font-size: 1.9rem;
   line-height: 1.32;
   background-color: #232832;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 1.3rem;
+  }
 }
