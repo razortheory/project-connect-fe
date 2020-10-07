@@ -1,3 +1,4 @@
+import { Interval } from 'date-fns';
 import { createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
 import mapboxGL, { MapLayerMouseEvent } from 'mapbox-gl';
@@ -11,11 +12,20 @@ import {
   DailyStats,
   School,
 } from '~/api/types';
+import { getInterval } from '~/lib/date-fns-kit';
+import { IntervalUnit } from '~/lib/date-fns-kit/types';
+
+import { StatsDataType } from './types';
 
 export const changeCountryId = createEvent<number>();
 export const changeSchoolId = createEvent<number>();
 export const clickSchool = createEvent<MapLayerMouseEvent>();
 export const changeIsOpenPopup = createEvent<boolean>();
+export const changeHistoryDataType = createEvent<StatsDataType>();
+export const closeHistoryModal = createEvent();
+export const changeHistoryIntervalUnit = createEvent<IntervalUnit>();
+export const nextHistoryInterval = createEvent();
+export const previousHistoryInterval = createEvent();
 
 export const $countryCode = createStore<string | null>('');
 export const $countryId = createStore(0); // TODO: Use nullable value <number | null> for $countryId and $schoolId
@@ -33,3 +43,13 @@ export const $countryWeeklyStats = createStore<CountryWeeklyStats | null>(null);
 export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $schoolDailyStats = createStore<DailyStats[] | null>(null);
 export const $zoomedCountryId = createStore(0);
+export const $historyDataType = createStore<StatsDataType | null>(null);
+export const $isOpenHistoryModal = createStore(false);
+export const $historyIntervalUnit = createStore<IntervalUnit>('week');
+export const $historyInterval = createStore<Interval>(
+  getInterval(new Date(), 'week')
+);
+export const $isCurrentHistoryInterval = createStore(true);
+export const $historyData = createStore<DailyStats[] | null>(null);
+export const $historyDataPending = createStore(false);
+export const $historyPlaceName = createStore<string | null>(null);
