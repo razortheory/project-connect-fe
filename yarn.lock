@@ -6013,10 +6013,10 @@ effector-react@^21.0.6:
   resolved "https://registry.yarnpkg.com/effector-react/-/effector-react-21.0.6.tgz#8af2053d10eac6a6813d2a3ea9bbd3a9cfefaf4b"
   integrity sha512-dmIlwFG2QfNVqlhJMuol38iMEYtRrG0pDe6INaUQ7t1+Fwv9RtrCc48bp8XjG6eUs03OK0Wn2efD5rzgjboTiA==
 
-effector@^21.3.0:
-  version "21.3.0"
-  resolved "https://registry.yarnpkg.com/effector/-/effector-21.3.0.tgz#378a990cd570a9f86c0f14fb29ff912ecfe93f58"
-  integrity sha512-EeiFe43tUDsSvTH06Na4xYG2A7xj9uCGpPsz5D51bl/oTq1AiBMtQiE6u+qgmR+OeR6G2c8vhBBrovPqQCN2yg==
+effector@^21.4.2:
+  version "21.4.2"
+  resolved "https://registry.yarnpkg.com/effector/-/effector-21.4.2.tgz#f394f16ff66da4b4d2214e7fbd1518b4316c99f2"
+  integrity sha512-3MEV9sv5buPXPqNYZSZv/k8l7RH1JQCp+Fx13Lc7wdD/nAAuCyKCHtCGP9sOhsJhmt+ArCOCohEGjr6dVJ6frQ==
 
 ejs@^2.6.1:
   version "2.7.4"
@@ -11079,23 +11079,15 @@ path-parse@^1.0.6:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
   integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
 
-path-parser@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/path-parser/-/path-parser-6.1.0.tgz#ee8a1dd7b1ffaf4069f2ddd1c20d1867c8fd3a08"
-  integrity sha512-nAB6J73z2rFcQP+870OHhpkHFj5kO4rPLc2Ol4Y3Ale7F6Hk1/cPKp7cQ8RznKF8FOSvu+YR9Xc6Gafk7DlpYA==
-  dependencies:
-    search-params "3.0.0"
-    tslib "^1.10.0"
-
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
-path-to-regexp@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.1.0.tgz#0b18f88b7a0ce0bfae6a25990c909ab86f512427"
-  integrity sha512-h9DqehX3zZZDCEm+xbfU0ZmwCGFCAAraPJWMXJ4+v32NjZJilVg3k1TcKsRgIb8IQ/izZSaydDc1OhJCZvs2Dw==
+path-to-regexp@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.2.0.tgz#f7b3803336104c346889adece614669230645f38"
+  integrity sha512-f66KywYG6+43afgE/8j/GoiNyygk/bnoCbps++3ErRKsIYkGGupyv07R2Ok5m9i67Iqc+T2g1eAUGUPzWhYTyg==
 
 path-type@^2.0.0:
   version "2.0.0"
@@ -13377,11 +13369,6 @@ schema-utils@^2.6.5, schema-utils@^2.6.6, schema-utils@^2.7.0, schema-utils@^2.7
     "@types/json-schema" "^7.0.5"
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
-
-search-params@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/search-params/-/search-params-3.0.0.tgz#dbc7c243058e5a33ae1e9870be91f5aced4100d8"
-  integrity sha512-8CYNl/bjkEhXWbDTU/K7c2jQtrnqEffIPyOLMqygW/7/b+ym8UtQumcAZjOfMLjZKR6AxK5tOr9fChbQZCzPqg==
 
 select-hose@^2.0.0:
   version "2.0.0"

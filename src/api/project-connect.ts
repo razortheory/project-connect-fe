@@ -3,6 +3,7 @@ import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
 import { createRequest } from '~/lib/request';
+import { Controller, createRequestFx } from '~/lib/request-fx';
 
 import { getSchoolsGeoJson } from '@/map/@/country/lib';
 
@@ -21,16 +22,20 @@ export const request = createRequest({
   baseUrl: 'https://api.projectconnect.razortheory.com/',
 });
 
-export const fetchCountryFx = createEffect(
-  async (countryId: number): Promise<Country> =>
-    request(`api/locations/countries/${countryId}/`)
+export const fetchCountryFx = createRequestFx(
+  async (countryId: number, controller?: Controller): Promise<Country> =>
+    request({
+      url: `api/locations/countries/${countryId}/`,
+      signal: await controller?.getSignal(),
+    })
 );
 
-export const fetchSchoolsFx = createEffect(
-  async (countryId: number): Promise<FeatureCollection> =>
+export const fetchSchoolsFx = createRequestFx(
+  async (countryId: number, controller): Promise<FeatureCollection> =>
     request({
       url: `api/locations/countries/${countryId}/schools/`,
       fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
+      signal: await controller?.getSignal(),
     })
 );
 
@@ -58,19 +63,23 @@ export const fetchGlobalStatsFx = createEffect(
   async (): Promise<GlobalStats> => request('api/statistics/global-stat/')
 );
 
-export const fetchCountryWeeklyStatsFx = createEffect(
-  async ({
-    countryId,
-    week,
-  }: {
-    countryId: number;
-    week: Interval;
-  }): Promise<CountryWeeklyStats> => {
+export const fetchCountryWeeklyStatsFx = createRequestFx(
+  async (
+    {
+      countryId,
+      week,
+    }: {
+      countryId: number;
+      week: Interval;
+    },
+    controller?: Controller
+  ): Promise<CountryWeeklyStats> => {
     const weekNumber = getWeek(week.start);
     const year = getYear(week.start);
-    return request(
-      `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`
-    );
+    return request({
+      url: `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`,
+      signal: await controller?.getSignal(),
+    });
   }
 );
 
