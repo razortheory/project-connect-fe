@@ -4,4 +4,5 @@ export interface CountryInfo {
   connectionSpeed: string;
   schoolsWithNoInternet: string;
   hasStatistics: boolean;
+  connectivityLevel: string;
 }

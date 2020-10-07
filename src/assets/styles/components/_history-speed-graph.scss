@@ -61,7 +61,7 @@
   padding-left: 15rem;
 
   @include media-breakpoint-down(sm) {
-    padding-left: 6rem
+    padding-left: 6rem;
   }
 }
 
@@ -71,7 +71,8 @@
   flex-direction: column;
   height: 100%;
 
-  &:first-child, &:last-child {
+  &:first-child,
+  &:last-child {
     .history-modal__horizontal-scale-value {
       display: block;
     }
@@ -116,7 +117,6 @@
 .history-modal__graph-filler {
   position: relative;
   cursor: pointer;
-
 
   &:hover {
     .week-graph__tooltip {
