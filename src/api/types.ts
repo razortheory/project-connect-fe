@@ -71,7 +71,7 @@ export type SchoolBasic = {
 };
 
 export type School = {
-  // TODO: Add coverage_status on back-end
+  // TODO: Add network coverage on backend
   id: number;
   name: string;
   geopoint: Point;
@@ -106,6 +106,7 @@ export type School = {
   education_level: string;
   environment: string;
   school_type: string;
+  coverage_status: CoverageStatus;
 };
 
 export type DailyStats = {

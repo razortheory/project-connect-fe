@@ -70,7 +70,7 @@
   overflow: hidden;
   background-color: #232832;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.24%);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.003);
 
   @include media-breakpoint-down(md) {
     border-radius: unset;

@@ -46,6 +46,8 @@ const config = {
       'border-left': [0],
     },
     'comment-word-blacklist': null,
+    // TODO: Fix "100%" notation
+    'alpha-value-notation': 'number',
   },
 };
 

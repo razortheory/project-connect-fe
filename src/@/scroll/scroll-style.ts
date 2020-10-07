@@ -27,7 +27,7 @@ export const scrollbarStyle = css`
     bottom: 0;
     display: none;
     height: 15px;
-    opacity: 0%;
+    opacity: 0;
     transition: background-color 0.2s linear, opacity 0.2s linear;
   }
 
@@ -39,7 +39,7 @@ export const scrollbarStyle = css`
     right: 0;
     display: none;
     width: 15px;
-    opacity: 0%;
+    opacity: 0;
     transition: background-color 0.2s linear, opacity 0.2s linear;
   }
 
@@ -55,7 +55,7 @@ export const scrollbarStyle = css`
   .ps--focus > .ps__rail-y,
   .ps--scrolling-x > .ps__rail-x,
   .ps--scrolling-y > .ps__rail-y {
-    opacity: 50%;
+    opacity: 0.5;
   }
 
   .ps .ps__rail-x:hover,
@@ -65,7 +65,7 @@ export const scrollbarStyle = css`
   .ps .ps__rail-x.ps--clicking,
   .ps .ps__rail-y.ps--clicking {
     background-color: transparent;
-    opacity: 90%;
+    opacity: 0.5;
   }
 
   /* Scrollbar thumb styles */

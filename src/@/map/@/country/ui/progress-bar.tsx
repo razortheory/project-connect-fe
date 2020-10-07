@@ -11,10 +11,10 @@ const HorizontalLine = styled.div`
 
 const fadeIn = keyframes`
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
   100% {
-    opacity: 100%;
+    opacity: 1;
   }
 `;
 

@@ -21,7 +21,7 @@
     border: solid $text-color-light;
     border-width: 0 0.2rem 0.2rem 0;
     transform: rotate(45deg);
-    opacity: 0%;
+    opacity: 0;
     content: '';
   }
 }
@@ -34,8 +34,7 @@
   background-color: $color-primary;
 
   &::after {
-    // stylelint-disable-next-line alpha-value-notation
-    opacity: 1; // TODO: Fix "100%" notation
+    opacity: 1;
   }
 }
 
