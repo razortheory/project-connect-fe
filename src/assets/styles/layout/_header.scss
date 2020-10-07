@@ -35,12 +35,12 @@
     background-color: #141923;
     border-top: 0.2rem solid $color-primary;
     transform: translateY(-1rem);
-    opacity: 0%;
+    opacity: 0;
 
     &--mobile-visible {
       display: flex;
       transform: translateY(0);
-      opacity: 100%;
+      opacity: 1;
     }
   }
 }

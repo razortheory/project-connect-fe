@@ -11,7 +11,7 @@ export type SchoolInfo = {
   connectivityType: string;
   latitude: number;
   longitude: number;
-  coverageNetwork: string;
+  networkCoverage: string;
   coverageStatus: CoverageStatus;
   regionClassification: string;
 };

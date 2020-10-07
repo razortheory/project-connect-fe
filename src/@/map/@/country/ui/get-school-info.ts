@@ -33,7 +33,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     connectivityType: connectivity_type,
     latitude,
     longitude,
-    coverageNetwork: 'No data',
+    networkCoverage: 'No data',
     coverageStatus: coverage_status || 'unknown',
     regionClassification: environment || 'No data',
   };

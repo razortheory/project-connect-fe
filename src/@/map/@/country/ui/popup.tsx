@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { createEvent } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -50,18 +51,18 @@ export const Popup = () => {
     connectivityType,
     latitude,
     longitude,
-    coverageNetwork,
+    networkCoverage,
     coverageStatus,
     regionClassification,
   } = getSchoolInfo(school);
 
-  const schoolMapStatus =
+  const schoolStatus =
     mapType === 'coverage' ? coverageStatus : connectivityStatus;
 
   return (
     <div
       ref={onChangeRef}
-      className={`school-popup ${getPopupClassName(mapType, schoolMapStatus)}`}
+      className={clsx('school-popup', getPopupClassName(mapType, schoolStatus))}
       data-id={id}
     >
       <div className="school-popup__content">
@@ -75,9 +76,9 @@ export const Popup = () => {
             </li>
           )}
 
-          {coverageNetwork && (
+          {networkCoverage && (
             <li className="definition-list__item">
-              Network coverage <strong>{coverageNetwork}</strong>
+              Network coverage <strong>{networkCoverage}</strong>
             </li>
           )}
 
