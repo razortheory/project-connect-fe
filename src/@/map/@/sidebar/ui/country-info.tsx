@@ -73,7 +73,7 @@ const CountryInfoContent = () => {
     connectionSpeed,
     schoolsWithNoInternet,
     hasStatistics,
-    internetQualityClassname,
+    connectivityLevel,
   } = useStore($countryInfo) ?? {};
 
   return (
@@ -135,7 +135,7 @@ const CountryInfoContent = () => {
                   </h3>
                   <p className="info-list__description">{connectionSpeed}</p>
                   <div className="average-speed">
-                    <div className={internetQualityClassname as string}>
+                    <div className={connectivityLevel}>
                       <div className="average-speed__icon average-speed__icon--active">
                         <IconSpeedLow />
                         <div className="average-speed__tooltip tooltip tooltip--dark">

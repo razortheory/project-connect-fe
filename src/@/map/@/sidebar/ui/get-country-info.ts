@@ -25,7 +25,7 @@ export const getCountryInfo = (
     schools_connectivity_no,
   } = countryWeeklyStats;
 
-  const internetQuality = (): string => {
+  const getConnectivityLevel = (): string => {
     if (connectivity_speed <= LOW_SPEED_MAX && connectivity_speed) {
       return 'average-speed__icons--low';
     }
@@ -49,6 +49,6 @@ export const getCountryInfo = (
       ? formatPercent(schools_connectivity_no / schools_total)
       : 'N/A',
     hasStatistics: Boolean(schools_total),
-    internetQualityClassname: internetQuality(),
+    connectivityLevel: getConnectivityLevel(),
   };
 };

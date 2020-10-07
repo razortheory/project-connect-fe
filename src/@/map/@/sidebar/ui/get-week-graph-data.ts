@@ -36,6 +36,7 @@ const weekDayNames: Map<WeekDay, Days> = new Map([
   [7, 'sunday'],
 ]);
 
+// TODO: Move to constants
 const megabytesPerSecond = 10 ** 6;
 export const LOW_SPEED_MAX = 2 * megabytesPerSecond; // 2Mb/s
 export const MED_SPEED_MAX = 5 * megabytesPerSecond; // 5Mb/s
