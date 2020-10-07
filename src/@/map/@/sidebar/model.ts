@@ -5,7 +5,7 @@ import { KeyboardEvent, MouseEvent } from 'react';
 
 import { fetchCountriesFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
-import { getWeekInterval } from '~/lib/date-fns-kit';
+import { getInterval } from '~/lib/date-fns-kit';
 
 import { SortKey } from '@/map/@/sidebar/types';
 import { defaultMapType, defaultStyle } from '@/map/constants';
@@ -37,7 +37,7 @@ export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);
 export const $sortKey = createStore<SortKey>(defaultSortKey);
 
-export const $week = createStore(getWeekInterval(new Date()));
+export const $week = createStore(getInterval(new Date(), 'week'));
 export const $isThisWeek = createStore(true);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();

@@ -1,5 +1,5 @@
-import { WeekOptions } from './types';
+import { IntervalOptions } from './types';
 
-export const weekOptions: WeekOptions = {
+export const intervalOptions: IntervalOptions = {
   weekStartsOn: 1 as const,
 };

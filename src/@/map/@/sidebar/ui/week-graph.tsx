@@ -3,12 +3,16 @@ import React from 'react';
 import Chevron from '~/assets/images/chevron.svg';
 import IconHistory from '~/assets/images/icon-history.svg';
 
+import { changeHistoryDataType } from '@/map/@/country/model';
+import { StatsDataType } from '@/map/@/country/types';
+
 import { WeekGraphData, WeekGraphItemData } from './get-week-graph-data';
 
 export interface WeekGraphProps {
   showButtons?: boolean;
   showHistory?: boolean;
   weekGraphData: WeekGraphData;
+  dataType: StatsDataType;
 }
 
 type WeekGraphItemProps = {
@@ -49,6 +53,7 @@ export const WeekGraph = ({
   },
   showButtons,
   showHistory,
+  dataType,
 }: WeekGraphProps) => (
   <>
     <h3 className="sidebar__secondary-title">Daily speed graph (download)</h3>
@@ -83,7 +88,11 @@ export const WeekGraph = ({
       )}
     </div>
     {showHistory && (
-      <button type="button" className="week-graph-link link">
+      <button
+        onClick={() => changeHistoryDataType(dataType)}
+        type="button"
+        className="week-graph-link link"
+      >
         <IconHistory className="link__icon" />
         View history
       </button>
