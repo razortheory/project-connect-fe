@@ -50,3 +50,5 @@ export type AddSchoolPopup = {
 };
 
 export type EmptyObject = Record<string, never>;
+
+export type StatsDataType = 'country' | 'school';

@@ -118,7 +118,11 @@ export const Popup = () => {
         {weekGraphData && (
           <>
             <hr className="school-popup__divider" />
-            <WeekGraph weekGraphData={weekGraphData} />
+            <WeekGraph
+              weekGraphData={weekGraphData}
+              dataType="school"
+              showHistory
+            />
           </>
         )}
       </div>

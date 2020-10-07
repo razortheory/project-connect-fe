@@ -36,28 +36,32 @@ const weekDayNames: Map<WeekDay, Days> = new Map([
   [7, 'sunday'],
 ]);
 
-const megabytesPerSecond = 10 ** 6;
-const LOW_SPEED_MAX = 2 * megabytesPerSecond; // 2Mb/s
-const MED_SPEED_MAX = 5 * megabytesPerSecond; // 5Mb/s
-const HIGH_SPEED_MAX = 10 * megabytesPerSecond; // 10Mb/s
+// TODO: Move to constants
+export const megabytesPerSecond = 10 ** 6;
+export const LOW_SPEED_MAX = 2 * megabytesPerSecond; // 2Mb/s
+export const MED_SPEED_MAX = 5 * megabytesPerSecond; // 5Mb/s
+export const HIGH_SPEED_MAX = 10 * megabytesPerSecond; // 10Mb/s
 
 // Helpers
 const getDayName = (weekday: WeekDay): Days => {
   return weekDayNames.get(weekday) as Days;
 };
 
-const formatDate = (date: string): string => {
+export const formatDate = (date: string): string => {
   return format(new Date(date), 'dd MMM yyyy');
 };
 
-const getPercent = (speed: number): string => {
-  if (speed > HIGH_SPEED_MAX) {
+export const getPercent = (
+  speed: number,
+  maxSpeed = HIGH_SPEED_MAX
+): string => {
+  if (speed > maxSpeed) {
     return '100%';
   }
-  return `${((speed / HIGH_SPEED_MAX) * 100).toFixed(2)}%`;
+  return `${((speed / maxSpeed) * 100).toFixed(2)}%`;
 };
 
-const getFillColor = (speed: number): string => {
+export const getFillColor = (speed: number): string => {
   if (speed >= MED_SPEED_MAX) {
     return '#8bd432';
   }

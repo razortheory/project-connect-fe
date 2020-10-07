@@ -1,2 +1,2 @@
-export { getWeekInterval } from './get-week-interval';
-export { isThisWeekInterval } from './is-this-week-interval';
+export { getInterval } from './get-interval';
+export { isCurrentInterval } from './is-current-interval';
