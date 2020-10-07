@@ -23,8 +23,8 @@ import {
   clearSearchText,
 } from './model';
 
-const hasText = (haystack: string, needle: string): boolean =>
-  haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
+const startsWith = (haystack: string, needle: string): boolean =>
+  haystack.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase());
 
 // Init
 $searchText.on(changeSearchText, setPayload);
@@ -50,7 +50,7 @@ sample({
   source: combine([$sortedCountries, $searchText]),
   fn: ([sortedCountries, searchText]) =>
     sortedCountries
-      ?.filter((country) => hasText(country.name, searchText))
+      ?.filter((country) => startsWith(country.name, searchText))
       ?.slice(0, 8) ?? [],
   target: $countriesList,
 });

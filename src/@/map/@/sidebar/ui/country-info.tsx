@@ -61,12 +61,10 @@ const CountryInfoContent = () => {
   const country = useStore($country);
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const dataSource = country?.data_source || 'N/A';
-  const noSearchCountryFound = useStore($noSearchCountryFound);
-  const searchActive = useStore($searchActive);
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
   const pending = useStore(fetchCountryWeeklyStatsFx.pending) || !country;
-
+  const noSearchCountryFound = useStore($noSearchCountryFound);
   const weekGraphData = useStore($weekGraphData);
 
   const {
@@ -79,7 +77,6 @@ const CountryInfoContent = () => {
 
   return (
     <>
-      {searchActive && !noSearchCountryFound && <SearchResults />}
       {noSearchCountryFound ? (
         <NotFound />
       ) : (
@@ -158,7 +155,7 @@ const CountryInfoContent = () => {
                       <div className="average-speed__icon">
                         <IconSpeedHigh />
                         <div className="average-speed__tooltip tooltip tooltip--dark">
-                          Internet speed bad for <strong>e-learning</strong>
+                          Internet speed good for <strong>e-learning</strong>
                         </div>
                       </div>
                     </div>
@@ -224,10 +221,14 @@ export const CountryInfo = () => {
   const mapType = useStore($mapType);
   const country = useStore($country);
   const countryName = country?.name ?? '';
+  const searchActive = useStore($searchActive);
+  const noSearchCountryFound = useStore($noSearchCountryFound);
 
   return (
     <>
       <Search />
+      {searchActive && !noSearchCountryFound && <SearchResults />}
+
       {useStore($showBreadcrumbs) && (
         <div className="breadcrumbs">
           <Link

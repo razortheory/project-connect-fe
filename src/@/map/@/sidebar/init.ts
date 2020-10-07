@@ -44,8 +44,8 @@ import {
 } from './model';
 import { sortCountries } from './sort-countries';
 
-const hasText = (haystack: string, needle: string): boolean =>
-  haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
+const startsWith = (haystack: string, needle: string): boolean =>
+  haystack.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase());
 
 $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);
@@ -76,7 +76,7 @@ sample({
   fn: ([sortedCountries, searchText]) =>
     sortedCountries
       // prettier-ignore
-      ?.filter((country) => hasText(country.name, searchText)) ?? [],
+      ?.filter((country) => startsWith(country.name, searchText)) ?? [],
   target: $countriesList,
 });
 

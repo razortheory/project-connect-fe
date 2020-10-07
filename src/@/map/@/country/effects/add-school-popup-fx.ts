@@ -3,8 +3,10 @@ import { Point } from 'geojson';
 
 import { AddSchoolPopup } from '@/map/@/country/types';
 
+const nextTick = async () => new Promise((resolve) => setTimeout(resolve, 0));
+
 export const addSchoolPopupFx = createEffect(
-  ({ map, popup, event }: AddSchoolPopup) => {
+  async ({ map, popup, event }: AddSchoolPopup) => {
     if (!map || !popup) return;
 
     const feature = map.queryRenderedFeatures(event.point)[0];
@@ -15,11 +17,13 @@ export const addSchoolPopupFx = createEffect(
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
+    // Close popup
     popup.remove();
 
-    // TODO: Fix bug when popup closes and new one doesn't open
-    setTimeout(() => {
-      popup.setLngLat([coordinates[0], coordinates[1]]).addTo(map);
-    });
+    // Fix bug when popup closes and new one doesn't open
+    await nextTick();
+
+    // Open new popup
+    popup.setLngLat([coordinates[0], coordinates[1]]).addTo(map);
   }
 );

@@ -16,13 +16,16 @@ import {
 
 import { CountryInfo } from './country-info';
 import { CountryList } from './country-list';
+import { $isMobile } from './view-model';
 import { WorldView } from './world-view';
 
 // View logic
 const $showMap = combine(
-  [tabMap.visible, mapOverview.visible],
-  ([tabMapVisible, mapCountriesVisible]) =>
-    tabMapVisible && !mapCountriesVisible
+  $isMobile,
+  tabMap.visible,
+  mapOverview.visible,
+  (isMobile, tabMapVisible, mapOverviewVisible) =>
+    isMobile && tabMapVisible && !mapOverviewVisible
 );
 
 const onToggleSidebar = toggleSidebar.prepend<MouseEvent<HTMLButtonElement>>(

@@ -4,6 +4,6 @@
   padding-top: 7rem;
 
   @include media-breakpoint-down(sm) {
-    height: 100%;
+    height: auto;
   }
 }

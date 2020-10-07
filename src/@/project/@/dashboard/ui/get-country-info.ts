@@ -60,7 +60,7 @@ export const getCountryInfo = (
   const tileDate = dateOfJoin
     ? `Joined in ${format(new Date(dateOfJoin), 'LLL yyyy')}`
     : '';
-  const progressPercent = Number(schoolsWithDataPercentage) / 100;
+  const progressPercent = Number(schoolsWithDataPercentage);
 
   return {
     id,

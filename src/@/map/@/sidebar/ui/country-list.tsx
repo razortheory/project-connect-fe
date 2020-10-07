@@ -3,6 +3,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import { CountryBasic } from '~/api/types';
+import IconLocationCross from '~/assets/images/icon-location-cross.svg';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { tabInfo } from '~/core/tab-routes';
 import { Link } from '~/lib/router';
@@ -24,7 +25,9 @@ import { $isContentTab, $isControlsTab, $isMapTab } from './view-model';
 
 export const NotFound = () => (
   <div className="sidebar__not-found not-found">
-    <div className="not-found__icon">{/* Icon to be added here */}</div>
+    <div className="not-found__icon">
+      <IconLocationCross />
+    </div>
     <h3 className="not-found__title">Country not found</h3>
     <div className="not-found__description">
       Try browsing through our{' '}

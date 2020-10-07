@@ -97,4 +97,5 @@ export const defaultGlobalStats: GlobalStats = {
   countries_with_static_data: 0,
   countries_connected_to_realtime: 0,
   percent_schools_without_connectivity: 0,
+  last_date_updated: null,
 };
