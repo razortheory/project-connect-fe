@@ -1,4 +1,4 @@
-import { combine, guard, sample } from 'effector';
+import { combine, forward, guard, sample } from 'effector';
 
 import { fetchCountriesFx, fetchGlobalStatsFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
@@ -10,17 +10,21 @@ import { sortCountries } from '@/map/@/sidebar/sort-countries';
 import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 
 import {
+  $controlsSortKey,
   $countriesList,
   $hasSearchText,
+  $isControlsChanged,
   $isListType,
   $isLoading,
   $noSearchResults,
   $searchText,
   $sortKey,
+  changeControlsSortKey,
   changeSearchText,
   changeSortKey,
   changeViewType,
   clearSearchText,
+  submitControlsChanges,
 } from './model';
 
 const startsWith = (haystack: string, needle: string): boolean =>
@@ -76,4 +80,27 @@ sample({
     filter: getInverted,
   }),
   target: scrollToHashFx,
+});
+
+// Sort tab
+$controlsSortKey.on(changeControlsSortKey, setPayload);
+
+forward({
+  from: $sortKey,
+  to: $controlsSortKey,
+});
+
+sample({
+  source: combine([$sortKey, $controlsSortKey]),
+  fn: ([sortKey, controlsSortKey]) => sortKey !== controlsSortKey,
+  target: $isControlsChanged,
+});
+
+sample({
+  source: guard(combine([$controlsSortKey, $sortKey]), {
+    filter: ([controlsSortKey, sortKey]) => controlsSortKey !== sortKey,
+  }),
+  clock: submitControlsChanges,
+  fn: ([controlsSortKey]) => controlsSortKey,
+  target: changeSortKey,
 });

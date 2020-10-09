@@ -9,6 +9,8 @@ export const changeSearchText = createEvent<string>();
 export const changeViewType = createEvent();
 export const clearSearchText = createEvent();
 export const changeSortKey = createEvent<SortKey>();
+export const changeControlsSortKey = createEvent<SortKey>();
+export const submitControlsChanges = createEvent();
 
 export const $searchText = createStore('');
 export const $hasSearchText = createStore(false);
@@ -17,3 +19,5 @@ export const $noSearchResults = createStore(false);
 export const $isListType = createStore(false);
 export const $isLoading = createStore<boolean>(false);
 export const $sortKey = createStore<SortKey>(defaultSortKey);
+export const $controlsSortKey = createStore<SortKey>(defaultSortKey);
+export const $isControlsChanged = createStore(false);
