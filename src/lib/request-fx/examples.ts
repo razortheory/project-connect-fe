@@ -15,7 +15,7 @@ export const request = createRequest({
 export const fetchCountryFx = createRequestFx(
   async (countryId: number, controller?: Controller): Promise<Response> =>
     fetch(`api/countries/${countryId}/`, {
-      signal: await controller?.getSignal(),
+      signal: controller?.getSignal(),
     })
 );
 
@@ -29,7 +29,7 @@ export const fetchCountryFx2 = createRequestFx({
     controller?: Controller
   ): Promise<Response> =>
     fetch(`api/countries/${countryId}/`, {
-      signal: await controller?.getSignal(),
+      signal: controller?.getSignal(),
     }),
 });
 
@@ -50,20 +50,20 @@ void fetchCountryFx(3, { normal: true }); // Fetch ok
 // Initial cancel event doesn't work for normal events.
 // Use your own controller for each normal request (optional):
 
-const controller = createController();
-void fetchCountryFx(1, { normal: true, controller });
+const ctrl = createController();
+void fetchCountryFx(1, { normal: true, controller: ctrl });
 // Later in your code
-void controller.cancel();
+void ctrl.cancel();
 
-// The handler is compartible with `createEffect`.
+// The handler is compatible with `createEffect`.
 // There is a classic way to create normal effect:
 
 const fetchCountry = async (
   countryId: number,
-  ctrl?: Controller
+  controller?: Controller
 ): Promise<Response> =>
   fetch(`api/countries/${countryId}/`, {
-    signal: await ctrl?.getSignal(),
+    signal: controller?.getSignal(),
   });
 
 export const fetchCountryEffect = createRequestFx(fetchCountry);
@@ -74,13 +74,37 @@ export const fetchCountryFxNormal = createEffect(fetchCountry);
 export const app = createDomain();
 export const fetchCountryFx3 = createRequestFx({
   domain: app,
-  handler: async (countryId: number, ctrl?: Controller): Promise<Response> =>
+  handler: async (
+    countryId: number,
+    controller?: Controller
+  ): Promise<Response> =>
     fetch(`api/locations/countries/${countryId}/`, {
-      signal: await ctrl?.getSignal(),
+      signal: controller?.getSignal(),
     }),
 });
-
 // ... or `createController`:
 
 export const controller3 = createController({ domain: app });
 void fetchCountryFx3(1, { normal: true, controller: controller3 });
+
+// You can do a cleanup... Use .onCancel method of your controller:
+
+const fx = createRequestFx(async (params: number, controller) => {
+  let timeout: number;
+
+  return new Promise((resolve, reject) => {
+    void controller?.onCancel(() => {
+      clearTimeout(timeout);
+      reject(new Error('Cancelled'));
+    });
+    timeout = setTimeout(() => {
+      // eslint-disable-next-line no-console
+      console.log(`Not cancelled: ${params}`);
+      resolve(`Result: ${params}`);
+    });
+  });
+});
+
+void fx(1); // No logs, effect fails with "Cancelled" error
+void fx(2); // No logs, effect fails with "Cancelled" error
+void fx(3); // Logs "Not cancelled: 3", effect is done with "Result: 3"

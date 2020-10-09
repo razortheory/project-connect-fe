@@ -26,7 +26,7 @@ export const fetchCountryFx = createRequestFx(
   async (countryId: number, controller?: Controller): Promise<Country> =>
     request({
       url: `api/locations/countries/${countryId}/`,
-      signal: await controller?.getSignal(),
+      signal: controller?.getSignal(),
     })
 );
 
@@ -35,19 +35,25 @@ export const fetchSchoolsFx = createRequestFx(
     request({
       url: `api/locations/countries/${countryId}/schools/`,
       fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
-      signal: await controller?.getSignal(),
+      signal: controller?.getSignal(),
     })
 );
 
-export const fetchSchoolFx = createEffect(
-  async ({
-    countryId,
-    schoolId,
-  }: {
-    countryId: number;
-    schoolId: number;
-  }): Promise<School> =>
-    request(`api/locations/countries/${countryId}/schools/${schoolId}/`)
+export const fetchSchoolFx = createRequestFx(
+  async (
+    {
+      countryId,
+      schoolId,
+    }: {
+      countryId: number;
+      schoolId: number;
+    },
+    controller?: Controller
+  ): Promise<School> =>
+    request({
+      url: `api/locations/countries/${countryId}/schools/${schoolId}/`,
+      signal: controller?.getSignal(),
+    })
 );
 
 export const fetchCountriesFx = createEffect(
@@ -78,7 +84,7 @@ export const fetchCountryWeeklyStatsFx = createRequestFx(
     const year = getYear(week.start);
     return request({
       url: `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`,
-      signal: await controller?.getSignal(),
+      signal: controller?.getSignal(),
     });
   }
 );
