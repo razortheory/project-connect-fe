@@ -11,6 +11,7 @@ import {
 } from '@/map/@/country/model';
 import { $controlsMapType } from '@/map/@/sidebar/model';
 import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
+import IconLocation from '~/assets/images/icon-location.svg';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -68,7 +69,7 @@ export const Popup = () => {
       <div className="school-popup__content">
         <h2 className="school-popup__title">{name}</h2>
         <p className="school-popup__description">{address}</p>
-        <h3 className="school-popup__subtitle">Connectivity info</h3>
+        <h3 className="school-popup__subtitle school-popup__subtitle--connectivity">Connectivity info</h3>
         <ul className="school-popup__list definition-list">
           {connectionSpeed && (
             <li className="definition-list__item">
@@ -89,40 +90,49 @@ export const Popup = () => {
           )}
         </ul>
         <hr className="school-popup__divider" />
-        <h3 className="school-popup__subtitle">Location info</h3>
-        <ul className="school-popup__list definition-list">
-          {regionClassification && (
-            <li className="definition-list__item">
-              Region classification <strong>{regionClassification}</strong>
-            </li>
-          )}
+        <div className="school-popup__location-wrapper">
+          <h3 className="school-popup__subtitle school-popup__subtitle--location">
+            <IconLocation />
+            Location info
+          </h3>
+          <div className="school-popup__tooltip">
+            <ul className="school-popup__list definition-list">
+              {regionClassification && (
+                <li className="definition-list__item">
+                  Region classification <strong>{regionClassification}</strong>
+                </li>
+              )}
 
-          {postalCode && (
-            <li className="definition-list__item">
-              Postal code <strong>{postalCode}</strong>
-            </li>
-          )}
+              {postalCode && (
+                <li className="definition-list__item">
+                  Postal code <strong>{postalCode}</strong>
+                </li>
+              )}
 
-          {latitude && (
-            <li className="definition-list__item">
-              Latitude <strong>{latitude}</strong>
-            </li>
-          )}
+              {latitude && (
+                <li className="definition-list__item">
+                  Latitude <strong>{latitude}</strong>
+                </li>
+              )}
 
-          {longitude && (
-            <li className="definition-list__item">
-              Longitude <strong>{longitude}</strong>
-            </li>
-          )}
-        </ul>
+              {longitude && (
+                <li className="definition-list__item">
+                  Longitude <strong>{longitude}</strong>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
         {weekGraphData && (
           <>
             <hr className="school-popup__divider" />
-            <WeekGraph
-              weekGraphData={weekGraphData}
-              dataType="school"
-              showHistory
-            />
+            <div className="school-popup__week-graph">
+              <WeekGraph
+                weekGraphData={weekGraphData}
+                dataType="school"
+                showHistory
+              />
+            </div>
           </>
         )}
       </div>

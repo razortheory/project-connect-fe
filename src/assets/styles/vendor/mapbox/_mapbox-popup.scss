@@ -67,12 +67,15 @@
 
 .mapboxgl-popup-content.mapboxgl-popup-content {
   padding: 0;
-  overflow: hidden;
   background-color: #232832;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.003);
+  box-shadow: none;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     border-radius: unset;
+  }
+
+  @include media-breakpoint-up(md) {
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.23);
   }
 }

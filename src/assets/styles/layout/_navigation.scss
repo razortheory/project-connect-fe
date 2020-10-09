@@ -2,6 +2,7 @@
   @include list-unstyled;
   display: flex;
   flex-direction: column;
+  width: 100%;
   background-color: #141923;
 
   @include media-breakpoint-up(lg) {
@@ -10,7 +11,8 @@
 }
 
 .menu__link {
-  padding: 1.8rem 2.5rem;
+  width: 100%;
+  padding: 1rem 2.5rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
@@ -26,8 +28,8 @@
   }
 
   @include media-breakpoint-only(lg) {
-    padding-right: 1.7rem;
-    padding-left: 1.7rem;
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
   }
 
   &,
@@ -85,6 +87,7 @@
         top: 100%;
         left: 0;
         flex-direction: column;
+        width: auto;
       }
 
       .menu__link {

@@ -13,6 +13,11 @@
     .header {
       background-color: $header-background-color;
     }
+    .header__button {
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
 
     .footer {
       height: auto;
@@ -25,6 +30,22 @@
   }
 
   &--home {
+    .header {
+      @include media-breakpoint-up(md) {
+        height: 0;
+      }
+    }
+    .header__logo {
+      position: absolute;
+      top: 3.2rem;
+      transform: translateY(-50%);
+    }
+    .header__button {
+      position: absolute;
+      top: 3.2rem;
+      right: 24px;
+      transform: translateY(-50%);
+    }
     .content {
       height: 100%;
     }

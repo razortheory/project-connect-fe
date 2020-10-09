@@ -10,6 +10,7 @@ import { Link } from '~/lib/router';
 
 import { $globalStats } from '@/map/model';
 import { Scroll } from '@/scroll';
+import { Button } from '../../../../../ui/atoms';
 
 export const WorldView = () => {
   const {
@@ -26,6 +27,9 @@ export const WorldView = () => {
       </h2>
       <Scroll>
         <div className="sidebar__content">
+          <div className="sidebar__view-connectivity view-connectivity">
+            <Button>View connectivity map</Button>
+          </div>
           <p className="sidebar__paragraph">
             Project Connect aims to map real-time connectivity of every school
             in the world. This will serve as foundation to work with governments
@@ -51,7 +55,7 @@ export const WorldView = () => {
               </h3>
             </li>
           </ul>
-          <Link to={mapCountries} className="button button--primary">
+          <Link to={mapCountries} className="sidebar__button sidebar__button--select-country button button--primary">
             Select a country
           </Link>
         </div>

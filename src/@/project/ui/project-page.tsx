@@ -15,6 +15,7 @@ import {
   privacy,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
+import { Button } from '../../../ui/atoms';
 
 import { About } from './about';
 import { CountryProgress } from './country-progress';
@@ -30,8 +31,11 @@ export const ProjectPage = () => (
         </Link>
         {/* header__nav--mobile-visible on menu button click */}
         <nav className="header__nav">
+          <div className="header__view-connectivity view-connectivity">
+            <Button>View connectivity map</Button>
+          </div>
           <ul className="menu">
-            <li className="menu__item">
+            <li className="menu__item menu__item--expanded">
               <Link
                 to={about}
                 className={`menu__link ${
@@ -94,13 +98,13 @@ export const ProjectPage = () => (
               </Link>
             </li>
           </ul>
+          <Link
+            to={mapOverview}
+            className="header__button button button--primary"
+          >
+            Connectivity map
+          </Link>
         </nav>
-        <Link
-          to={mapOverview}
-          className="header__button button button--primary"
-        >
-          Connectivity map
-        </Link>
       </div>
     </header>
     <main className="content">

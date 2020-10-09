@@ -23,6 +23,7 @@
 
 .header__nav {
   display: flex;
+  width: 100%;
   height: 100%;
 
   @include media-breakpoint-down(md) {
@@ -32,6 +33,8 @@
     left: 0;
     z-index: 100;
     display: none;
+    flex-direction: column;
+    height: calc(100vh - 6.4rem);
     background-color: #141923;
     border-top: 0.2rem solid $color-primary;
     transform: translateY(-1rem);
@@ -42,6 +45,14 @@
       transform: translateY(0);
       opacity: 1;
     }
+  }
+}
+
+.header__view-connectivity {
+  margin-bottom: 2rem;
+
+  @include media-breakpoint-up(lg) {
+    display: none;
   }
 }
 

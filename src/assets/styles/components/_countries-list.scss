@@ -308,7 +308,7 @@
 .countries-list__row {
   @include media-breakpoint-up(md) {
     margin-top: 2rem;
-    padding: 0.9rem 2.4rem;
+    padding: 0.9rem 24px;
     background-color: #232832;
     border-radius: 0.5rem;
   }
