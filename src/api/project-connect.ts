@@ -31,7 +31,10 @@ export const fetchCountryFx = createRequestFx(
 );
 
 export const fetchSchoolsFx = createRequestFx(
-  async (countryId: number, controller): Promise<FeatureCollection> =>
+  async (
+    countryId: number,
+    controller?: Controller
+  ): Promise<FeatureCollection> =>
     request({
       url: `api/locations/countries/${countryId}/schools/`,
       fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
@@ -89,40 +92,48 @@ export const fetchCountryWeeklyStatsFx = createRequestFx(
   }
 );
 
-const fetchCountryDailyStats = async ({
-  countryId,
-  interval,
-}: {
-  countryId: number;
-  interval: Interval;
-}): Promise<DailyStats[] | null> => {
+const fetchCountryDailyStats = async (
+  {
+    countryId,
+    interval,
+  }: {
+    countryId: number;
+    interval: Interval;
+  },
+  controller?: Controller
+): Promise<DailyStats[] | null> => {
   const startDate = format(interval.start, 'yyyy-MM-dd');
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
     url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
     fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    signal: controller?.getSignal(),
   });
 };
 
-export const fetchCountryDailyStatsFx = createEffect(fetchCountryDailyStats);
-export const fetchCountryHistoryFx = createEffect(fetchCountryDailyStats);
+export const fetchCountryDailyStatsFx = createRequestFx(fetchCountryDailyStats);
+export const fetchCountryHistoryFx = createRequestFx(fetchCountryDailyStats);
 
-const fetchSchoolDailyStats = async ({
-  schoolId,
-  interval,
-}: {
-  schoolId: number;
-  interval: Interval;
-}): Promise<DailyStats[] | null> => {
+const fetchSchoolDailyStats = async (
+  {
+    schoolId,
+    interval,
+  }: {
+    schoolId: number;
+    interval: Interval;
+  },
+  controller?: Controller
+): Promise<DailyStats[] | null> => {
   const startDate = format(interval.start, 'yyyy-MM-dd');
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
     url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
     fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    signal: controller?.getSignal(),
   });
 };
 
-export const fetchSchoolDailyStatsFx = createEffect(fetchSchoolDailyStats);
-export const fetchSchoolHistoryFx = createEffect(fetchSchoolDailyStats);
+export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
+export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
