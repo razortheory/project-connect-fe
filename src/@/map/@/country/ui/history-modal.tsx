@@ -24,7 +24,7 @@ import {
   getHistoryGraphData,
   HistoryGraphData,
 } from './get-history-graph-data';
-import { ProgressLine } from './progress-bar';
+import { ProgressBar } from './progress-bar';
 
 const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);
@@ -141,7 +141,7 @@ export const HistoryModal = () => {
   return (
     <div className="history-modal__wrapper">
       <div className="history-modal">
-        <ProgressLine visible={pending} background="#232832" />
+        <ProgressBar pending={pending} />
         <Scroll>
           <div className="history-modal__scrollable">
             <div className="history-modal__header">

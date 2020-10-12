@@ -3,6 +3,8 @@ import { getInterval } from '~/lib/date-fns-kit';
 
 import { SortKey, SortType } from '@/map/@/sidebar/types';
 
+export const defaultInterval = getInterval(new Date(), 'week');
+
 export const defaultSortKey = 'countryProgress';
 
 export const countriesSortData: {
@@ -28,5 +30,3 @@ export const countriesSortData: {
     sortType: 'number',
   },
 };
-
-export const defaultInterval = getInterval(new Date(), 'week');

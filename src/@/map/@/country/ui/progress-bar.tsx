@@ -6,8 +6,6 @@ const HorizontalLine = styled.div`
   display: flex;
   align-items: flex-end;
   height: 1px;
-  /* stylelint-disable-next-line */
-  background-color: ${(props: { background: string }) => props.background};
 `;
 
 const fadeIn = keyframes`
@@ -19,14 +17,6 @@ const fadeIn = keyframes`
   }
 `;
 
-const ProgressBarTrack = styled.div`
-  z-index: 1;
-  display: flex;
-  flex-grow: 1;
-  height: 1px;
-  overflow: hidden;
-`;
-
 const progressLoop = keyframes`
   0% {
     transform: translate(-100%);
@@ -36,25 +26,28 @@ const progressLoop = keyframes`
   }
 `;
 
-const ProgressBarFill = styled.div`
+const Fill = styled.div`
   width: 50%;
   background-color: #529ae9;
   animation: ${progressLoop} 1.7s linear infinite, ${fadeIn} 0.2s ease-in;
 `;
 
-export const ProgressBar = () => (
-  <ProgressBarTrack>
-    <ProgressBarFill />
-  </ProgressBarTrack>
+const Track = styled.div`
+  z-index: 1;
+  display: flex;
+  flex-grow: 1;
+  height: 1px;
+  overflow: hidden;
+`;
+
+export const Progress = () => (
+  <Track>
+    <Fill />
+  </Track>
 );
 
-type ProgressLineProps = { visible?: boolean; background?: string };
+type ProgressBarProps = { pending?: boolean };
 
-export const ProgressLine = ({
-  visible = true,
-  background = '#335a85',
-}: ProgressLineProps) => (
-  <HorizontalLine background={background}>
-    {visible && <ProgressBar />}
-  </HorizontalLine>
+export const ProgressBar = ({ pending = true }: ProgressBarProps) => (
+  <HorizontalLine>{pending && <Progress />}</HorizontalLine>
 );
