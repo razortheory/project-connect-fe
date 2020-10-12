@@ -4,6 +4,20 @@ import { MultiPolygon, Polygon } from 'geojson';
 import { getPolygonBoundingBox } from '@/map/@/country/lib';
 import { ZoomToCountryBounds } from '@/map/@/country/types';
 
+const paddingMobile = {
+  left: 5,
+  right: 5,
+  top: 50,
+  bottom: 5,
+};
+
+const paddingDesktop = {
+  left: 360,
+  right: 30,
+  top: 30,
+  bottom: 30,
+};
+
 export const zoomToCountryFx = createEffect(
   ({
     map,
@@ -25,15 +39,12 @@ export const zoomToCountryFx = createEffect(
       );
 
       map.fitBounds(bounds, {
-        padding: {
-          left: isMobile ? 5 : 360,
-          right: isMobile ? 5 : 30,
-          top: isMobile ? 50 : 30,
-          bottom: isMobile ? 5 : 30,
-        },
+        padding: isMobile ? paddingMobile : paddingDesktop,
       });
+
       return countryId;
     }
+
     return 0;
   }
 );
