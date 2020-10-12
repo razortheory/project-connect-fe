@@ -28,6 +28,7 @@ export type ZoomToCountryBounds = {
   countryId: number;
   countriesGeometry: CountryGeometry[] | null;
   country: Country | null;
+  isMobile: boolean;
 };
 
 export type LeaveCountryRoute = {

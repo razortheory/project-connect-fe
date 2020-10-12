@@ -10,6 +10,7 @@ export const zoomToCountryFx = createEffect(
     countriesGeometry,
     countryId,
     country,
+    isMobile,
   }: ZoomToCountryBounds): number => {
     if (!countryId || !map) return 0;
 
@@ -24,7 +25,12 @@ export const zoomToCountryFx = createEffect(
       );
 
       map.fitBounds(bounds, {
-        padding: { left: 360, right: 30, top: 30, bottom: 30 },
+        padding: {
+          left: isMobile ? 5 : 360,
+          right: isMobile ? 5 : 30,
+          top: isMobile ? 50 : 30,
+          bottom: isMobile ? 5 : 30,
+        },
       });
       return countryId;
     }
