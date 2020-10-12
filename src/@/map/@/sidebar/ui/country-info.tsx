@@ -2,7 +2,10 @@ import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { baseApiUrl, fetchCountryWeeklyStatsFx } from '~/api/project-connect';
+import {
+  fetchCountryWeeklyStatsFx,
+  getDatasetUrl,
+} from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
@@ -78,7 +81,7 @@ const CountryInfoContent = () => {
   } = useStore($countryInfo) ?? {};
 
   const countryId = useStore($countryId);
-  const downloadCsvLink = `${baseApiUrl}api/locations/countries/${countryId}/schools/export-csv-schools/`;
+  const datasetUrl = getDatasetUrl(countryId);
 
   return (
     <>
@@ -202,7 +205,7 @@ const CountryInfoContent = () => {
                 You can download the country map data by clicking on the button
                 below. File format for the data set would be CSV and PDF.
               </p>
-              <a className="sidebar__link link" href={downloadCsvLink} download>
+              <a className="sidebar__link link" href={datasetUrl} download>
                 <IconDownload className="link__icon" />
                 Download data set
               </a>

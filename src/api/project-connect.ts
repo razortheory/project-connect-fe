@@ -18,11 +18,14 @@ import {
   SchoolBasic,
 } from './types';
 
-export const baseApiUrl = 'https://api.projectconnect.razortheory.com/';
+export const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
 
 export const request = createRequest({
-  baseUrl: 'https://api.projectconnect.razortheory.com/',
+  baseUrl: apiBaseUrl,
 });
+
+export const getDatasetUrl = (countryId: number): string =>
+  `${apiBaseUrl}api/locations/countries/${countryId}/schools/export-csv-schools/`;
 
 export const fetchCountryFx = createRequestFx(
   async (countryId: number, controller?: Controller): Promise<Country> =>
