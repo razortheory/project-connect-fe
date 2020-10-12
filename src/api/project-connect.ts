@@ -18,6 +18,8 @@ import {
   SchoolBasic,
 } from './types';
 
+export const baseApiUrl = 'https://api.projectconnect.razortheory.com/';
+
 export const request = createRequest({
   baseUrl: 'https://api.projectconnect.razortheory.com/',
 });
