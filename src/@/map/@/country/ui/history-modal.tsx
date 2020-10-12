@@ -180,17 +180,6 @@ export const HistoryModal = () => {
               </div>
 
               <div className="history-modal__period-unit-picker">
-                {/* <button */}
-                {/*  type="button" */}
-                {/*  onClick={() => changeHistoryIntervalUnit('day')} */}
-                {/*  className={`history-modal__period-unit ${ */}
-                {/*    intervalUnit === 'day' */}
-                {/*      ? 'history-modal__period-unit--active' */}
-                {/*      : '' */}
-                {/*  }`} */}
-                {/* > */}
-                {/*  daily */}
-                {/* </button> */}
                 <button
                   type="button"
                   onClick={() => changeHistoryIntervalUnit('week')}
