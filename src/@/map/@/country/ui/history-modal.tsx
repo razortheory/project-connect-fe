@@ -24,7 +24,7 @@ import {
   getHistoryGraphData,
   HistoryGraphData,
 } from './get-history-graph-data';
-import { ProgressLine } from './progress-bar';
+import { ProgressBar } from './progress-bar';
 
 const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);
@@ -141,7 +141,7 @@ export const HistoryModal = () => {
   return (
     <div className="history-modal__wrapper">
       <div className="history-modal">
-        {pending && <ProgressLine visible />}
+        <ProgressBar pending={pending} />
         <Scroll>
           <div className="history-modal__scrollable">
             <div className="history-modal__header">
@@ -180,17 +180,6 @@ export const HistoryModal = () => {
               </div>
 
               <div className="history-modal__period-unit-picker">
-                {/* <button */}
-                {/*  type="button" */}
-                {/*  onClick={() => changeHistoryIntervalUnit('day')} */}
-                {/*  className={`history-modal__period-unit ${ */}
-                {/*    intervalUnit === 'day' */}
-                {/*      ? 'history-modal__period-unit--active' */}
-                {/*      : '' */}
-                {/*  }`} */}
-                {/* > */}
-                {/*  daily */}
-                {/* </button> */}
                 <button
                   type="button"
                   onClick={() => changeHistoryIntervalUnit('week')}

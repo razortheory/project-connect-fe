@@ -5,13 +5,12 @@ import { KeyboardEvent, MouseEvent } from 'react';
 
 import { fetchCountriesFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
-import { getInterval } from '~/lib/date-fns-kit';
 
 import { SortKey } from '@/map/@/sidebar/types';
 import { defaultMapType, defaultStyle } from '@/map/constants';
 import { MapType, Style } from '@/map/types';
 
-import { defaultSortKey } from './constants';
+import { defaultInterval, defaultSortKey } from './constants';
 
 export const onClickSidebar = createEvent<MouseEvent<HTMLDivElement>>();
 export const toggleSidebar = createEvent();
@@ -37,7 +36,7 @@ export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);
 export const $sortKey = createStore<SortKey>(defaultSortKey);
 
-export const $week = createStore(getInterval(new Date(), 'week'));
+export const $week = createStore(defaultInterval);
 export const $isThisWeek = createStore(true);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();

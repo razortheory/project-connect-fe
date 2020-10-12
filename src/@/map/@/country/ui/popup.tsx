@@ -14,7 +14,7 @@ import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
-import { ProgressLine } from './progress-bar';
+import { ProgressBar } from './progress-bar';
 
 export const onChangeRef = createEvent<HTMLDivElement | null>();
 
@@ -26,16 +26,16 @@ const $weekGraphData = $schoolDailyStats.map(getWeekGraphData);
 
 export const Popup = () => {
   const school = useStore($school);
-  const isLoading = useStore($schoolPending);
+  const pending = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
   const mapType = useStore($controlsMapType);
 
-  if (!school || isLoading) {
+  if (!school || pending) {
     return (
       <div ref={onChangeRef} className="school-popup">
-        <ProgressLine visible={isLoading} />
+        <ProgressBar pending={pending} />
         <div className="school-popup__content">
-          {isLoading ? 'Loading...' : 'N/A'}
+          {pending ? 'Loading...' : 'N/A'}
         </div>
       </div>
     );
