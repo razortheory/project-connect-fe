@@ -141,7 +141,7 @@ export const HistoryModal = () => {
   return (
     <div className="history-modal__wrapper">
       <div className="history-modal">
-        {pending && <ProgressLine visible />}
+        <ProgressLine visible={pending} background="#232832" />
         <Scroll>
           <div className="history-modal__scrollable">
             <div className="history-modal__header">

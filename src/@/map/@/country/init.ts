@@ -340,7 +340,6 @@ $historyIntervalUnit.reset(closeHistoryModal);
 
 sample({
   source: $week,
-  clock: guard($isOpenHistoryModal, { filter: Boolean }),
   target: $historyInterval,
 });
 
@@ -353,6 +352,12 @@ sample({
 sample({
   source: $historyIntervalUnit,
   fn: (unit) => getInterval(new Date(), unit),
+  target: $historyInterval,
+});
+
+sample({
+  source: $week,
+  clock: closeHistoryModal,
   target: $historyInterval,
 });
 
@@ -381,11 +386,28 @@ sample({
 sample({
   source: guard({
     source: combine({
+      interval: $historyInterval,
+      historyDataType: $historyDataType,
+      week: $week,
+      countryDailyStats: $countryDailyStats,
+    }),
+    filter: ({ historyDataType, interval, week }) =>
+      Boolean(historyDataType === 'country' && interval === week),
+  }),
+  fn: ({ countryDailyStats }) => countryDailyStats,
+  target: $historyData,
+});
+
+sample({
+  source: guard({
+    source: combine({
       countryId: $countryId,
       interval: $historyInterval,
       historyDataType: $historyDataType,
+      week: $week,
     }),
-    filter: ({ historyDataType }) => Boolean(historyDataType === 'country'),
+    filter: ({ historyDataType, interval, week }) =>
+      Boolean(historyDataType === 'country' && interval !== week),
   }),
   fn: ({ countryId, interval }) => ({ countryId, interval }),
   target: fetchCountryHistoryFx,
@@ -394,11 +416,28 @@ sample({
 sample({
   source: guard({
     source: combine({
+      interval: $historyInterval,
+      historyDataType: $historyDataType,
+      week: $week,
+      schoolDailyStats: $schoolDailyStats,
+    }),
+    filter: ({ historyDataType, interval, week }) =>
+      Boolean(historyDataType === 'school' && interval === week),
+  }),
+  fn: ({ schoolDailyStats }) => schoolDailyStats,
+  target: $historyData,
+});
+
+sample({
+  source: guard({
+    source: combine({
       schoolId: $schoolId,
       interval: $historyInterval,
       historyDataType: $historyDataType,
+      week: $week,
     }),
-    filter: ({ historyDataType }) => Boolean(historyDataType === 'school'),
+    filter: ({ historyDataType, interval, week }) =>
+      Boolean(historyDataType === 'school' && interval !== week),
   }),
   fn: ({ schoolId, interval }) => ({ schoolId, interval }),
   target: fetchSchoolHistoryFx,

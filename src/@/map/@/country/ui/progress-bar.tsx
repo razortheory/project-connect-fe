@@ -6,7 +6,8 @@ const HorizontalLine = styled.div`
   display: flex;
   align-items: flex-end;
   height: 1px;
-  background-color: #335a85;
+  /* stylelint-disable-next-line */
+  background-color: ${(props: { background: string }) => props.background};
 `;
 
 const fadeIn = keyframes`
@@ -47,8 +48,13 @@ export const ProgressBar = () => (
   </ProgressBarTrack>
 );
 
-type ProgressLineProps = { visible?: boolean };
+type ProgressLineProps = { visible?: boolean; background?: string };
 
-export const ProgressLine = ({ visible = true }: ProgressLineProps) => (
-  <HorizontalLine>{visible && <ProgressBar />}</HorizontalLine>
+export const ProgressLine = ({
+  visible = true,
+  background = '#335a85',
+}: ProgressLineProps) => (
+  <HorizontalLine background={background}>
+    {visible && <ProgressBar />}
+  </HorizontalLine>
 );
