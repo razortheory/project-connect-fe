@@ -19,6 +19,7 @@ import { getInverted, getVoid, onFalse, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
 import { $week, nextWeek, previousWeek } from '@/map/@/sidebar/model';
+import { $isMobile } from '@/map/@/sidebar/ui/view-model';
 import { initMapFx } from '@/map/effects';
 import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
 
@@ -119,6 +120,7 @@ const $mapContext = combine({
   countryId: $countryId,
   schoolId: $schoolId,
   zoomedCountryId: $zoomedCountryId,
+  isMobile: $isMobile,
 });
 
 // Fetch country data and schools data
@@ -160,11 +162,12 @@ sample({
     filter: ({ countryId, zoomedCountryId }) =>
       Boolean(countryId && countryId !== zoomedCountryId),
   }),
-  fn: ({ map, countryId, countriesGeometry, country }) => ({
+  fn: ({ map, countryId, countriesGeometry, country, isMobile }) => ({
     map,
     countryId,
     countriesGeometry,
     country,
+    isMobile,
   }),
   target: zoomToCountryFx,
 });
