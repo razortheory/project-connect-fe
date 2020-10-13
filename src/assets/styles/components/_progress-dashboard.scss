@@ -52,7 +52,8 @@
   text-transform: uppercase;
 }
 
-.progress-dashboard__controls-bar {
+.progress-dashboard__controls-bar,
+.progress-dashboard__tabs {
   @include media-breakpoint-down(sm) {
     margin-right: -24px;
     margin-left: -24px;
@@ -98,4 +99,8 @@
     font-family: $font-family-secondary;
     line-height: 1.54;
   }
+}
+
+.progress-dashboard__controls-button {
+  margin-top: 20rem;
 }

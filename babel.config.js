@@ -30,7 +30,7 @@ const pluginStyledComponents = {
 
 const pluginEffector = {
   addLoc: true,
-  importName: ['effector', 'effector/compat', 'effector-logger'],
+  importName: ['effector', 'effector-logger'],
 };
 
 module.exports = {

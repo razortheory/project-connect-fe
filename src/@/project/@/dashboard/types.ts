@@ -19,3 +19,5 @@ export type CountryInfo = {
   progressDescription: string;
   mapPreviewStyle: MapPreview;
 };
+
+export type Tabs = 'countries' | 'sort';
