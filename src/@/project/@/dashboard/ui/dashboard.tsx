@@ -1,24 +1,23 @@
-import { combine } from 'effector';
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import {
-  countryProgressTabCountries,
-  countryProgressTabSort,
-} from '~/core/country-progress-tab-routes';
+import { getVoid } from '~/lib/effector-kit';
 import { inputValue } from '~/lib/event-reducers';
-import { Link, useRoute } from '~/lib/router';
 
 import { SortKey } from '@/map/@/sidebar/types';
 import { ControlsSort } from '@/map/@/sidebar/ui/controls-sort';
-import { $isDesktop, $isMobile } from '@/map/@/sidebar/ui/view-model';
 import {
   $controlsSortKey,
   $isControlsChanged,
+  $isCountriesTab,
   $isListType,
   $isLoading,
+  $isSortTab,
   $noSearchResults,
   changeControlsSortKey,
+  selectCountriesTab,
+  selectSortTab,
   submitControlsChanges,
 } from '@/project/@/dashboard/model';
 
@@ -26,26 +25,17 @@ import { DashboardDescription } from './dashboard-description';
 import { SearchSortBox } from './search-sort-box';
 import { SearchResults } from './search-sort-results';
 
-export const $isCountriesTab = combine(
-  $isDesktop,
-  countryProgressTabCountries.visible,
-  (isDesktop, tabInfoVisible) => isDesktop || tabInfoVisible
-);
-
-const $isSortTab = combine(
-  $isMobile,
-  countryProgressTabSort.visible,
-  (isMobile, tabControlsVisible) => isMobile && tabControlsVisible
-);
-
 const onSortChange = changeControlsSortKey.prepend(inputValue<SortKey>());
+const onSelectCountriesTab = selectCountriesTab.prepend(getVoid);
+const onSelectSortTab = selectSortTab.prepend(getVoid);
+const onSubmitControlsChanges = submitControlsChanges.prepend(getVoid);
 
 export const Dashboard = () => {
   const loading = useStore($isLoading);
   const isCountriesTab = useStore($isCountriesTab);
   const isSortTab = useStore($isSortTab);
   const noSearchResults = useStore($noSearchResults);
-
+  const isListType = useStore($isListType);
   const sortKey = useStore($controlsSortKey);
   const isControlsChanged = useStore($isControlsChanged);
 
@@ -60,87 +50,86 @@ export const Dashboard = () => {
 
               <ul className="progress-dashboard__tabs tabs">
                 <li className="tabs__item">
-                  <Link to={countryProgressTabCountries}>
-                    <button
-                      type="button"
-                      className={`tabs__button ${
-                        useRoute(countryProgressTabCountries)
-                          ? 'tabs__button--active'
-                          : ''
-                      }`}
-                    >
-                      country list
-                    </button>
-                  </Link>
+                  <button
+                    type="button"
+                    className={clsx('tabs__button', {
+                      'tabs__button--active': isCountriesTab,
+                    })}
+                    onClick={onSelectCountriesTab}
+                  >
+                    country list
+                  </button>
                 </li>
                 <li className="tabs__item">
-                  <Link to={countryProgressTabSort}>
-                    <button
-                      type="button"
-                      className={`tabs__button ${
-                        useRoute(countryProgressTabSort)
-                          ? 'tabs__button--active'
-                          : ''
-                      }`}
-                    >
-                      sort by
-                    </button>
-                  </Link>
+                  <button
+                    type="button"
+                    className={clsx('tabs__button', {
+                      'tabs__button--active': isSortTab,
+                    })}
+                    onClick={onSelectSortTab}
+                  >
+                    sort by
+                  </button>
                 </li>
               </ul>
 
               <div
-                className={`progress-dashboard__countries-list countries-list
-                ${
-                  useStore($isListType)
-                    ? 'countries-list--list-view'
-                    : 'countries-list--grid-view'
-                }`}
-              >
-                {loading && <p>Loading...</p>}
-
-                {!loading && isCountriesTab && (
-                  <>
-                    {noSearchResults ? null : (
-                      <div className="countries-list__grid-header">
-                        <div className="countries-list__grid-row">
-                          <div className="countries-list__grid-col countries-list__grid-col--country">
-                            Country name
-                          </div>
-                          <div className="countries-list__grid-col countries-list__grid-col--date">
-                            Date of joining
-                          </div>
-                          <div className="countries-list__grid-col countries-list__grid-col--progress">
-                            Progress
-                          </div>
-                          <div className="countries-list__grid-col countries-list__grid-col--schools">
-                            Schools with connectivity
-                          </div>
-                          <div className="countries-list__grid-col countries-list__grid-col--link" />
-                        </div>
-                      </div>
-                    )}
-                    <SearchResults />
-                  </>
+                className={clsx(
+                  'progress-dashboard__countries-list',
+                  'countries-list',
+                  {
+                    'countries-list--list-view': isListType,
+                    'countries-list--grid-view': !isListType,
+                  }
                 )}
-
-                {!loading && isSortTab && (
+              >
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
                   <>
-                    <h3 className="sidebar__secondary-title">
-                      select sort type
-                    </h3>
-                    <ControlsSort
-                      sortKey={sortKey}
-                      onChangeSortKey={onSortChange}
-                    />
-                    <button
-                      type="button"
-                      disabled={!isControlsChanged}
-                      className="button button--primary button--full-width progress-dashboard__controls-button"
-                      onClick={() => submitControlsChanges()}
-                    >
-                      Apply
-                    </button>
+                    {isCountriesTab && (
+                      <>
+                        {noSearchResults ? null : (
+                          <div className="countries-list__grid-header">
+                            <div className="countries-list__grid-row">
+                              <div className="countries-list__grid-col countries-list__grid-col--country">
+                                Country name
+                              </div>
+                              <div className="countries-list__grid-col countries-list__grid-col--date">
+                                Date of joining
+                              </div>
+                              <div className="countries-list__grid-col countries-list__grid-col--progress">
+                                Progress
+                              </div>
+                              <div className="countries-list__grid-col countries-list__grid-col--schools">
+                                Schools with connectivity
+                              </div>
+                              <div className="countries-list__grid-col countries-list__grid-col--link" />
+                            </div>
+                          </div>
+                        )}
+                        <SearchResults />
+                      </>
+                    )}
+                    {isSortTab && (
+                      <>
+                        <h3 className="sidebar__secondary-title">
+                          select sort type
+                        </h3>
+                        <ControlsSort
+                          sortKey={sortKey}
+                          onChangeSortKey={onSortChange}
+                        />
+                        <button
+                          type="button"
+                          disabled={!isControlsChanged}
+                          className="button button--primary button--full-width progress-dashboard__controls-button"
+                          onClick={onSubmitControlsChanges}
+                        >
+                          Apply
+                        </button>
+                      </>
+                    )}
                   </>
                 )}
               </div>

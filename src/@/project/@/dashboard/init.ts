@@ -3,10 +3,16 @@ import { combine, forward, guard, sample } from 'effector';
 import { fetchCountriesFx, fetchGlobalStatsFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
 import { router } from '~/core/routes';
-import { getInverted, setBoolean, setPayload } from '~/lib/effector-kit';
+import {
+  getInverted,
+  getVoid,
+  setBoolean,
+  setPayload,
+} from '~/lib/effector-kit';
 
 import { $countries } from '@/map/@/country';
 import { sortCountries } from '@/map/@/sidebar/sort-countries';
+import { $isDesktop, $isMobile } from '@/map/@/sidebar/ui/view-model';
 import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 
 import {
@@ -14,16 +20,21 @@ import {
   $countriesList,
   $hasSearchText,
   $isControlsChanged,
+  $isCountriesTab,
   $isListType,
   $isLoading,
+  $isSortTab,
   $noSearchResults,
   $searchText,
   $sortKey,
+  $tab,
   changeControlsSortKey,
   changeSearchText,
   changeSortKey,
   changeViewType,
   clearSearchText,
+  selectCountriesTab,
+  selectSortTab,
   submitControlsChanges,
 } from './model';
 
@@ -37,6 +48,29 @@ $searchText.reset(clearSearchText);
 $hasSearchText.on($searchText, setBoolean);
 $sortKey.on(changeSortKey, setPayload);
 
+// Tabs
+$tab.on(selectCountriesTab, () => 'countries');
+$tab.on(selectSortTab, () => 'sort');
+
+sample({
+  source: combine([$isDesktop, $tab]),
+  fn: ([isDesktop, tab]) => isDesktop || tab === 'countries',
+  target: $isCountriesTab,
+});
+
+sample({
+  source: combine([$isMobile, $tab]),
+  fn: ([isMobile, tab]) => isMobile && tab === 'sort',
+  target: $isSortTab,
+});
+
+sample({
+  source: guard($searchText, { filter: Boolean }),
+  fn: getVoid,
+  target: selectCountriesTab,
+});
+
+// Sort
 const $sortedCountries = combine(
   [$countries, $sortKey],
   ([countries, sortKey]) => {
