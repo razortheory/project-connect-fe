@@ -67,6 +67,7 @@
 
 .mapboxgl-popup-content.mapboxgl-popup-content {
   padding: 0;
+  overflow: hidden;
   background-color: #232832;
   border-radius: 0.5rem;
   box-shadow: none;

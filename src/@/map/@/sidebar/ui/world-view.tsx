@@ -28,7 +28,9 @@ export const WorldView = () => {
       <Scroll>
         <div className="sidebar__content">
           <div className="sidebar__view-connectivity view-connectivity">
-            <Button>View connectivity map</Button>
+            <Link to={mapCountries}>
+              <Button>View connectivity map</Button>
+            </Link>
           </div>
           <p className="sidebar__paragraph">
             Project Connect aims to map real-time connectivity of every school
