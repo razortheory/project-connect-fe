@@ -7,10 +7,10 @@ import { formatPercent } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
+import { Button } from '~/ui/atoms';
 
 import { $globalStats } from '@/map/model';
 import { Scroll } from '@/scroll';
-import { Button } from '../../../../../ui/atoms';
 
 export const WorldView = () => {
   const {
@@ -55,7 +55,10 @@ export const WorldView = () => {
               </h3>
             </li>
           </ul>
-          <Link to={mapCountries} className="sidebar__button sidebar__button--select-country button button--primary">
+          <Link
+            to={mapCountries}
+            className="sidebar__button sidebar__button--select-country button button--primary"
+          >
             Select a country
           </Link>
         </div>

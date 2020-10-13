@@ -10,25 +10,26 @@
   width: 3rem;
   height: 5rem;
   padding: 0;
+  color: $color-primary;
   font-size: 2.5rem;
   background-color: transparent;
   border: none;
   outline: none;
-  fill: $color-primary;
 
   &:hover,
   &:focus,
   &:active {
+    color: $text-color-light;
     background-color: $color-primary;
-    fill: $text-color-light;
   }
 
   &:disabled {
-    fill: #6e737d;
+    color: #6e737d;
   }
 }
 
 .slider-navigation__icon {
   width: 1em;
   height: 1em;
+  font-size: 1em;
 }

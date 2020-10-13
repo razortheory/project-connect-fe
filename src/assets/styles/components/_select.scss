@@ -43,8 +43,9 @@
 }
 
 .select-dashboard {
-  width: 16.5rem;
+  width: 19rem;
   height: 4rem;
+  padding-right: 2rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
@@ -60,4 +61,8 @@
   outline: none;
   cursor: pointer;
   appearance: none;
+
+  @include media-breakpoint-up(xl) {
+    width: 21rem;
+  }
 }

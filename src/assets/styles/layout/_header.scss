@@ -59,6 +59,7 @@
 .header__button {
   align-self: center;
   margin-left: auto;
+  white-space: nowrap;
 
   @include media-breakpoint-down(sm) {
     display: none;
