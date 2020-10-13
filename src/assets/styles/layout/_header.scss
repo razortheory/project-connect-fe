@@ -7,6 +7,7 @@
   width: 100%;
   height: $header-height;
   background-color: $header-background-color;
+  backface-visibility: hidden; // Fix Chrome rendering
 
   @include media-breakpoint-up(md) {
     height: $header-height-desktop;
