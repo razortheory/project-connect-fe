@@ -122,7 +122,13 @@
   @include media-breakpoint-up(md) {
     @include tooltip;
     @include tooltip-theme($theme: light);
-    @include tooltip-position($pos-y: top, $pos-x: center, $offset: 1.2rem, $has-arrow: true, $theme: light);
+    @include tooltip-position(
+      $pos-y: top,
+      $pos-x: center,
+      $offset: 1.2rem,
+      $has-arrow: true,
+      $theme: light
+    );
     display: none;
 
     .school-popup__list {

@@ -39,41 +39,6 @@
   }
 }
 
-.week-graph__item {
-  display: flex;
-  flex-direction: column;
-
-  &:not(:last-child) {
-    margin-right: 2.8rem;
-  }
-
-  &:not(:first-child):not(:last-child) {
-    .week-graph__tooltip {
-      @include tooltip-position($pos-y: top, $pos-x: center, $offset: 1.2rem, $has-arrow: true, $theme: light);
-    }
-  }
-
-  &:first-child {
-    .week-graph__tooltip {
-      @include tooltip-position($pos-y: top, $pos-x: left, $offset: 1.2rem, $has-arrow: true, $theme: light);
-    }
-  }
-
-  &:last-child {
-    .week-graph__tooltip {
-      @include tooltip-position($pos-y: top, $pos-x: right, $offset: 1.2rem, $has-arrow: true, $theme: light);
-    }
-  }
-}
-
-.week-graph__pillar {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 0.7rem;
-  height: 7.8rem;
-}
-
 .week-graph__tooltip {
   @include tooltip;
   @include tooltip-theme(light);
@@ -97,6 +62,59 @@
       display: flex;
     }
   }
+}
+
+.week-graph__item {
+  display: flex;
+  flex-direction: column;
+
+  &:first-child {
+    .week-graph__tooltip {
+      @include tooltip-position(
+        $pos-y: top,
+        $pos-x: left,
+        $offset: 1.2rem,
+        $has-arrow: true,
+        $theme: light
+      );
+    }
+  }
+
+  &:last-child {
+    .week-graph__tooltip {
+      @include tooltip-position(
+        $pos-y: top,
+        $pos-x: right,
+        $offset: 1.2rem,
+        $has-arrow: true,
+        $theme: light
+      );
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: 2.8rem;
+  }
+
+  &:not(:first-child):not(:last-child) {
+    .week-graph__tooltip {
+      @include tooltip-position(
+        $pos-y: top,
+        $pos-x: center,
+        $offset: 1.2rem,
+        $has-arrow: true,
+        $theme: light
+      );
+    }
+  }
+}
+
+.week-graph__pillar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 0.7rem;
+  height: 7.8rem;
 }
 
 .week-graph__day {

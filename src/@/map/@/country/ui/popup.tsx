@@ -3,6 +3,8 @@ import { createEvent } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
+import IconLocation from '~/assets/images/icon-location.svg';
+
 import {
   $popup,
   $school,
@@ -11,7 +13,6 @@ import {
 } from '@/map/@/country/model';
 import { $controlsMapType } from '@/map/@/sidebar/model';
 import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
-import IconLocation from '~/assets/images/icon-location.svg';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
@@ -69,7 +70,9 @@ export const Popup = () => {
       <div className="school-popup__content">
         <h2 className="school-popup__title">{name}</h2>
         <p className="school-popup__description">{address}</p>
-        <h3 className="school-popup__subtitle school-popup__subtitle--connectivity">Connectivity info</h3>
+        <h3 className="school-popup__subtitle school-popup__subtitle--connectivity">
+          Connectivity info
+        </h3>
         <ul className="school-popup__list definition-list">
           {connectionSpeed && (
             <li className="definition-list__item">

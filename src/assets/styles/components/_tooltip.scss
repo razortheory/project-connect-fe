@@ -10,31 +10,32 @@ $tooltip-dark-text: #141923;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.23);
 }
 
-@mixin tooltip-position($pos-y, $pos-x, $offset, $has-arrow: false, $theme: light) {
+@mixin tooltip-position(
+  $pos-y,
+  $pos-x,
+  $offset,
+  $has-arrow: false,
+  $theme: light
+) {
   @if $pos-y == bottom {
     @if $offset {
       top: calc(100% + #{$offset});
-    }
-    @else {
+    } @else {
       top: 100%;
     }
-  }
-  @else {
+  } @else {
     @if $offset {
       bottom: calc(100% + #{$offset});
-    }
-    @else {
+    } @else {
       bottom: 100%;
     }
   }
 
   @if $pos-x == left {
     left: 0;
-  }
-  @else if $pos-x == right {
+  } @else if $pos-x == right {
     right: 0;
-  }
-  @else {
+  } @else {
     left: 50%;
     transform: translateX(-50%);
   }
@@ -43,16 +44,13 @@ $tooltip-dark-text: #141923;
     @if $pos-y == bottom {
       @if $pos-x == left {
         border-top-left-radius: unset;
-      }
-      @else if $pos-x == right {
+      } @else if $pos-x == right {
         border-top-right-radius: unset;
       }
-    }
-    @else {
+    } @else {
       @if $pos-x == left {
         border-bottom-left-radius: unset;
-      }
-      @else if $pos-x == right {
+      } @else if $pos-x == right {
         border-bottom-right-radius: unset;
       }
     }
@@ -61,7 +59,7 @@ $tooltip-dark-text: #141923;
       position: absolute;
       width: 0;
       height: 0;
-      content: "";
+      content: '';
 
       @if $pos-y == bottom {
         bottom: 100%;
@@ -71,12 +69,10 @@ $tooltip-dark-text: #141923;
         @if $pos-x == left {
           left: 0;
           border-right: 0.6rem solid transparent;
-        }
-        @else if $pos-x == right {
+        } @else if $pos-x == right {
           right: 0;
           border-left: 0.6rem solid transparent;
-        }
-        @else {
+        } @else {
           left: 50%;
           border-right: 0.6rem solid transparent;
           border-left: 0.6rem solid transparent;
@@ -85,12 +81,10 @@ $tooltip-dark-text: #141923;
 
         @if $theme == dark {
           border-bottom-color: $tooltip-dark-background;
-        }
-        @else {
+        } @else {
           border-bottom-color: $tooltip-light-background;
         }
-      }
-      @else {
+      } @else {
         top: 100%;
         border-top-width: 0.6rem;
         border-top-style: solid;
@@ -98,12 +92,10 @@ $tooltip-dark-text: #141923;
         @if $pos-x == left {
           left: 0;
           border-right: 0.9rem solid transparent;
-        }
-        @else if $pos-x == right {
+        } @else if $pos-x == right {
           right: 0;
           border-left: 0.9rem solid transparent;
-        }
-        @else {
+        } @else {
           left: 50%;
           border-right: 0.6rem solid transparent;
           border-left: 0.6rem solid transparent;
@@ -112,8 +104,7 @@ $tooltip-dark-text: #141923;
 
         @if $theme == dark {
           border-top-color: $tooltip-dark-background;
-        }
-        @else {
+        } @else {
           border-top-color: $tooltip-light-background;
         }
       }
@@ -125,8 +116,7 @@ $tooltip-dark-text: #141923;
   @if $theme == dark {
     color: $tooltip-dark-text;
     background-color: $tooltip-dark-background;
-  }
-  @else {
+  } @else {
     color: $tooltip-light-text;
     background-color: $tooltip-light-background;
   }
