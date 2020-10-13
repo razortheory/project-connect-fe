@@ -1,19 +1,9 @@
 .school-popup {
   color: $text-color-light;
 
-  /* WIP mobile positioning */
-  //@include media-breakpoint-down(sm) {
-  //  position: fixed;
-  //  top: 0;
-  //  right: 0;
-  //  bottom: 0;
-  //  left: 0;
-  //  z-index: 10001;
-  //  width: 100%;
-  //  height: 100%;
-  //  background: #232832;
-  //  transform: none !important;
-  //}
+  @include media-breakpoint-up(md) {
+    border-radius: 0.5rem;
+  }
 
   &--no-connectivity {
     border-top: 0.9rem solid #ff615b;
@@ -41,6 +31,8 @@
 }
 
 .school-popup__content {
+  display: flex;
+  flex-direction: column;
   padding: 2rem 2rem 2.9rem;
 }
 
@@ -61,6 +53,10 @@
   font-size: 1.3rem;
   font-family: $font-family-secondary;
   line-height: 2rem;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+  }
 }
 
 .school-popup__subtitle {
@@ -72,10 +68,73 @@
   line-height: 1.1rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
+
+  &--location {
+    @include media-breakpoint-up(md) {
+      @include link($has-icon: true, $negative-offset: false);
+      margin-bottom: 0;
+
+      &:hover + .school-popup__tooltip {
+        display: flex;
+      }
+    }
+  }
+
+  &--connectivity {
+    @include media-breakpoint-up(md) {
+      @include visually-hidden;
+    }
+  }
+}
+
+.school-popup__list {
+  @include media-breakpoint-up(md) {
+    order: 10;
+  }
 }
 
 .school-popup__divider {
   margin: 2rem 0;
   border: solid 0.1rem #373c46;
   border-top: none;
+
+  @include media-breakpoint-up(md) {
+    order: 10;
+    &:nth-of-type(1) {
+      display: none;
+    }
+  }
+}
+
+.school-popup__location-wrapper {
+  position: relative;
+
+  @include media-breakpoint-up(md) {
+    align-self: flex-start;
+    order: 5;
+    margin-top: 0.5rem;
+    margin-bottom: 0.9rem;
+    margin-left: -0.5rem;
+  }
+}
+
+.school-popup__tooltip {
+  @include media-breakpoint-up(md) {
+    @include tooltip;
+    @include tooltip-theme($theme: light);
+    @include tooltip-position($pos-y: top, $pos-x: center, $offset: 1.2rem, $has-arrow: true, $theme: light);
+    display: none;
+
+    .school-popup__list {
+      font-size: 1rem;
+      line-height: 1.7rem;
+      white-space: nowrap;
+    }
+  }
+}
+
+.school-popup__week-graph {
+  @include media-breakpoint-up(md) {
+    order: 10;
+  }
 }

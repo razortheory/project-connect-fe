@@ -1,10 +1,14 @@
 .progress-dashboard {
-  padding-right: 2.4rem;
-  padding-left: 2.4rem;
+  padding-right: 24px;
+  padding-left: 24px;
 }
 
 .progress-dashboard__row {
   @include make-row($gutters: $grid-gutter-widths-lg);
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+  }
 }
 
 .progress-dashboard__legend-col {
@@ -12,7 +16,9 @@
   @include make-col(12);
 
   @include media-breakpoint-up(lg) {
-    @include make-col(4);
+    flex-basis: 307px;
+    max-width: 307px;
+    margin-right: auto;
   }
 }
 
@@ -67,20 +73,27 @@
   @include make-col(12);
 
   @include media-breakpoint-up(lg) {
-    @include make-col(8);
+    flex: 0 1 100%;
+    max-width: 930px;
   }
 }
 
 .progress-dashboard__last-data {
   display: flex;
-  margin-top: 9rem;
-  @include media-breakpoint-down(md) {
-    margin: 3rem 0;
+  margin: 3rem 0;
+  color: #b6bbc6;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 9rem;
+  }
+
+  svg {
+    margin-right: 0.6rem;
+    font-size: 2.1rem;
   }
 
   span {
     width: 19.4rem;
-    color: #b6bbc6;
     font-size: 1.3rem;
     font-family: $font-family-secondary;
     line-height: 1.54;

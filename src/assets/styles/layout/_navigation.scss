@@ -2,6 +2,7 @@
   @include list-unstyled;
   display: flex;
   flex-direction: column;
+  width: 100%;
   background-color: #141923;
 
   @include media-breakpoint-up(lg) {
@@ -10,7 +11,8 @@
 }
 
 .menu__link {
-  padding: 1.8rem 2.5rem;
+  width: 100%;
+  padding: 1rem 2.5rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
@@ -26,8 +28,13 @@
   }
 
   @include media-breakpoint-only(lg) {
-    padding-right: 1.7rem;
-    padding-left: 1.7rem;
+    padding-right: 1.1rem;
+    padding-left: 1.1rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
   }
 
   &,
@@ -46,6 +53,14 @@
   &--active {
     background-color: #0068ea;
   }
+}
+
+.menu__arrow {
+  margin-top: 0.2rem;
+  margin-right: -0.5rem;
+  margin-left: 0.2rem;
+  font-size: 2rem;
+  transform: rotate(90deg);
 }
 
 .menu__item {
@@ -77,6 +92,10 @@
 
   &--expanded,
   &:hover {
+    > .menu__link {
+      background-color: $color-primary;
+    }
+
     > .menu {
       display: flex;
 
@@ -85,6 +104,7 @@
         top: 100%;
         left: 0;
         flex-direction: column;
+        width: auto;
       }
 
       .menu__link {
@@ -92,5 +112,63 @@
         white-space: nowrap;
       }
     }
+  }
+}
+
+$icon-background: transparent;
+$icon-color: $text-color-light;
+$icon-height: 1.9rem;
+
+$icon-line-width: 1.9rem;
+$icon-line-height: 0.2rem;
+$icon-rotation: 45deg;
+
+.menu-icon {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  display: block;
+  width: $icon-line-width;
+  height: $icon-height;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+
+  .line {
+    @include transition;
+    position: absolute;
+    left: 0;
+    display: block;
+    width: $icon-line-width;
+    height: $icon-line-height;
+    background: $icon-color;
+    border-radius: ($icon-line-height / 2);
+
+    &.line-1 {
+      top: 0.4rem;
+    }
+    &.line-2 {
+      top: 1.4rem;
+    }
+  }
+
+  &--open {
+    .line-1 {
+      transform: translateY(0.5rem) rotate($icon-rotation);
+    }
+    .line-2 {
+      transform: translateY(-0.5rem) rotate($icon-rotation * -1);
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 }

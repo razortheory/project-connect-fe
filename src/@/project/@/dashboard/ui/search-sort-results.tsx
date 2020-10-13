@@ -56,35 +56,37 @@ export const CountriesFound = () => {
                   <div className="country__date">{joinDate}</div>
                 </div>
 
-                <div className="country__progress country-progress">
-                  <h4 className="country__subtitle">Progress</h4>
-                  <div
-                    className={`country-progress__bubbles country-progress__bubbles--${bubbleProgressClass}`}
-                  >
-                    <div className="country-progress__bubble" />
-                    <div className="country-progress__bubble" />
-                    <div className="country-progress__bubble" />
-                    <div className="country-progress__bubble" />
-                  </div>
-
-                  <h5 className="country-progress__title">
-                    {progressDescription}
-                  </h5>
-                </div>
-
-                <div className="country__schools-connectivity schools-connectivity">
-                  <h4 className="country__subtitle">
-                    Schools with connectivity
-                  </h4>
-                  <div className="schools-connectivity__bar">
+                <div className="country__connectivity-and-progress">
+                  <div className="country__progress country-progress">
+                    <h4 className="country__subtitle">Progress</h4>
                     <div
-                      className="schools-connectivity__filler"
-                      style={progressBarStyle}
-                    />
+                      className={`country-progress__bubbles country-progress__bubbles--${bubbleProgressClass}`}
+                    >
+                      <div className="country-progress__bubble" />
+                      <div className="country-progress__bubble" />
+                      <div className="country-progress__bubble" />
+                      <div className="country-progress__bubble" />
+                    </div>
+
+                    <h5 className="country-progress__title">
+                      {progressDescription}
+                    </h5>
                   </div>
 
-                  <div className="schools-connectivity__percentage-connected">
-                    {formatPercent(progressPercent)}
+                  <div className="country__schools-connectivity schools-connectivity">
+                    <h4 className="country__subtitle">
+                      Schools with connectivity
+                    </h4>
+                    <div className="schools-connectivity__bar">
+                      <div
+                        className="schools-connectivity__filler"
+                        style={progressBarStyle}
+                      />
+                    </div>
+
+                    <div className="schools-connectivity__percentage-connected">
+                      {formatPercent(progressPercent)}
+                    </div>
                   </div>
                 </div>
 

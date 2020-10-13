@@ -15,7 +15,7 @@
       @include make-col-ready;
       @include make-col(50, 100);
     }
-    .country__progress {
+    .country__connectivity-and-progress {
       @include make-col-ready;
       @include make-col(35, 100);
     }
@@ -25,6 +25,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      margin-left: auto;
     }
     .country__date {
       display: none;
@@ -57,10 +58,6 @@
       .countries-list__item {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
-
-        &:not(:last-child) {
-          margin-bottom: 1rem;
-        }
       }
       .country__inner {
         @include make-row;
@@ -70,11 +67,17 @@
       }
       .country__meta-wrapper {
         @include make-col-ready;
-        @include make-col(38, 100);
+        @include make-col(36, 100);
+      }
+      .country__connectivity-and-progress {
+        @include make-col(55, 100);
+        display: flex;
+        align-items: center;
       }
       .country__progress {
         @include make-col-ready;
-        @include make-col(20, 100);
+        flex: 0 0 38.185%;
+        max-width: 38.185%;
       }
       .country__link {
         @include make-col-ready;
@@ -97,10 +100,11 @@
       }
       .country__schools-connectivity {
         @include make-col-ready;
-        @include make-col(34, 100);
         display: flex;
+        flex: 0 0 61.815%;
         flex-direction: row;
         align-items: center;
+        max-width: 61.815%;
       }
       .schools-connectivity__percentage-connected {
         margin-left: 1rem;
@@ -118,7 +122,7 @@
 
     @include media-breakpoint-up(xl) {
       .country__meta-wrapper {
-        @include make-col(50, 100);
+        @include make-col(54, 100);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -127,29 +131,32 @@
         padding-left: 0;
       }
       .country__flag-wrapper {
-        @include make-col(28, 100);
         display: flex;
+        flex: 0 0 22.1%;
+        max-width: 22.1%;
         padding-left: 15px;
       }
       .country__name {
         @include make-col-ready;
-        @include make-col(40, 100);
-        flex: 0 0 auto;
+        @include make-col(46, 100);
       }
       .country__date {
         @include make-col-ready;
-        @include make-col(32, 100);
         display: inline-flex;
-        flex: 0 0 auto;
+        flex: 0 0 31.9%;
+        max-width: 31.9%;
+      }
+      .country__connectivity-and-progress {
+        @include make-col(40, 100);
       }
       .country__progress {
-        @include make-col(17, 100);
+        @include make-col(40, 100);
       }
       .country__schools-connectivity {
-        @include make-col(26, 100);
+        @include make-col(60, 100);
       }
       .country__link {
-        @include make-col(7, 100);
+        @include make-col(6, 100);
       }
     }
   }
@@ -221,6 +228,23 @@
         margin-right: 15px;
         margin-bottom: 0;
       }
+      .country__connectivity-and-progress {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+      .country-progress {
+        width: 48%;
+        margin-right: 4%;
+      }
+      .country__schools-connectivity {
+        width: 48%;
+      }
+      .schools-connectivity__bar {
+        margin-top: 1.7rem;
+      }
+      .schools-connectivity__percentage-connected {
+        margin-top: 0.9rem;
+      }
     }
   }
 }
@@ -254,11 +278,11 @@
     @include make-col(50, 100);
 
     @include media-breakpoint-up(lg) {
-      @include make-col(38, 100);
+      @include make-col(36, 100);
     }
 
     @include media-breakpoint-up(xl) {
-      @include make-col(34, 100);
+      @include make-col(37, 100);
     }
   }
 
@@ -266,7 +290,7 @@
     display: none;
 
     @include media-breakpoint-up(xl) {
-      @include make-col(16, 100);
+      @include make-col(17, 100);
       display: flex;
     }
   }
@@ -275,11 +299,11 @@
     @include make-col(35, 100);
 
     @include media-breakpoint-up(lg) {
-      @include make-col(20, 100);
+      @include make-col(21, 100);
     }
 
     @include media-breakpoint-up(xl) {
-      @include make-col(17, 100);
+      @include make-col(16, 100);
     }
   }
 
@@ -287,20 +311,24 @@
     display: none;
 
     @include media-breakpoint-up(lg) {
-      @include make-col(34, 100);
+      @include make-col(35, 100);
       display: flex;
     }
 
     @include media-breakpoint-up(xl) {
-      @include make-col(26, 100);
+      @include make-col(24, 100);
     }
   }
 
   &--link {
     @include make-col(15, 100);
 
+    @include media-breakpoint-up(lg) {
+      @include make-col(8, 100);
+    }
+
     @include media-breakpoint-up(xl) {
-      @include make-col(7, 100);
+      @include make-col(6, 100);
     }
   }
 }
@@ -308,7 +336,7 @@
 .countries-list__row {
   @include media-breakpoint-up(md) {
     margin-top: 2rem;
-    padding: 0.9rem 2.4rem;
+    padding: 0.9rem 24px;
     background-color: #232832;
     border-radius: 0.5rem;
   }

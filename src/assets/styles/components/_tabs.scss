@@ -2,7 +2,7 @@
   @include list-unstyled;
   display: flex;
   flex-direction: row;
-  padding: 0 2.4rem;
+  padding: 0 24px;
   background-color: $color-primary;
 
   @include media-breakpoint-up(md) {

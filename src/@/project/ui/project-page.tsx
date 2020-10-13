@@ -3,6 +3,7 @@ import React from 'react';
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import IconFacebook from '~/assets/images/icon-facebook-logo.svg';
 import IconGithub from '~/assets/images/icon-github-logo.svg';
+import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
 import IconTwitter from '~/assets/images/icon-twitter-logo.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import {
@@ -15,6 +16,7 @@ import {
   privacy,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
+import { Button } from '~/ui/atoms';
 
 import { About } from './about';
 import { CountryProgress } from './country-progress';
@@ -28,8 +30,17 @@ export const ProjectPage = () => (
         <Link to={exactRoot} type="button" className="header__logo logo">
           Project&nbsp;connect
         </Link>
+        {/* menu-icon--open on menu button click */}
+        <button type="button" className="menu-icon menu-icon--open">
+          <span className="visually-hidden">Show menu</span>
+          <span className="line line-1" />
+          <span className="line line-2" />
+        </button>
         {/* header__nav--mobile-visible on menu button click */}
         <nav className="header__nav">
+          <div className="header__view-connectivity view-connectivity">
+            <Button>View connectivity map</Button>
+          </div>
           <ul className="menu">
             <li className="menu__item">
               <Link
@@ -39,6 +50,7 @@ export const ProjectPage = () => (
                 }`}
               >
                 About
+                <IconRightArrow className="menu__arrow" />
               </Link>
               <ul className="menu">
                 <li className="menu__item">
@@ -71,6 +83,7 @@ export const ProjectPage = () => (
             <li className="menu__item">
               <button type="button" className="menu__link">
                 Data sharing & privacy
+                <IconRightArrow className="menu__arrow" />
               </button>
             </li>
             <li className="menu__item">
@@ -94,13 +107,13 @@ export const ProjectPage = () => (
               </Link>
             </li>
           </ul>
+          <Link
+            to={mapOverview}
+            className="header__button button button--primary"
+          >
+            Connectivity map
+          </Link>
         </nav>
-        <Link
-          to={mapOverview}
-          className="header__button button button--primary"
-        >
-          Connectivity map
-        </Link>
       </div>
     </header>
     <main className="content">

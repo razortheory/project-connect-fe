@@ -1,0 +1,15 @@
+.view-connectivity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18.7rem;
+  padding: 24px;
+  background-image: url('../../images/connectivity-map.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  button {
+    width: 100%;
+  }
+}
