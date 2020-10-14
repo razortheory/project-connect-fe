@@ -38,7 +38,7 @@ const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
         const height = getPercent(item.speed ?? 0, data.maxSpeed);
         return (
           <div
-            className={`history-modal__graph-item history-modal__graph-item--${intervalUnit}`}
+            className={`history-modal__graph-item week-graph__item history-modal__graph-item--${intervalUnit}`}
             key={item.date}
           >
             <div className="history-modal__graph-pillar">

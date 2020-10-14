@@ -85,7 +85,7 @@ $tooltip-dark-text: #141923;
           border-bottom-color: $tooltip-light-background;
         }
       } @else {
-        top: 100%;
+        top: calc(100% - 1px);
         border-top-width: 0.6rem;
         border-top-style: solid;
 
