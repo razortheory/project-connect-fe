@@ -52,3 +52,4 @@ export const $isCurrentHistoryInterval = createStore(true);
 export const $historyData = createStore<DailyStats[] | null>(null);
 export const $historyDataPending = createStore(false);
 export const $historyPlaceName = createStore<string | null>(null);
+export const $countryInfoPending = createStore(false);

@@ -2,10 +2,7 @@ import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import {
-  fetchCountryWeeklyStatsFx,
-  getDatasetUrl,
-} from '~/api/project-connect';
+import { getDatasetUrl } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
@@ -22,9 +19,11 @@ import {
   $country,
   $countryDailyStats,
   $countryId,
+  $countryInfoPending,
   $countryWeeklyStats,
   $isOpenPopup,
 } from '@/map/@/country/model';
+import { ProgressBar } from '@/map/@/country/ui/progress-bar';
 import {
   $isThisWeek,
   $noSearchCountryFound,
@@ -61,15 +60,14 @@ const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
 const $weekGraphData = $countryDailyStats.map(getWeekGraphData);
 
-const CountryInfoContent = () => {
+const CountryInfoStatistics = () => {
   const country = useStore($country);
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const dataSource = country?.data_source || 'N/A';
-  const week = useStore($week);
-  const isThisWeek = useStore($isThisWeek);
-  const pending = useStore(fetchCountryWeeklyStatsFx.pending) || !country;
-  const noSearchCountryFound = useStore($noSearchCountryFound);
+  const countryInfoPending = useStore($countryInfoPending);
   const weekGraphData = useStore($weekGraphData);
+  const countryId = useStore($countryId);
+  const datasetUrl = getDatasetUrl(countryId);
 
   const {
     schoolsTotal,
@@ -80,8 +78,107 @@ const CountryInfoContent = () => {
     connectivityLevel,
   } = useStore($countryInfo) ?? {};
 
-  const countryId = useStore($countryId);
-  const datasetUrl = getDatasetUrl(countryId);
+  if (countryInfoPending) {
+    return <ProgressBar pending />;
+  }
+  if (!hasStatistics) {
+    return <p>No data</p>;
+  }
+
+  return (
+    <>
+      <ul className="info-list info-list--country-info">
+        <li className="info-list__item">
+          <h3 className="info-list__title info-list__title--full-width">
+            Data source
+          </h3>
+          <p className="info-list__paragraph">{dataSource}</p>
+        </li>
+        <li className="info-list__item">
+          <h3 className="info-list__title info-list__title--full-width">
+            Total schools
+          </h3>
+          <p className="info-list__description">{schoolsTotal}</p>
+        </li>
+        <li className="info-list__item">
+          <h3 className="info-list__title info-list__title--full-width">
+            Connected schools
+          </h3>
+          <p className="info-list__description">{schoolsConnected}</p>
+        </li>
+        <li className="info-list__item">
+          <h3 className="info-list__title info-list__title--full-width">
+            Avg. internet speed (download)
+          </h3>
+          <p className="info-list__description">{connectionSpeed}</p>
+          <div className="average-speed">
+            <div className={connectivityLevel}>
+              <div className="average-speed__icon average-speed__icon--active">
+                <IconSpeedLow />
+                <div className="average-speed__tooltip tooltip tooltip--dark">
+                  Internet speed good for <strong>emails and texting</strong>
+                </div>
+              </div>
+              <div className="average-speed__icon">
+                <IconSpeedMedium />
+                <div className="average-speed__tooltip tooltip tooltip--dark">
+                  Internet speed good for <strong>video streaming</strong>
+                </div>
+              </div>
+              <div className="average-speed__icon">
+                <IconSpeedHigh />
+                <div className="average-speed__tooltip tooltip tooltip--dark">
+                  Internet speed good for <strong>e-learning</strong>
+                </div>
+              </div>
+            </div>
+            <p className="average-speed__description">
+              The average internet speed is good enough for accessing email and
+              basic internet browsing.
+            </p>
+          </div>
+        </li>
+        <li className="info-list__item">
+          <h3 className="info-list__title info-list__title--full-width">
+            Schools with no internet
+          </h3>
+          <p className="info-list__description">{schoolsWithNoInternet}</p>
+        </li>
+      </ul>
+      {weekGraphData && (
+        <>
+          <hr className="sidebar__divider" />
+          <WeekGraph
+            weekGraphData={weekGraphData}
+            showHistory
+            dataType="country"
+          />
+        </>
+      )}
+      <hr className="sidebar__divider" />
+      <h3 className="sidebar__secondary-title">Connectivity distribution</h3>
+      <PieChart />
+      <hr className="sidebar__divider" />
+      <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
+        Data set
+      </h3>
+      <p className="sidebar__paragraph">
+        You can download the country map data by clicking on the button below.
+        File format for the data set would be CSV and PDF.
+      </p>
+      <a className="sidebar__link link" href={datasetUrl} download>
+        <IconDownload className="link__icon" />
+        Download data set
+      </a>
+    </>
+  );
+};
+
+const CountryInfoContent = () => {
+  const week = useStore($week);
+  const isThisWeek = useStore($isThisWeek);
+
+  const noSearchCountryFound = useStore($noSearchCountryFound);
 
   return (
     <>
@@ -109,108 +206,7 @@ const CountryInfoContent = () => {
               <Chevron className="chevron" />
             </button>
           </div>
-
-          {pending && (
-            <div className="sidebar__loader">
-              <div className="map-loader" />
-            </div>
-          )}
-
-          {!pending && !hasStatistics && <p>No data</p>}
-
-          {!pending && hasStatistics && (
-            <>
-              <ul className="info-list info-list--country-info">
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Data source
-                  </h3>
-                  <p className="info-list__paragraph">{dataSource}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Total schools
-                  </h3>
-                  <p className="info-list__description">{schoolsTotal}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Connected schools
-                  </h3>
-                  <p className="info-list__description">{schoolsConnected}</p>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Avg. internet speed (download)
-                  </h3>
-                  <p className="info-list__description">{connectionSpeed}</p>
-                  <div className="average-speed">
-                    <div className={connectivityLevel}>
-                      <div className="average-speed__icon average-speed__icon--active">
-                        <IconSpeedLow />
-                        <div className="average-speed__tooltip tooltip tooltip--dark">
-                          Internet speed good for{' '}
-                          <strong>emails and texting</strong>
-                        </div>
-                      </div>
-                      <div className="average-speed__icon">
-                        <IconSpeedMedium />
-                        <div className="average-speed__tooltip tooltip tooltip--dark">
-                          Internet speed good for{' '}
-                          <strong>video streaming</strong>
-                        </div>
-                      </div>
-                      <div className="average-speed__icon">
-                        <IconSpeedHigh />
-                        <div className="average-speed__tooltip tooltip tooltip--dark">
-                          Internet speed good for <strong>e-learning</strong>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="average-speed__description">
-                      The average internet speed is good enough for accessing
-                      email and basic internet browsing.
-                    </p>
-                  </div>
-                </li>
-                <li className="info-list__item">
-                  <h3 className="info-list__title info-list__title--full-width">
-                    Schools with no internet
-                  </h3>
-                  <p className="info-list__description">
-                    {schoolsWithNoInternet}
-                  </p>
-                </li>
-              </ul>
-              {weekGraphData && (
-                <>
-                  <hr className="sidebar__divider" />
-                  <WeekGraph
-                    weekGraphData={weekGraphData}
-                    showHistory
-                    dataType="country"
-                  />
-                </>
-              )}
-              <hr className="sidebar__divider" />
-              <h3 className="sidebar__secondary-title">
-                Connectivity distribution
-              </h3>
-              <PieChart />
-              <hr className="sidebar__divider" />
-              <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
-                Data set
-              </h3>
-              <p className="sidebar__paragraph">
-                You can download the country map data by clicking on the button
-                below. File format for the data set would be CSV and PDF.
-              </p>
-              <a className="sidebar__link link" href={datasetUrl} download>
-                <IconDownload className="link__icon" />
-                Download data set
-              </a>
-            </>
-          )}
+          <CountryInfoStatistics />
         </>
       )}
     </>

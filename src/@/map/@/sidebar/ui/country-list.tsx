@@ -8,6 +8,7 @@ import MapWithHand from '~/assets/images/map-with-hand.svg';
 import { tabInfo } from '~/core/tab-routes';
 import { Link } from '~/lib/router';
 
+import { ProgressBar } from '@/map/@/country/ui/progress-bar';
 import {
   $countriesList,
   $countriesPending,
@@ -44,10 +45,6 @@ const CountryListContent = () => {
   const searchActive = useStore($searchActive);
   const isLoading = useStore($countriesPending);
 
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
   return (
     <>
       {!searchActive && (
@@ -59,6 +56,7 @@ const CountryListContent = () => {
           </p>
         </div>
       )}
+      <ProgressBar pending={isLoading} />
       {noSearchResults ? (
         <NotFound />
       ) : (

@@ -41,6 +41,7 @@ import {
   $countryCode,
   $countryDailyStats,
   $countryId,
+  $countryInfoPending,
   $countryWeeklyStats,
   $historyData,
   $historyDataPending,
@@ -485,4 +486,10 @@ sample({
   ]),
   fn: (states) => states.some(Boolean),
   target: $historyDataPending,
+});
+
+sample({
+  source: combine([fetchCountryFx.pending, fetchCountryWeeklyStatsFx.pending]),
+  fn: (states) => states.some(Boolean),
+  target: $countryInfoPending,
 });
