@@ -45,8 +45,8 @@
 
 .slider__info-wrapper {
   width: 100%;
-  padding: 3.5rem 24px;
-  background-color: #141923;
+  padding: 3.5rem ($grid-gutter-width-lg / 2);
+  background-color: $color-deep-blue;
 
   @include media-breakpoint-up(sm) {
     flex: 0 1 100%;

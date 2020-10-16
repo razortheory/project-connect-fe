@@ -1,6 +1,6 @@
 .progress-dashboard {
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: ($grid-gutter-width-lg / 2);
+  padding-left: ($grid-gutter-width-lg / 2);
 }
 
 .progress-dashboard__row {
@@ -55,17 +55,17 @@
 .progress-dashboard__controls-bar,
 .progress-dashboard__tabs {
   @include media-breakpoint-down(sm) {
-    margin-right: -24px;
-    margin-left: -24px;
+    margin-right: -($grid-gutter-width-lg / 2);
+    margin-left: -($grid-gutter-width-lg / 2);
   }
 }
 
 .progress-dashboard__countries-list {
   @include media-breakpoint-down(sm) {
-    margin-right: -24px;
-    margin-left: -24px;
-    padding: 24px;
-    background-color: #232832;
+    margin-right: -($grid-gutter-width-lg / 2);
+    margin-left: -($grid-gutter-width-lg / 2);
+    padding: 24px ($grid-gutter-width-lg / 2);
+    background-color: $color-dark-blue;
   }
 }
 

@@ -1,7 +1,7 @@
 $tooltip-light-background: #6e737d;
 $tooltip-light-text: $text-color-light;
 $tooltip-dark-background: #b6bbc6;
-$tooltip-dark-text: #141923;
+$tooltip-dark-text: $color-deep-blue;
 
 @mixin tooltip {
   position: absolute;
