@@ -18,6 +18,7 @@ import {
   previousHistoryInterval,
 } from '@/map/@/country/model';
 import { getPercent } from '@/map/@/sidebar/ui/get-week-graph-data';
+import { Filler } from '@/map/@/sidebar/ui/week-graph';
 import { Scroll } from '@/scroll';
 
 import {
@@ -42,18 +43,12 @@ const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
             key={item.date}
           >
             <div className="history-modal__graph-pillar">
-              <div
-                className="history-modal__graph-filler"
-                style={{
-                  height,
-                  backgroundColor: item.fillColor,
-                }}
-              >
+              <Filler height={height} background={item.fillColor ?? ''}>
                 <div className="week-graph__tooltip">
                   <span>{item?.speedFormatted}</span>
                   <span>{item?.date}</span>
                 </div>
-              </div>
+              </Filler>
             </div>
             <div className="history-modal__horizontal-scale">
               <div className="history-modal__horizontal-scale-value">

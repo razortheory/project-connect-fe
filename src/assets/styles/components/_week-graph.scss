@@ -52,18 +52,6 @@
   white-space: nowrap;
 }
 
-.week-graph__filler {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-
-  &:hover {
-    .week-graph__tooltip {
-      display: flex;
-    }
-  }
-}
-
 .week-graph__item {
   display: flex;
   flex-direction: column;
