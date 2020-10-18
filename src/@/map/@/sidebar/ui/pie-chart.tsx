@@ -2,9 +2,9 @@
 
 import { useStore } from 'effector-react';
 import React from 'react';
-import { CountryWeeklyStats } from 'src/api/types';
 import styled, { keyframes } from 'styled-components';
 
+import { CountryWeeklyStats } from '~/api/types';
 import { formatPercent } from '~/core/formatters';
 
 import { $countryWeeklyStats } from '@/map/@/country/model';

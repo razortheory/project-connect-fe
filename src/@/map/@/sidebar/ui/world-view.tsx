@@ -7,7 +7,7 @@ import { formatPercent } from '~/core/formatters';
 import { mapCountries } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
-import { Button } from '~/ui/atoms';
+import { Button } from '~/ui';
 
 import { $globalStats } from '@/map/model';
 import { Scroll } from '@/scroll';

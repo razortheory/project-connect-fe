@@ -246,7 +246,7 @@ const config = {
     ],
     'no-restricted-imports': [
       'error',
-      { patterns: ['../*', '~/@/*', '*/effects/*'] },
+      { patterns: ['src/', '~/@/*', '../*', '*/effects/*', '*/ui/*'] },
     ],
     'unicorn/prevent-abbreviations': [
       'error',

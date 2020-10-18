@@ -5,12 +5,12 @@ import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
 import { CountryBasic } from '~/api/types';
+import { $isDesktop, $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
-import { getInverted, setPayload } from '~/lib/effector-kit';
+import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
-import { $countries } from '@/map/@/country';
-import { $countryId, changeCountryId } from '@/map/@/country/model';
+import { $countries, $countryId, changeCountryId } from '@/map/@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -18,7 +18,10 @@ import {
   $controlsMapType,
   $controlsSortKey,
   $countriesList,
+  $isContentTab,
   $isControlsChanged,
+  $isControlsTab,
+  $isMapTab,
   $isSidebarCollapsed,
   $isThisWeek,
   $noSearchCountryFound,
@@ -26,6 +29,7 @@ import {
   $searchActive,
   $searchText,
   $sortKey,
+  $tab,
   $week,
   blurInputFx,
   changeControlsMapStyle,
@@ -39,6 +43,9 @@ import {
   onSearchPressEnter,
   onSearchPressKey,
   previousWeek,
+  selectControlsTab,
+  selectInfoTab,
+  selectMapTab,
   submitControlsChanges,
   toggleSidebar,
 } from './model';
@@ -220,4 +227,34 @@ sample({
   clock: submitControlsChanges,
   fn: ([controlsSortKey]) => controlsSortKey,
   target: changeSortKey,
+});
+
+// Tabs
+$tab.on(selectMapTab, () => 'map');
+$tab.on(selectInfoTab, () => 'content');
+$tab.on(selectControlsTab, () => 'controls');
+
+sample({
+  source: combine([$isMobile, $tab]),
+  fn: ([isMobile, tab]) => (isMobile ? tab === 'map' : false),
+  target: $isMapTab,
+});
+
+sample({
+  source: combine([$isDesktop, $tab]),
+  fn: ([isDesktop, tab]) => isDesktop || tab === 'content',
+  target: $isContentTab,
+});
+
+sample({
+  source: combine([$isMobile, $tab]),
+  fn: ([isMobile, tab]) => isMobile && tab === 'controls',
+  target: $isControlsTab,
+});
+
+// Navigate to list on search
+sample({
+  source: changeSearchText,
+  fn: getVoid,
+  target: selectInfoTab,
 });

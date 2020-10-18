@@ -10,11 +10,12 @@ import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
 import { formatWeekInterval } from '~/core/formatters';
+import { $isMobile } from '~/core/media-query';
 import { mapCountries } from '~/core/routes';
-import { tabMap } from '~/core/tab-routes';
 import { getVoid } from '~/lib/effector-kit';
 import { selectValue } from '~/lib/event-reducers/select-value';
 import { Link } from '~/lib/router';
+import { ProgressBar } from '~/ui';
 
 import {
   $country,
@@ -24,14 +25,17 @@ import {
   $countryWeeklyStats,
   $isOpenPopup,
 } from '@/map/@/country/model';
-import { ProgressBar } from '@/map/@/country/ui/progress-bar';
 import {
+  $isContentTab,
+  $isControlsTab,
+  $isMapTab,
   $isThisWeek,
   $noSearchCountryFound,
   $searchActive,
   $week,
   nextWeek,
   previousWeek,
+  selectMapTab,
 } from '@/map/@/sidebar/model';
 import { $mapType, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
@@ -45,12 +49,6 @@ import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { SearchResults } from './search-results';
 import { Tabs } from './tabs';
-import {
-  $isContentTab,
-  $isControlsTab,
-  $isMapTab,
-  $isMobile,
-} from './view-model';
 import { WeekGraph } from './week-graph';
 
 const onNextWeek = nextWeek.prepend(getVoid);
@@ -217,9 +215,8 @@ const CountryInfoContent = () => {
 const $showBreadcrumbs = combine(
   $isMobile,
   $isOpenPopup,
-  tabMap.visible,
-  (isMobile, isOpenPopup, tabMapVisible) =>
-    !isMobile || !isOpenPopup || !tabMapVisible
+  $isMapTab,
+  (isMobile, isOpenPopup, isMapTab) => !isMobile || !isOpenPopup || !isMapTab
 );
 
 export const CountryInfo = () => {
@@ -239,9 +236,7 @@ export const CountryInfo = () => {
           <Link
             to={mapCountries}
             className="breadcrumbs__link"
-            onClick={() => {
-              tabMap.navigate();
-            }}
+            onClick={() => selectMapTab()}
           >
             {mapType} map{' '}
           </Link>

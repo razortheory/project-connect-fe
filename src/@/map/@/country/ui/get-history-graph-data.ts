@@ -3,6 +3,7 @@ import { add, format, Interval, isBefore } from 'date-fns';
 import { DailyStats } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
+// TODO: Fix import from the internals of the feature
 import {
   formatDate,
   getFillColor,

@@ -5,24 +5,26 @@ import React from 'react';
 import { CountryBasic } from '~/api/types';
 import IconLocationCross from '~/assets/images/icon-location-cross.svg';
 import MapWithHand from '~/assets/images/map-with-hand.svg';
-import { tabInfo } from '~/core/tab-routes';
-import { Link } from '~/lib/router';
+import { ProgressBar } from '~/ui';
 
-import { ProgressBar } from '@/map/@/country/ui/progress-bar';
 import {
   $countriesList,
   $countriesPending,
+  $isContentTab,
+  $isControlsTab,
+  $isMapTab,
   $noSearchResults,
   $searchActive,
+  clearSearchText,
+  selectInfoTab,
 } from '@/map/@/sidebar/model';
 import { Scroll } from '@/scroll';
 
 import { Controls } from './controls';
 import { CountryListItem } from './country-list-item';
-import { onClear, Search } from './search';
+import { Search } from './search';
 import { Sort } from './sort';
 import { Tabs } from './tabs';
-import { $isContentTab, $isControlsTab, $isMapTab } from './view-model';
 
 export const NotFound = () => (
   <div className="sidebar__not-found not-found">
@@ -32,9 +34,16 @@ export const NotFound = () => (
     <h3 className="not-found__title">Country not found</h3>
     <div className="not-found__description">
       Try browsing through our{' '}
-      <Link to={tabInfo} className="not-found__link" onClick={onClear}>
+      <button
+        type="button"
+        className="not-found__link"
+        onClick={() => {
+          clearSearchText();
+          selectInfoTab();
+        }}
+      >
         country list
-      </Link>
+      </button>
     </div>
   </div>
 );

@@ -4,11 +4,12 @@ import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 
 import Chevron from '~/assets/images/chevron.svg';
+import { $isMobile } from '~/core/media-query';
 import { mapCountries, mapCountry, mapOverview } from '~/core/routes';
-import { tabMap } from '~/core/tab-routes';
 import { useRoute } from '~/lib/router';
 
 import {
+  $isMapTab,
   $isSidebarCollapsed,
   onClickSidebar,
   toggleSidebar,
@@ -16,13 +17,12 @@ import {
 
 import { CountryInfo } from './country-info';
 import { CountryList } from './country-list';
-import { $isMobile } from './view-model';
 import { WorldView } from './world-view';
 
 // View logic
 const $showMap = combine(
   $isMobile,
-  tabMap.visible,
+  $isMapTab,
   mapOverview.visible,
   (isMobile, tabMapVisible, mapOverviewVisible) =>
     isMobile && tabMapVisible && !mapOverviewVisible

@@ -6,7 +6,7 @@ import { getVoid } from '~/lib/effector-kit';
 import { inputValue } from '~/lib/event-reducers';
 
 import { SortKey } from '@/map/@/sidebar/types';
-import { ControlsSort } from '@/map/@/sidebar/ui/controls-sort';
+import { ControlsSort } from '@/map/@/sidebar/ui';
 import {
   $controlsSortKey,
   $isControlsChanged,

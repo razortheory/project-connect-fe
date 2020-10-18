@@ -2,6 +2,7 @@ import { combine, forward, guard, sample } from 'effector';
 
 import { fetchCountriesFx, fetchGlobalStatsFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
+import { $isDesktop, $isMobile } from '~/core/media-query';
 import { router } from '~/core/routes';
 import {
   getInverted,
@@ -10,9 +11,8 @@ import {
   setPayload,
 } from '~/lib/effector-kit';
 
-import { $countries } from '@/map/@/country';
+import { $countries } from '@/map/@/country/model';
 import { sortCountries } from '@/map/@/sidebar/sort-countries';
-import { $isDesktop, $isMobile } from '@/map/@/sidebar/ui/view-model';
 import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 
 import {

@@ -5,6 +5,7 @@ import React from 'react';
 import Chevron from '~/assets/images/chevron.svg';
 import { formatConnectionSpeed } from '~/core/formatters';
 import { formatDateInterval } from '~/lib/date-fns-kit/format-date-interval';
+import { ProgressBar } from '~/ui';
 
 import {
   $historyData,
@@ -18,7 +19,9 @@ import {
   nextHistoryInterval,
   previousHistoryInterval,
 } from '@/map/@/country/model';
+// TODO: Fix import from the internals of the feature
 import { getPercent } from '@/map/@/sidebar/ui/get-week-graph-data';
+// TODO: Fix import from the internals of the feature
 import { Filler } from '@/map/@/sidebar/ui/week-graph';
 import { Scroll } from '@/scroll';
 
@@ -26,7 +29,6 @@ import {
   getHistoryGraphData,
   HistoryGraphData,
 } from './get-history-graph-data';
-import { ProgressBar } from './progress-bar';
 
 const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);

@@ -6,7 +6,7 @@ import { KeyboardEvent, MouseEvent } from 'react';
 import { fetchCountriesFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
 
-import { SortKey } from '@/map/@/sidebar/types';
+import { SortKey, Tabs } from '@/map/@/sidebar/types';
 import { defaultMapType, defaultStyle } from '@/map/constants';
 import { MapType, Style } from '@/map/types';
 
@@ -49,3 +49,11 @@ export const changeControlsMapType = createEvent<MapType>();
 export const changeControlsMapStyle = createEvent<Style>();
 export const changeControlsSortKey = createEvent<SortKey>();
 export const submitControlsChanges = createEvent();
+
+export const selectMapTab = createEvent();
+export const selectInfoTab = createEvent();
+export const selectControlsTab = createEvent();
+export const $tab = createStore<Tabs>('map');
+export const $isMapTab = createStore(true);
+export const $isContentTab = createStore(false);
+export const $isControlsTab = createStore(false);

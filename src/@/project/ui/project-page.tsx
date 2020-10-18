@@ -23,7 +23,7 @@ import {
   privacy,
 } from '~/core/routes';
 import { Link, useRoute } from '~/lib/router';
-import { Button } from '~/ui/atoms';
+import { Button } from '~/ui';
 
 import { About } from './about';
 import { CountryProgress } from './country-progress';
@@ -61,19 +61,19 @@ export const ProjectPage = () => (
               </Link>
               <ul className="menu">
                 <li className="menu__item">
-                  <button type="button" className="menu__link">
+                  <Link to={about} hash="#case-studies" className="menu__link">
                     Case studies
-                  </button>
+                  </Link>
                 </li>
                 <li className="menu__item">
-                  <button type="button" className="menu__link">
+                  <Link to={about} hash="#why-mapping" className="menu__link">
                     Why mapping
-                  </button>
+                  </Link>
                 </li>
                 <li className="menu__item">
-                  <button type="button" className="menu__link">
+                  <Link to={about} hash="#our-partners" className="menu__link">
                     Our partners
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </li>

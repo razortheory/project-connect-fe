@@ -13,13 +13,13 @@ import {
   fetchSchoolHistoryFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
+import { $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, getVoid, onFalse, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/map/@/country/lib';
 import { $week, nextWeek, previousWeek } from '@/map/@/sidebar/model';
-import { $isMobile } from '@/map/@/sidebar/ui/view-model';
 import { initMapFx } from '@/map/effects';
 import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
 

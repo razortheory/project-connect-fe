@@ -4,6 +4,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import IconLocation from '~/assets/images/icon-location.svg';
+import { ProgressBar } from '~/ui';
 
 import {
   $popup,
@@ -16,7 +17,6 @@ import { getWeekGraphData, WeekGraph } from '@/map/@/sidebar/ui';
 
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
-import { ProgressBar } from './progress-bar';
 
 export const onChangeRef = createEvent<HTMLDivElement | null>();
 

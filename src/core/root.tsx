@@ -11,8 +11,8 @@ import {
 import { map, project, router } from '~/core/routes';
 import { useRoute } from '~/lib/router';
 
-import { MapPage } from '@/map';
-import { ProjectPage } from '@/project';
+import { MapPage } from '@/map/ui';
+import { ProjectPage } from '@/project/ui';
 
 const NotFound = () => (
   <figure style={{ color: '#000' }}>404: Not Found</figure>

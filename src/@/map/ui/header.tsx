@@ -2,7 +2,7 @@ import React from 'react';
 
 import { about } from '~/core/routes';
 import { Link } from '~/lib/router';
-import { Logo } from '~/ui/atoms';
+import { Logo } from '~/ui';
 
 export const Header = () => (
   <header className="header">

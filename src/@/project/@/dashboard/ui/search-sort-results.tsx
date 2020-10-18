@@ -6,7 +6,7 @@ import Chevron from '~/assets/images/chevron.svg';
 import { formatPercent } from '~/core/formatters';
 import { mapCountry } from '~/core/routes';
 import { Link } from '~/lib/router';
-import { Button } from '~/ui/atoms';
+import { Button } from '~/ui';
 
 import {
   $countriesList,
@@ -107,9 +107,13 @@ export const CountriesFound = () => {
                   <Button>View map</Button>
                 </Link>
 
-                <div className="country__link">
+                <Link
+                  className="country__link"
+                  to={mapCountry}
+                  params={{ code }}
+                >
                   <Chevron alt="View in map" />
-                </div>
+                </Link>
               </div>
             </div>
           </div>

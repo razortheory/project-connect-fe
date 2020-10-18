@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { Layout } from '~/ui/components/layout';
+import { Layout } from '~/ui';
 
 import { Footer } from './footer';
 

@@ -2,12 +2,11 @@ import { useStore } from 'effector-react';
 import React from 'react';
 import styled from 'styled-components';
 
-import { Layout, Main } from '~/ui/components';
+import { Layout, Main } from '~/ui';
 
-import { Popup } from '@/map/@/country';
 import { $isOpenHistoryModal } from '@/map/@/country/model';
-import { HistoryModal } from '@/map/@/country/ui/history-modal';
-import { Sidebar } from '@/map/@/sidebar';
+import { HistoryModal, Popup } from '@/map/@/country/ui';
+import { Sidebar } from '@/map/@/sidebar/ui';
 
 import { Footer } from './footer';
 import { Header } from './header';

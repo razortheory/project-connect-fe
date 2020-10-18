@@ -14,7 +14,7 @@ import {
 } from '@/map/@/sidebar/model';
 
 const onChange = changeSearchText.prepend(getInputValue);
-export const onClear = clearSearchText.prepend(getVoid);
+const onClear = clearSearchText.prepend(getVoid);
 
 export const Search = () => (
   <div className="sidebar__search-bar search-bar">

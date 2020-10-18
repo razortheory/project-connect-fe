@@ -5,3 +5,5 @@ export type SortKey =
   | 'dateOfJoining'
   | 'countryProgress'
   | 'percentSchoolWithConnectivity';
+
+export type Tabs = 'map' | 'content' | 'controls';

@@ -46,8 +46,11 @@
 .not-found__link {
   @include transition;
   display: inline-block;
+  padding: 0;
   color: $color-primary;
   text-decoration: underline;
+  background: none;
+  border: none;
   outline: none;
   cursor: pointer;
 
