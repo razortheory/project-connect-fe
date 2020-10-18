@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { useStore } from 'effector-react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CountryWeeklyStats } from 'src/api/types';
+import styled, { keyframes } from 'styled-components';
 
 import { formatPercent } from '~/core/formatters';
 
@@ -57,14 +58,32 @@ const FULL_CIRCLE_ANGLE = 360;
 const getOffsetAngle = (offsetPercent: number): number =>
   FULL_CIRCLE_ANGLE * offsetPercent + START_OFFSET_ANGLE;
 
+const circleKeyframe = (length: number, fullLength: number) => keyframes`
+  from {
+    stroke-dasharray: ${`0, ${fullLength}`};
+  }
+  to {
+    stroke-dasharray: ${`${length}, ${fullLength}`};
+  }
+`;
+
+interface CircleProps {
+  length: number;
+  fullLength: number;
+  angle: number;
+}
+
+const AnimatedCircle = styled.circle<CircleProps>`
+  /* stylelint-disable scss/operator-no-unspaced, value-keyword-case, function-name-case */
+  transform: ${({ angle }) => `rotate(${angle}deg) `};
+  transform-origin: center;
+  stroke-dasharray: ${({ length, fullLength }) => `${length}, ${fullLength}`};
+  animation: ${({ length, fullLength }) => circleKeyframe(length, fullLength)}
+    linear 0.5s;
+`;
+
 export const PieChart = () => {
   const countryWeeklyStats = useStore($countryWeeklyStats);
-
-  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setIsAnimationStarted(Boolean(countryWeeklyStats)));
-  }, [countryWeeklyStats]);
 
   if (!countryWeeklyStats) {
     return null;
@@ -75,7 +94,7 @@ export const PieChart = () => {
     percentConnectivityGood = 0,
     percentConnectivityModerate = 0,
     percentConnectivityUnknown = 0,
-  } = isAnimationStarted ? getSchoolsData(countryWeeklyStats) : {};
+  } = getSchoolsData(countryWeeklyStats);
 
   const noConnectivityOffsetAngle = getOffsetAngle(0);
   const goodConnectivityOffsetAngle = getOffsetAngle(percentConnectivityNo);
@@ -90,94 +109,73 @@ export const PieChart = () => {
 
   return (
     <div className="pie-chart">
-      {isAnimationStarted && (
-        <div className="pie-chart__explanation">
-          <div className="pie-chart__percent-value pie-chart__percent-value--no">
-            {formatPercent(percentConnectivityNo)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--good">
-            {formatPercent(percentConnectivityGood)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
-            {formatPercent(percentConnectivityModerate)}
-          </div>
-          <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
-            {formatPercent(percentConnectivityUnknown)}
-          </div>
+      <div className="pie-chart__explanation">
+        <div className="pie-chart__percent-value pie-chart__percent-value--no">
+          {formatPercent(percentConnectivityNo)}
         </div>
-      )}
+        <div className="pie-chart__percent-value pie-chart__percent-value--good">
+          {formatPercent(percentConnectivityGood)}
+        </div>
+        <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
+          {formatPercent(percentConnectivityModerate)}
+        </div>
+        <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
+          {formatPercent(percentConnectivityUnknown)}
+        </div>
+      </div>
+
       <div className="pie-chart__graph">
         <svg viewBox={`0 0 ${SVG_VIEW_BOX_WIDTH} ${SVG_VIEW_BOX_HEIGHT}`}>
           {/* No connectivity */}
 
-          <circle
-            className="pie-chart__progress"
-            style={{
-              transform: `rotate(${noConnectivityOffsetAngle}deg)`,
-              transformOrigin: 'center',
-            }}
+          <AnimatedCircle
+            angle={noConnectivityOffsetAngle}
+            length={CIRCUMFERENCE * percentConnectivityNo}
+            fullLength={CIRCUMFERENCE}
             stroke={connectivityStatusPaintData.no}
             fill="transparent"
-            strokeDasharray={`${
-              CIRCUMFERENCE * percentConnectivityNo
-            }, ${CIRCUMFERENCE}`}
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
             cy={CIRCLE_CENTER_Y}
             r={CIRCLE_RADIUS}
           />
 
-          {/* Good connectivity */}
+          {/* /!* Good connectivity *!/ */}
 
-          <circle
-            className="pie-chart__progress"
-            style={{
-              transform: `rotate(${goodConnectivityOffsetAngle}deg)`,
-              transformOrigin: 'center',
-            }}
+          <AnimatedCircle
+            angle={goodConnectivityOffsetAngle}
+            length={CIRCUMFERENCE * percentConnectivityGood}
+            fullLength={CIRCUMFERENCE}
             stroke={connectivityStatusPaintData.good}
             fill="transparent"
-            strokeDasharray={`${
-              CIRCUMFERENCE * percentConnectivityGood
-            }, ${CIRCUMFERENCE}`}
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
             cy={CIRCLE_CENTER_Y}
             r={CIRCLE_RADIUS}
           />
 
-          {/*  Moderate connectivity */}
+          {/* /!*  Moderate connectivity *!/ */}
 
-          <circle
-            className="pie-chart__progress"
-            style={{
-              transform: `rotate(${moderateConnectivityOffsetAngle}deg)`,
-              transformOrigin: 'center',
-            }}
+          <AnimatedCircle
+            angle={moderateConnectivityOffsetAngle}
+            length={CIRCUMFERENCE * percentConnectivityModerate}
+            fullLength={CIRCUMFERENCE}
             stroke={connectivityStatusPaintData.moderate}
             fill="transparent"
-            strokeDasharray={`${
-              CIRCUMFERENCE * percentConnectivityModerate
-            }, ${CIRCUMFERENCE}`}
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
             cy={CIRCLE_CENTER_Y}
             r={CIRCLE_RADIUS}
           />
 
-          {/* Unknown connectivity */}
+          {/* /!* Unknown connectivity *!/ */}
 
-          <circle
-            className="pie-chart__progress"
-            style={{
-              transform: `rotate(${unknownConnectivityOffsetAngle}deg)`,
-              transformOrigin: 'center',
-            }}
+          <AnimatedCircle
+            angle={unknownConnectivityOffsetAngle}
+            length={CIRCUMFERENCE * percentConnectivityUnknown}
+            fullLength={CIRCUMFERENCE}
             stroke={connectivityStatusPaintData.unknown}
             fill="transparent"
-            strokeDasharray={`${
-              CIRCUMFERENCE * percentConnectivityUnknown
-            }, ${CIRCUMFERENCE}`}
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
             cy={CIRCLE_CENTER_Y}
