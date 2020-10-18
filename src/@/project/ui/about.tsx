@@ -24,8 +24,8 @@ import { joinUs } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
+import { $isLoading } from '@/dashboard/model';
 import { $globalStats } from '@/map/model';
-import { $isLoading } from '@/project/@/dashboard/model';
 
 export const AboutContent = () => {
   const { schools_mapped, percent_schools_without_connectivity } = useStore(

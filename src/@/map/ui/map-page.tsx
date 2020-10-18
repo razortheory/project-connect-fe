@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import { Layout, Main } from '~/ui';
 
-import { $isOpenHistoryModal } from '@/map/@/country/model';
-import { HistoryModal, Popup } from '@/map/@/country/ui';
-import { Sidebar } from '@/map/@/sidebar/ui';
+import { $isOpenHistoryModal } from '@/country/model';
+import { HistoryModal, Popup } from '@/country/ui';
+import { Sidebar } from '@/sidebar/ui';
 
 import { Footer } from './footer';
 import { Header } from './header';

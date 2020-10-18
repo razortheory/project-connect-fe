@@ -5,7 +5,7 @@ import { FeatureCollection } from 'geojson';
 import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
-import { getSchoolsGeoJson } from '@/map/@/country/lib';
+import { getSchoolsGeoJson } from '@/country/lib';
 
 import {
   Country,

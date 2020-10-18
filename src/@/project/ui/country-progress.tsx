@@ -5,9 +5,9 @@ import React from 'react';
 import CountriesDashboard from '~/assets/images/countries-dashboard.jpg';
 import { formatPercent } from '~/core/formatters';
 
+import { $isLoading } from '@/dashboard/model';
+import { Dashboard } from '@/dashboard/ui';
 import { $globalStats } from '@/map/model';
-import { $isLoading } from '@/project/@/dashboard/model';
-import { Dashboard } from '@/project/@/dashboard/ui';
 
 const DescriptionSection = () => {
   const { countries_joined, countries_connected_to_realtime } = useStore(

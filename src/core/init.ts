@@ -1,7 +1,7 @@
 import '@/map/init';
-import '@/map/@/country/init';
-import '@/map/@/sidebar/init';
-import '@/project/@/dashboard/init';
+import '@/country/init';
+import '@/sidebar/init';
+import '@/dashboard/init';
 
 import { guard } from 'effector';
 
