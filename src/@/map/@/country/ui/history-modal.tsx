@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -178,22 +179,20 @@ export const HistoryModal = () => {
                 <button
                   type="button"
                   onClick={() => changeHistoryIntervalUnit('week')}
-                  className={`history-modal__period-unit ${
-                    intervalUnit === 'week'
-                      ? 'history-modal__period-unit--active'
-                      : ''
-                  }`}
+                  className={clsx('history-modal__period-unit', {
+                    'history-modal__period-unit--active':
+                      intervalUnit === 'week',
+                  })}
                 >
                   weekly
                 </button>
                 <button
                   type="button"
                   onClick={() => changeHistoryIntervalUnit('month')}
-                  className={`history-modal__period-unit ${
-                    intervalUnit === 'month'
-                      ? 'history-modal__period-unit--active'
-                      : ''
-                  }`}
+                  className={clsx('history-modal__period-unit', {
+                    'history-modal__period-unit--active':
+                      intervalUnit === 'month',
+                  })}
                 >
                   monthly
                 </button>

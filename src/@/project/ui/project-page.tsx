@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 
 import ImageDataSharing1 from '~/assets/images/data-sharing-1.jpg';
@@ -51,9 +52,9 @@ export const ProjectPage = () => (
             <li className="menu__item">
               <Link
                 to={about}
-                className={`menu__link ${
-                  useRoute(about) ? 'menu__link--active' : ''
-                }`}
+                className={clsx('menu__link', {
+                  'menu__link--active': useRoute(about),
+                })}
               >
                 About
                 <IconRightArrow className="menu__arrow" />
@@ -79,9 +80,9 @@ export const ProjectPage = () => (
             <li className="menu__item">
               <Link
                 to={countryProgress}
-                className={`menu__link ${
-                  useRoute(countryProgress) ? 'menu__link--active' : ''
-                }`}
+                className={clsx('menu__link', {
+                  'menu__link--active': useRoute(countryProgress),
+                })}
               >
                 Country progress
               </Link>
@@ -99,9 +100,9 @@ export const ProjectPage = () => (
             <li className="menu__item">
               <Link
                 to={media}
-                className={`menu__link ${
-                  useRoute(media) ? 'menu__link--active' : ''
-                }`}
+                className={clsx('menu__link', {
+                  'menu__link--active': useRoute(media),
+                })}
               >
                 Media
               </Link>
@@ -109,9 +110,9 @@ export const ProjectPage = () => (
             <li className="menu__item">
               <Link
                 to={joinUs}
-                className={`menu__link ${
-                  useRoute(joinUs) ? 'menu__link--active' : ''
-                }`}
+                className={clsx('menu__link', {
+                  'menu__link--active': useRoute(joinUs),
+                })}
               >
                 Join Us
               </Link>

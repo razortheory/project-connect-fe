@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -66,9 +67,9 @@ export const SearchSortBox = () => (
       <button
         type="button"
         onClick={onChangeView}
-        className={`view-changer__button ${
-          useStore($isListType) ? 'view-changer__button--active' : ''
-        }`}
+        className={clsx('view-changer__button', {
+          'view-changer__button--active': useStore($isListType),
+        })}
       >
         <IconList className="view-changer__icon" />
         List
@@ -77,9 +78,9 @@ export const SearchSortBox = () => (
       <button
         type="button"
         onClick={onChangeView}
-        className={`view-changer__button ${
-          useStore($isListType) ? '' : 'view-changer__button--active'
-        }`}
+        className={clsx('view-changer__button', {
+          'view-changer__button--active': !useStore($isListType),
+        })}
       >
         <IconTile className="view-changer__icon" />
         Tile

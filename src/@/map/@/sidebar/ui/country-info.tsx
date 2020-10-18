@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -267,9 +268,9 @@ export const CountryInfo = () => {
       <Tabs />
       <Scroll>
         <div
-          className={`sidebar__content ${
-            useStore($isMapTab) ? 'sidebar__content--hidden' : ''
-          }`}
+          className={clsx('sidebar__content', {
+            'sidebar__content--hidden': useStore($isMapTab),
+          })}
         >
           {useStore($isContentTab) && <CountryInfoContent />}
           {useStore($isControlsTab) && <Controls />}

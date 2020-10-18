@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -14,9 +15,9 @@ export const CountryListItem = ({ country }: { country: CountryBasic }) => {
 
   return (
     <li
-      className={`list__item ${
-        country.integration_status === 0 ? 'list__item--disabled' : ''
-      }`}
+      className={clsx('list__item', {
+        'list__item--disabled': country.integration_status === 0,
+      })}
     >
       <span
         className="list__circle"

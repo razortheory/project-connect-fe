@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -13,9 +14,9 @@ export const Tabs = () => (
       <Link to={tabMap}>
         <button
           type="button"
-          className={`tabs__button ${
-            useRoute(tabMap) ? 'tabs__button--active' : ''
-          }`}
+          className={clsx('tabs__button', {
+            'tabs__button--active': useRoute(tabMap),
+          })}
         >
           {useStore($isOpenPopup) ? 'School' : 'Map'}
         </button>
@@ -26,9 +27,9 @@ export const Tabs = () => (
       <Link to={tabInfo}>
         <button
           type="button"
-          className={`tabs__button ${
-            useRoute(tabInfo) ? 'tabs__button--active' : ''
-          }`}
+          className={clsx('tabs__button', {
+            'tabs__button--active': useRoute(tabInfo),
+          })}
         >
           {useRoute(mapCountry) && 'Country Info'}
           {useRoute(mapCountries) && 'Country List'}
@@ -40,9 +41,9 @@ export const Tabs = () => (
       <Link to={tabControls}>
         <button
           type="button"
-          className={`tabs__button ${
-            useRoute(tabControls) ? 'tabs__button--active' : ''
-          }`}
+          className={clsx('tabs__button', {
+            'tabs__button--active': useRoute(tabControls),
+          })}
         >
           Controls
         </button>
