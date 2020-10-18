@@ -21,7 +21,7 @@ type WeekGraphItemProps = {
   title: string;
 };
 
-const fillerKeyframe = (height: string) => keyframes`
+const fillerKeyframe = (height?: string) => keyframes`
   from {
     height: 0%;
   }
@@ -30,14 +30,13 @@ const fillerKeyframe = (height: string) => keyframes`
   }
 `;
 
-interface IFiller {
-  height: string;
-  background: string;
+interface FillerProps {
+  height?: string;
+  background?: string;
 }
 
-export const Filler = styled.div<IFiller>`
-  /* stylelint-disable scss/operator-no-unspaced */
-  /* stylelint-disable function-name-case */
+export const Filler = styled.div<FillerProps>`
+  /* stylelint-disable scss/operator-no-unspaced, function-name-case */
   position: relative;
   width: 100%;
   height: ${({ height }) => height};
@@ -56,10 +55,7 @@ export const Filler = styled.div<IFiller>`
 const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => (
   <div className="week-graph__item">
     <div className="week-graph__pillar">
-      <Filler
-        height={data?.speedPercent ?? ''}
-        background={data?.fillColor ?? ''}
-      >
+      <Filler height={data?.speedPercent} background={data?.fillColor}>
         <div className="week-graph__tooltip">
           <span>{data?.speed}</span>
           <span>{data?.date}</span>

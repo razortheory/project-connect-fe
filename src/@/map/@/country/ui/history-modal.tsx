@@ -43,7 +43,7 @@ const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
             key={item.date}
           >
             <div className="history-modal__graph-pillar">
-              <Filler height={height} background={item.fillColor ?? ''}>
+              <Filler height={height} background={item.fillColor}>
                 <div className="week-graph__tooltip">
                   <span>{item?.speedFormatted}</span>
                   <span>{item?.date}</span>

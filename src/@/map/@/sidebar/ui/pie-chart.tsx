@@ -67,16 +67,14 @@ const circleKeyframe = (length: number, fullLength: number) => keyframes`
   }
 `;
 
-interface ICircle {
+interface CircleProps {
   length: number;
   fullLength: number;
   angle: number;
 }
 
-const AnimatedCircle = styled.circle<ICircle>`
-  /* stylelint-disable scss/operator-no-unspaced */
-  /* stylelint-disable value-keyword-case */
-  /* stylelint-disable function-name-case */
+const AnimatedCircle = styled.circle<CircleProps>`
+  /* stylelint-disable scss/operator-no-unspaced, value-keyword-case, function-name-case */
   transform: ${({ angle }) => `rotate(${angle}deg) `};
   transform-origin: center;
   stroke-dasharray: ${({ length, fullLength }) => `${length}, ${fullLength}`};
