@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background-color: #141923;
+  background-color: $color-deep-blue;
 
   @include media-breakpoint-up(md) {
     flex-direction: row;
     min-height: 4rem;
     margin-bottom: 3.7rem;
-    border-radius: 0.5rem;
+    border-radius: $border-radius;
   }
 }
 
@@ -18,7 +18,7 @@
   padding-left: 1.5rem;
 
   @include media-breakpoint-up(md) {
-    border-radius: 0.5rem;
+    border-radius: $border-radius;
   }
 }
 
@@ -54,11 +54,11 @@
   flex: 0 0 auto;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  background-color: #2779ff;
+  background-color: $color-primary;
 
   @include media-breakpoint-up(lg) {
     display: flex;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 }

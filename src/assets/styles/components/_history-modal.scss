@@ -18,8 +18,8 @@
   width: 100%;
   max-width: 110.9rem;
   overflow: hidden;
-  background: #232832;
-  border-radius: 5px;
+  background: $color-dark-blue;
+  border-radius: $border-radius;
   transform: translate(-50%, -50%);
 
   @include media-breakpoint-down(sm) {

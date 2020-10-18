@@ -2,7 +2,7 @@
   color: $text-color-light;
 
   @include media-breakpoint-up(md) {
-    border-radius: 0.5rem;
+    border-radius: $border-radius;
   }
 
   &--no-connectivity {
@@ -28,6 +28,13 @@
   &--unknown {
     border-top: 0.9rem solid #7511bf;
   }
+}
+
+/* stylelint-disable-next-line selector-no-qualifying-type */
+.school-popup > div[class*='progress-bar__HorizontalLine'] {
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+  overflow: hidden;
 }
 
 .school-popup__content {

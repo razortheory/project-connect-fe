@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
   font-family: $font-family-primary;
@@ -29,7 +29,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
 
   &::after {
     @include transition;

@@ -11,7 +11,7 @@
 .map-switcher__item {
   @include transition;
   padding: 0.6rem;
-  color: #232832;
+  color: $color-dark-blue;
   font-weight: bold;
   font-size: 0.9rem;
   letter-spacing: 0.1rem;
@@ -21,7 +21,7 @@
   &:hover,
   &:active,
   &--active {
-    color: #fff;
+    color: $text-color-light;
   }
 }
 

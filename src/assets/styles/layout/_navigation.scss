@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #141923;
+  background-color: $color-deep-blue;
 
   @include media-breakpoint-up(lg) {
     flex-direction: row;
@@ -126,7 +126,7 @@ $icon-rotation: 45deg;
 .menu-icon {
   position: absolute;
   top: 50%;
-  right: 24px;
+  right: ($grid-gutter-width-lg / 2);
   display: block;
   width: $icon-line-width;
   height: $icon-height;

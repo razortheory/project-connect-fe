@@ -134,11 +134,11 @@
 }
 
 .history-modal__average-value {
-  color: #fff;
+  color: $text-color-light;
   font-weight: bold;
   font-size: 1.9rem;
   line-height: 1.32;
-  background-color: #232832;
+  background-color: $color-dark-blue;
 
   @include media-breakpoint-down(sm) {
     font-size: 1.3rem;

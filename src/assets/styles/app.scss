@@ -24,7 +24,7 @@
       padding-top: 4.5rem;
       padding-bottom: 8rem;
       padding-left: 0;
-      background-color: #141923;
+      background-color: $color-deep-blue;
       border-top: 0.8rem solid $color-primary;
     }
   }
@@ -43,7 +43,7 @@
     .header__button {
       position: absolute;
       top: 3.2rem;
-      right: 24px;
+      right: ($grid-gutter-width-lg / 2);
       transform: translateY(-50%);
     }
     .content {
@@ -60,7 +60,7 @@
 }
 
 .logo {
-  color: #fff;
+  color: $text-color-light;
   font-weight: 500;
   font-size: 1.2rem;
   letter-spacing: 0.126rem;
