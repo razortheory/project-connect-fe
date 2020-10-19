@@ -1,6 +1,6 @@
 // TODO: Refactor search/sort logic
 
-import { add, sub } from 'date-fns';
+import { add, isBefore, isSameDay, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
@@ -10,7 +10,12 @@ import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
-import { $countries, $countryId, changeCountryId } from '@/country/model';
+import {
+  $countries,
+  $country,
+  $countryId,
+  changeCountryId,
+} from '@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -21,6 +26,7 @@ import {
   $isContentTab,
   $isControlsChanged,
   $isControlsTab,
+  $isLastWeekWithData,
   $isMapTab,
   $isSidebarCollapsed,
   $isThisWeek,
@@ -148,6 +154,20 @@ sample({
   source: $week,
   fn: (week) => isCurrentInterval(week, 'week'),
   target: $isThisWeek,
+});
+
+sample({
+  source: combine([$week, $country]),
+  fn: ([week, country]) => {
+    if (!country) {
+      return false;
+    }
+    return (
+      isBefore(week.start, new Date(country.date_schools_mapped)) ||
+      isSameDay(week.start, new Date(country.date_schools_mapped))
+    );
+  },
+  target: $isLastWeekWithData,
 });
 
 $week.on(nextWeek, (week) =>

@@ -49,6 +49,7 @@ export const $isOpenHistoryModal = createStore(false);
 export const $historyIntervalUnit = createStore<IntervalUnit>('week');
 export const $historyInterval = createStore<Interval>(defaultInterval);
 export const $isCurrentHistoryInterval = createStore(true);
+export const $isLastHistoryIntervalWithData = createStore(false);
 export const $historyData = createStore<DailyStats[] | null>(null);
 export const $historyDataPending = createStore(false);
 export const $historyPlaceName = createStore<string | null>(null);

@@ -31,6 +31,7 @@ import { Scroll } from '@/scroll';
 import {
   $isContentTab,
   $isControlsTab,
+  $isLastWeekWithData,
   $isMapTab,
   $isThisWeek,
   $noSearchCountryFound,
@@ -176,6 +177,7 @@ const CountryInfoStatistics = () => {
 const CountryInfoContent = () => {
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
+  const isLastWeekWithData = useStore($isLastWeekWithData);
 
   const noSearchCountryFound = useStore($noSearchCountryFound);
 
@@ -189,6 +191,7 @@ const CountryInfoContent = () => {
             <button
               type="button"
               className="period-picker__button"
+              disabled={isLastWeekWithData}
               onClick={onPreviousWeek}
             >
               <Chevron className="chevron chevron--left" />

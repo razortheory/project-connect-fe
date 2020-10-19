@@ -14,6 +14,7 @@ import {
   $historyIntervalUnit,
   $historyPlaceName,
   $isCurrentHistoryInterval,
+  $isLastHistoryIntervalWithData,
   changeHistoryIntervalUnit,
   closeHistoryModal,
   nextHistoryInterval,
@@ -126,6 +127,7 @@ export const HistoryModal = () => {
   const intervalUnit = useStore($historyIntervalUnit);
   const interval = useStore($historyInterval);
   const isCurrentInterval = useStore($isCurrentHistoryInterval);
+  const isLastInterval = useStore($isLastHistoryIntervalWithData);
 
   const formattedInterval = formatDateInterval(
     interval,
@@ -160,6 +162,7 @@ export const HistoryModal = () => {
                 <button
                   onClick={() => previousHistoryInterval()}
                   type="button"
+                  disabled={isLastInterval}
                   className="period-picker__button"
                 >
                   <Chevron className="chevron chevron--left" />

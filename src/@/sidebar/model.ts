@@ -38,6 +38,7 @@ export const $sortKey = createStore<SortKey>(defaultSortKey);
 
 export const $week = createStore(defaultInterval);
 export const $isThisWeek = createStore(true);
+export const $isLastWeekWithData = createStore(false);
 export const nextWeek = createEvent();
 export const previousWeek = createEvent();
 
