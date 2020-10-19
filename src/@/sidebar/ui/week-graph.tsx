@@ -9,7 +9,7 @@ import { StatsDataType } from '@/country/types';
 
 import { WeekGraphData, WeekGraphItemData } from './get-week-graph-data';
 
-export interface WeekGraphProps {
+interface WeekGraphProps {
   showButtons?: boolean;
   showHistory?: boolean;
   weekGraphData: WeekGraphData;

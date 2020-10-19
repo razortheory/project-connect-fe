@@ -18,8 +18,6 @@ export const map = router.add('/map:path(/.*)?');
 export const mapOverview = router.add('/map');
 export const mapCountries = router.add('/map/countries:path(/.*)?');
 export const mapCountry = router.add<Code>('/map/country/:code:path(/.*)?');
-export const mapCountriesList = router.add('/map/countries/list');
-export const mapCountryInfo = router.add<Code>('/map/country/:code/info');
 
 // Project section
 export const media = router.add('/media');

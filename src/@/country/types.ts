@@ -50,6 +50,4 @@ export type AddSchoolPopup = {
   event: MapMouseEvent;
 };
 
-export type EmptyObject = Record<string, never>;
-
 export type StatsDataType = 'country' | 'school';

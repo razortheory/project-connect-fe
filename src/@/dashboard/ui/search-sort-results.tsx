@@ -16,9 +16,9 @@ import {
 
 import { getCountryInfo } from './get-country-info';
 
-export const NotFound = () => <h1>Countries not found</h1>;
+const NotFound = () => <h1>Countries not found</h1>;
 
-export const CountriesFound = () => {
+const CountriesFound = () => {
   const isListType = useStore($isListType);
 
   return (

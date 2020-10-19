@@ -18,7 +18,7 @@ import { getWeekGraphData, WeekGraph } from '@/sidebar/ui';
 import { getPopupClassName } from './get-popup-class-name';
 import { getSchoolInfo } from './get-school-info';
 
-export const onChangeRef = createEvent<HTMLDivElement | null>();
+const onChangeRef = createEvent<HTMLDivElement | null>();
 
 $popup.on(onChangeRef, (popup, element) => {
   if (element) popup?.setDOMContent(element);

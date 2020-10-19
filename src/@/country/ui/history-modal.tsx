@@ -20,9 +20,10 @@ import {
   previousHistoryInterval,
 } from '@/country/model';
 import { Scroll } from '@/scroll';
-// TODO: Fix import from the internals of the feature
+// TODO: Fix import from the internals of the features
+// eslint-disable-next-line no-restricted-imports
 import { getPercent } from '@/sidebar/ui/get-week-graph-data';
-// TODO: Fix import from the internals of the feature
+// eslint-disable-next-line no-restricted-imports
 import { Filler } from '@/sidebar/ui/week-graph';
 
 import {

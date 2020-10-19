@@ -6,7 +6,7 @@ import { DailyStats, WeekDay } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
 // Types
-export type Days =
+type Days =
   | 'monday'
   | 'tuesday'
   | 'wednesday'

@@ -4,6 +4,7 @@ import { DailyStats } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
 // TODO: Fix import from the internals of the feature
+// eslint-disable-next-line no-restricted-imports
 import {
   formatDate,
   getFillColor,
@@ -29,7 +30,7 @@ export type HistoryGraphData = {
   maxSpeed: number;
 };
 
-export type HistoryGraphItem = {
+type HistoryGraphItem = {
   date: string;
   speedFormatted?: string;
   speed?: number;

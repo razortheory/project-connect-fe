@@ -27,7 +27,7 @@ import { Link } from '~/lib/router';
 import { $isLoading } from '@/dashboard/model';
 import { $globalStats } from '@/map/model';
 
-export const AboutContent = () => {
+const AboutContent = () => {
   const { schools_mapped, percent_schools_without_connectivity } = useStore(
     $globalStats
   );

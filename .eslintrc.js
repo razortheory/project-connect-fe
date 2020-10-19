@@ -246,7 +246,13 @@ const config = {
     ],
     'no-restricted-imports': [
       'error',
-      { patterns: ['src/', '~/@/*', '../*', '*/effects/*', '*/ui/*'] },
+      { patterns: ['src/', '~/@/*', '../*', '**/effects/', '**/ui/'] },
+    ],
+    'import/no-useless-path-segments': [
+      'error',
+      {
+        noUselessIndex: true,
+      },
     ],
     'unicorn/prevent-abbreviations': [
       'error',

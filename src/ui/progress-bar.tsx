@@ -40,7 +40,7 @@ const Track = styled.div`
   overflow: hidden;
 `;
 
-export const Progress = () => (
+const Progress = () => (
   <Track>
     <Fill />
   </Track>
