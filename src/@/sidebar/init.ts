@@ -1,6 +1,6 @@
 // TODO: Refactor search/sort logic
 
-import { add, isBefore, isSameDay, sub } from 'date-fns';
+import { add, isBefore, sub } from 'date-fns';
 import { combine, forward, guard, sample } from 'effector';
 import { KeyboardEvent } from 'react';
 
@@ -26,10 +26,10 @@ import {
   $isContentTab,
   $isControlsChanged,
   $isControlsTab,
-  $isLastWeekWithData,
   $isMapTab,
+  $isNextWeekAvailable,
+  $isPreviousWeekAvailable,
   $isSidebarCollapsed,
-  $isThisWeek,
   $noSearchCountryFound,
   $noSearchResults,
   $searchActive,
@@ -152,22 +152,19 @@ sample({
 
 sample({
   source: $week,
-  fn: (week) => isCurrentInterval(week, 'week'),
-  target: $isThisWeek,
+  fn: (week) => !isCurrentInterval(week, 'week'),
+  target: $isNextWeekAvailable,
 });
 
 sample({
   source: combine([$week, $country]),
   fn: ([week, country]) => {
     if (!country) {
-      return false;
+      return true;
     }
-    return (
-      isBefore(week.start, new Date(country.date_schools_mapped)) ||
-      isSameDay(week.start, new Date(country.date_schools_mapped))
-    );
+    return isBefore(new Date(country.date_schools_mapped), week.start);
   },
-  target: $isLastWeekWithData,
+  target: $isPreviousWeekAvailable,
 });
 
 $week.on(nextWeek, (week) =>

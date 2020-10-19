@@ -31,9 +31,9 @@ import { Scroll } from '@/scroll';
 import {
   $isContentTab,
   $isControlsTab,
-  $isLastWeekWithData,
   $isMapTab,
-  $isThisWeek,
+  $isNextWeekAvailable,
+  $isPreviousWeekAvailable,
   $noSearchCountryFound,
   $searchActive,
   $week,
@@ -176,8 +176,8 @@ const CountryInfoStatistics = () => {
 
 const CountryInfoContent = () => {
   const week = useStore($week);
-  const isThisWeek = useStore($isThisWeek);
-  const isLastWeekWithData = useStore($isLastWeekWithData);
+  const isNextWeekAvailable = useStore($isNextWeekAvailable);
+  const isPreviousWeekAvailable = useStore($isPreviousWeekAvailable);
 
   const noSearchCountryFound = useStore($noSearchCountryFound);
 
@@ -191,18 +191,18 @@ const CountryInfoContent = () => {
             <button
               type="button"
               className="period-picker__button"
-              disabled={isLastWeekWithData}
+              disabled={!isPreviousWeekAvailable}
               onClick={onPreviousWeek}
             >
               <Chevron className="chevron chevron--left" />
             </button>
             <div className="period-picker__period">
-              {isThisWeek ? 'This week' : formatWeekInterval(week)}
+              {isNextWeekAvailable ? formatWeekInterval(week) : 'This week'}
             </div>
             <button
               type="button"
               className="period-picker__button"
-              disabled={isThisWeek}
+              disabled={!isNextWeekAvailable}
               onClick={onNextWeek}
             >
               <Chevron className="chevron" />

@@ -1,4 +1,4 @@
-import { add, isBefore, isSameDay, sub } from 'date-fns';
+import { add, isBefore, sub } from 'date-fns';
 import { combine, forward, guard, merge, sample } from 'effector';
 
 import {
@@ -49,10 +49,10 @@ import {
   $historyInterval,
   $historyIntervalUnit,
   $historyPlaceName,
-  $isCurrentHistoryInterval,
-  $isLastHistoryIntervalWithData,
+  $isNextHistoryIntervalAvailable,
   $isOpenHistoryModal,
   $isOpenPopup,
+  $isPreviousHistoryIntervalAvailable,
   $popup,
   $school,
   $schoolDailyStats,
@@ -368,22 +368,19 @@ sample({
 
 sample({
   source: combine([$historyInterval, $historyIntervalUnit]),
-  fn: ([interval, unit]) => isCurrentInterval(interval, unit),
-  target: $isCurrentHistoryInterval,
+  fn: ([interval, unit]) => !isCurrentInterval(interval, unit),
+  target: $isNextHistoryIntervalAvailable,
 });
 
 sample({
   source: combine([$historyInterval, $country]),
   fn: ([interval, country]) => {
     if (!country) {
-      return false;
+      return true;
     }
-    return (
-      isBefore(interval.start, new Date(country.date_schools_mapped)) ||
-      isSameDay(interval.start, new Date(country.date_schools_mapped))
-    );
+    return isBefore(new Date(country.date_schools_mapped), interval.start);
   },
-  target: $isLastHistoryIntervalWithData,
+  target: $isPreviousHistoryIntervalAvailable,
 });
 
 sample({
