@@ -37,6 +37,7 @@ export const $noSearchCountryFound = createStore(false);
 export const $sortKey = createStore<SortKey>(defaultSortKey);
 
 export const $week = createStore(defaultInterval);
+export const $isThisWeek = createStore(true);
 export const $isNextWeekAvailable = createStore(false);
 export const $isPreviousWeekAvailable = createStore(true);
 export const nextWeek = createEvent();

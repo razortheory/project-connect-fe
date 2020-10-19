@@ -13,6 +13,7 @@ import {
   $historyInterval,
   $historyIntervalUnit,
   $historyPlaceName,
+  $isCurrentHistoryInterval,
   $isNextHistoryIntervalAvailable,
   $isPreviousHistoryIntervalAvailable,
   changeHistoryIntervalUnit,
@@ -126,12 +127,11 @@ const HistoryGraph = () => {
 export const HistoryModal = () => {
   const intervalUnit = useStore($historyIntervalUnit);
   const interval = useStore($historyInterval);
+  const isCurrentInterval = useStore($isCurrentHistoryInterval);
   const isNextIntervalAvailable = useStore($isNextHistoryIntervalAvailable);
   const isPreviousIntervalAvailable = useStore(
     $isPreviousHistoryIntervalAvailable
   );
-
-  const isCurrentInterval = !isNextIntervalAvailable;
 
   const formattedInterval = formatDateInterval(
     interval,

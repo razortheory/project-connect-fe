@@ -49,6 +49,7 @@ import {
   $historyInterval,
   $historyIntervalUnit,
   $historyPlaceName,
+  $isCurrentHistoryInterval,
   $isNextHistoryIntervalAvailable,
   $isOpenHistoryModal,
   $isOpenPopup,
@@ -368,7 +369,13 @@ sample({
 
 sample({
   source: combine([$historyInterval, $historyIntervalUnit]),
-  fn: ([interval, unit]) => !isCurrentInterval(interval, unit),
+  fn: ([interval, unit]) => isCurrentInterval(interval, unit),
+  target: $isCurrentHistoryInterval,
+});
+
+sample({
+  source: $isCurrentHistoryInterval,
+  fn: getInverted,
   target: $isNextHistoryIntervalAvailable,
 });
 
@@ -376,7 +383,7 @@ sample({
   source: combine([$historyInterval, $country]),
   fn: ([interval, country]) => {
     if (!country) {
-      return true;
+      return false;
     }
     return isBefore(new Date(country.date_schools_mapped), interval.start);
   },

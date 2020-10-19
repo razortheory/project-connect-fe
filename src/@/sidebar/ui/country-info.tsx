@@ -34,6 +34,7 @@ import {
   $isMapTab,
   $isNextWeekAvailable,
   $isPreviousWeekAvailable,
+  $isThisWeek,
   $noSearchCountryFound,
   $searchActive,
   $week,
@@ -176,6 +177,7 @@ const CountryInfoStatistics = () => {
 
 const CountryInfoContent = () => {
   const week = useStore($week);
+  const isThisWeek = useStore($isThisWeek);
   const isNextWeekAvailable = useStore($isNextWeekAvailable);
   const isPreviousWeekAvailable = useStore($isPreviousWeekAvailable);
 
@@ -197,7 +199,7 @@ const CountryInfoContent = () => {
               <Chevron className="chevron chevron--left" />
             </button>
             <div className="period-picker__period">
-              {isNextWeekAvailable ? formatWeekInterval(week) : 'This week'}
+              {isThisWeek ? 'This week' : formatWeekInterval(week)}
             </div>
             <button
               type="button"

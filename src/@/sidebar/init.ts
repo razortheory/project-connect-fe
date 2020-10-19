@@ -30,6 +30,7 @@ import {
   $isNextWeekAvailable,
   $isPreviousWeekAvailable,
   $isSidebarCollapsed,
+  $isThisWeek,
   $noSearchCountryFound,
   $noSearchResults,
   $searchActive,
@@ -152,7 +153,13 @@ sample({
 
 sample({
   source: $week,
-  fn: (week) => !isCurrentInterval(week, 'week'),
+  fn: (week) => isCurrentInterval(week, 'week'),
+  target: $isThisWeek,
+});
+
+sample({
+  source: $isThisWeek,
+  fn: getInverted,
   target: $isNextWeekAvailable,
 });
 
@@ -160,7 +167,7 @@ sample({
   source: combine([$week, $country]),
   fn: ([week, country]) => {
     if (!country) {
-      return true;
+      return false;
     }
     return isBefore(new Date(country.date_schools_mapped), week.start);
   },
