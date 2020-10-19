@@ -39,6 +39,7 @@ export type Country = {
   map_preview: string;
   description: string;
   data_source: string;
+  date_schools_mapped: string;
   statistics: CountryWeeklyStats;
   geometry: Geometry;
 };

@@ -1,4 +1,4 @@
-import { add, sub } from 'date-fns';
+import { add, isBefore, sub } from 'date-fns';
 import { combine, forward, guard, merge, sample } from 'effector';
 
 import {
@@ -50,8 +50,10 @@ import {
   $historyIntervalUnit,
   $historyPlaceName,
   $isCurrentHistoryInterval,
+  $isNextHistoryIntervalAvailable,
   $isOpenHistoryModal,
   $isOpenPopup,
+  $isPreviousHistoryIntervalAvailable,
   $popup,
   $school,
   $schoolDailyStats,
@@ -369,6 +371,23 @@ sample({
   source: combine([$historyInterval, $historyIntervalUnit]),
   fn: ([interval, unit]) => isCurrentInterval(interval, unit),
   target: $isCurrentHistoryInterval,
+});
+
+sample({
+  source: $isCurrentHistoryInterval,
+  fn: getInverted,
+  target: $isNextHistoryIntervalAvailable,
+});
+
+sample({
+  source: combine([$historyInterval, $country]),
+  fn: ([interval, country]) => {
+    if (!country) {
+      return false;
+    }
+    return isBefore(new Date(country.date_schools_mapped), interval.start);
+  },
+  target: $isPreviousHistoryIntervalAvailable,
 });
 
 sample({

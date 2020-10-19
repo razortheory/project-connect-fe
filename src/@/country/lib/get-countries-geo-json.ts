@@ -19,8 +19,6 @@ export const getCountriesGeoJson = (
             type: 'Feature',
             properties: {
               integration_status: country.integration_status,
-              schools_with_data_percentage:
-                country.schools_with_data_percentage,
               code: country.code,
             },
             geometry: countryGeometry?.geometry_simplified as Geometry,
