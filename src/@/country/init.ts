@@ -16,7 +16,7 @@ import {
 import { $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
-import { getInverted, getVoid, onFalse, setPayload } from '~/lib/effector-kit';
+import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
 import { getCountriesGeoJson } from '@/country/lib';
 import { initMapFx } from '@/map/effects';
@@ -85,7 +85,7 @@ $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
 
-const onClosePopup = guard($isOpenPopup, onFalse);
+const onClosePopup = guard($isOpenPopup, { filter: getInverted });
 $schoolId.reset(onClosePopup);
 
 $countryWeeklyStats.reset(

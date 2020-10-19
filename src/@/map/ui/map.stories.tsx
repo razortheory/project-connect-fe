@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
 
-import { Map } from '@/map/types';
+import { Map } from './map';
 
 export default {
   title: 'Library/Map',
