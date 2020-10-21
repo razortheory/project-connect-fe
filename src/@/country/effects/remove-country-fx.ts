@@ -1,13 +1,25 @@
 import { createEffect } from 'effector';
 
-import { Map } from '@/map/types';
+import { getDefaultCountryOpacity } from '@/map/constants';
+import { Map, StylePaintData } from '@/map/types';
 
-export const removeCountryFx = createEffect((map: Map) => {
-  if (map.getLayer('selectedCountry')) {
-    map.removeLayer('selectedCountry');
-  }
+export const removeCountryFx = createEffect(
+  ({ map, paintData }: { map: Map | null; paintData: StylePaintData }) => {
+    if (!map) return;
 
-  if (map.getSource('selectedCountry')) {
-    map.removeSource('selectedCountry');
+    if (map.getLayer('selectedCountry')) {
+      map.removeLayer('selectedCountry');
+    }
+
+    if (map.getSource('selectedCountry')) {
+      map.removeSource('selectedCountry');
+    }
+    if (map.getLayer('countries')) {
+      map.setPaintProperty(
+        'countries',
+        'fill-opacity',
+        getDefaultCountryOpacity(paintData)
+      );
+    }
   }
-});
+);

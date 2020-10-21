@@ -4,9 +4,13 @@ import { MapLayerMouseEvent } from 'mapbox-gl';
 import { mapCountry } from '~/core/routes';
 
 import { AddCountries } from '@/country/types';
+import {
+  getDefaultCountryColor,
+  getDefaultCountryOpacity,
+} from '@/map/constants';
 
 export const addCountriesFx = createEffect(
-  ({ map, paintData, countriesGeoJson, isCountryRoute }: AddCountries) => {
+  ({ map, paintData, countriesGeoJson, countryId }: AddCountries) => {
     if (!map || !countriesGeoJson) return;
 
     let hoveredCountryId = 0;
@@ -22,27 +26,13 @@ export const addCountriesFx = createEffect(
         type: 'fill',
         source: 'countries',
         paint: {
-          'fill-color': isCountryRoute
-            ? paintData.countryNotSelected
-            : [
-                'match',
-                ['get', 'integration_status'],
-                0,
-                paintData.countryNotVerified,
-                1,
-                paintData.countryVerified,
-                2,
-                paintData.countryWithConnectivity,
-                3,
-                paintData.countryWithConnectivity,
-                paintData.countryNotVerified,
-              ],
+          'fill-color': getDefaultCountryColor(paintData),
           'fill-outline-color': paintData.background,
           'fill-opacity': [
             'case',
-            ['boolean', ['feature-state', 'hover'], false],
-            paintData.opacityHover,
-            paintData.opacity,
+            ['==', ['id'], countryId],
+            0,
+            getDefaultCountryOpacity(paintData),
           ],
         },
       },
@@ -51,9 +41,9 @@ export const addCountriesFx = createEffect(
 
     map.on('click', 'countries', (event: MapLayerMouseEvent) => {
       if (!event.features?.[0]) return;
-      const countryId = event.features[0].id;
+      const selectedCountryId = event.features[0].id;
       const countryGeoJson = countriesGeoJson.features.find(
-        (geoJson) => geoJson.id === countryId
+        (geoJson) => geoJson.id === selectedCountryId
       );
       if (countryGeoJson?.properties?.code) {
         const code = String(countryGeoJson.properties.code);

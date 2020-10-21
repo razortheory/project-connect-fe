@@ -1,3 +1,5 @@
+import { Expression } from 'mapbox-gl';
+
 import {
   ConnectivityStatus,
   CoverageStatus,
@@ -63,6 +65,31 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     opacityHover: 0.8,
   },
 };
+
+export const getDefaultCountryOpacity = (
+  paintData: StylePaintData
+): Expression => [
+  'case',
+  ['boolean', ['feature-state', 'hover'], false],
+  paintData.opacityHover,
+  paintData.opacity,
+];
+
+export const getDefaultCountryColor = (
+  paintData: StylePaintData
+): Expression => [
+  'match',
+  ['get', 'integration_status'],
+  0,
+  paintData.countryNotVerified,
+  1,
+  paintData.countryVerified,
+  2,
+  paintData.countryWithConnectivity,
+  3,
+  paintData.countryWithConnectivity,
+  paintData.countryNotVerified,
+];
 
 export const statusPaintField: {
   [key in IntegrationStatus]: keyof StylePaintData;

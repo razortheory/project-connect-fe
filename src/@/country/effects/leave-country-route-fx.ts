@@ -1,7 +1,12 @@
 import { createEffect } from 'effector';
 
 import { LeaveCountryRoute } from '@/country/types';
-import { defaultCenter, defaultZoom } from '@/map/constants';
+import {
+  defaultCenter,
+  defaultZoom,
+  getDefaultCountryColor,
+  getDefaultCountryOpacity,
+} from '@/map/constants';
 
 import { removeCountryFx } from './remove-country-fx';
 import { removeSchoolsFx } from './remove-schools-fx';
@@ -17,19 +22,17 @@ export const leaveCountryRouteFx = createEffect(
       zoom: defaultZoom,
     });
 
-    map.setPaintProperty('countries', 'fill-color', [
-      'match',
-      ['get', 'integration_status'],
-      0,
-      paintData.countryNotVerified,
-      1,
-      paintData.countryVerified,
-      2,
-      paintData.countryWithConnectivity,
-      3,
-      paintData.countryWithConnectivity,
-      paintData.countryNotVerified,
-    ]);
+    map.setPaintProperty(
+      'countries',
+      'fill-color',
+      getDefaultCountryColor(paintData)
+    );
+
+    map.setPaintProperty(
+      'countries',
+      'fill-opacity',
+      getDefaultCountryOpacity(paintData)
+    );
 
     map.setPaintProperty(
       'countries',
@@ -37,6 +40,9 @@ export const leaveCountryRouteFx = createEffect(
       paintData.background
     );
 
-    await Promise.all([removeSchoolsFx(map), removeCountryFx(map)]);
+    await Promise.all([
+      removeSchoolsFx(map),
+      removeCountryFx({ map, paintData }),
+    ]);
   }
 );

@@ -6,3 +6,5 @@ export { zoomToCountryFx } from './zoom-to-country-fx';
 export { updateSchoolsColorsFx } from './update-schools-colors-fx';
 export { addSchoolPopupFx } from './add-school-popup-fx';
 export { createSchoolPopupFx } from './create-school-popup-fx';
+export { removeCountryFx } from './remove-country-fx';
+export { removeSchoolsFx } from './remove-schools-fx';

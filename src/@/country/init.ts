@@ -18,21 +18,23 @@ import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
-import { getCountriesGeoJson } from '@/country/lib';
-import { initMapFx } from '@/map/effects';
-import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
-import { $week, nextWeek, previousWeek } from '@/sidebar/model';
-
 import {
   addCountriesFx,
   addSchoolPopupFx,
   createSchoolPopupFx,
   leaveCountryRouteFx,
+  removeCountryFx,
+  removeSchoolsFx,
   updateCountryFx,
   updateSchoolsColorsFx,
   updateSchoolsFx,
   zoomToCountryFx,
-} from './effects';
+} from '@/country/effects';
+import { getCountriesGeoJson } from '@/country/lib';
+import { initMapFx } from '@/map/effects';
+import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
+import { $week, nextWeek, previousWeek } from '@/sidebar/model';
+
 import {
   $countries,
   $countriesGeoJson,
@@ -119,7 +121,6 @@ const $mapContext = combine({
   country: $country,
   schools: $schools,
   popup: $popup,
-  isCountryRoute: mapCountry.visible,
   countryId: $countryId,
   schoolId: $schoolId,
   zoomedCountryId: $zoomedCountryId,
@@ -227,6 +228,20 @@ sample({
   target: updateSchoolsFx,
 });
 
+sample({
+  source: $mapContext,
+  clock: changeCountryId,
+  fn: ({ map, paintData }) => ({ map, paintData }),
+  target: removeCountryFx,
+});
+
+sample({
+  source: guard($map, { filter: Boolean }),
+  clock: changeCountryId,
+  fn: (map) => map,
+  target: removeSchoolsFx,
+});
+
 // Routing
 const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
@@ -279,11 +294,11 @@ const onCountriesGeoJson = sample({
 sample({
   source: $mapContext,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
-  fn: ({ map, paintData, isCountryRoute }, countriesGeoJson) => ({
+  fn: ({ map, paintData, countryId }, countriesGeoJson) => ({
     map,
     paintData,
     countriesGeoJson,
-    isCountryRoute,
+    countryId,
   }),
   target: addCountriesFx,
 });
