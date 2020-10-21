@@ -3,7 +3,7 @@
 import { School } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
-import { SchoolInfo } from './types';
+import { SchoolInfo } from '@/popup/types';
 
 export const getSchoolInfo = (school: School): SchoolInfo => {
   const {

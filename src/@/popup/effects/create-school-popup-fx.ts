@@ -1,7 +1,7 @@
 import { createEffect } from 'effector';
 import mapboxGL from 'mapbox-gl';
 
-import { changeIsOpenPopup } from '@/country/model';
+import { changeIsOpenPopup } from '@/popup/model';
 
 export const createSchoolPopupFx = createEffect(() =>
   new mapboxGL.Popup({

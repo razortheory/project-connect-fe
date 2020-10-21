@@ -3,13 +3,9 @@ import { add, format, Interval, isBefore } from 'date-fns';
 import { DailyStats } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
-// TODO: Fix import from the internals of the feature
-// eslint-disable-next-line no-restricted-imports
-import {
-  formatDate,
-  getFillColor,
-  megabytesPerSecond,
-} from '@/sidebar/ui/get-week-graph-data';
+import { HistoryGraphData } from '@/history-modal/types';
+import { megabytesPerSecond } from '@/week-graph/constants';
+import { formatDate, getFillColor } from '@/week-graph/lib';
 
 const getDatesArray = (interval: Interval) => {
   let day = interval.start;
@@ -21,20 +17,6 @@ const getDatesArray = (interval: Interval) => {
   }
 
   return datesArray;
-};
-
-export type HistoryGraphData = {
-  daysData: HistoryGraphItem[];
-  speedSum: number;
-  itemsCount: number;
-  maxSpeed: number;
-};
-
-type HistoryGraphItem = {
-  date: string;
-  speedFormatted?: string;
-  speed?: number;
-  fillColor?: string;
 };
 
 const MULTIPLE_SCALE_UNIT = 5 * megabytesPerSecond;
