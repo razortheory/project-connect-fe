@@ -1,4 +1,8 @@
+import mapboxGl, { MapMouseEvent } from 'mapbox-gl';
+
 import { ConnectivityStatus, CoverageStatus } from '~/api/types';
+
+import { Map } from '@/map/types';
 
 export type SchoolInfo = {
   id: number;
@@ -14,4 +18,10 @@ export type SchoolInfo = {
   networkCoverage: string;
   coverageStatus: CoverageStatus;
   regionClassification: string;
+};
+
+export type AddSchoolPopup = {
+  map: Map | null;
+  popup: mapboxGl.Popup | null;
+  event: MapMouseEvent;
 };

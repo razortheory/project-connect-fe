@@ -4,22 +4,8 @@ import styled, { keyframes } from 'styled-components';
 import Chevron from '~/assets/images/chevron.svg';
 import IconHistory from '~/assets/images/icon-history.svg';
 
-import { changeHistoryDataType } from '@/country/model';
-import { StatsDataType } from '@/country/types';
-
-import { WeekGraphData, WeekGraphItemData } from './get-week-graph-data';
-
-interface WeekGraphProps {
-  showButtons?: boolean;
-  showHistory?: boolean;
-  weekGraphData: WeekGraphData;
-  dataType: StatsDataType;
-}
-
-type WeekGraphItemProps = {
-  data?: WeekGraphItemData;
-  title: string;
-};
+import { changeHistoryDataType } from '@/history-modal/model';
+import { WeekGraphItemProps, WeekGraphProps } from '@/week-graph/types';
 
 const fillerKeyframe = (height?: string) => keyframes`
   from {

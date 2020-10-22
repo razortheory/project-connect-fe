@@ -6,17 +6,12 @@ import React from 'react';
 import IconLocation from '~/assets/images/icon-location.svg';
 import { ProgressBar } from '~/ui';
 
-import {
-  $popup,
-  $school,
-  $schoolDailyStats,
-  $schoolPending,
-} from '@/country/model';
+import { $school, $schoolDailyStats, $schoolPending } from '@/country/model';
+import { getPopupClassName, getSchoolInfo } from '@/popup/lib';
+import { $popup } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
-import { getWeekGraphData, WeekGraph } from '@/sidebar/ui';
-
-import { getPopupClassName } from './get-popup-class-name';
-import { getSchoolInfo } from './get-school-info';
+import { getWeekGraphData } from '@/week-graph/lib/get-week-graph-data';
+import { WeekGraph } from '@/week-graph/ui';
 
 const onChangeRef = createEvent<HTMLDivElement | null>();
 

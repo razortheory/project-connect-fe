@@ -1,6 +1,5 @@
 import { FeatureCollection } from 'geojson';
 import type mapboxGl from 'mapbox-gl';
-import { MapMouseEvent } from 'mapbox-gl';
 
 import { Country, CountryGeometry } from '~/api/types';
 
@@ -43,11 +42,3 @@ export type AddCountries = {
   countriesGeoJson: FeatureCollection;
   isCountryRoute: boolean;
 };
-
-export type AddSchoolPopup = {
-  map: Map | null;
-  popup: mapboxGl.Popup | null;
-  event: MapMouseEvent;
-};
-
-export type StatsDataType = 'country' | 'school';
