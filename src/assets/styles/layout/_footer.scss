@@ -7,7 +7,7 @@
   background-color: $footer-background-color;
 
   @include media-breakpoint-up(xl) {
-    padding-left: 2.4rem;
+    padding-left: ($grid-gutter-width-lg / 2);
   }
 }
 

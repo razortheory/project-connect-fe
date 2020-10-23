@@ -1,10 +1,14 @@
 .progress-dashboard {
-  padding-right: 2.4rem;
-  padding-left: 2.4rem;
+  padding-right: ($grid-gutter-width-lg / 2);
+  padding-left: ($grid-gutter-width-lg / 2);
 }
 
 .progress-dashboard__row {
   @include make-row($gutters: $grid-gutter-widths-lg);
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+  }
 }
 
 .progress-dashboard__legend-col {
@@ -12,7 +16,9 @@
   @include make-col(12);
 
   @include media-breakpoint-up(lg) {
-    @include make-col(4);
+    flex-basis: 307px;
+    max-width: 307px;
+    margin-right: auto;
   }
 }
 
@@ -46,19 +52,20 @@
   text-transform: uppercase;
 }
 
-.progress-dashboard__controls-bar {
+.progress-dashboard__controls-bar,
+.progress-dashboard__tabs {
   @include media-breakpoint-down(sm) {
-    margin-right: -24px;
-    margin-left: -24px;
+    margin-right: -($grid-gutter-width-lg / 2);
+    margin-left: -($grid-gutter-width-lg / 2);
   }
 }
 
 .progress-dashboard__countries-list {
   @include media-breakpoint-down(sm) {
-    margin-right: -24px;
-    margin-left: -24px;
-    padding: 24px;
-    background-color: #232832;
+    margin-right: -($grid-gutter-width-lg / 2);
+    margin-left: -($grid-gutter-width-lg / 2);
+    padding: 24px ($grid-gutter-width-lg / 2);
+    background-color: $color-dark-blue;
   }
 }
 
@@ -67,22 +74,33 @@
   @include make-col(12);
 
   @include media-breakpoint-up(lg) {
-    @include make-col(8);
+    flex: 0 1 100%;
+    max-width: 930px;
   }
 }
 
 .progress-dashboard__last-data {
   display: flex;
-  margin-top: 9rem;
-  @include media-breakpoint-down(md) {
-    margin: 3rem 0;
+  margin: 3rem 0;
+  color: #b6bbc6;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 9rem;
+  }
+
+  svg {
+    margin-right: 0.6rem;
+    font-size: 2.1rem;
   }
 
   span {
     width: 19.4rem;
-    color: #b6bbc6;
     font-size: 1.3rem;
     font-family: $font-family-secondary;
     line-height: 1.54;
   }
+}
+
+.progress-dashboard__controls-button {
+  margin-top: 20rem;
 }

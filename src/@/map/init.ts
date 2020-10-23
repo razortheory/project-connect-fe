@@ -1,6 +1,3 @@
-import './@/country/init';
-import './@/sidebar/init';
-
 import { combine, guard, sample } from 'effector';
 
 import {

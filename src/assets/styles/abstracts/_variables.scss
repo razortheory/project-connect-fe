@@ -9,6 +9,7 @@ $grid-breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1280px,
+  xxl: 1440px,
 ) !default;
 
 // Grid containers
@@ -20,6 +21,7 @@ $container-max-widths: (
   md: 720px,
   lg: 960px,
   xl: 1200px,
+  xxl: 1384px,
 ) !default;
 
 // Grid columns
@@ -34,6 +36,7 @@ $grid-gutter-widths: (
   md: $grid-gutter-width-base,
   lg: $grid-gutter-width-base,
   xl: $grid-gutter-width-base,
+  xxl: $grid-gutter-width-base,
 ) !default;
 
 $grid-gutter-width-sm: 16px;
@@ -44,6 +47,7 @@ $grid-gutter-widths-sm: (
   md: $grid-gutter-width-sm,
   lg: $grid-gutter-width-sm,
   xl: $grid-gutter-width-sm,
+  xxl: $grid-gutter-width-sm,
 );
 
 $grid-gutter-width-lg: 48px;
@@ -54,12 +58,15 @@ $grid-gutter-widths-lg: (
   md: $grid-gutter-width-lg,
   lg: $grid-gutter-width-lg,
   xl: $grid-gutter-width-lg,
+  xxl: $grid-gutter-width-lg,
 );
 
 $color-primary: #2779ff;
 $color-primary-hover: scale-color($color-primary, $lightness: 5%);
 $color-primary-active: scale-color($color-primary, $lightness: 10%);
 $color-primary-disabled: #6a707a;
+$color-deep-blue: #141923;
+$color-dark-blue: #232832;
 
 $text-color-light: #fff;
 $text-color-dark: #000;
@@ -69,9 +76,11 @@ $font-family-secondary: 'Roboto', sans-serif;
 
 $header-height: 7rem;
 $header-height-desktop: 6.4rem; /* 6.3rem in design */
-$header-background-color: #141923;
+$header-background-color: $color-deep-blue;
 $header-background-color-desktop: transparent;
 
 $footer-height: 5.7rem;
 $footer-height-desktop: 5rem; /* 4.9rem in design */
 $footer-background-color: rgba(#000, 0.75);
+
+$border-radius: 0.5rem;

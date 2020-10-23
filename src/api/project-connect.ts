@@ -5,7 +5,7 @@ import { FeatureCollection } from 'geojson';
 import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
-import { getSchoolsGeoJson } from '@/map/@/country/lib';
+import { getSchoolsGeoJson } from '@/country/lib';
 
 import {
   Country,
@@ -18,9 +18,14 @@ import {
   SchoolBasic,
 } from './types';
 
-export const request = createRequest({
-  baseUrl: 'https://api.projectconnect.razortheory.com/',
+const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
+
+const request = createRequest({
+  baseUrl: apiBaseUrl,
 });
+
+export const getDatasetUrl = (countryId: number): string =>
+  `${apiBaseUrl}api/locations/countries/${countryId}/schools/export-csv-schools/`;
 
 export const fetchCountryFx = createRequestFx(
   async (countryId: number, controller?: Controller): Promise<Country> =>
