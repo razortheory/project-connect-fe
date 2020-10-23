@@ -31,6 +31,12 @@
   background-size: cover;
   border-radius: $border-radius;
 
+  @include media-breakpoint-down(md) {
+    &::after {
+      display: none;
+    }
+  }
+
   &::after {
     @include transition;
     position: absolute;
