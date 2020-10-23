@@ -7,7 +7,7 @@ import IconSearch from '~/assets/images/search.svg';
 import IconTile from '~/assets/images/tile.svg';
 import { getInverted, getVoid } from '~/lib/effector-kit';
 import { getInputValue } from '~/lib/event-reducers';
-import { selectValue } from '~/lib/event-reducers/select-value';
+import { Dropdown } from '~/ui';
 
 import {
   $hasSearchText,
@@ -19,13 +19,13 @@ import {
   changeViewType,
   clearSearchText,
 } from '@/dashboard/model';
+import { dropdownCountriesSortData } from '@/sidebar/constants';
 import { SortKey } from '@/sidebar/types';
 
 // View
 const onChange = changeSearchText.prepend(getInputValue);
 const onChangeView = changeViewType.prepend(getInverted);
 const onClear = clearSearchText.prepend(getVoid);
-const onSortChange = changeSortKey.prepend(selectValue<SortKey>());
 
 export const SearchSortBox = () => (
   <div className="progress-dashboard__controls-bar controls-bar">
@@ -47,21 +47,14 @@ export const SearchSortBox = () => (
       )}
     </div>
 
-    <div className="controls-bar__sort">
-      <span>Sort by:</span>{' '}
-      <select
-        onChange={onSortChange}
-        value={useStore($sortKey)}
-        className="select-dashboard"
-      >
-        <option value="amountOfDataAvailable">Amount of data available</option>
-        <option value="dateOfJoining">Date of joining</option>
-        <option value="countryProgress">Country progress</option>
-        <option value="percentSchoolWithConnectivity">
-          % Schools with connectivity
-        </option>
-      </select>
-    </div>
+    <Dropdown<SortKey>
+      wrapperClassName="controls-bar__sort"
+      selectClassName="select-dashboard"
+      items={dropdownCountriesSortData}
+      value={useStore($sortKey)}
+      onChange={changeSortKey}
+      prefix="SORT BY:"
+    />
 
     <div className="controls-bar__view-changer">
       <button

@@ -1,5 +1,6 @@
 import { CountryBasic } from '~/api/types';
 import { getInterval } from '~/lib/date-fns-kit';
+import { DropdownItem } from '~/ui/dropdown';
 
 import { SortKey, SortType } from '@/sidebar/types';
 
@@ -30,3 +31,13 @@ export const countriesSortData: {
     sortType: 'number',
   },
 };
+
+export const dropdownCountriesSortData: Array<DropdownItem<SortKey>> = [
+  { value: 'amountOfDataAvailable', title: 'Amount of data available' },
+  { value: 'dateOfJoining', title: 'Date of joining' },
+  { value: 'countryProgress', title: 'Country progress' },
+  {
+    value: 'percentSchoolWithConnectivity',
+    title: '% Schools with connectivity',
+  },
+];

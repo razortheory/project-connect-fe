@@ -13,9 +13,8 @@ import { formatWeekInterval } from '~/core/formatters';
 import { $isMobile } from '~/core/media-query';
 import { mapCountries } from '~/core/routes';
 import { getVoid } from '~/lib/effector-kit';
-import { selectValue } from '~/lib/event-reducers/select-value';
 import { Link } from '~/lib/router';
-import { ProgressBar } from '~/ui';
+import { Dropdown, ProgressBar } from '~/ui';
 
 import {
   $country,
@@ -57,7 +56,6 @@ const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
 
 const $countryInfo = $countryWeeklyStats.map(getCountryInfo);
-const onSelectChange = changeMapType.prepend(selectValue<MapType>());
 
 const $weekGraphData = $countryDailyStats.map(getWeekGraphData);
 
@@ -249,22 +247,18 @@ export const CountryInfo = () => {
           <span>{countryName}</span>
         </div>
       )}
-      <label htmlFor="map-type-select" className="select-wrapper">
-        <span className="visually-hidden">Sort map type</span>
-        <select
-          id="map-type-select"
-          className="select"
-          onChange={onSelectChange}
-          value={mapType}
-        >
-          <option className="select__option" value="connectivity">
-            Connectivity map
-          </option>
-          <option className="select__option" value="coverage">
-            Coverage map
-          </option>
-        </select>
-      </label>
+
+      <Dropdown<MapType>
+        items={[
+          { title: 'Connectivity map', value: 'connectivity' },
+          { title: 'Coverage map', value: 'coverage' },
+        ]}
+        value={mapType}
+        onChange={changeMapType}
+        wrapperClassName="select-wrapper"
+        selectClassName="select"
+      />
+
       <Tabs />
       <Scroll>
         <div
