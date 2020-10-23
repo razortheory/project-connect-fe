@@ -27,7 +27,7 @@ const DropdownList = styled.div`
   left: 0;
   z-index: 1;
   width: 100%;
-  background-color: #000;
+  background-color: #121212;
 `;
 
 const DropdownListItem = styled.div`
@@ -38,7 +38,7 @@ const DropdownListItem = styled.div`
   padding-left: 24px;
 
   &:hover {
-    background-color: #131922;
+    background-color: #232323;
   }
 `;
 
