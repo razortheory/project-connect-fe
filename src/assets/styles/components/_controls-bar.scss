@@ -26,7 +26,6 @@
   display: none;
   flex: 0 0 auto;
   align-items: center;
-  padding-right: 2rem;
   padding-left: 2rem;
   color: $text-color-light;
   font-weight: bold;
@@ -37,10 +36,6 @@
 
   @include media-breakpoint-up(md) {
     display: inline-flex;
-
-    > span {
-      margin-right: 0.5rem;
-    }
   }
 
   @include media-breakpoint-only(lg) {
