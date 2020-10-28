@@ -40,7 +40,7 @@ export const WorldView = () => {
           <ul className="sidebar__list info-list">
             <li className="info-list__item">
               <p className="info-list__description">
-                {humanFormat(schools_mapped)} / {humanFormat(total_schools)}
+                {humanFormat(schools_mapped)} / 6M
               </p>
               <h3 className="info-list__title">Schools mapped</h3>
             </li>
