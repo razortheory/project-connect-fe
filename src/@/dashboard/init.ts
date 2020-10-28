@@ -18,17 +18,21 @@ import { sortCountries } from '@/sidebar/sort-countries';
 import {
   $controlsSortKey,
   $countriesList,
+  $dashboardCountryId,
   $hasSearchText,
   $isControlsChanged,
   $isCountriesTab,
   $isListType,
   $isLoading,
+  $isPopupOpen,
   $isSortTab,
   $noSearchResults,
   $searchText,
   $sortKey,
   $tab,
   changeControlsSortKey,
+  changeDashboardCountryId,
+  changePopupStatus,
   changeSearchText,
   changeSortKey,
   changeViewType,
@@ -44,9 +48,11 @@ const startsWith = (haystack: string, needle: string): boolean =>
 // Init
 $searchText.on(changeSearchText, setPayload);
 $isListType.on(changeViewType, getInverted);
+$isPopupOpen.on(changePopupStatus, getInverted);
 $searchText.reset(clearSearchText);
 $hasSearchText.on($searchText, setBoolean);
 $sortKey.on(changeSortKey, setPayload);
+$dashboardCountryId.on(changeDashboardCountryId, setPayload);
 
 // Tabs
 $tab.on(selectCountriesTab, () => 'countries');
@@ -137,4 +143,15 @@ sample({
   clock: submitControlsChanges,
   fn: ([controlsSortKey]) => controlsSortKey,
   target: changeSortKey,
+});
+
+sample({
+  source: $countries,
+  clock: $dashboardCountryId,
+  fn: (countries, countryId) => {
+    if (!countries || !countryId) return 0;
+    const country = countries.find((data) => data.id === countryId);
+    return country?.id ?? 0;
+  },
+  target: changeDashboardCountryId,
 });

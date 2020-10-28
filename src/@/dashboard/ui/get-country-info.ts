@@ -56,10 +56,12 @@ export const getCountryInfo = (
     schools_with_data_percentage: schoolsWithDataPercentage,
   } = country;
 
-  const listDate = dateOfJoin ? format(new Date(dateOfJoin), 'd LLL yyyy') : '';
+  const listDate = dateOfJoin
+    ? format(new Date(dateOfJoin), 'd LLL yyyy')
+    : 'No data';
   const tileDate = dateOfJoin
     ? `Joined in ${format(new Date(dateOfJoin), 'LLL yyyy')}`
-    : '';
+    : 'No data';
   const progressPercent = Number(schoolsWithDataPercentage);
 
   return {
