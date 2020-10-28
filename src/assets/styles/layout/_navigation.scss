@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow-y: auto;
   background-color: $color-deep-blue;
 
   @include media-breakpoint-up(lg) {
     flex-direction: row;
+    overflow-y: unset;
   }
 }
 
@@ -81,6 +83,7 @@
 
   > .menu {
     display: none;
+    overflow-y: unset;
 
     @include media-breakpoint-down(md) {
       // stylelint-disable-next-line selector-max-compound-selectors
@@ -91,7 +94,7 @@
   }
 
   &--expanded,
-  &:hover {
+  &--desktop-view:hover {
     > .menu__link {
       background-color: $color-primary;
     }
