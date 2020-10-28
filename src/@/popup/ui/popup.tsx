@@ -1,12 +1,14 @@
 import clsx from 'clsx';
-import { createEvent } from 'effector';
+import { combine, createEvent, createStore } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
 import IconLocation from '~/assets/images/icon-location.svg';
+import { setPayload } from '~/lib/effector-kit';
 import { ProgressBar } from '~/ui';
 
 import { $school, $schoolDailyStats, $schoolPending } from '@/country/model';
+import { changeMap } from '@/map/model';
 import { getPopupClassName, getSchoolInfo } from '@/popup/lib';
 import { $popup } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
@@ -16,6 +18,13 @@ import { WeekGraph } from '@/week-graph/ui';
 const onChangeRef = createEvent<HTMLDivElement | null>();
 
 $popup.on(onChangeRef, (popup, element) => {
+  if (element) popup?.setDOMContent(element);
+});
+
+// SetDOMContent after change map style
+const $element = createStore<HTMLDivElement | null>(null);
+$element.on(onChangeRef, setPayload);
+combine([$popup, $element]).on(changeMap, ([popup, element]) => {
   if (element) popup?.setDOMContent(element);
 });
 
