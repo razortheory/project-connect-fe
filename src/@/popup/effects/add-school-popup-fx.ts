@@ -1,7 +1,7 @@
 import { createEffect } from 'effector';
 import { Point } from 'geojson';
 
-import { AddSchoolPopup } from '@/country/types';
+import { AddSchoolPopup } from '@/popup/types';
 
 const nextTick = async () => new Promise((resolve) => setTimeout(resolve, 0));
 

@@ -10,7 +10,8 @@ import {
   HIGH_SPEED_MAX,
   LOW_SPEED_MAX,
   MED_SPEED_MAX,
-} from './get-week-graph-data';
+} from '@/week-graph/constants';
+
 import { CountryInfo } from './types';
 
 export const getCountryInfo = (

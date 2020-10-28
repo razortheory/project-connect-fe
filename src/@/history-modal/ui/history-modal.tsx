@@ -7,6 +7,7 @@ import { formatConnectionSpeed } from '~/core/formatters';
 import { formatDateInterval } from '~/lib/date-fns-kit/format-date-interval';
 import { ProgressBar } from '~/ui';
 
+import { getHistoryGraphData } from '@/history-modal/lib';
 import {
   $historyData,
   $historyDataPending,
@@ -20,18 +21,11 @@ import {
   closeHistoryModal,
   nextHistoryInterval,
   previousHistoryInterval,
-} from '@/country/model';
+} from '@/history-modal/model';
+import { HistoryGraphData } from '@/history-modal/types';
 import { Scroll } from '@/scroll';
-// TODO: Fix import from the internals of the features
-// eslint-disable-next-line no-restricted-imports
-import { getPercent } from '@/sidebar/ui/get-week-graph-data';
-// eslint-disable-next-line no-restricted-imports
-import { Filler } from '@/sidebar/ui/week-graph';
-
-import {
-  getHistoryGraphData,
-  HistoryGraphData,
-} from './get-history-graph-data';
+import { getPercent } from '@/week-graph/lib';
+import { Filler } from '@/week-graph/ui';
 
 const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);

@@ -2,6 +2,8 @@ import '@/map/init';
 import '@/country/init';
 import '@/sidebar/init';
 import '@/dashboard/init';
+import '@/history-modal/init';
+import '@/popup/init';
 
 import { guard } from 'effector';
 

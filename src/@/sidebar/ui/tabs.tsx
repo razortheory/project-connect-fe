@@ -5,7 +5,7 @@ import React from 'react';
 import { mapCountries, mapCountry } from '~/core/routes';
 import { useRoute } from '~/lib/router';
 
-import { $isOpenPopup } from '@/country/model';
+import { $isOpenPopup } from '@/popup/model';
 import {
   $isContentTab,
   $isControlsTab,

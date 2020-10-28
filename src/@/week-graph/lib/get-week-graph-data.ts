@@ -1,46 +1,15 @@
-// TODO: Refactor getWeekGraphData
-
 import { format } from 'date-fns';
 
 import { DailyStats, WeekDay } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
-// Types
-type Days =
-  | 'monday'
-  | 'tuesday'
-  | 'wednesday'
-  | 'thursday'
-  | 'friday'
-  | 'saturday'
-  | 'sunday';
-
-export type WeekGraphData = { [day in Days]: WeekGraphItemData };
-
-export type WeekGraphItemData = {
-  date: string;
-  speed: string;
-  latency: number;
-  speedPercent: string;
-  fillColor: string;
-};
-
-// Constants
-const weekDayNames: Map<WeekDay, Days> = new Map([
-  [1, 'monday'],
-  [2, 'tuesday'],
-  [3, 'wednesday'],
-  [4, 'thursday'],
-  [5, 'friday'],
-  [6, 'saturday'],
-  [7, 'sunday'],
-]);
-
-// TODO: Move to constants
-export const megabytesPerSecond = 10 ** 6;
-export const LOW_SPEED_MAX = 2 * megabytesPerSecond; // 2Mb/s
-export const MED_SPEED_MAX = 5 * megabytesPerSecond; // 5Mb/s
-export const HIGH_SPEED_MAX = 10 * megabytesPerSecond; // 10Mb/s
+import {
+  HIGH_SPEED_MAX,
+  LOW_SPEED_MAX,
+  MED_SPEED_MAX,
+  weekDayNames,
+} from '@/week-graph/constants';
+import { Days, WeekGraphData } from '@/week-graph/types';
 
 // Helpers
 const getDayName = (weekday: WeekDay): Days => {
@@ -70,6 +39,8 @@ export const getFillColor = (speed: number): string => {
   }
   return '#ff615b';
 };
+
+// TODO: Refactor getWeekGraphData
 
 export const getWeekGraphData = (
   dailyStats: DailyStats[] | null

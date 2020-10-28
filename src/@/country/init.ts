@@ -1,4 +1,3 @@
-import { add, isBefore, sub } from 'date-fns';
 import { combine, forward, guard, merge, sample } from 'effector';
 
 import {
@@ -6,22 +5,17 @@ import {
   fetchCountriesGeometryFx,
   fetchCountryDailyStatsFx,
   fetchCountryFx,
-  fetchCountryHistoryFx,
   fetchCountryWeeklyStatsFx,
   fetchSchoolDailyStatsFx,
   fetchSchoolFx,
-  fetchSchoolHistoryFx,
   fetchSchoolsFx,
 } from '~/api/project-connect';
 import { $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
-import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
-import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
+import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
   addCountriesFx,
-  addSchoolPopupFx,
-  createSchoolPopupFx,
   leaveCountryRouteFx,
   removeCountryFx,
   removeSchoolsFx,
@@ -31,8 +25,9 @@ import {
   zoomToCountryFx,
 } from '@/country/effects';
 import { getCountriesGeoJson } from '@/country/lib';
-import { initMapFx } from '@/map/effects';
 import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
+import { addSchoolPopupFx } from '@/popup/effects';
+import { $isOpenPopup, $popup } from '@/popup/model';
 import { $week, nextWeek, previousWeek } from '@/sidebar/model';
 
 import {
@@ -45,32 +40,14 @@ import {
   $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
-  $historyData,
-  $historyDataPending,
-  $historyDataType,
-  $historyInterval,
-  $historyIntervalUnit,
-  $historyPlaceName,
-  $isCurrentHistoryInterval,
-  $isNextHistoryIntervalAvailable,
-  $isOpenHistoryModal,
-  $isOpenPopup,
-  $isPreviousHistoryIntervalAvailable,
-  $popup,
   $school,
   $schoolDailyStats,
   $schoolId,
   $schools,
   $zoomedCountryId,
   changeCountryId,
-  changeHistoryDataType,
-  changeHistoryIntervalUnit,
-  changeIsOpenPopup,
   changeSchoolId,
   clickSchool,
-  closeHistoryModal,
-  nextHistoryInterval,
-  previousHistoryInterval,
 } from './model';
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
@@ -83,7 +60,6 @@ $schoolId.on(changeSchoolId, setPayload);
 $countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
 $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
-$isOpenPopup.on(changeIsOpenPopup, setPayload);
 
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
@@ -303,18 +279,6 @@ sample({
   target: addCountriesFx,
 });
 
-// Create school popup
-sample({
-  source: initMapFx.done,
-  fn: getVoid,
-  target: createSchoolPopupFx,
-});
-
-sample({
-  source: createSchoolPopupFx.doneData,
-  target: $popup,
-});
-
 // Add school popup
 sample({
   source: $mapContext,
@@ -351,175 +315,6 @@ sample({
   clock: changeMapType,
   fn: (map, mapType) => ({ map, mapType }),
   target: updateSchoolsColorsFx,
-});
-
-// History modal
-$historyIntervalUnit.on(changeHistoryIntervalUnit, setPayload);
-$historyDataType.on(changeHistoryDataType, setPayload);
-$historyDataType.reset(closeHistoryModal);
-$historyIntervalUnit.reset(closeHistoryModal);
-
-sample({
-  source: $week,
-  target: $historyInterval,
-});
-
-sample({
-  source: $historyDataType,
-  fn: (historyDataType) => Boolean(historyDataType),
-  target: $isOpenHistoryModal,
-});
-
-sample({
-  source: $historyIntervalUnit,
-  fn: (unit) => getInterval(new Date(), unit),
-  target: $historyInterval,
-});
-
-sample({
-  source: $week,
-  clock: closeHistoryModal,
-  target: $historyInterval,
-});
-
-sample({
-  source: combine([$historyInterval, $historyIntervalUnit]),
-  fn: ([interval, unit]) => isCurrentInterval(interval, unit),
-  target: $isCurrentHistoryInterval,
-});
-
-sample({
-  source: $isCurrentHistoryInterval,
-  fn: getInverted,
-  target: $isNextHistoryIntervalAvailable,
-});
-
-sample({
-  source: combine([$historyInterval, $country]),
-  fn: ([interval, country]) => {
-    if (!country) {
-      return false;
-    }
-    return isBefore(new Date(country.date_schools_mapped), interval.start);
-  },
-  target: $isPreviousHistoryIntervalAvailable,
-});
-
-sample({
-  source: combine([$historyInterval, $historyIntervalUnit]),
-  clock: nextHistoryInterval,
-  fn: ([interval, unit]) =>
-    getInterval(add(interval.start, { [`${unit}s`]: 1 }), unit),
-  target: $historyInterval,
-});
-
-sample({
-  source: combine([$historyInterval, $historyIntervalUnit]),
-  clock: previousHistoryInterval,
-  fn: ([interval, unit]) =>
-    getInterval(sub(interval.start, { [`${unit}s`]: 1 }), unit),
-  target: $historyInterval,
-});
-
-sample({
-  source: guard({
-    source: combine({
-      interval: $historyInterval,
-      historyDataType: $historyDataType,
-      week: $week,
-      countryDailyStats: $countryDailyStats,
-    }),
-    filter: ({ historyDataType, interval, week }) =>
-      Boolean(historyDataType === 'country' && interval === week),
-  }),
-  fn: ({ countryDailyStats }) => countryDailyStats,
-  target: $historyData,
-});
-
-sample({
-  source: guard({
-    source: combine({
-      countryId: $countryId,
-      interval: $historyInterval,
-      historyDataType: $historyDataType,
-      week: $week,
-    }),
-    filter: ({ historyDataType, interval, week }) =>
-      Boolean(historyDataType === 'country' && interval !== week),
-  }),
-  fn: ({ countryId, interval }) => ({ countryId, interval }),
-  target: fetchCountryHistoryFx,
-});
-
-sample({
-  source: guard({
-    source: combine({
-      interval: $historyInterval,
-      historyDataType: $historyDataType,
-      week: $week,
-      schoolDailyStats: $schoolDailyStats,
-    }),
-    filter: ({ historyDataType, interval, week }) =>
-      Boolean(historyDataType === 'school' && interval === week),
-  }),
-  fn: ({ schoolDailyStats }) => schoolDailyStats,
-  target: $historyData,
-});
-
-sample({
-  source: guard({
-    source: combine({
-      schoolId: $schoolId,
-      interval: $historyInterval,
-      historyDataType: $historyDataType,
-      week: $week,
-    }),
-    filter: ({ historyDataType, interval, week }) =>
-      Boolean(historyDataType === 'school' && interval !== week),
-  }),
-  fn: ({ schoolId, interval }) => ({ schoolId, interval }),
-  target: fetchSchoolHistoryFx,
-});
-
-$historyData.on(fetchCountryHistoryFx.doneData, setPayload);
-$historyData.on(fetchSchoolHistoryFx.doneData, setPayload);
-$historyData.reset(closeHistoryModal);
-
-sample({
-  source: guard({
-    source: combine({
-      historyDataType: $historyDataType,
-      country: $country,
-    }),
-    filter: ({ historyDataType, country }) =>
-      Boolean(historyDataType === 'country' && country),
-  }),
-  fn: ({ country }) => country?.name ?? '',
-  target: $historyPlaceName,
-});
-
-sample({
-  source: guard({
-    source: combine({
-      historyDataType: $historyDataType,
-      school: $school,
-    }),
-    filter: ({ historyDataType, school }) =>
-      Boolean(historyDataType === 'school' && school),
-  }),
-  fn: ({ school }) => school?.name ?? '',
-  target: $historyPlaceName,
-});
-
-$historyPlaceName.reset(closeHistoryModal);
-
-sample({
-  source: combine([
-    fetchCountryHistoryFx.pending,
-    fetchSchoolHistoryFx.pending,
-  ]),
-  fn: (states) => states.some(Boolean),
-  target: $historyDataPending,
 });
 
 sample({

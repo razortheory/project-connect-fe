@@ -23,10 +23,10 @@ import {
   $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
-  $isOpenPopup,
 } from '@/country/model';
 import { $mapType, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
+import { $isOpenPopup } from '@/popup/model';
 import { Scroll } from '@/scroll';
 import {
   $isContentTab,
@@ -42,16 +42,16 @@ import {
   previousWeek,
   selectMapTab,
 } from '@/sidebar/model';
+import { getWeekGraphData } from '@/week-graph/lib/get-week-graph-data';
+import { WeekGraph } from '@/week-graph/ui';
 
 import { Controls } from './controls';
 import { NotFound } from './country-list';
 import { getCountryInfo } from './get-country-info';
-import { getWeekGraphData } from './get-week-graph-data';
 import { PieChart } from './pie-chart';
 import { Search } from './search';
 import { SearchResults } from './search-results';
 import { Tabs } from './tabs';
-import { WeekGraph } from './week-graph';
 
 const onNextWeek = nextWeek.prepend(getVoid);
 const onPreviousWeek = previousWeek.prepend(getVoid);
