@@ -6,6 +6,7 @@ import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
 import { getSchoolsGeoJson } from '@/country/lib';
+import { getGlobalSchoolsGeoJson } from '@/country/lib/get-global-schools-geo-json';
 
 import {
   Country,
@@ -16,6 +17,7 @@ import {
   GlobalStats,
   School,
   SchoolBasic,
+  SchoolSimplified,
 } from './types';
 
 const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
@@ -71,6 +73,15 @@ export const fetchCountriesFx = createEffect(
 export const fetchCountriesGeometryFx = createEffect(
   async (): Promise<CountryGeometry[]> =>
     request('api/locations/countries-boundary/')
+);
+
+export const fetchSchoolsGlobal = createEffect(
+  async (): Promise<FeatureCollection> =>
+    request({
+      url: 'api/locations/schools/random/',
+      fn: ({ jsonData }) =>
+        getGlobalSchoolsGeoJson(jsonData as SchoolSimplified[]),
+    })
 );
 
 export const fetchGlobalStatsFx = createEffect(

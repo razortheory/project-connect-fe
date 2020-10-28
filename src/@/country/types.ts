@@ -17,6 +17,12 @@ export type UpdateSchools = {
   mapType: MapType;
 };
 
+export type UpdateGlobalSchools = {
+  map: Map | null;
+  paintData: StylePaintData;
+  schoolsGlobal: FeatureCollection | null;
+};
+
 export type UpdateSchoolsColors = {
   map: Map | null;
   mapType: MapType;

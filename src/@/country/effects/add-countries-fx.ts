@@ -36,8 +36,18 @@ export const addCountriesFx = createEffect(
           ],
         },
       },
-      map.getLayer('selectedCountry') ? 'selectedCountry' : ''
+      map.getLayer('schoolsGlobal') ? 'schoolsGlobal' : ''
     );
+
+    map.addLayer({
+      id: 'boundaries',
+      type: 'line',
+      source: 'countries',
+      paint: {
+        'line-color': paintData.background,
+        'line-width': 2,
+      },
+    });
 
     map.on('click', 'countries', (event: MapLayerMouseEvent) => {
       if (!event.features?.[0]) return;

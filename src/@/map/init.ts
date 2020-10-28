@@ -6,6 +6,7 @@ import {
   fetchCountryFx,
   fetchGlobalStatsFx,
   fetchSchoolsFx,
+  fetchSchoolsGlobal,
 } from '~/api/project-connect';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
@@ -47,6 +48,7 @@ sample({
     fetchCountryFx.pending,
     fetchCountriesFx.pending,
     fetchCountriesGeometryFx.pending,
+    fetchSchoolsGlobal.pending,
     // Other effects
   ]),
   fn: (states) => states.some(Boolean),

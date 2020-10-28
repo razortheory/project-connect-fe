@@ -52,7 +52,7 @@ export type CountryWeeklyStats = {
   schools_connectivity_moderate: number;
   schools_connectivity_good: number;
   connectivity_speed: number;
-  integration_status: number;
+  integration_status: IntegrationStatus;
   avg_distance_school: number;
   created: string;
   modified: string;
@@ -69,6 +69,12 @@ export type SchoolBasic = {
   geopoint: Geometry;
   connectivity_status: ConnectivityStatus;
   coverage_status: CoverageStatus;
+};
+
+export type SchoolSimplified = {
+  geopoint: Geometry;
+  country_id: number;
+  country_integration_status: IntegrationStatus;
 };
 
 export type School = {

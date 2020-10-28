@@ -6,3 +6,4 @@ export { zoomToCountryFx } from './zoom-to-country-fx';
 export { updateSchoolsColorsFx } from './update-schools-colors-fx';
 export { removeCountryFx } from './remove-country-fx';
 export { removeSchoolsFx } from './remove-schools-fx';
+export { updateGlobalSchools } from './update-global-schools';
