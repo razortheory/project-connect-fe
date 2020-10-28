@@ -1,14 +1,11 @@
 import { createEffect } from 'effector';
 
 import { UpdateCountry } from '@/country/types';
-
-import { removeCountryFx } from './remove-country-fx';
+import { getDefaultCountryOpacity } from '@/map/constants';
 
 export const updateCountryFx = createEffect(
-  async ({ map, paintData, country }: UpdateCountry) => {
+  ({ map, paintData, country }: UpdateCountry) => {
     if (!country || !map) return;
-
-    await removeCountryFx(map);
 
     map.addSource('selectedCountry', {
       type: 'geojson',
@@ -35,11 +32,12 @@ export const updateCountryFx = createEffect(
       map.getLayer('schools') ? 'schools' : ''
     );
     if (map.getLayer('countries')) {
-      map.setPaintProperty(
-        'countries',
-        'fill-color',
-        paintData.countryNotSelected
-      );
+      map.setPaintProperty('countries', 'fill-opacity', [
+        'case',
+        ['==', ['id'], country.id],
+        0,
+        getDefaultCountryOpacity(paintData),
+      ]);
       map.setPaintProperty('countries', 'fill-outline-color', [
         'case',
         ['==', ['id'], country.id],

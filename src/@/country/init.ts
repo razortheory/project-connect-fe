@@ -14,20 +14,22 @@ import { $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
+import {
+  addCountriesFx,
+  leaveCountryRouteFx,
+  removeCountryFx,
+  removeSchoolsFx,
+  updateCountryFx,
+  updateSchoolsColorsFx,
+  updateSchoolsFx,
+  zoomToCountryFx,
+} from '@/country/effects';
 import { getCountriesGeoJson } from '@/country/lib';
 import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
 import { addSchoolPopupFx } from '@/popup/effects';
 import { $isOpenPopup, $popup } from '@/popup/model';
 import { $week, nextWeek, previousWeek } from '@/sidebar/model';
 
-import {
-  addCountriesFx,
-  leaveCountryRouteFx,
-  updateCountryFx,
-  updateSchoolsColorsFx,
-  updateSchoolsFx,
-  zoomToCountryFx,
-} from './effects';
 import {
   $countries,
   $countriesGeoJson,
@@ -95,7 +97,6 @@ const $mapContext = combine({
   country: $country,
   schools: $schools,
   popup: $popup,
-  isCountryRoute: mapCountry.visible,
   countryId: $countryId,
   schoolId: $schoolId,
   zoomedCountryId: $zoomedCountryId,
@@ -203,6 +204,20 @@ sample({
   target: updateSchoolsFx,
 });
 
+sample({
+  source: $mapContext,
+  clock: changeCountryId,
+  fn: ({ map, paintData }) => ({ map, paintData }),
+  target: removeCountryFx,
+});
+
+sample({
+  source: guard($map, { filter: Boolean }),
+  clock: changeCountryId,
+  fn: (map) => map,
+  target: removeSchoolsFx,
+});
+
 // Routing
 const isEqualText = (a: string, b: string) =>
   a.toLocaleLowerCase() === b.toLocaleLowerCase();
@@ -255,11 +270,11 @@ const onCountriesGeoJson = sample({
 sample({
   source: $mapContext,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
-  fn: ({ map, paintData, isCountryRoute }, countriesGeoJson) => ({
+  fn: ({ map, paintData, countryId }, countriesGeoJson) => ({
     map,
     paintData,
     countriesGeoJson,
-    isCountryRoute,
+    countryId,
   }),
   target: addCountriesFx,
 });

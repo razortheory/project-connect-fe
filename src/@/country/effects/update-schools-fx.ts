@@ -4,13 +4,10 @@ import { clickSchool } from '@/country/model';
 import { UpdateSchools } from '@/country/types';
 
 import { getSchoolsColors } from './get-schools-colors';
-import { removeSchoolsFx } from './remove-schools-fx';
 
 export const updateSchoolsFx = createEffect(
-  async ({ map, schools, mapType }: UpdateSchools) => {
+  ({ map, schools, mapType }: UpdateSchools) => {
     if (!map || !schools) return;
-
-    await removeSchoolsFx(map);
 
     if (schools.features.length > 0) {
       map.addSource('schools', {
