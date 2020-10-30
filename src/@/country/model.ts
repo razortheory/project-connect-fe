@@ -22,6 +22,7 @@ export const $schoolId = createStore(0);
 export const $countriesGeometry = createStore<CountryGeometry[] | null>(null);
 export const $countries = createStore<CountryBasic[] | null>(null);
 export const $countriesGeoJson = createStore<FeatureCollection | null>(null);
+export const $schoolsGlobal = createStore<FeatureCollection | null>(null);
 export const $schools = createStore<FeatureCollection | null>(null);
 export const $country = createStore<Country | null>(null);
 export const $school = createStore<School | null>(null);

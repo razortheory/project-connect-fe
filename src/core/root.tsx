@@ -7,6 +7,7 @@ import {
   fetchCountriesFx,
   fetchCountriesGeometryFx,
   fetchGlobalStatsFx,
+  fetchSchoolsGlobal,
 } from '~/api/project-connect';
 import { map, project, router } from '~/core/routes';
 import { useRoute } from '~/lib/router';
@@ -23,6 +24,7 @@ export const Root = () => {
     void fetchCountriesFx();
     void fetchCountriesGeometryFx();
     void fetchGlobalStatsFx();
+    void fetchSchoolsGlobal();
   }, []);
 
   return (

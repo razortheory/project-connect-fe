@@ -9,6 +9,7 @@ import {
   fetchSchoolDailyStatsFx,
   fetchSchoolFx,
   fetchSchoolsFx,
+  fetchSchoolsGlobal,
 } from '~/api/project-connect';
 import { $isMobile } from '~/core/media-query';
 import { mapCountry } from '~/core/routes';
@@ -20,6 +21,7 @@ import {
   removeCountryFx,
   removeSchoolsFx,
   updateCountryFx,
+  updateGlobalSchools,
   updateSchoolsColorsFx,
   updateSchoolsFx,
   zoomToCountryFx,
@@ -44,6 +46,7 @@ import {
   $schoolDailyStats,
   $schoolId,
   $schools,
+  $schoolsGlobal,
   $zoomedCountryId,
   changeCountryId,
   changeSchoolId,
@@ -52,6 +55,7 @@ import {
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
 $countriesGeometry.on(fetchCountriesGeometryFx.doneData, setPayload);
+$schoolsGlobal.on(fetchSchoolsGlobal.doneData, setPayload);
 $country.on(fetchCountryFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
@@ -191,6 +195,17 @@ const schoolsReceived = guard({
     }),
   }),
   filter: ({ countryId, params }) => countryId === params,
+});
+
+sample({
+  source: $mapContext,
+  clock: combine([$schoolsGlobal, $map]),
+  fn: ({ paintData, map }, [schoolsGlobal]) => ({
+    map,
+    paintData,
+    schoolsGlobal,
+  }),
+  target: updateGlobalSchools,
 });
 
 sample({
