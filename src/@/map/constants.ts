@@ -33,6 +33,9 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryNotSelected: '#373c46',
     opacity: 0.7,
     opacityHover: 0.8,
+    schoolsNotVerified: '#6e737d',
+    schoolsVerified: '#ffffff',
+    schoolsWithConnectivity: '#ffffff',
   },
   light: {
     background: '#646973',
@@ -43,6 +46,9 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryNotSelected: '#a9adb6',
     opacity: 0.7,
     opacityHover: 0.8,
+    schoolsNotVerified: '#6e737d',
+    schoolsVerified: '#8945d4',
+    schoolsWithConnectivity: '#0068ea',
   },
   satellite: {
     background: '#ffffff',
@@ -53,6 +59,9 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryNotSelected: '#ffffff',
     opacity: 0,
     opacityHover: 0,
+    schoolsNotVerified: '#ffffff',
+    schoolsVerified: '#ffffff',
+    schoolsWithConnectivity: '#ffffff',
   },
   accessible: {
     background: '#646973',
@@ -63,6 +72,9 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     countryNotSelected: '#373c46',
     opacity: 0.7,
     opacityHover: 0.8,
+    schoolsNotVerified: '#6e737d',
+    schoolsVerified: '#ffffff',
+    schoolsWithConnectivity: '#ffffff',
   },
 };
 
@@ -126,3 +138,28 @@ export const defaultGlobalStats: GlobalStats = {
   percent_schools_without_connectivity: 0,
   last_date_updated: null,
 };
+
+export const mapCircleSizes = [
+  [1, 1],
+  [2, 1],
+  [3, 1],
+  [4, 1],
+  [5, 1],
+  [6, 2],
+  [7, 2],
+  [8, 2],
+  [9, 2],
+  [10, 2],
+  [11, 3],
+  [12, 3],
+  [13, 5],
+  [14, 5],
+  [15, 5],
+  [16, 5],
+  [17, 5],
+  [18, 8],
+  [19, 8],
+  [20, 8],
+  [21, 8],
+  [22, 8],
+];

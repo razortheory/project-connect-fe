@@ -15,6 +15,9 @@ export type StylePaintData = {
   countryNotSelected: string;
   opacity: number;
   opacityHover: number;
+  schoolsNotVerified: string;
+  schoolsVerified: string;
+  schoolsWithConnectivity: string;
 };
 
 export type InitMapOptions = {
