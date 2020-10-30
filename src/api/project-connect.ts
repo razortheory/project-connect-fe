@@ -3,8 +3,9 @@ import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
 import { createRequest } from '~/lib/request';
+import { Controller, createRequestFx } from '~/lib/request-fx';
 
-import { getSchoolsGeoJson } from '@/map/@/country/lib';
+import { getSchoolsGeoJson } from '@/country/lib';
 
 import {
   Country,
@@ -17,32 +18,50 @@ import {
   SchoolBasic,
 } from './types';
 
-export const request = createRequest({
-  baseUrl: 'https://proco-lb-test.th13f.live/',
+const apiBaseUrl = 'https://proco-lb-test.th13f.live/';
+
+const request = createRequest({
+  baseUrl: apiBaseUrl,
 });
 
-export const fetchCountryFx = createEffect(
-  async (countryId: number): Promise<Country> =>
-    request(`api/locations/countries/${countryId}/`)
-);
+export const getDatasetUrl = (countryId: number): string =>
+  `${apiBaseUrl}api/locations/countries/${countryId}/schools/export-csv-schools/`;
 
-export const fetchSchoolsFx = createEffect(
-  async (countryId: number): Promise<FeatureCollection> =>
+export const fetchCountryFx = createRequestFx(
+  async (countryId: number, controller?: Controller): Promise<Country> =>
     request({
-      url: `api/locations/countries/${countryId}/schools/`,
-      fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
+      url: `api/locations/countries/${countryId}/`,
+      signal: controller?.getSignal(),
     })
 );
 
-export const fetchSchoolFx = createEffect(
-  async ({
-    countryId,
-    schoolId,
-  }: {
-    countryId: number;
-    schoolId: number;
-  }): Promise<School> =>
-    request(`api/locations/countries/${countryId}/schools/${schoolId}/`)
+export const fetchSchoolsFx = createRequestFx(
+  async (
+    countryId: number,
+    controller?: Controller
+  ): Promise<FeatureCollection> =>
+    request({
+      url: `api/locations/countries/${countryId}/schools/`,
+      fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
+      signal: controller?.getSignal(),
+    })
+);
+
+export const fetchSchoolFx = createRequestFx(
+  async (
+    {
+      countryId,
+      schoolId,
+    }: {
+      countryId: number;
+      schoolId: number;
+    },
+    controller?: Controller
+  ): Promise<School> =>
+    request({
+      url: `api/locations/countries/${countryId}/schools/${schoolId}/`,
+      signal: controller?.getSignal(),
+    })
 );
 
 export const fetchCountriesFx = createEffect(
@@ -58,54 +77,68 @@ export const fetchGlobalStatsFx = createEffect(
   async (): Promise<GlobalStats> => request('api/statistics/global-stat/')
 );
 
-export const fetchCountryWeeklyStatsFx = createEffect(
-  async ({
-    countryId,
-    week,
-  }: {
-    countryId: number;
-    week: Interval;
-  }): Promise<CountryWeeklyStats> => {
+export const fetchCountryWeeklyStatsFx = createRequestFx(
+  async (
+    {
+      countryId,
+      week,
+    }: {
+      countryId: number;
+      week: Interval;
+    },
+    controller?: Controller
+  ): Promise<CountryWeeklyStats> => {
     const weekNumber = getWeek(week.start);
     const year = getYear(week.start);
-    return request(
-      `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`
-    );
+    return request({
+      url: `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`,
+      signal: controller?.getSignal(),
+    });
   }
 );
 
-export const fetchCountryDailyStatsFx = createEffect(
-  async ({
+const fetchCountryDailyStats = async (
+  {
     countryId,
-    week,
+    interval,
   }: {
     countryId: number;
-    week: Interval;
-  }): Promise<DailyStats[] | null> => {
-    const startDate = format(week.start, 'yyyy-MM-dd');
-    const endDate = format(week.end, 'yyyy-MM-dd');
+    interval: Interval;
+  },
+  controller?: Controller
+): Promise<DailyStats[] | null> => {
+  const startDate = format(interval.start, 'yyyy-MM-dd');
+  const endDate = format(interval.end, 'yyyy-MM-dd');
 
-    return request({
-      url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
-    });
-  }
-);
+  return request({
+    url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    signal: controller?.getSignal(),
+  });
+};
 
-export const fetchSchoolDailyStatsFx = createEffect(
-  async ({
+export const fetchCountryDailyStatsFx = createRequestFx(fetchCountryDailyStats);
+export const fetchCountryHistoryFx = createRequestFx(fetchCountryDailyStats);
+
+const fetchSchoolDailyStats = async (
+  {
     schoolId,
-    week,
+    interval,
   }: {
     schoolId: number;
-    week: Interval;
-  }): Promise<DailyStats[] | null> => {
-    const startDate = format(week.start, 'yyyy-MM-dd');
-    const endDate = format(week.end, 'yyyy-MM-dd');
+    interval: Interval;
+  },
+  controller?: Controller
+): Promise<DailyStats[] | null> => {
+  const startDate = format(interval.start, 'yyyy-MM-dd');
+  const endDate = format(interval.end, 'yyyy-MM-dd');
 
-    return request({
-      url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-      fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
-    });
-  }
-);
+  return request({
+    url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
+    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    signal: controller?.getSignal(),
+  });
+};
+
+export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
+export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
