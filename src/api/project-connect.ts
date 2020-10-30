@@ -18,6 +18,7 @@ import {
   SchoolBasic,
 } from './types';
 
+
 const apiBaseUrl = 'https://local-th13f.razortheory.com/';
 
 const request = createRequest({
