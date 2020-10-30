@@ -29,17 +29,6 @@
   font-size: 1.3rem;
   line-height: 1.54;
   white-space: nowrap;
-
-  &::before {
-    position: absolute;
-    top: -0.8rem;
-    left: 50%;
-    height: 0.5rem;
-    background-color: #b6bbc6;
-    border: solid 1px #b6bbc6;
-    transform: translate(-50%, 0);
-    content: '';
-  }
 }
 
 .history-modal__vertical-scale-value {
@@ -66,6 +55,49 @@
   }
 }
 
+.history-modal__horizontal-scale {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.history-modal__graph-pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 8px;
+  height: 100%;
+
+  @include media-breakpoint-down(sm) {
+    width: 4px;
+  }
+
+  &::after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    display: none;
+    width: 2px;
+    height: 5px;
+    background-color: #b6bbc6;
+    transform: translate(-50%, 0);
+    content: '';
+  }
+}
+
+.history-modal__graph-filler {
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    .week-graph__tooltip {
+      display: flex;
+    }
+  }
+}
+
 .history-modal__graph-item {
   position: relative;
   display: flex;
@@ -81,11 +113,18 @@
     .history-modal__horizontal-scale-value {
       display: block;
     }
+
+    .history-modal__graph-pillar::after {
+      display: block;
+    }
   }
 
   &--week {
     &:nth-child(4) {
       .history-modal__horizontal-scale-value {
+        display: block;
+      }
+      .history-modal__graph-pillar::after {
         display: block;
       }
     }
@@ -96,36 +135,9 @@
       .history-modal__horizontal-scale-value {
         display: block;
       }
-    }
-  }
-}
-
-.history-modal__horizontal-scale {
-  position: absolute;
-  top: calc(100% + 0.8rem);
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.history-modal__graph-pillar {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 0.7rem;
-  height: 100%;
-
-  @include media-breakpoint-down(sm) {
-    width: 0.4rem;
-  }
-}
-
-.history-modal__graph-filler {
-  position: relative;
-  cursor: pointer;
-
-  &:hover {
-    .week-graph__tooltip {
-      display: flex;
+      .history-modal__graph-pillar::after {
+        display: block;
+      }
     }
   }
 }
