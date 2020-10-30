@@ -18,7 +18,7 @@ import {
   SchoolBasic,
 } from './types';
 
-const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
+const apiBaseUrl = 'https://local-th13f.razortheory.com/';
 
 const request = createRequest({
   baseUrl: apiBaseUrl,
