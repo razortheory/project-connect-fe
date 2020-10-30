@@ -2,12 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background-color: #141923;
+  background-color: $color-deep-blue;
 
   @include media-breakpoint-up(md) {
     flex-direction: row;
-    height: 4rem; // Placeholder
-    border-radius: 0.5rem;
+    min-height: 4rem;
+    margin-bottom: 3.7rem;
+    border-radius: $border-radius;
   }
 }
 
@@ -17,7 +18,7 @@
   padding-left: 1.5rem;
 
   @include media-breakpoint-up(md) {
-    border-radius: 0.5rem;
+    border-radius: $border-radius;
   }
 }
 
@@ -25,7 +26,6 @@
   display: none;
   flex: 0 0 auto;
   align-items: center;
-  padding-right: 2rem;
   padding-left: 2rem;
   color: $text-color-light;
   font-weight: bold;
@@ -37,6 +37,11 @@
   @include media-breakpoint-up(md) {
     display: inline-flex;
   }
+
+  @include media-breakpoint-only(lg) {
+    padding-right: 0.5rem;
+    padding-left: 0.2rem;
+  }
 }
 
 .controls-bar__view-changer {
@@ -44,11 +49,11 @@
   flex: 0 0 auto;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  background-color: #2779ff;
+  background-color: $color-primary;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     display: flex;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 }

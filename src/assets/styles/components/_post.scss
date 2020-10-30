@@ -25,12 +25,12 @@
       padding-left: 0;
 
       .post__image-wrapper {
-        @include make-col-ready;
+        @include make-col-ready-no-breakpoints;
         @include make-col(8);
       }
 
       .post__info {
-        @include make-col-ready;
+        @include make-col-ready-no-breakpoints;
         @include make-col(4);
       }
 
@@ -82,7 +82,7 @@
   flex: 1 0 auto;
   padding: 1rem;
   color: #6e737d;
-  background-color: #232832;
+  background-color: $color-dark-blue;
 }
 
 .post__title {

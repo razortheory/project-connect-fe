@@ -10,7 +10,7 @@
   width: 100%;
 
   @include media-breakpoint-up(lg) {
-    @include make-col-ready;
+    @include make-col-ready-no-breakpoints;
     @include make-col(12);
   }
 }
@@ -81,7 +81,7 @@
   margin-right: -9px;
   margin-left: -9px;
   font-size: 20px;
-  background-color: #141923;
+  background-color: $color-deep-blue;
 
   @include media-breakpoint-up(lg) {
     margin-right: 0;

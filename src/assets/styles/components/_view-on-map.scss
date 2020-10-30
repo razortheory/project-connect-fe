@@ -1,10 +1,65 @@
+.view-on-map__link {
+  @include transition;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-color-light;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: $font-family-primary;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  transform: translateY(6.2rem);
+  opacity: 0;
+
+  svg {
+    font-size: 1.5rem;
+  }
+}
+
 .view-on-map {
+  position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 12.4rem;
-  background-image: url('http://placehold.it/310x124.png');
+  overflow: hidden;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
+
+  @include media-breakpoint-down(md) {
+    &::after {
+      display: none;
+    }
+  }
+
+  &::after {
+    @include transition;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(0 0 0 / 0.6);
+    opacity: 0;
+    content: '';
+  }
+
+  > button {
+    display: none;
+  }
+
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+    .view-on-map__link {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }

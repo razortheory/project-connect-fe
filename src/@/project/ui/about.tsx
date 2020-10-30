@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { createEvent } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -24,18 +25,20 @@ import { joinUs } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
+import { $isLoading } from '@/dashboard/model';
 import { $globalStats } from '@/map/model';
-import { $isLoading } from '@/project/@/dashboard/model';
 
-export const AboutContent = () => {
+export const onAboutRef = createEvent<HTMLDivElement | null>();
+
+const AboutContent = () => {
   const { schools_mapped, percent_schools_without_connectivity } = useStore(
     $globalStats
   );
 
   return (
-    <>
+    <div ref={onAboutRef}>
       <section className="section">
-        <div className="container">
+        <div className="container" id="introduction">
           <div className="page-heading">
             <h2 className="page-heading__title">
               Countries have been listed below with real-time updates on their
@@ -325,7 +328,7 @@ export const AboutContent = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

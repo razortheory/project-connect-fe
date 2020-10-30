@@ -28,6 +28,8 @@ import {
   ReactNode,
 } from 'react';
 
+export { ParseOptions, TokensToFunctionOptions };
+
 export interface ObjectAny {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

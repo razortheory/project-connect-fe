@@ -1,6 +1,12 @@
 /* eslint-disable no-param-reassign */
 
-import { combine, createEvent, createStore } from 'effector';
+import {
+  combine,
+  createEffect,
+  createEvent,
+  createStore,
+  sample,
+} from 'effector';
 import { compile as createCompile, match as createMatch } from 'path-to-regexp';
 
 import {
@@ -54,24 +60,36 @@ export const bindToRoute = <
 
   route.bindings[paramName] = bindConfig;
 
-  combine([route.visible, childRouter.pathname]).watch(
-    route.params,
-    ([visible, childPath], params) => {
-      const param = parse
-        ? parse(params?.[paramName] as string)
-        : (params?.[paramName] as string);
-      if (visible && param !== childPath) {
-        if (param) {
-          childRouter.navigate(param);
-          return;
+  sample({
+    source: [route.visible, childRouter.pathname],
+    clock: route.params,
+    fn: ([visible, childPath], params) => ({ visible, childPath, params }),
+    target: createEffect(
+      ({
+        visible,
+        childPath,
+        params,
+      }: {
+        visible: boolean;
+        childPath: string;
+        params: P | null;
+      }) => {
+        const param = parse
+          ? parse(params?.[paramName] as string)
+          : (params?.[paramName] as string);
+        if (visible && param !== childPath) {
+          if (param) {
+            childRouter.navigate(param);
+            return;
+          }
+          const newParams: P = { ...(params as P), [paramName]: childPath };
+          route.router.redirect(
+            compileRoute<P, R>(route, { params: newParams })
+          );
         }
-        const newParams: P = { ...(params as P), [paramName]: childPath };
-        route.router.redirect(
-          compileRoute<P, R>(route, { params: newParams })
-        );
       }
-    }
-  );
+    ),
+  });
 
   route.params.on(childRouter.pathname, (params, childPath) => {
     if (params?.[paramName] !== childPath) {
@@ -119,17 +137,23 @@ export const createRoute = <
       bindToRoute<P, R>(route, { paramName, bindConfig }),
   };
 
-  navigate.watch((params) =>
-    router.navigate(
-      compileRoute<P, R>(route, { params: params as P | undefined })
-    )
-  );
+  sample({
+    source: navigate,
+    target: createEffect((params: void | P) =>
+      router.navigate(
+        compileRoute<P, R>(route, { params: params as P | undefined })
+      )
+    ),
+  });
 
-  redirect.watch((params) =>
-    router.redirect(
-      compileRoute<P, R>(route, { params: params as P | undefined })
-    )
-  );
+  sample({
+    source: redirect,
+    target: createEffect((params: void | P) =>
+      router.redirect(
+        compileRoute<P, R>(route, { params: params as P | undefined })
+      )
+    ),
+  });
 
   return route;
 };

@@ -7,7 +7,7 @@
 
 .average-speed__tooltip {
   top: -4.3rem;
-  left: -24px;
+  left: -($grid-gutter-width-lg / 2);
   display: none;
   height: 4rem;
   font-size: 1.3rem;

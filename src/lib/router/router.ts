@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { createEvent, createStore } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import {
   BrowserHistory,
   HashHistory,
@@ -61,9 +61,24 @@ export const createRouter = <Q extends Query = Query, S extends State = State>({
   const $hasMatches = createStore(false);
   const $noMatches = $hasMatches.map((hasMatches) => !hasMatches);
 
-  $location.watch(navigate, historyChanger<S>(history.push));
-  $location.watch(redirect, historyChanger<S>(history.replace));
-  shift.watch(history.go);
+  sample({
+    source: $location,
+    clock: navigate,
+    fn: (location, toLocation) => ({ location, toLocation }),
+    target: createEffect(historyChanger<S>(history.push)),
+  });
+
+  sample({
+    source: $location,
+    clock: redirect,
+    fn: (location, toLocation) => ({ location, toLocation }),
+    target: createEffect(historyChanger<S>(history.replace)),
+  });
+
+  sample({
+    source: shift,
+    target: createEffect(history.go),
+  });
 
   const connectRoute = <P extends Params = Params>(
     route: Route<P, unknown> | MergedRoute

@@ -2,7 +2,7 @@
   @include transition;
   display: inline-block;
   padding: 1rem 2rem;
-  color: #fff;
+  color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -51,7 +51,7 @@
   }
 
   &--tertiary {
-    background-color: #141923;
+    background-color: $color-deep-blue;
 
     &:hover {
       background-color: $color-primary-hover;

@@ -1,19 +1,19 @@
 .breadcrumbs {
   position: relative;
-  padding: 1.5rem 24px 1.7rem;
+  padding: 1.5rem ($grid-gutter-width-lg / 2) 1.7rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
   font-family: $font-family-primary;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
-  background-color: #141923;
+  background-color: $color-deep-blue;
 
   &::before {
     position: absolute;
     top: 0;
-    right: 24px;
-    left: 24px;
+    right: ($grid-gutter-width-lg / 2);
+    left: ($grid-gutter-width-lg / 2);
     display: inline-flex;
     height: 0.1rem;
     background-color: #646973;

@@ -7,10 +7,10 @@
   font-family: $font-family-secondary;
   line-height: 2.7rem;
   border: solid 1px #b6bbc6;
-  border-radius: 5px;
+  border-radius: $border-radius;
   outline-color: transparent;
 
   &:focus {
-    outline-color: #2779ff;
+    outline-color: $color-primary;
   }
 }

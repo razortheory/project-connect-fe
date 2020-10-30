@@ -5,9 +5,9 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: #232832;
+  background-color: $color-dark-blue;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     z-index: 2;
   }
 
@@ -16,7 +16,7 @@
     position: absolute;
     top: 7rem;
     bottom: 8.3rem;
-    left: 2.4rem;
+    left: ($grid-gutter-width-lg / 2);
     width: 33.4rem;
     height: auto;
     border-radius: 0.5rem;
@@ -48,7 +48,33 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
+
+  .sidebar__search-results {
+    position: absolute;
+    top: 5.3rem;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    padding-top: 1.7rem;
+    padding-bottom: 1.7rem;
+    background-color: $color-deep-blue;
+
+    .not-found {
+      align-items: flex-start;
+      font-size: 1.6rem;
+      line-height: 2.6rem;
+    }
+
+    .not-found-link {
+      color: $color-primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+.sidebar--show-map .sidebar__container {
+  border-radius: unset;
 }
 
 .sidebar__expander {
@@ -65,7 +91,7 @@
     width: 2rem;
     height: 2.8rem;
     padding: 0.4rem 0;
-    background-color: #141923;
+    background-color: $color-deep-blue;
     border: none;
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
@@ -89,11 +115,15 @@
 
 .sidebar__title {
   margin: 0;
-  padding: 2.6rem 2.4rem 3.2rem;
+  padding: 2.6rem ($grid-gutter-width-lg / 2) 3.2rem;
   font-size: 2.6rem;
   line-height: 3rem;
-  background-color: #141923;
-  border-bottom: 0.8rem solid $color-primary;
+  background-color: $color-deep-blue;
+  border-bottom: 1.2rem solid $color-primary;
+
+  @include media-breakpoint-up(md) {
+    border-bottom-width: 0.8rem;
+  }
 }
 
 .sidebar__secondary-title {
@@ -124,22 +154,12 @@
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  padding: 2.4rem;
+  padding: 24px ($grid-gutter-width-lg / 2);
   overflow: auto;
-  background-color: #232832;
+  background-color: $color-dark-blue;
 
   &--hidden {
     display: none;
-  }
-
-  &.sidebar__search-results {
-    position: absolute;
-    top: -1.5rem;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    padding-bottom: 1.5rem;
-    background-color: #141923;
   }
 }
 
@@ -152,6 +172,7 @@
 }
 
 .sidebar__link {
+  align-self: flex-start;
   margin-top: -1.2rem;
 }
 
@@ -160,12 +181,18 @@
 }
 
 .sidebar__country-list {
-  margin-right: -24px;
-  margin-left: -24px;
+  margin-right: -($grid-gutter-width-lg / 2);
+  margin-left: -($grid-gutter-width-lg / 2);
 }
 
 .sidebar__button {
-  // Empty
+  &--select-country {
+    align-self: flex-start;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
 }
 
 .sidebar__not-found {
@@ -182,7 +209,7 @@
 }
 
 .sidebar__divider {
-  margin: 2rem -24px;
+  margin: 2rem (-$grid-gutter-width-lg / 2);
   border: solid 0.1rem #373c46;
   border-top: none;
 }
@@ -191,4 +218,20 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.sidebar__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar__view-connectivity {
+  margin: -24px (-$grid-gutter-width-lg / 2) 3rem;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
 }

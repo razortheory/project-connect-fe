@@ -1,10 +1,13 @@
+import { useStore } from 'effector-react';
 import React from 'react';
 import styled from 'styled-components';
 
-import { Layout, Main } from '~/ui/components';
+import { Layout, Main } from '~/ui';
 
-import { Popup } from '@/map/@/country';
-import { Sidebar } from '@/map/@/sidebar';
+import { $isOpenHistoryModal } from '@/history-modal/model';
+import { HistoryModal } from '@/history-modal/ui';
+import { Popup } from '@/popup/ui';
+import { Sidebar } from '@/sidebar/ui';
 
 import { Footer } from './footer';
 import { Header } from './header';
@@ -26,6 +29,7 @@ export const MapPage = () => (
       <PopupContainer>
         <Popup />
       </PopupContainer>
+      {useStore($isOpenHistoryModal) && <HistoryModal />}
     </Main>
     <Footer />
   </Layout>

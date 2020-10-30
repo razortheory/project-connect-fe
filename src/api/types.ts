@@ -12,6 +12,7 @@ export type GlobalStats = {
   countries_with_static_data: number;
   countries_connected_to_realtime: number;
   percent_schools_without_connectivity: number;
+  last_date_updated: string | null;
 };
 
 export type IntegrationStatus = 0 | 1 | 2 | 3;
@@ -38,6 +39,7 @@ export type Country = {
   map_preview: string;
   description: string;
   data_source: string;
+  date_schools_mapped: string;
   statistics: CountryWeeklyStats;
   geometry: Geometry;
 };
@@ -70,7 +72,7 @@ export type SchoolBasic = {
 };
 
 export type School = {
-  // TODO: Add coverage_status on back-end
+  // TODO: Add network coverage on backend
   id: number;
   name: string;
   geopoint: Point;
@@ -105,6 +107,7 @@ export type School = {
   education_level: string;
   environment: string;
   school_type: string;
+  coverage_status: CoverageStatus;
 };
 
 export type DailyStats = {

@@ -1,16 +1,135 @@
-.tooltip {
+$tooltip-light-background: #6e737d;
+$tooltip-light-text: $text-color-light;
+$tooltip-dark-background: #b6bbc6;
+$tooltip-dark-text: $color-deep-blue;
+
+@mixin tooltip {
   position: absolute;
   padding: 1rem 1.2rem;
   border-radius: 0.2rem;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.23);
+}
+
+@mixin tooltip-position(
+  $pos-y,
+  $pos-x,
+  $offset,
+  $has-arrow: false,
+  $theme: light
+) {
+  @if $pos-y == bottom {
+    @if $offset {
+      top: calc(100% + #{$offset});
+    } @else {
+      top: 100%;
+    }
+  } @else {
+    @if $offset {
+      bottom: calc(100% + #{$offset});
+    } @else {
+      bottom: 100%;
+    }
+  }
+
+  @if $pos-x == left {
+    left: 0;
+  } @else if $pos-x == right {
+    right: 0;
+  } @else {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @if $has-arrow {
+    @if $pos-y == bottom {
+      @if $pos-x == left {
+        border-top-left-radius: unset;
+      } @else if $pos-x == right {
+        border-top-right-radius: unset;
+      }
+    } @else {
+      @if $pos-x == left {
+        border-bottom-left-radius: unset;
+      } @else if $pos-x == right {
+        border-bottom-right-radius: unset;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      content: '';
+
+      @if $pos-y == bottom {
+        bottom: 100%;
+        border-bottom-width: 0.6rem;
+        border-bottom-style: solid;
+
+        @if $pos-x == left {
+          left: 0;
+          border-right: 0.6rem solid transparent;
+        } @else if $pos-x == right {
+          right: 0;
+          border-left: 0.6rem solid transparent;
+        } @else {
+          left: 50%;
+          border-right: 0.6rem solid transparent;
+          border-left: 0.6rem solid transparent;
+          transform: translateX(-50%);
+        }
+
+        @if $theme == dark {
+          border-bottom-color: $tooltip-dark-background;
+        } @else {
+          border-bottom-color: $tooltip-light-background;
+        }
+      } @else {
+        top: calc(100% - 1px);
+        border-top-width: 0.6rem;
+        border-top-style: solid;
+
+        @if $pos-x == left {
+          left: 0;
+          border-right: 0.9rem solid transparent;
+        } @else if $pos-x == right {
+          right: 0;
+          border-left: 0.9rem solid transparent;
+        } @else {
+          left: 50%;
+          border-right: 0.6rem solid transparent;
+          border-left: 0.6rem solid transparent;
+          transform: translateX(-50%);
+        }
+
+        @if $theme == dark {
+          border-top-color: $tooltip-dark-background;
+        } @else {
+          border-top-color: $tooltip-light-background;
+        }
+      }
+    }
+  }
+}
+
+@mixin tooltip-theme($theme: light) {
+  @if $theme == dark {
+    color: $tooltip-dark-text;
+    background-color: $tooltip-dark-background;
+  } @else {
+    color: $tooltip-light-text;
+    background-color: $tooltip-light-background;
+  }
+}
+
+.tooltip {
+  @include tooltip;
 
   &--dark {
-    color: #141923;
-    background-color: #b6bbc6;
+    @include tooltip-theme($theme: dark);
   }
 
   &--light {
-    color: $text-color-light;
-    background-color: #6e737d;
+    @include tooltip-theme($theme: light);
   }
 }

@@ -13,18 +13,39 @@
     .header {
       background-color: $header-background-color;
     }
+    .header__button {
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
 
     .footer {
       height: auto;
       padding-top: 4.5rem;
       padding-bottom: 8rem;
       padding-left: 0;
-      background-color: #141923;
+      background-color: $color-deep-blue;
       border-top: 0.8rem solid $color-primary;
     }
   }
 
   &--home {
+    .header {
+      @include media-breakpoint-up(md) {
+        height: 0;
+      }
+    }
+    .header__logo {
+      position: absolute;
+      top: 3.2rem;
+      transform: translateY(-50%);
+    }
+    .header__button {
+      position: absolute;
+      top: 3.2rem;
+      right: ($grid-gutter-width-lg / 2);
+      transform: translateY(-50%);
+    }
     .content {
       height: 100%;
     }
@@ -39,7 +60,7 @@
 }
 
 .logo {
-  color: #fff;
+  color: $text-color-light;
   font-weight: 500;
   font-size: 1.2rem;
   letter-spacing: 0.126rem;
@@ -60,9 +81,9 @@
 
 .map-placeholder {
   position: absolute;
-  top: 20.9rem;
+  top: 16.4rem;
   right: 0;
-  bottom: 5.7rem;
+  bottom: 4.5rem;
   left: 0;
   background-color: #808080;
 

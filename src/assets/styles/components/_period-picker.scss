@@ -20,13 +20,13 @@
   cursor: pointer;
 
   &:first-child {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
   }
 
   &:last-child {
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 
   &:hover,
@@ -37,7 +37,7 @@
 
   &:active {
     color: $color-primary-active;
-    background-color: #141923;
+    background-color: $color-deep-blue;
   }
 
   &:disabled {
