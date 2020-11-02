@@ -4,22 +4,6 @@
   @include media-breakpoint-up(md) {
     border-radius: $border-radius;
   }
-
-  &--no {
-    border-top: 0.9rem solid #ff615b;
-  }
-
-  &--moderate {
-    border-top: 0.9rem solid #ffc93d;
-  }
-
-  &--good {
-    border-top: 0.9rem solid #8bd432;
-  }
-
-  &--unknown {
-    border-top: 0.9rem solid #546fc2;
-  }
 }
 
 /* stylelint-disable-next-line selector-no-qualifying-type */

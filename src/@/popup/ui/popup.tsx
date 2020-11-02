@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { combine, createEvent, createStore } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -12,9 +11,9 @@ import {
   $hasCoverageType,
   $school,
   $schoolDailyStats,
-  $schoolPending
+  $schoolPending,
 } from '@/country/model';
-import { changeMap } from '@/map/model';
+import { $stylePaintData, changeMap } from '@/map/model';
 import { getSchoolInfo, getSchoolStatus } from '@/popup/lib';
 import { $popup } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
@@ -43,6 +42,7 @@ export const Popup = () => {
   const mapType = useStore($controlsMapType);
   const hasConnectivityStatus = useStore($hasConnectivityStatus);
   const hasCoverageType = useStore($hasCoverageType);
+  const paintData = useStore($stylePaintData);
 
   if (!school || pending) {
     return (
@@ -85,7 +85,10 @@ export const Popup = () => {
   return (
     <div
       ref={onChangeRef}
-      className={clsx('school-popup', `school-popup--${status}`)}
+      className="school-popup"
+      style={{
+        borderTop: `0.9rem solid ${paintData.schoolConnectivity[status]}`,
+      }}
       data-id={id}
     >
       <div className="school-popup__content">

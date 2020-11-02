@@ -10,6 +10,7 @@ export const updateSchoolsColorsFx = createEffect(
     mapType,
     hasConnectivityStatus,
     hasCoverageType,
+    paintData,
   }: UpdateSchoolsColors) => {
     if (!map) return;
 
@@ -21,6 +22,7 @@ export const updateSchoolsColorsFx = createEffect(
           mapType,
           hasConnectivityStatus,
           hasCoverageType,
+          paintData,
         })
       );
     }

@@ -1,3 +1,4 @@
+import { useStore } from 'effector-react';
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
@@ -5,6 +6,7 @@ import Chevron from '~/assets/images/chevron.svg';
 import IconHistory from '~/assets/images/icon-history.svg';
 
 import { changeHistoryDataType } from '@/history-modal/model';
+import { $stylePaintData } from '@/map/model';
 import { WeekGraphItemProps, WeekGraphProps } from '@/week-graph/types';
 
 const fillerKeyframe = (height?: string) => keyframes`
@@ -38,19 +40,25 @@ export const Filler = styled.div<FillerProps>`
 `;
 
 // TODO: Fix argument types (WeekGraphItemProps mismatch)
-const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => (
-  <div className="week-graph__item">
-    <div className="week-graph__pillar">
-      <Filler height={data?.speedPercent} background={data?.fillColor}>
-        <div className="week-graph__tooltip">
-          <span>{data?.speed}</span>
-          <span>{data?.date}</span>
-        </div>
-      </Filler>
+const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => {
+  const paintData = useStore($stylePaintData);
+  return (
+    <div className="week-graph__item">
+      <div className="week-graph__pillar">
+        <Filler
+          height={data?.speedPercent}
+          background={paintData.schoolConnectivity[data?.status ?? 'no']}
+        >
+          <div className="week-graph__tooltip">
+            <span>{data?.speed}</span>
+            <span>{data?.date}</span>
+          </div>
+        </Filler>
+      </div>
+      <span className="week-graph__day">{title}</span>
     </div>
-    <span className="week-graph__day">{title}</span>
-  </div>
-);
+  );
+};
 
 export const WeekGraph = ({
   weekGraphData: {

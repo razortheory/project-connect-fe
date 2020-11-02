@@ -261,12 +261,20 @@ sample({
 sample({
   source: $mapContext,
   clock: merge([schoolsReceived, $map]),
-  fn: ({ map, schools, mapType, hasConnectivityStatus, hasCoverageType }) => ({
+  fn: ({
     map,
     schools,
     mapType,
     hasConnectivityStatus,
     hasCoverageType,
+    paintData,
+  }) => ({
+    map,
+    schools,
+    mapType,
+    hasConnectivityStatus,
+    hasCoverageType,
+    paintData,
   }),
   target: updateSchoolsFx,
 });
@@ -380,11 +388,15 @@ sample({
 sample({
   source: $mapContext,
   clock: changeMapType,
-  fn: ({ map, hasConnectivityStatus, hasCoverageType }, mapType) => ({
+  fn: (
+    { map, hasConnectivityStatus, hasCoverageType, paintData },
+    mapType
+  ) => ({
     map,
     mapType,
     hasConnectivityStatus,
     hasCoverageType,
+    paintData,
   }),
   target: updateSchoolsColorsFx,
 });

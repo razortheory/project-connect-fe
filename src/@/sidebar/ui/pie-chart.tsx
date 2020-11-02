@@ -8,7 +8,7 @@ import { CountryWeeklyStats } from '~/api/types';
 import { formatPercent } from '~/core/formatters';
 
 import { $countryWeeklyStats } from '@/country/model';
-import { connectivityStatusPaintData } from '@/map/constants';
+import { $stylePaintData } from '@/map/model';
 
 const getPercentage = (value: number, total: number): number =>
   total && value / total;
@@ -84,6 +84,7 @@ const AnimatedCircle = styled.circle<CircleProps>`
 
 export const PieChart = () => {
   const countryWeeklyStats = useStore($countryWeeklyStats);
+  const paintData = useStore($stylePaintData);
 
   if (!countryWeeklyStats) {
     return null;
@@ -110,16 +111,28 @@ export const PieChart = () => {
   return (
     <div className="pie-chart">
       <div className="pie-chart__explanation">
-        <div className="pie-chart__percent-value pie-chart__percent-value--no">
+        <div
+          className="pie-chart__percent-value"
+          style={{ color: paintData.schoolConnectivity.no }}
+        >
           {formatPercent(percentConnectivityNo)}
         </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--good">
+        <div
+          className="pie-chart__percent-value"
+          style={{ color: paintData.schoolConnectivity.good }}
+        >
           {formatPercent(percentConnectivityGood)}
         </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--moderate">
+        <div
+          className="pie-chart__percent-value"
+          style={{ color: paintData.schoolConnectivity.moderate }}
+        >
           {formatPercent(percentConnectivityModerate)}
         </div>
-        <div className="pie-chart__percent-value pie-chart__percent-value--unknown">
+        <div
+          className="pie-chart__percent-value"
+          style={{ color: paintData.schoolConnectivity.unknown }}
+        >
           {formatPercent(percentConnectivityUnknown)}
         </div>
       </div>
@@ -132,7 +145,7 @@ export const PieChart = () => {
             angle={noConnectivityOffsetAngle}
             length={CIRCUMFERENCE * percentConnectivityNo}
             fullLength={CIRCUMFERENCE}
-            stroke={connectivityStatusPaintData.no}
+            stroke={paintData.schoolConnectivity.no}
             fill="transparent"
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
@@ -146,7 +159,7 @@ export const PieChart = () => {
             angle={goodConnectivityOffsetAngle}
             length={CIRCUMFERENCE * percentConnectivityGood}
             fullLength={CIRCUMFERENCE}
-            stroke={connectivityStatusPaintData.good}
+            stroke={paintData.schoolConnectivity.good}
             fill="transparent"
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
@@ -160,7 +173,7 @@ export const PieChart = () => {
             angle={moderateConnectivityOffsetAngle}
             length={CIRCUMFERENCE * percentConnectivityModerate}
             fullLength={CIRCUMFERENCE}
-            stroke={connectivityStatusPaintData.moderate}
+            stroke={paintData.schoolConnectivity.moderate}
             fill="transparent"
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}
@@ -174,7 +187,7 @@ export const PieChart = () => {
             angle={unknownConnectivityOffsetAngle}
             length={CIRCUMFERENCE * percentConnectivityUnknown}
             fullLength={CIRCUMFERENCE}
-            stroke={connectivityStatusPaintData.unknown}
+            stroke={paintData.schoolConnectivity.unknown}
             fill="transparent"
             strokeWidth={STROKE_WIDTH}
             cx={CIRCLE_CENTER_X}

@@ -3,6 +3,7 @@ import { createEffect } from 'effector';
 import { clickSchool } from '@/country/model';
 import { UpdateSchools } from '@/country/types';
 import { mapCircleSizes } from '@/map/constants';
+import { StylePaintData } from '@/map/types';
 
 import { getSchoolsColors } from './get-schools-colors';
 
@@ -13,6 +14,7 @@ export const updateSchoolsFx = createEffect(
     mapType,
     hasConnectivityStatus,
     hasCoverageType,
+    paintData,
   }: UpdateSchools) => {
     if (!map || !schools) return;
 
@@ -34,6 +36,7 @@ export const updateSchoolsFx = createEffect(
             mapType,
             hasConnectivityStatus,
             hasCoverageType,
+            paintData,
           }),
         },
       });

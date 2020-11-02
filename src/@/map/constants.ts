@@ -1,10 +1,6 @@
 import { Expression } from 'mapbox-gl';
 
-import {
-  ConnectivityStatus,
-  GlobalStats,
-  IntegrationStatus,
-} from '~/api/types';
+import { GlobalStats, IntegrationStatus } from '~/api/types';
 
 import { Center, MapType, Style, StylePaintData, Zoom } from './types';
 
@@ -35,6 +31,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   light: {
     background: '#646973',
@@ -48,6 +50,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#8945d4',
     schoolsWithConnectivity: '#0068ea',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   satellite: {
     background: '#ffffff',
@@ -61,6 +69,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#ffffff',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   accessible: {
     background: '#646973',
@@ -74,6 +88,13 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+
+    schoolConnectivity: {
+      unknown: '#a95aa1',
+      no: '#f5793a',
+      moderate: '#85c0f9',
+      good: '#ffffff',
+    },
   },
 };
 
@@ -109,15 +130,6 @@ export const statusPaintField: {
   1: 'countryVerified',
   2: 'countryWithConnectivity',
   3: 'countryWithConnectivity',
-};
-
-export const connectivityStatusPaintData: {
-  [key in ConnectivityStatus]: string;
-} = {
-  unknown: '#546fc2',
-  no: '#ff615b',
-  moderate: '#ffc93d',
-  good: '#8bd432',
 };
 
 export const defaultGlobalStats: GlobalStats = {

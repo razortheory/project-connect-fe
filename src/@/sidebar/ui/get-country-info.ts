@@ -6,11 +6,7 @@ import {
   formatPercent,
 } from '~/core/formatters';
 
-import {
-  HIGH_SPEED_MAX,
-  LOW_SPEED_MAX,
-  MED_SPEED_MAX,
-} from '@/week-graph/constants';
+import { LOW_SPEED_MAX, MED_SPEED_MAX } from '@/week-graph/constants';
 
 import { CountryInfo } from './types';
 
@@ -36,7 +32,7 @@ export const getCountryInfo = (
     ) {
       return 'average-speed__icons--medium';
     }
-    if (connectivity_speed >= HIGH_SPEED_MAX) {
+    if (connectivity_speed >= MED_SPEED_MAX) {
       return 'average-speed__icons--high';
     }
     return 'average-speed__icons';
