@@ -5,7 +5,7 @@
     border-radius: $border-radius;
   }
 
-  &--no-connectivity {
+  &--no {
     border-top: 0.9rem solid #ff615b;
   }
 
@@ -17,16 +17,8 @@
     border-top: 0.9rem solid #8bd432;
   }
 
-  &--unavailable {
-    border-top: 0.9rem solid #546fc2;
-  }
-
-  &--known {
-    border-top: 0.9rem solid #fc7a08;
-  }
-
   &--unknown {
-    border-top: 0.9rem solid #7511bf;
+    border-top: 0.9rem solid #546fc2;
   }
 }
 

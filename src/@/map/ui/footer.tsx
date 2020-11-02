@@ -5,13 +5,8 @@ import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import { mapCountry } from '~/core/routes';
 
+import { connectivityStatusPaintData, styles } from '@/map/constants';
 import {
-  connectivityStatusPaintData,
-  coverageStatusPaintData,
-  styles,
-} from '@/map/constants';
-import {
-  $mapType,
   $style,
   $stylePaintData,
   changeStyle,
@@ -66,7 +61,7 @@ const LegendForCountries = () => {
   );
 };
 
-const ConnectivityTypeLegend = () => (
+const LegendForSchools = () => (
   <ul className="footer__map-legend map-legend">
     <li
       className="map-legend__item map-legend__item--has-tooltip"
@@ -106,34 +101,6 @@ const ConnectivityTypeLegend = () => (
     </li>
   </ul>
 );
-
-const CoverageTypeLegend = () => (
-  <ul className="footer__map-legend map-legend">
-    <li
-      className="map-legend__item"
-      style={{ borderTopColor: coverageStatusPaintData.unknown }}
-    >
-      Unknown
-    </li>
-    <li
-      className="map-legend__item"
-      style={{ borderTopColor: coverageStatusPaintData.known }}
-    >
-      Known
-    </li>
-  </ul>
-);
-
-const LegendForSchools = () => {
-  switch (useStore($mapType)) {
-    case 'connectivity':
-      return <ConnectivityTypeLegend />;
-    case 'coverage':
-      return <CoverageTypeLegend />;
-    default:
-      return null;
-  }
-};
 
 const StyleControl = () => {
   const activeStyle = useStore($style);

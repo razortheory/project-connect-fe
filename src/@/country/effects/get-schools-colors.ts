@@ -1,40 +1,45 @@
 import { Expression, StyleFunction } from 'mapbox-gl';
 
-import {
-  connectivityStatusPaintData,
-  coverageStatusPaintData,
-} from '@/map/constants';
+import { connectivityStatusPaintData } from '@/map/constants';
 import { MapType } from '@/map/types';
 
-export const getSchoolsColors = (
-  mapType: MapType
-): string | StyleFunction | Expression | undefined => {
+type GetSchoolsColors = {
+  mapType: MapType;
+  hasConnectivityStatus: boolean;
+  hasCoverageType: boolean;
+};
+
+const getColorExpression = (property: string): Expression => {
+  return [
+    'match',
+    ['get', property],
+    'no',
+    connectivityStatusPaintData.no,
+    'unknown',
+    connectivityStatusPaintData.unknown,
+    'moderate',
+    connectivityStatusPaintData.moderate,
+    'good',
+    connectivityStatusPaintData.good,
+    connectivityStatusPaintData.unknown,
+  ];
+};
+
+export const getSchoolsColors = ({
+  mapType,
+  hasConnectivityStatus,
+  hasCoverageType,
+}: GetSchoolsColors): string | StyleFunction | Expression | undefined => {
   if (mapType === 'connectivity') {
-    return [
-      'match',
-      ['get', 'connectivity_status'],
-      'no',
-      connectivityStatusPaintData.no,
-      'unknown',
-      connectivityStatusPaintData.unknown,
-      'moderate',
-      connectivityStatusPaintData.moderate,
-      'good',
-      connectivityStatusPaintData.good,
-      connectivityStatusPaintData.unknown,
-    ];
+    return getColorExpression(
+      hasConnectivityStatus ? 'connectivity_status' : 'connectivity'
+    );
   }
 
   if (mapType === 'coverage') {
-    return [
-      'match',
-      ['get', 'coverage_status'],
-      'known',
-      coverageStatusPaintData.known,
-      'unknown',
-      coverageStatusPaintData.unknown,
-      coverageStatusPaintData.unknown,
-    ];
+    return getColorExpression(
+      hasCoverageType ? 'coverage_type' : 'coverage_availability'
+    );
   }
 
   return '#ffffff';

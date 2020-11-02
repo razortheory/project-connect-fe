@@ -15,6 +15,8 @@ export type UpdateSchools = {
   map: Map | null;
   schools: FeatureCollection | null;
   mapType: MapType;
+  hasConnectivityStatus: boolean;
+  hasCoverageType: boolean;
 };
 
 export type UpdateGlobalSchools = {
@@ -26,6 +28,8 @@ export type UpdateGlobalSchools = {
 export type UpdateSchoolsColors = {
   map: Map | null;
   mapType: MapType;
+  hasConnectivityStatus: boolean;
+  hasCoverageType: boolean;
 };
 
 export type ZoomToCountryBounds = {

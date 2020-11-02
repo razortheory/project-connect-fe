@@ -15,9 +15,15 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     geopoint: {
       coordinates: [latitude, longitude],
     },
-    statistics: { connectivity_type, connectivity_speed, connectivity_status },
+    statistics: {
+      connectivity_type,
+      connectivity_speed,
+      connectivity_status,
+      connectivity,
+      coverage_type,
+      coverage_availability,
+    },
     environment,
-    coverage_status,
   } = school;
 
   const connectionSpeed = formatConnectionSpeed(connectivity_speed);
@@ -34,7 +40,9 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     latitude,
     longitude,
     networkCoverage: 'No data',
-    coverageStatus: coverage_status || 'unknown',
+    connectivity,
+    coverageType: coverage_type,
+    coverageAvailability: coverage_availability,
     regionClassification: environment || 'No data',
   };
 };

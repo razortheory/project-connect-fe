@@ -2,7 +2,6 @@ import { Expression } from 'mapbox-gl';
 
 import {
   ConnectivityStatus,
-  CoverageStatus,
   GlobalStats,
   IntegrationStatus,
 } from '~/api/types';
@@ -119,14 +118,6 @@ export const connectivityStatusPaintData: {
   no: '#ff615b',
   moderate: '#ffc93d',
   good: '#8bd432',
-};
-
-// TODO change the coverage status colors when they are known
-export const coverageStatusPaintData: {
-  [key in CoverageStatus]: string;
-} = {
-  known: '#FC7A08',
-  unknown: '#7511BF',
 };
 
 export const defaultGlobalStats: GlobalStats = {
