@@ -12,7 +12,7 @@
   justify-content: center;
   width: 3.2rem;
   height: 100%;
-  color: #808080;
+  color: $color-primary;
   font-size: 2rem;
   background-color: #373c46;
   border: none;
@@ -29,9 +29,7 @@
     border-bottom-right-radius: $border-radius;
   }
 
-  &:hover,
-  &:focus {
-    color: $color-primary;
+  &:hover {
     background-color: #494f5d;
   }
 
@@ -41,6 +39,7 @@
   }
 
   &:disabled {
+    color: #808080;
     cursor: not-allowed;
   }
 }
