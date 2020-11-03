@@ -49,6 +49,7 @@ export const CountryList = () => {
               onChangeView(true);
               changeDashboardCountryId(id);
             }}
+            key={id}
             type="button"
             className="popup-country__button"
           >

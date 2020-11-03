@@ -80,28 +80,30 @@ export const Header = () => {
                   }
                 }}
               >
-                About
-                <IconRightArrow className="menu__arrow" />
+                <span className="menu__link-inner">
+                  About
+                  <IconRightArrow className="menu__arrow" />
+                </span>
               </button>
               <ul className="menu">
                 <li className="menu__item">
                   <Link to={about} hash="#introduction" className="menu__link">
-                    Introduction
+                    <span className="menu__link-inner">Introduction</span>
                   </Link>
                 </li>
                 <li className="menu__item">
                   <Link to={about} hash="#case-studies" className="menu__link">
-                    Case studies
+                    <span className="menu__link-inner">Case studies</span>
                   </Link>
                 </li>
                 <li className="menu__item">
                   <Link to={about} hash="#why-mapping" className="menu__link">
-                    Why mapping
+                    <span className="menu__link-inner">Why mapping</span>
                   </Link>
                 </li>
                 <li className="menu__item">
                   <Link to={about} hash="#our-partners" className="menu__link">
-                    Our partners
+                    <span className="menu__link-inner">Our partners</span>
                   </Link>
                 </li>
               </ul>
@@ -113,7 +115,7 @@ export const Header = () => {
                   'menu__link--active': useRoute(countryProgress),
                 })}
               >
-                Country progress
+                <span className="menu__link-inner">Country progress</span>
               </Link>
             </li>
             <li
@@ -133,13 +135,15 @@ export const Header = () => {
                   }
                 }}
               >
-                methods & data sharing
-                <IconRightArrow className="menu__arrow" />
+                <span className="menu__link-inner">
+                  methods & data sharing
+                  <IconRightArrow className="menu__arrow" />
+                </span>
               </button>
               <ul className="menu">
                 <li className="menu__item">
                   <Link to={privacy} hash="#methods" className="menu__link">
-                    methods
+                    <span className="menu__link-inner">methods</span>
                   </Link>
                 </li>
                 <li className="menu__item">
@@ -148,7 +152,9 @@ export const Header = () => {
                     hash="#data-sharing"
                     className="menu__link"
                   >
-                    Data sharing & privacy
+                    <span className="menu__link-inner">
+                      Data sharing & privacy
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -160,7 +166,7 @@ export const Header = () => {
                   'menu__link--active': useRoute(media),
                 })}
               >
-                Media
+                <span className="menu__link-inner">Media</span>
               </Link>
             </li>
             <li className="menu__item">
@@ -170,7 +176,7 @@ export const Header = () => {
                   'menu__link--active': useRoute(joinUs),
                 })}
               >
-                Join Us
+                <span className="menu__link-inner">Join Us</span>
               </Link>
             </li>
           </ul>
