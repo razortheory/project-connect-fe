@@ -30,8 +30,8 @@ export const Footer = () => (
           </div>
           <div className="footer__supporters">
             <h4 className="footer__supporters-title">Supported by</h4>
-            <Giga className="footer__supporter-logo" alt="Unicef logo" />
             <Unicef className="footer__supporter-logo" alt="Giga logo" />
+            <Giga className="footer__supporter-logo" alt="Unicef logo" />
           </div>
         </div>
 

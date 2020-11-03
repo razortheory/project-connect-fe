@@ -2,7 +2,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 import Giga from '~/assets/images/giga-logo-footer.svg';
-import Unicef from '~/assets/images/unicef-logo-footer.svg';
+import Unicef from '~/assets/images/unicef-logo-map-footer.svg';
 import { mapCountry } from '~/core/routes';
 
 import {
@@ -166,8 +166,13 @@ export const Footer = () => {
 
   return (
     <footer className="footer">
-      <Unicef className="footer__logo" alt="Unicef logo" />
-      <Giga className="footer__logo" alt="Giga logo" />
+      <Unicef
+        className="footer__logo"
+        width="68"
+        height="17"
+        alt="Unicef logo"
+      />
+      <Giga className="footer__logo" width="56" height="26" alt="Giga logo" />
       {isCountryView ? <LegendForSchools /> : <LegendForCountries />}
       <StyleControl />
       <ZoomControl />

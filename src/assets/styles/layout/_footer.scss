@@ -14,8 +14,7 @@
 .footer__logo {
   display: none;
   align-self: center;
-  height: 3rem;
-  margin-right: 2rem;
+  margin-right: 20px;
 
   @include media-breakpoint-up(xl) {
     display: inline-flex;
