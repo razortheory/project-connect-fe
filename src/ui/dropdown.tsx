@@ -8,17 +8,20 @@ const ARROW_DOWN =
 const ARROW_UP =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' transform='rotate(180)' viewBox='0 0 20 20'%3E%3Cpath fill='%23ffffff' d='M9.978 11.679l-4.61-4.61c-.284-.284-.744-.285-1.027-.002-.285.285-.282.743.002 1.026l5.121 5.122.001.001c.143.142.328.213.513.213.186-.001.37-.072.512-.213l.001-.001 5.122-5.122c.284-.283.284-.743.001-1.026-.285-.285-.742-.282-1.026.002l-4.61 4.61z'/%3E%3C/svg%3E%0A";
 
+const DropdownWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+  appearance: none;
+`;
+
 const DropdownSelect = styled.div<{ isOpen: boolean }>`
   /* stylelint-disable scss/operator-no-unspaced, value-keyword-case */
-  position: relative;
   background-image: ${({ isOpen }) =>
     `url("${isOpen ? ARROW_UP : ARROW_DOWN}") `};
   background-repeat: no-repeat;
   background-position: center right 24px;
   background-size: 2rem 2rem;
   outline: none;
-  cursor: pointer;
-  appearance: none;
 `;
 
 const DropdownList = styled.div`
@@ -27,6 +30,11 @@ const DropdownList = styled.div`
   left: 0;
   z-index: 1;
   width: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: Cabin, sans-serif;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
   background-color: #121212;
 `;
 
@@ -82,13 +90,15 @@ export const Dropdown = <T,>({
   const [isOpenList, setIsOpenList] = useState(false);
   const container = useRef(null);
 
-  useOnClickOutside(container, () => setIsOpenList(false));
+  const closeList = () => setIsOpenList(false);
+
+  useOnClickOutside(container, closeList);
 
   return (
-    <div className={wrapperClassName} ref={container}>
+    <DropdownWrapper className={wrapperClassName} ref={container}>
       <DropdownSelect
         isOpen={isOpenList}
-        onClick={() => setIsOpenList(!isOpenList)}
+        onClick={() => setIsOpenList((previousState) => !previousState)}
         className={selectClassName}
       >
         <CurrentValueWrapper>
@@ -97,20 +107,23 @@ export const Dropdown = <T,>({
             {items.find((item) => item.value === value)?.title}
           </CurrentValue>
         </CurrentValueWrapper>
-
-        {isOpenList && (
-          <DropdownList>
-            {items.map((item) => (
-              <DropdownListItem
-                key={String(item.value)}
-                onClick={() => onChange(item.value)}
-              >
-                {item?.title}
-              </DropdownListItem>
-            ))}
-          </DropdownList>
-        )}
       </DropdownSelect>
-    </div>
+
+      {isOpenList && (
+        <DropdownList>
+          {items.map((item) => (
+            <DropdownListItem
+              key={String(item.value)}
+              onClick={() => {
+                onChange(item.value);
+                closeList();
+              }}
+            >
+              {item?.title}
+            </DropdownListItem>
+          ))}
+        </DropdownList>
+      )}
+    </DropdownWrapper>
   );
 };
