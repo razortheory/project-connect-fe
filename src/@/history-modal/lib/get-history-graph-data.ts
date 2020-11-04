@@ -5,7 +5,7 @@ import { formatConnectionSpeed } from '~/core/formatters';
 
 import { HistoryGraphData } from '@/history-modal/types';
 import { megabytesPerSecond } from '@/week-graph/constants';
-import { formatDate, getFillColor } from '@/week-graph/lib';
+import { formatDate, getStatus } from '@/week-graph/lib';
 
 const getDatesArray = (interval: Interval) => {
   let day = interval.start;
@@ -45,7 +45,7 @@ export const getHistoryGraphData = (
         date: formatDate(dayStats.date),
         speedFormatted: formatConnectionSpeed(dayStats.connectivity_speed),
         speed: dayStats.connectivity_speed,
-        fillColor: getFillColor(dayStats.connectivity_speed),
+        status: getStatus(dayStats.connectivity_speed),
       };
       accumulator.daysData.push(dayData);
       accumulator.itemsCount += 1;

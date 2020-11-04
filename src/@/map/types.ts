@@ -18,6 +18,12 @@ export type StylePaintData = {
   schoolsNotVerified: string;
   schoolsVerified: string;
   schoolsWithConnectivity: string;
+  schoolConnectivity: {
+    unknown: string;
+    no: string;
+    moderate: string;
+    good: string;
+  };
 };
 
 export type InitMapOptions = {

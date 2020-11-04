@@ -5,13 +5,8 @@ import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-map-footer.svg';
 import { mapCountry } from '~/core/routes';
 
+import { styles } from '@/map/constants';
 import {
-  connectivityStatusPaintData,
-  coverageStatusPaintData,
-  styles,
-} from '@/map/constants';
-import {
-  $mapType,
   $style,
   $stylePaintData,
   changeStyle,
@@ -66,73 +61,48 @@ const LegendForCountries = () => {
   );
 };
 
-const ConnectivityTypeLegend = () => (
-  <ul className="footer__map-legend map-legend">
-    <li
-      className="map-legend__item map-legend__item--has-tooltip"
-      style={{ borderTopColor: connectivityStatusPaintData.unknown }}
-    >
-      Data unavailable
-      <div className="map-legend__tooltip tooltip tooltip--dark">
-        Internet speed <strong>unknown</strong>
-      </div>
-    </li>
-    <li
-      className="map-legend__item map-legend__item--has-tooltip"
-      style={{ borderTopColor: connectivityStatusPaintData.no }}
-    >
-      No connectivity
-      <div className="map-legend__tooltip tooltip tooltip--dark">
-        Internet speed <strong>0 mb/s</strong>
-      </div>
-    </li>
-    <li
-      className="map-legend__item map-legend__item--has-tooltip"
-      style={{ borderTopColor: connectivityStatusPaintData.moderate }}
-    >
-      Moderate
-      <div className="map-legend__tooltip tooltip tooltip--dark">
-        Internet speed <strong>0.5-3 mb/s</strong>
-      </div>
-    </li>
-    <li
-      className="map-legend__item map-legend__item--has-tooltip"
-      style={{ borderTopColor: connectivityStatusPaintData.good }}
-    >
-      Good
-      <div className="map-legend__tooltip tooltip tooltip--dark">
-        Internet speed <strong>Above 3 mb/s</strong>
-      </div>
-    </li>
-  </ul>
-);
-
-const CoverageTypeLegend = () => (
-  <ul className="footer__map-legend map-legend">
-    <li
-      className="map-legend__item"
-      style={{ borderTopColor: coverageStatusPaintData.unknown }}
-    >
-      Unknown
-    </li>
-    <li
-      className="map-legend__item"
-      style={{ borderTopColor: coverageStatusPaintData.known }}
-    >
-      Known
-    </li>
-  </ul>
-);
-
 const LegendForSchools = () => {
-  switch (useStore($mapType)) {
-    case 'connectivity':
-      return <ConnectivityTypeLegend />;
-    case 'coverage':
-      return <CoverageTypeLegend />;
-    default:
-      return null;
-  }
+  const paintData = useStore($stylePaintData);
+  return (
+    <ul className="footer__map-legend map-legend">
+      <li
+        className="map-legend__item map-legend__item--has-tooltip"
+        style={{ borderTopColor: paintData.schoolConnectivity.unknown }}
+      >
+        Data unavailable
+        <div className="map-legend__tooltip tooltip tooltip--dark">
+          Internet speed <strong>unknown</strong>
+        </div>
+      </li>
+      <li
+        className="map-legend__item map-legend__item--has-tooltip"
+        style={{ borderTopColor: paintData.schoolConnectivity.no }}
+      >
+        No connectivity
+        <div className="map-legend__tooltip tooltip tooltip--dark">
+          Internet speed <strong>0 mb/s</strong>
+        </div>
+      </li>
+      <li
+        className="map-legend__item map-legend__item--has-tooltip"
+        style={{ borderTopColor: paintData.schoolConnectivity.moderate }}
+      >
+        Moderate
+        <div className="map-legend__tooltip tooltip tooltip--dark">
+          Internet speed <strong>0.5-3 mb/s</strong>
+        </div>
+      </li>
+      <li
+        className="map-legend__item map-legend__item--has-tooltip"
+        style={{ borderTopColor: paintData.schoolConnectivity.good }}
+      >
+        Good
+        <div className="map-legend__tooltip tooltip tooltip--dark">
+          Internet speed <strong>Above 3 mb/s</strong>
+        </div>
+      </li>
+    </ul>
+  );
 };
 
 const StyleControl = () => {
