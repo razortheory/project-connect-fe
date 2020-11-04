@@ -188,6 +188,7 @@
 .sidebar__button {
   &--select-country {
     align-self: flex-start;
+    margin-top: auto;
 
     @include media-breakpoint-down(sm) {
       display: none;
