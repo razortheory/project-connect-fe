@@ -14,7 +14,6 @@ import { Scroll } from '@/scroll';
 
 export const WorldView = () => {
   const {
-    total_schools,
     schools_mapped,
     countries_joined,
     percent_schools_without_connectivity,

@@ -3,7 +3,9 @@
 import { Geometry, Point } from 'geojson';
 
 export type ConnectivityStatus = 'no' | 'moderate' | 'good' | 'unknown';
-export type CoverageStatus = 'unknown' | 'known';
+export type Connectivity = boolean | null;
+export type CoverageType = 'unknown' | 'no' | '2g' | '3g' | '4g';
+export type CoverageAvailability = boolean | null;
 
 export type GlobalStats = {
   total_schools: number;
@@ -68,7 +70,9 @@ export type SchoolBasic = {
   name: string;
   geopoint: Geometry;
   connectivity_status: ConnectivityStatus;
-  coverage_status: CoverageStatus;
+  connectivity: Connectivity;
+  coverage_type: CoverageType;
+  coverage_availability: CoverageAvailability;
 };
 
 export type SchoolSimplified = {
@@ -78,7 +82,6 @@ export type SchoolSimplified = {
 };
 
 export type School = {
-  // TODO: Add network coverage on backend
   id: number;
   name: string;
   geopoint: Point;
@@ -91,7 +94,7 @@ export type School = {
     electricity_availability: boolean;
     computer_lab: boolean;
     num_computers: number;
-    connectivity: boolean;
+    connectivity: Connectivity;
     connectivity_status: ConnectivityStatus;
     connectivity_type: string;
     connectivity_speed: number;
@@ -99,6 +102,8 @@ export type School = {
     connectivity_availability: number;
     created: string;
     modified: string;
+    coverage_type: CoverageType;
+    coverage_availability: CoverageAvailability;
   };
   gps_confidence: string | null;
   address: string;
@@ -113,7 +118,7 @@ export type School = {
   education_level: string;
   environment: string;
   school_type: string;
-  coverage_status: CoverageStatus;
+  coverage_status: CoverageType;
 };
 
 export type DailyStats = {

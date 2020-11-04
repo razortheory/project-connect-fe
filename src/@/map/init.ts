@@ -10,6 +10,8 @@ import {
 } from '~/api/project-connect';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
+import { changeCountryId } from '@/country/model';
+
 import { stylePaintData } from './constants';
 import { addLoaderToMapFx, initMapFx, removeLoaderFromMapFx } from './effects';
 import {
@@ -34,6 +36,7 @@ $style.on(changeStyle, setPayload);
 $globalStats.on(fetchGlobalStatsFx.doneData, setPayload);
 $loader.on(setLoader, setPayload);
 $mapType.on(changeMapType, setPayload);
+$mapType.reset(changeCountryId);
 
 sample({
   source: $style,

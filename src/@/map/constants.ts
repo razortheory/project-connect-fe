@@ -1,11 +1,6 @@
 import { Expression } from 'mapbox-gl';
 
-import {
-  ConnectivityStatus,
-  CoverageStatus,
-  GlobalStats,
-  IntegrationStatus,
-} from '~/api/types';
+import { GlobalStats, IntegrationStatus } from '~/api/types';
 
 import { Center, MapType, Style, StylePaintData, Zoom } from './types';
 
@@ -36,6 +31,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   light: {
     background: '#646973',
@@ -49,6 +50,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#8945d4',
     schoolsWithConnectivity: '#0068ea',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   satellite: {
     background: '#ffffff',
@@ -62,6 +69,12 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#ffffff',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+    schoolConnectivity: {
+      unknown: '#546fc2',
+      no: '#ff615b',
+      moderate: '#ffc93d',
+      good: '#8bd432',
+    },
   },
   accessible: {
     background: '#646973',
@@ -75,6 +88,13 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
     schoolsNotVerified: '#6e737d',
     schoolsVerified: '#ffffff',
     schoolsWithConnectivity: '#ffffff',
+
+    schoolConnectivity: {
+      unknown: '#a95aa1',
+      no: '#f5793a',
+      moderate: '#85c0f9',
+      good: '#ffffff',
+    },
   },
 };
 
@@ -112,23 +132,6 @@ export const statusPaintField: {
   3: 'countryWithConnectivity',
 };
 
-export const connectivityStatusPaintData: {
-  [key in ConnectivityStatus]: string;
-} = {
-  unknown: '#546fc2',
-  no: '#ff615b',
-  moderate: '#ffc93d',
-  good: '#8bd432',
-};
-
-// TODO change the coverage status colors when they are known
-export const coverageStatusPaintData: {
-  [key in CoverageStatus]: string;
-} = {
-  known: '#FC7A08',
-  unknown: '#7511BF',
-};
-
 export const defaultGlobalStats: GlobalStats = {
   total_schools: 0,
   schools_mapped: 0,
@@ -143,23 +146,23 @@ export const mapCircleSizes = [
   [1, 1],
   [2, 1],
   [3, 1],
-  [4, 1],
-  [5, 1],
-  [6, 2],
-  [7, 2],
-  [8, 2],
-  [9, 2],
-  [10, 2],
-  [11, 3],
-  [12, 3],
-  [13, 5],
-  [14, 5],
-  [15, 5],
-  [16, 5],
-  [17, 5],
-  [18, 8],
-  [19, 8],
-  [20, 8],
-  [21, 8],
-  [22, 8],
+  [4, 1.5],
+  [5, 2],
+  [6, 3],
+  [7, 3],
+  [8, 3],
+  [9, 3],
+  [10, 3],
+  [11, 4],
+  [12, 5],
+  [13, 6],
+  [14, 7],
+  [15, 8],
+  [16, 9],
+  [17, 9],
+  [18, 10],
+  [19, 10],
+  [20, 10],
+  [21, 10],
+  [22, 10],
 ];
