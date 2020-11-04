@@ -241,7 +241,7 @@ export const CountryInfo = () => {
             className="breadcrumbs__link"
             onClick={() => selectMapTab()}
           >
-            {mapType} map{' '}
+            Global view
           </Link>
           {' > '}
           <span>{countryName}</span>
