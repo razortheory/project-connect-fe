@@ -7,7 +7,7 @@ export const createSchoolPopupFx = createEffect(() =>
   new mapboxGL.Popup({
     maxWidth: '100%',
     className: 'school-popup',
-    anchor: 'center',
+    anchor: 'bottom',
   })
     .on('open', () => changeIsOpenPopup(true))
     .on('close', () => changeIsOpenPopup(false))

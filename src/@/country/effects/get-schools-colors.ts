@@ -1,40 +1,51 @@
 import { Expression, StyleFunction } from 'mapbox-gl';
 
-import {
-  connectivityStatusPaintData,
-  coverageStatusPaintData,
-} from '@/map/constants';
-import { MapType } from '@/map/types';
+import { MapType, StylePaintData } from '@/map/types';
 
-export const getSchoolsColors = (
-  mapType: MapType
-): string | StyleFunction | Expression | undefined => {
+type GetSchoolsColors = {
+  mapType: MapType;
+  hasConnectivityStatus: boolean;
+  hasCoverageType: boolean;
+  paintData: StylePaintData;
+};
+
+const getColorExpression = (
+  property: string,
+  paintData: StylePaintData
+): Expression => {
+  return [
+    'match',
+    ['get', property],
+    'no',
+    paintData.schoolConnectivity.no,
+    'unknown',
+    paintData.schoolConnectivity.unknown,
+    'moderate',
+    paintData.schoolConnectivity.moderate,
+    'good',
+    paintData.schoolConnectivity.good,
+    paintData.schoolConnectivity.unknown,
+  ];
+};
+
+export const getSchoolsColors = ({
+  mapType,
+  hasConnectivityStatus,
+  hasCoverageType,
+  paintData,
+}: GetSchoolsColors): string | StyleFunction | Expression | undefined => {
   if (mapType === 'connectivity') {
-    return [
-      'match',
-      ['get', 'connectivity_status'],
-      'no',
-      connectivityStatusPaintData.no,
-      'unknown',
-      connectivityStatusPaintData.unknown,
-      'moderate',
-      connectivityStatusPaintData.moderate,
-      'good',
-      connectivityStatusPaintData.good,
-      connectivityStatusPaintData.unknown,
-    ];
+    return getColorExpression(
+      hasConnectivityStatus ? 'connectivity_status' : 'connectivity',
+      paintData
+    );
   }
 
   if (mapType === 'coverage') {
-    return [
-      'match',
-      ['get', 'coverage_status'],
-      'known',
-      coverageStatusPaintData.known,
-      'unknown',
-      coverageStatusPaintData.unknown,
-      coverageStatusPaintData.unknown,
-    ];
+    return getColorExpression(
+      hasCoverageType ? 'coverage_type' : 'coverage_availability',
+      paintData
+    );
   }
 
   return '#ffffff';

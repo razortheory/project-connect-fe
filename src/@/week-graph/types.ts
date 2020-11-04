@@ -1,3 +1,5 @@
+import { ConnectivityStatus } from '~/api/types';
+
 import { StatsDataType } from '@/history-modal/types';
 
 export type Days =
@@ -16,7 +18,7 @@ export type WeekGraphItemData = {
   speed: string;
   latency: number;
   speedPercent: string;
-  fillColor: string;
+  status: ConnectivityStatus;
 };
 
 export interface WeekGraphProps {

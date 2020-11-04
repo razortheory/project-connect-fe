@@ -23,12 +23,14 @@ import {
   previousHistoryInterval,
 } from '@/history-modal/model';
 import { HistoryGraphData } from '@/history-modal/types';
+import { $stylePaintData } from '@/map/model';
 import { Scroll } from '@/scroll';
 import { getPercent } from '@/week-graph/lib';
 import { Filler } from '@/week-graph/ui';
 
 const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
   const intervalUnit = useStore($historyIntervalUnit);
+  const paintData = useStore($stylePaintData);
   if (!data) {
     return null;
   }
@@ -43,7 +45,10 @@ const HistoryGraphContent = ({ data }: { data: HistoryGraphData }) => {
             key={item.date}
           >
             <div className="history-modal__graph-pillar">
-              <Filler height={height} background={item.fillColor}>
+              <Filler
+                height={height}
+                background={paintData.schoolConnectivity[item.status ?? 'no']}
+              >
                 <div className="week-graph__tooltip">
                   <span>{item?.speedFormatted}</span>
                   <span>{item?.date}</span>

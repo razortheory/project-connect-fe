@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { combine, createEvent, createStore } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -7,9 +6,15 @@ import IconLocation from '~/assets/images/icon-location.svg';
 import { setPayload } from '~/lib/effector-kit';
 import { ProgressBar } from '~/ui';
 
-import { $school, $schoolDailyStats, $schoolPending } from '@/country/model';
-import { changeMap } from '@/map/model';
-import { getPopupClassName, getSchoolInfo } from '@/popup/lib';
+import {
+  $hasConnectivityStatus,
+  $hasCoverageType,
+  $school,
+  $schoolDailyStats,
+  $schoolPending,
+} from '@/country/model';
+import { $stylePaintData, changeMap } from '@/map/model';
+import { getSchoolInfo, getSchoolStatus } from '@/popup/lib';
 import { $popup } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
 import { getWeekGraphData } from '@/week-graph/lib/get-week-graph-data';
@@ -35,6 +40,9 @@ export const Popup = () => {
   const pending = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
   const mapType = useStore($controlsMapType);
+  const hasConnectivityStatus = useStore($hasConnectivityStatus);
+  const hasCoverageType = useStore($hasCoverageType);
+  const paintData = useStore($stylePaintData);
 
   if (!school || pending) {
     return (
@@ -52,23 +60,35 @@ export const Popup = () => {
     name,
     address,
     postalCode,
-    connectivityStatus,
     connectionSpeed,
     connectivityType,
     latitude,
     longitude,
     networkCoverage,
-    coverageStatus,
     regionClassification,
+    connectivity,
+    connectivityStatus,
+    coverageType,
+    coverageAvailability,
   } = getSchoolInfo(school);
 
-  const schoolStatus =
-    mapType === 'coverage' ? coverageStatus : connectivityStatus;
+  const status = getSchoolStatus({
+    mapType,
+    connectivity,
+    connectivityStatus,
+    coverageType,
+    coverageAvailability,
+    hasConnectivityStatus,
+    hasCoverageType,
+  });
 
   return (
     <div
       ref={onChangeRef}
-      className={clsx('school-popup', getPopupClassName(mapType, schoolStatus))}
+      className="school-popup"
+      style={{
+        borderTop: `0.9rem solid ${paintData.schoolConnectivity[status]}`,
+      }}
       data-id={id}
     >
       <div className="school-popup__content">

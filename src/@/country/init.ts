@@ -39,9 +39,15 @@ import {
   $country,
   $countryCode,
   $countryDailyStats,
+  $countryHasConnectivity,
+  $countryHasCoverage,
   $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
+  $hasConnectivity,
+  $hasConnectivityStatus,
+  $hasCoverageAvailability,
+  $hasCoverageType,
   $school,
   $schoolDailyStats,
   $schoolId,
@@ -58,7 +64,24 @@ $countriesGeometry.on(fetchCountriesGeometryFx.doneData, setPayload);
 $schoolsGlobal.on(fetchSchoolsGlobal.doneData, setPayload);
 $country.on(fetchCountryFx.doneData, setPayload);
 $countryId.on(changeCountryId, setPayload);
-$schools.on(fetchSchoolsFx.doneData, setPayload);
+$schools.on(fetchSchoolsFx.doneData, (_, payload) => payload.geojson);
+$hasConnectivityStatus.on(
+  fetchSchoolsFx.doneData,
+  (_, payload) => payload.hasConnectivityStatus
+);
+$hasConnectivity.on(
+  fetchSchoolsFx.doneData,
+  (_, payload) => payload.hasConnectivity
+);
+$hasCoverageType.on(
+  fetchSchoolsFx.doneData,
+  (_, payload) => payload.hasCoverageType
+);
+$hasCoverageAvailability.on(
+  fetchSchoolsFx.doneData,
+  (_, payload) => payload.hasCoverageAvailability
+);
+
 $school.on(fetchSchoolFx.doneData, setPayload);
 $schoolId.on(changeSchoolId, setPayload);
 $countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
@@ -68,6 +91,31 @@ $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+
+sample({
+  source: combine([$hasConnectivityStatus, $hasConnectivity]),
+  fn: ([hasConnectivityStatus, hasConnectivity]) =>
+    Boolean(hasConnectivityStatus || hasConnectivity),
+  target: $countryHasConnectivity,
+});
+
+sample({
+  source: combine([$hasCoverageType, $hasCoverageAvailability]),
+  fn: ([hasCoverageType, hasCoverageAvailability]) =>
+    Boolean(hasCoverageType || hasCoverageAvailability),
+  target: $countryHasCoverage,
+});
+
+sample({
+  source: combine([$countryHasConnectivity, $countryHasCoverage]),
+  fn: ([countryHasConnectivity, countryHasCoverage]) => {
+    if (!countryHasConnectivity && countryHasCoverage) {
+      return 'coverage';
+    }
+    return 'connectivity';
+  },
+  target: $mapType,
+});
 
 const onClosePopup = guard($isOpenPopup, { filter: getInverted });
 $schoolId.reset(onClosePopup);
@@ -105,6 +153,8 @@ const $mapContext = combine({
   schoolId: $schoolId,
   zoomedCountryId: $zoomedCountryId,
   isMobile: $isMobile,
+  hasConnectivityStatus: $hasConnectivityStatus,
+  hasCoverageType: $hasCoverageType,
 });
 
 // Fetch country data and schools data
@@ -211,10 +261,20 @@ sample({
 sample({
   source: $mapContext,
   clock: merge([schoolsReceived, $map]),
-  fn: ({ map, schools, mapType }) => ({
+  fn: ({
     map,
     schools,
     mapType,
+    hasConnectivityStatus,
+    hasCoverageType,
+    paintData,
+  }) => ({
+    map,
+    schools,
+    mapType,
+    hasConnectivityStatus,
+    hasCoverageType,
+    paintData,
   }),
   target: updateSchoolsFx,
 });
@@ -326,14 +386,19 @@ sample({
 
 // Change map type
 sample({
-  source: $map,
+  source: $mapContext,
   clock: changeMapType,
-  fn: (map, mapType) => ({ map, mapType }),
+  fn: (
+    { map, hasConnectivityStatus, hasCoverageType, paintData },
+    mapType
+  ) => ({
+    map,
+    mapType,
+    hasConnectivityStatus,
+    hasCoverageType,
+    paintData,
+  }),
   target: updateSchoolsColorsFx,
 });
 
-sample({
-  source: combine([fetchCountryFx.pending, fetchCountryWeeklyStatsFx.pending]),
-  fn: (states) => states.some(Boolean),
-  target: $countryInfoPending,
-});
+$countryInfoPending.on(fetchCountryWeeklyStatsFx.pending, setPayload);
