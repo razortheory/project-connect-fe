@@ -33,6 +33,7 @@ import {
   $isMapTab,
   $isNextWeekAvailable,
   $isPreviousWeekAvailable,
+  $isSearchFocused,
   $isThisWeek,
   $noSearchCountryFound,
   $searchActive,
@@ -227,12 +228,16 @@ export const CountryInfo = () => {
   const country = useStore($country);
   const countryName = country?.name ?? '';
   const searchActive = useStore($searchActive);
+  const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
+
+  const showSearchResults =
+    searchActive && isSearchFocused && !noSearchCountryFound;
 
   return (
     <>
       <Search />
-      {searchActive && !noSearchCountryFound && <SearchResults />}
+      {showSearchResults && <SearchResults />}
 
       {useStore($showBreadcrumbs) && (
         <div className="breadcrumbs">

@@ -29,6 +29,10 @@ export const CountryListItem = ({ country }: { country: CountryBasic }) => {
         className="list__link"
         to={mapCountry}
         params={{ code: country.code.toLowerCase() }}
+        // Handle click event before blur
+        onMouseDown={() =>
+          mapCountry.navigate({ code: country.code.toLowerCase() })
+        }
       >
         {country.name}
       </Link>

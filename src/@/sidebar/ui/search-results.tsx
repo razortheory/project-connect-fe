@@ -17,7 +17,12 @@ export const SearchResults = () => {
       {useStore($noSearchResults) ? (
         <div className="not-found">
           <span>Not found</span>
-          <Link to={mapCountries} className="not-found-link">
+          <Link
+            to={mapCountries}
+            className="not-found-link"
+            // Handle click event before blur
+            onMouseDown={() => mapCountries.navigate()}
+          >
             View country list
           </Link>
         </div>
