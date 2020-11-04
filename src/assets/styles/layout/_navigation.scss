@@ -12,9 +12,16 @@
   }
 }
 
+.menu__link-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.7rem;
+}
+
 .menu__link {
   width: 100%;
-  padding: 1rem 2.5rem;
+  padding: 0.3rem 1.8rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 1.2rem;
@@ -25,18 +32,18 @@
   transition: background-color 0.3s ease-in-out;
 
   @include media-breakpoint-down(md) {
-    padding-top: 1.8rem;
-    padding-bottom: 1.8rem;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
   }
 
   @include media-breakpoint-only(lg) {
-    padding-right: 1.1rem;
-    padding-left: 1.1rem;
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
   }
 
   @include media-breakpoint-up(xl) {
-    padding-top: 1.4rem;
-    padding-bottom: 1.4rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
   }
 
   &,
@@ -47,13 +54,19 @@
     cursor: pointer;
   }
 
-  &:hover {
-    background-color: $color-primary;
-  }
-
-  &:active,
   &--active {
     background-color: #0068ea;
+  }
+
+  &:not(&--active):hover {
+    .menu__link-inner {
+      background-color: #232832;
+    }
+  }
+  &:not(&--active):active {
+    .menu__link-inner {
+      background-color: #000;
+    }
   }
 }
 
@@ -74,7 +87,7 @@
     flex-direction: column;
     width: 100%;
   }
-
+  // stylelint-disable-next-line no-descending-specificity
   .menu__link {
     display: inline-flex;
     align-items: center;
@@ -95,9 +108,6 @@
 
   &--expanded,
   &--desktop-view:hover {
-    > .menu__link {
-      background-color: $color-primary;
-    }
 
     > .menu {
       display: flex;
