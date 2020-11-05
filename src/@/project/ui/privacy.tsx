@@ -30,7 +30,7 @@ export const Privacy = () => {
                 Project Connect’s mission to map the location and internet
                 access of every school in the world is undeniably ambitious.
                 There is no single approach that will allow us to achieve it.
-                Our approach is to combine a variety of methods to build full,
+                Our strategy is to combine a variety of methods to build full,
                 live maps that have never existed before.
               </h3>
               <ul className="mapping__list mapping-list">
@@ -66,10 +66,10 @@ export const Privacy = () => {
                       to partner with both government and the private sector to
                       develop a better map than either have individually. We
                       partner with Ministries of Education and Ministries of
-                      ICT, as well as mobile network operators, internet service
-                      providers, and other tech companies to develop an open
-                      source dataset for schools and telecommunications
-                      infrastructure.
+                      Information and Communications Technology, as well as
+                      mobile network operators, internet service providers, and
+                      other tech companies, to develop an open source dataset
+                      for schools and telecommunications infrastructure.
                     </p>
                   </div>
                 </li>
@@ -141,7 +141,8 @@ export const Privacy = () => {
                 online map of every school in the world, including real-time
                 data about the quality of each school’s connectivity. The goal
                 of this is to provide open information that can improve
-                educational outcomes for all children.
+                educational outcomes for all children. As part of this mission,
+                Project Connect is centered around three core principles:
               </h3>
               <ul className="mapping__list mapping-list">
                 <li className="mapping-list__item">
@@ -153,14 +154,15 @@ export const Privacy = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      School location data everywhere should be public
+                      Public data gathered with public money creates public
+                      goods
                     </h4>
                     <p className="mapping-list__text">
-                      The ability to know where education and other foundational
-                      resources can is found is a public good. In most places
-                      where data exists, school locations are already shared
-                      publicly on sites like Google Maps, 2GIS, and
-                      OpenStreetMaps.
+                      Digital cooperation is a key enabler of Project Connect’s
+                      mission and is reflected in the priorities of many
+                      organizations, including the recommendations of the
+                      Secretary General’s High-Level Panel on Digital
+                      Cooperation.
                     </p>
                   </div>
                 </li>
@@ -174,14 +176,15 @@ export const Privacy = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Public data gathered with public money creates public
-                      goods
+                      School location data is a public good that should be
+                      shared
                     </h4>
                     <p className="mapping-list__text">
-                      Digital cooperation is a key enabler of Project Connect’s
-                      mission. It is reflected in the priorities of many
-                      organizations and recommended by the Secretary General’s
-                      High-Level Panel on Digital Cooperation.
+                      The ability to know where education and other foundational
+                      resources can be found is a public good, similar to any
+                      health center or government building. In most places where
+                      data exists, school locations are already shared publicly
+                      on sites like Google Maps, 2GIS, and OpenStreetMaps.
                     </p>
                   </div>
                 </li>
@@ -197,11 +200,13 @@ export const Privacy = () => {
                       Child protection should always be prioritized
                     </h4>
                     <p className="mapping-list__text">
-                      To reduce risk, we do not make any school data other than
-                      the location public. Project Connect adheres to UNICEF’s
-                      Child Data Protection policies, and is prepared to conduct
-                      risk assessments to evaluate whether data sharing in a
-                      country, or region of a country, is of particular concern.
+                      Project Connect adheres to UNICEF’s Child Data Protection
+                      Policies and follows the Principles of Responsible Data
+                      for Children. Our maps aim to provide information that can
+                      have a positive impact without putting children at risk.
+                      For more information on our child protection policies,
+                      please contact us to request our full Data Sharing and
+                      Privacy Framework.
                     </p>
                   </div>
                 </li>

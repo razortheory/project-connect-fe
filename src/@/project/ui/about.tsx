@@ -41,10 +41,34 @@ const AboutContent = () => {
         <div className="container" id="introduction">
           <div className="page-heading">
             <h2 className="page-heading__title">
-              Countries have been listed below with real-time updates on their
-              progress with school mapping. The key metric that is used to
-              evaluate project progress is the stage of mapping and the
-              percentage of schools mapped.
+              Project Connect aims to create a global, live map of schools and
+              their connection to the internet. It is the data foundation for
+              Giga, a UNICEF and ITU initiative to connect every school, and
+              every young person to information, opportunity, and choice.
+              <br />
+              <br />
+              <i>How many schools are in the world?</i>
+              <br />
+              <br />
+              <i>Where are they?</i>
+              <br />
+              <br />
+              <i>How many of them are connected to the Internet?</i>
+              <br />
+              <br />
+              Nobody has the answer to these foundational questions, at least
+              not yet. In an increasingly digital world, lack of access to
+              education and internet translates to exclusion, fewer resources to
+              learn and grow, and limited opportunities for the most vulnerable
+              children and youth. But without answers to these questions, we
+              can’t change that.
+              <br />
+              In response, UNICEF is mapping the location and real-time internet
+              connection of every school in the world. This map, hosted on an
+              open data platform, is helping governments and partners eliminate
+              the digital divide globally. To date, 800,000 schools in more than
+              30 countries have been mapped, and the number continues to grow at
+              an accelerated pace.
             </h2>
             <div className="page-heading__media">
               <div className="page-heading__image-wrapper">
@@ -95,10 +119,10 @@ const AboutContent = () => {
                   <div className="slider__info-wrapper">
                     <div className="slider__title">Colombia</div>
                     <p className="slider__text">
-                      We applied artificial intelligence techniques to
-                      automatically map schools from satellite imagery and
-                      provide the government the location of 7,000 schools that
-                      were not part of their official datasets.
+                      Project Connect applied artificial intelligence techniques
+                      to automatically map schools from satellite imagery and
+                      provide the government with the locations of 7,000 schools
+                      that were not part of their official datasets.
                     </p>
                   </div>
                 </div>
@@ -147,27 +171,6 @@ const AboutContent = () => {
               </div>
             </div>
             <div className="mapping__info">
-              <h3 className="mapping__title">
-                How many schools are in the world? Where are they? How many of
-                them are connected to the Internet?{' '}
-              </h3>
-              <p className="mapping__text">
-                Nobody has the answer to these foundational questions, at least
-                not yet. In an increasingly digital world, lack of access to
-                education and internet translates to exclusion, fewer resources
-                to learn and grow, and limited opportunities for the most
-                vulnerable children and youth. But without answers to these
-                questions, we can’t change that.
-              </p>
-              <h3 className="mapping__title">In response</h3>
-              <p className="mapping__text">
-                UNICEF is mapping the location and real-time internet connection
-                of every school in the world. This map, hosted on an open data
-                platform, is helping governments and partners eliminate the
-                digital divide globally. To date, 800,000 schools in 25
-                countries have been mapped and the number continues to grow at
-                an accelerated pace.
-              </p>
               <ul className="mapping__list mapping-list">
                 <li className="mapping-list__item">
                   <div className="mapping-list__icon-wrapper">
@@ -178,13 +181,14 @@ const AboutContent = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Accountability and efficiency
+                      Shows where resources are needed
                     </h4>
                     <p className="mapping-list__text">
-                      Several national governments and NGOs are committed to
-                      connecting schools to the Internet, but don’t yet have the
-                      ability to monitor whether schools are connected and
-                      where.
+                      Many governments do not know where all the schools in
+                      their countries are. Without that information, they – and
+                      other nongovernmental organizations – cannot effectively
+                      provide services or deliver resources to children and
+                      their communities.
                     </p>
                   </div>
                 </li>
@@ -196,12 +200,14 @@ const AboutContent = () => {
                     />
                   </div>
                   <div className="mapping-list__info-wrapper">
-                    <h4 className="mapping-list__title">Data equity</h4>
+                    <h4 className="mapping-list__title">
+                      Know where there is internet and if it is reliable
+                    </h4>
                     <p className="mapping-list__text">
-                      It has been proven that availability and quality of data
-                      is considerably higher for wealthier regions. This data
-                      inequity leads to disparities in resource allocation,
-                      where vulnerable populations are left behind.
+                      Many governments and organizations are committed to
+                      connecting schools to the internet, but don’t yet have the
+                      ability to monitor whether schools are actually connected
+                      and where.
                     </p>
                   </div>
                 </li>
@@ -213,12 +219,14 @@ const AboutContent = () => {
                     />
                   </div>
                   <div className="mapping-list__info-wrapper">
-                    <h4 className="mapping-list__title">Better market data</h4>
+                    <h4 className="mapping-list__title">
+                      Improves access to data for good
+                    </h4>
                     <p className="mapping-list__text">
-                      Because internet service providers aren’t able to measure
-                      the size of potential new customers, they struggle to make
-                      a case for bringing infrastructure to remote areas. This
-                      results in limited investment and increased prices.
+                      It has been proven that availability and quality of data
+                      is considerably higher for wealthier regions. This data
+                      inequity leads to disparities in resource allocation,
+                      where vulnerable populations are left behind.
                     </p>
                   </div>
                 </li>
@@ -231,13 +239,12 @@ const AboutContent = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Better information for government planning
+                      Highlights gaps in infrastructure
                     </h4>
                     <p className="mapping-list__text">
-                      Many national governments do not know where all the
-                      schools in their countries are. Without that information,
-                      they cannot adequately provide services or deliver
-                      resources.
+                      Without knowing where connectivity needs to be extended,
+                      governments and investors don’t know how much it will
+                      cost, making it more difficult and riskier to finance.
                     </p>
                   </div>
                 </li>
@@ -250,12 +257,13 @@ const AboutContent = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Smarter infrastructure investment
+                      Captures market demand
                     </h4>
                     <p className="mapping-list__text">
-                      Without knowing where connectivity needs to be extended,
-                      governments and investors don’t know how much it will
-                      cost, making it more difficult and riskier to finance.
+                      Because internet service providers aren’t able to measure
+                      the size of potential new customers, they struggle to make
+                      a case for bringing infrastructure to remote areas. This
+                      results in limited investment and increased prices.
                     </p>
                   </div>
                 </li>
@@ -278,6 +286,24 @@ const AboutContent = () => {
                 organization, an NGO, a tech company, a network provider, a
                 research institution or any other entity that supports schools,
                 we want to work with you.
+                <br />
+                <br />
+                Project Connect is grateful to its partners for supporting and
+                continuing to support our school mapping work. If you are
+                interested in contributing to this mission and joining us as a
+                partner, please reach out to XYZ@ProCo.com.
+                <br />
+                <br />
+                Key Financing Partners: Ericsson, arm
+                <br />
+                Donors: Facebook
+                <br />
+                Technical Support & Data Partners: Actual, NIC.br, Liquid
+                Telecom, Measurement Labs, GSMA, Maxar
+                <br />
+                Advisory Partners: Softbank
+                <br />
+                Implementers: Development Seed, HOT
               </h3>
               <Link
                 to={joinUs}
