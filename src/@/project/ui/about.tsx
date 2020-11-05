@@ -292,18 +292,6 @@ const AboutContent = () => {
                 continuing to support our school mapping work. If you are
                 interested in contributing to this mission and joining us as a
                 partner, please reach out to XYZ@ProCo.com.
-                <br />
-                <br />
-                Key Financing Partners: Ericsson, arm
-                <br />
-                Donors: Facebook
-                <br />
-                Technical Support & Data Partners: Actual, NIC.br, Liquid
-                Telecom, Measurement Labs, GSMA, Maxar
-                <br />
-                Advisory Partners: Softbank
-                <br />
-                Implementers: Development Seed, HOT
               </h3>
               <Link
                 to={joinUs}
