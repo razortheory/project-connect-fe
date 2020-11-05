@@ -354,6 +354,14 @@ sample({
   target: addCountriesFx,
 });
 
+// Close an opened school popup on click by another school
+sample({
+  source: guard($schoolId, { filter: Boolean }),
+  clock: clickSchool,
+  fn: () => false,
+  target: $isOpenPopup,
+});
+
 // Add school popup
 sample({
   source: $mapContext,
