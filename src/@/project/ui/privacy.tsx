@@ -13,8 +13,8 @@ export const onPrivacyRef = createEvent<HTMLDivElement | null>();
 export const Privacy = () => {
   return (
     <div ref={onPrivacyRef}>
-      <section className="section mapping">
-        <div className="container" id="methods">
+      <section className="section mapping" id="methods">
+        <div className="container">
           <div className="mapping__row">
             <div className="mapping__media">
               <div className="mapping__image-wrapper">
@@ -120,9 +120,9 @@ export const Privacy = () => {
           </div>
         </div>
       </section>
-      <section className="section mapping">
+      <section className="section mapping" id="data-sharing">
         <div className="container">
-          <a href="#data-sharing" id="data-sharing">
+          <a href="#data-sharing">
             <h2 className="section__title">Data Sharing & Privacy</h2>
           </a>
           <div className="mapping__row mapping__row--inverted">

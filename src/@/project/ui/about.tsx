@@ -26,6 +26,7 @@ import { humanFormat } from '~/lib/human-format';
 import { Link } from '~/lib/router';
 
 import { $isLoading } from '@/dashboard/model';
+import { defaultGlobalStats } from '@/map/constants';
 import { $globalStats } from '@/map/model';
 
 export const onAboutRef = createEvent<HTMLDivElement | null>();
@@ -37,8 +38,8 @@ const AboutContent = () => {
 
   return (
     <div ref={onAboutRef}>
-      <section className="section">
-        <div className="container" id="introduction">
+      <section className="section" id="introduction">
+        <div className="container">
           <div className="page-heading">
             <h2 className="page-heading__title">
               Countries have been listed below with real-time updates on their
@@ -76,9 +77,9 @@ const AboutContent = () => {
           </div>
         </div>
       </section>
-      <section className="section case-studies">
+      <section className="section case-studies" id="case-studies">
         <div className="container">
-          <a href="#case-studies" id="case-studies">
+          <a href="#case-studies">
             <h2 className="section__title">Case studies</h2>
           </a>
           <div className="case-studies__row">
@@ -131,9 +132,9 @@ const AboutContent = () => {
           </div>
         </div>
       </section>
-      <section className="section mapping">
+      <section className="section mapping" id="why-mapping">
         <div className="container">
-          <a href="#why-mapping" id="why-mapping">
+          <a href="#why-mapping">
             <h2 className="section__title">Why mapping</h2>
           </a>
           <div className="mapping__row">
@@ -264,9 +265,9 @@ const AboutContent = () => {
           </div>
         </div>
       </section>
-      <section className="section mapping">
+      <section className="section mapping" id="our-partners">
         <div className="container">
-          <a href="#our-partners" id="our-partners">
+          <a href="#our-partners">
             <h2 className="section__title">Our partners</h2>
           </a>
           <div className="partners__row">
@@ -334,7 +335,7 @@ const AboutContent = () => {
 
 export const About = () => {
   const globalStats = useStore($globalStats);
-  const noData = globalStats === null;
+  const noData = globalStats === defaultGlobalStats;
 
   return useStore($isLoading) || noData ? (
     <section className="section">
