@@ -142,7 +142,12 @@ export const Footer = () => {
         height="17"
         alt="Unicef logo"
       />
-      <Giga className="footer__logo" width="56" height="26" alt="Giga logo" />
+      <Giga
+        className="footer__logo giga__logo"
+        width="56"
+        height="26"
+        alt="Giga logo"
+      />
       {isCountryView ? <LegendForSchools /> : <LegendForCountries />}
       <StyleControl />
       <ZoomControl />
