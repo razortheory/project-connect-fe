@@ -73,7 +73,9 @@ export const CountryList = () => {
                   </div>
 
                   <div className="country__link">
-                    <Chevron alt="View in map" />
+]                    <div className="country__link-inner">
+                      <Chevron alt="View in map" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -153,7 +155,9 @@ export const CountryList = () => {
                   to={mapCountry}
                   params={{ code }}
                 >
-                  <Chevron alt="View in map" />
+                  <div className="country__link-inner">
+                    <Chevron alt="View in map" />
+                  </div>
                 </Link>
               </div>
             </div>

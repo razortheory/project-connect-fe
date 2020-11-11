@@ -154,7 +154,7 @@ export const HistoryModal = () => {
               </div>
               <button
                 onClick={() => closeHistoryModal()}
-                className="search-bar__close"
+                className="search-bar__close history-modal__close link"
                 type="button"
               >
                 <span className="visually-hidden">Close modal</span>

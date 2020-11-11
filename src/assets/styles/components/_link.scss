@@ -17,13 +17,12 @@
     margin-left: -0.5rem;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: #494f5d;
   }
 
   &:active {
-    background-color: #494f5d;
+    background-color: #141923;
   }
 
   @if $has-icon {
