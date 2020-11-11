@@ -1,7 +1,6 @@
 import { createEffect } from 'effector';
 
 import { UpdateCountry } from '@/country/types';
-import { getDefaultCountryOpacity } from '@/map/constants';
 
 export const updateCountryFx = createEffect(
   ({ map, paintData, country }: UpdateCountry) => {
@@ -27,23 +26,17 @@ export const updateCountryFx = createEffect(
           'fill-outline-color': paintData.background,
         },
       },
-
       // Country layer always below schools layer
       map.getLayer('schools') ? 'schools' : ''
     );
     if (map.getLayer('countries')) {
-      map.setPaintProperty('countries', 'fill-opacity', [
-        'case',
-        ['==', ['id'], country.id],
-        0,
-        getDefaultCountryOpacity(paintData),
-      ]);
-      map.setPaintProperty('countries', 'fill-outline-color', [
-        'case',
-        ['==', ['id'], country.id],
-        paintData.countryNotSelected,
-        paintData.background,
-      ]);
+      map.removeLayer('countries');
+    }
+    if (map.getLayer('boundaries')) {
+      map.removeLayer('boundaries');
+    }
+    if (map.getLayer('schoolsGlobal')) {
+      map.removeLayer('schoolsGlobal');
     }
   }
 );

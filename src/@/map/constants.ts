@@ -123,6 +123,22 @@ export const getDefaultCountryColor = (
   paintData.countryNotVerified,
 ];
 
+export const getGlobalSchoolsColor = (
+  paintData: StylePaintData
+): Expression => [
+  'match',
+  ['get', 'country_integration_status'],
+  0,
+  paintData.schoolsNotVerified,
+  1,
+  paintData.schoolsVerified,
+  2,
+  paintData.schoolsWithConnectivity,
+  3,
+  paintData.schoolsWithConnectivity,
+  paintData.schoolsNotVerified,
+];
+
 export const statusPaintField: {
   [key in IntegrationStatus]: keyof StylePaintData;
 } = {

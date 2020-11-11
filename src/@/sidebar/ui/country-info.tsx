@@ -227,8 +227,6 @@ const $showBreadcrumbs = combine(
 
 export const CountryInfo = () => {
   const mapType = useStore($mapType);
-  const country = useStore($country);
-  const countryName = country?.name ?? '';
   const searchActive = useStore($searchActive);
   const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
@@ -256,10 +254,8 @@ export const CountryInfo = () => {
             className="breadcrumbs__link"
             onClick={() => selectMapTab()}
           >
-            Global view
+            ← change country
           </Link>
-          {' > '}
-          <span>{countryName}</span>
         </div>
       )}
 
