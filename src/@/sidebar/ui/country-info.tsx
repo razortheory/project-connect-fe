@@ -35,6 +35,7 @@ import {
   $isMapTab,
   $isNextWeekAvailable,
   $isPreviousWeekAvailable,
+  $isSearchFocused,
   $isThisWeek,
   $noSearchCountryFound,
   $searchActive,
@@ -229,6 +230,7 @@ export const CountryInfo = () => {
   const country = useStore($country);
   const countryName = country?.name ?? '';
   const searchActive = useStore($searchActive);
+  const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const showBreadcrumbs = useStore($showBreadcrumbs);
   const isMapTab = useStore($isMapTab);
@@ -237,12 +239,15 @@ export const CountryInfo = () => {
   const countryHasConnectivity = useStore($countryHasConnectivity);
   const countryHasCoverage = useStore($countryHasCoverage);
 
+  const showSearchResults =
+    searchActive && isSearchFocused && !noSearchCountryFound;
+
   return useStore($pending) ? (
     <ProgressBar />
   ) : (
     <>
       <Search />
-      {searchActive && !noSearchCountryFound && <SearchResults />}
+      {showSearchResults && <SearchResults />}
 
       {showBreadcrumbs && (
         <div className="breadcrumbs">

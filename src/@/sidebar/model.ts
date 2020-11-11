@@ -21,6 +21,7 @@ export const onSearchPressEnter = createEvent<
   KeyboardEvent<HTMLInputElement>
 >();
 export const changeSortKey = createEvent<SortKey>();
+export const changeIsSearchFocused = createEvent<boolean>();
 
 export const blurInputFx = createEffect<
   KeyboardEvent<HTMLInputElement>,
@@ -31,6 +32,7 @@ export const $isSidebarCollapsed = createStore(false);
 export const $countriesList = createStore<CountryBasic[]>([]);
 export const $countriesPending = fetchCountriesFx.pending;
 export const $searchText = createStore('');
+export const $isSearchFocused = createStore(false);
 export const $searchActive = createStore(false);
 export const $noSearchResults = createStore(false);
 export const $noSearchCountryFound = createStore(false);

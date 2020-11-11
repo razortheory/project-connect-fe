@@ -10,12 +10,7 @@ import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
-import {
-  $countries,
-  $country,
-  $countryId,
-  changeCountryId,
-} from '@/country/model';
+import { $countries, $country, changeCountryId } from '@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -29,6 +24,7 @@ import {
   $isMapTab,
   $isNextWeekAvailable,
   $isPreviousWeekAvailable,
+  $isSearchFocused,
   $isSidebarCollapsed,
   $isThisWeek,
   $noSearchCountryFound,
@@ -42,6 +38,7 @@ import {
   changeControlsMapStyle,
   changeControlsMapType,
   changeControlsSortKey,
+  changeIsSearchFocused,
   changeSearchText,
   changeSortKey,
   clearSearchText,
@@ -65,6 +62,8 @@ $searchText.on(changeSearchText, setPayload);
 $searchText.reset(clearSearchText);
 $isSidebarCollapsed.on(toggleSidebar, getInverted);
 $sortKey.on(changeSortKey, setPayload);
+$isSearchFocused.on(changeIsSearchFocused, setPayload);
+$isSearchFocused.reset(changeCountryId);
 
 guard({
   source: onClickSidebar,
@@ -84,6 +83,16 @@ const $sortedCountries = combine(
     ];
   }
 );
+
+sample({
+  source: guard($countries, { filter: Boolean }),
+  clock: changeCountryId,
+  fn: (countries, countryId) => {
+    if (!countryId) return '';
+    return countries.find((country) => country.id === countryId)?.name ?? '';
+  },
+  target: changeSearchText,
+});
 
 sample({
   source: combine([$sortedCountries, $searchText]),
@@ -129,11 +138,6 @@ sample({
   fn: ([countryList]) =>
     countryList?.length ? { code: countryList[0].code } : undefined,
   target: mapCountry.navigate,
-});
-
-sample({
-  source: $countryId,
-  target: clearSearchText,
 });
 
 sample({

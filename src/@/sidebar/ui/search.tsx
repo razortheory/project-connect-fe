@@ -8,6 +8,7 @@ import { getInputValue } from '~/lib/event-reducers';
 import {
   $searchActive,
   $searchText,
+  changeIsSearchFocused,
   changeSearchText,
   clearSearchText,
   onSearchPressKey,
@@ -27,6 +28,8 @@ export const Search = () => (
       placeholder="Search for a country"
       onKeyPress={onSearchPressKey}
       onChange={onChange}
+      onFocus={() => changeIsSearchFocused(true)}
+      onBlur={() => changeIsSearchFocused(false)}
       value={useStore($searchText)}
     />
     {useStore($searchActive) && (
