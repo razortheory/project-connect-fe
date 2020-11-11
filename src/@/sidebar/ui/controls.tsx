@@ -5,6 +5,7 @@ import { mapCountries } from '~/core/routes';
 import { inputValue } from '~/lib/event-reducers';
 import { useRoute } from '~/lib/router';
 
+import { $countryHasConnectivity, $countryHasCoverage } from '@/country/model';
 import { MapType, Style } from '@/map/types';
 import {
   $controlsMapStyle,
@@ -28,39 +29,48 @@ export const Controls = () => {
   const mapType = useStore($controlsMapType);
   const mapStyle = useStore($controlsMapStyle);
   const sortKey = useStore($controlsSortKey);
+  const countryHasConnectivity = useStore($countryHasConnectivity);
+  const countryHasCoverage = useStore($countryHasCoverage);
 
   return (
     <form className="sidebar__form form" action="/">
-      <h3 className="sidebar__secondary-title">Map</h3>
-      <div className="radio-group">
-        <label className="radio-group__item radio" htmlFor="connectivity-map">
-          <input
-            className="radio__input"
-            id="connectivity-map"
-            type="radio"
-            name="map-type"
-            value="connectivity"
-            checked={mapType === 'connectivity'}
-            onChange={onChangeMapType}
-          />
-          <span className="radio__label">Connectivity map</span>
-          <div className="radio__marker" />
-        </label>
-        <label className="radio-group__item radio" htmlFor="coverage-map">
-          <input
-            className="radio__input"
-            id="coverage-map"
-            type="radio"
-            name="map-type"
-            value="coverage"
-            checked={mapType === 'coverage'}
-            onChange={onChangeMapType}
-          />
-          <span className="radio__label">Coverage map</span>
-          <div className="radio__marker" />
-        </label>
-      </div>
-      <hr className="sidebar__divider" />
+      {countryHasConnectivity && countryHasCoverage && (
+        <>
+          <h3 className="sidebar__secondary-title">Map</h3>
+          <div className="radio-group">
+            <label
+              className="radio-group__item radio"
+              htmlFor="connectivity-map"
+            >
+              <input
+                className="radio__input"
+                id="connectivity-map"
+                type="radio"
+                name="map-type"
+                value="connectivity"
+                checked={mapType === 'connectivity'}
+                onChange={onChangeMapType}
+              />
+              <span className="radio__label">Connectivity map</span>
+              <div className="radio__marker" />
+            </label>
+            <label className="radio-group__item radio" htmlFor="coverage-map">
+              <input
+                className="radio__input"
+                id="coverage-map"
+                type="radio"
+                name="map-type"
+                value="coverage"
+                checked={mapType === 'coverage'}
+                onChange={onChangeMapType}
+              />
+              <span className="radio__label">Coverage map</span>
+              <div className="radio__marker" />
+            </label>
+          </div>
+          <hr className="sidebar__divider" />
+        </>
+      )}
       <h3 className="sidebar__secondary-title">Map styles</h3>
       <div className="radio-group">
         <label className="radio-group__item radio" htmlFor="map-style-dark">

@@ -5,8 +5,8 @@ import { FeatureCollection } from 'geojson';
 import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
-import { getSchoolsGeoJson } from '@/country/lib';
 import { getGlobalSchoolsGeoJson } from '@/country/lib/get-global-schools-geo-json';
+import { getSchoolsData, SchoolsData } from '@/country/lib/get-schools-data';
 
 import {
   Country,
@@ -38,13 +38,10 @@ export const fetchCountryFx = createRequestFx(
 );
 
 export const fetchSchoolsFx = createRequestFx(
-  async (
-    countryId: number,
-    controller?: Controller
-  ): Promise<FeatureCollection> =>
+  async (countryId: number, controller?: Controller): Promise<SchoolsData> =>
     request({
       url: `api/locations/countries/${countryId}/schools/`,
-      fn: ({ jsonData }) => getSchoolsGeoJson(jsonData as SchoolBasic[]),
+      fn: ({ jsonData }) => getSchoolsData(jsonData as SchoolBasic[]),
       signal: controller?.getSignal(),
     })
 );

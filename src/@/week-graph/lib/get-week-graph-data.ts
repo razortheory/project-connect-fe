@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import { DailyStats, WeekDay } from '~/api/types';
+import { ConnectivityStatus, DailyStats, WeekDay } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
 import {
@@ -30,14 +30,14 @@ export const getPercent = (
   return `${((speed / maxSpeed) * 100).toFixed(2)}%`;
 };
 
-export const getFillColor = (speed: number): string => {
+export const getStatus = (speed: number): ConnectivityStatus => {
   if (speed >= MED_SPEED_MAX) {
-    return '#8bd432';
+    return 'good';
   }
   if (speed >= LOW_SPEED_MAX) {
-    return '#ffc93d';
+    return 'moderate';
   }
-  return '#ff615b';
+  return 'no';
 };
 
 // TODO: Refactor getWeekGraphData
@@ -56,7 +56,7 @@ export const getWeekGraphData = (
       speed: formatConnectionSpeed(dayStats.connectivity_speed),
       latency: dayStats.connectivity_latency,
       speedPercent: getPercent(dayStats.connectivity_speed),
-      fillColor: getFillColor(dayStats.connectivity_speed),
+      status: getStatus(dayStats.connectivity_speed),
     };
     return result;
     // eslint-disable-next-line @typescript-eslint/prefer-reduce-type-parameter

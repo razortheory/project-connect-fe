@@ -19,6 +19,10 @@
   @include media-breakpoint-up(xl) {
     display: inline-flex;
   }
+
+  &.giga__logo {
+    margin-bottom: 3px;
+  }
 }
 
 .footer__map-legend {

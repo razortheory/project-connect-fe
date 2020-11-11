@@ -19,11 +19,13 @@ import { Dropdown, ProgressBar } from '~/ui';
 import {
   $country,
   $countryDailyStats,
+  $countryHasConnectivity,
+  $countryHasCoverage,
   $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
 } from '@/country/model';
-import { $mapType, changeMapType } from '@/map/model';
+import { $mapType, $pending, changeMapType } from '@/map/model';
 import { MapType } from '@/map/types';
 import { $isOpenPopup } from '@/popup/model';
 import { Scroll } from '@/scroll';
@@ -230,16 +232,24 @@ export const CountryInfo = () => {
   const searchActive = useStore($searchActive);
   const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
+  const showBreadcrumbs = useStore($showBreadcrumbs);
+  const isMapTab = useStore($isMapTab);
+  const isContentTab = useStore($isContentTab);
+  const isControlsTab = useStore($isControlsTab);
+  const countryHasConnectivity = useStore($countryHasConnectivity);
+  const countryHasCoverage = useStore($countryHasCoverage);
 
   const showSearchResults =
     searchActive && isSearchFocused && !noSearchCountryFound;
 
-  return (
+  return useStore($pending) ? (
+    <ProgressBar />
+  ) : (
     <>
       <Search />
       {showSearchResults && <SearchResults />}
 
-      {useStore($showBreadcrumbs) && (
+      {showBreadcrumbs && (
         <div className="breadcrumbs">
           <Link
             to={mapCountries}
@@ -253,26 +263,28 @@ export const CountryInfo = () => {
         </div>
       )}
 
-      <Dropdown<MapType>
-        items={[
-          { title: 'Connectivity map', value: 'connectivity' },
-          { title: 'Coverage map', value: 'coverage' },
-        ]}
-        value={mapType}
-        onChange={changeMapType}
-        wrapperClassName="select-wrapper"
-        selectClassName="select"
-      />
+      {countryHasConnectivity && countryHasCoverage && (
+        <Dropdown<MapType>
+          items={[
+            { title: 'Connectivity map', value: 'connectivity' },
+            { title: 'Coverage map', value: 'coverage' },
+          ]}
+          value={mapType}
+          onChange={changeMapType}
+          wrapperClassName="select-wrapper"
+          selectClassName="select"
+        />
+      )}
 
       <Tabs />
       <Scroll>
         <div
           className={clsx('sidebar__content', {
-            'sidebar__content--hidden': useStore($isMapTab),
+            'sidebar__content--hidden': isMapTab,
           })}
         >
-          {useStore($isContentTab) && <CountryInfoContent />}
-          {useStore($isControlsTab) && <Controls />}
+          {isContentTab && <CountryInfoContent />}
+          {isControlsTab && <Controls />}
         </div>
       </Scroll>
     </>
