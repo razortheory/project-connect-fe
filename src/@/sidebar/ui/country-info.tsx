@@ -81,7 +81,7 @@ const CountryInfoStatistics = () => {
   } = useStore($countryInfo) ?? {};
 
   if (countryInfoPending) {
-    return <ProgressBar pending />;
+    return <ProgressBar pending wide />;
   }
   if (!hasStatistics) {
     return <p>No data</p>;
@@ -242,8 +242,8 @@ export const CountryInfo = () => {
   const showSearchResults =
     searchActive && isSearchFocused && !noSearchCountryFound;
 
-  return useStore($pending) ? (
-    <ProgressBar />
+  return useStore($pending) || !country ? (
+    <ProgressBar wide />
   ) : (
     <>
       <Search />
