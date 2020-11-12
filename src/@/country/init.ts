@@ -21,7 +21,7 @@ import {
   removeCountryFx,
   removeSchoolsFx,
   updateCountryFx,
-  updateGlobalSchools,
+  updateGlobalSchoolsFx,
   updateSchoolsColorsFx,
   updateSchoolsFx,
   zoomToCountryFx,
@@ -157,6 +157,27 @@ const $mapContext = combine({
   hasCoverageType: $hasCoverageType,
 });
 
+// Routing
+const isEqualText = (a: string, b: string) =>
+  a.toLocaleLowerCase() === b.toLocaleLowerCase();
+
+sample({
+  source: combine([mapCountry.params, $map]),
+  fn: ([params]) => params?.code ?? null,
+  target: $countryCode,
+});
+
+sample({
+  source: $countries,
+  clock: $countryCode,
+  fn: (countries, code) => {
+    if (!countries || !code) return 0;
+    const country = countries.find((data) => isEqualText(data.code, code));
+    return country?.id ?? 0;
+  },
+  target: changeCountryId,
+});
+
 // Fetch country data and schools data
 forward({
   from: guard(changeCountryId, { filter: Boolean }),
@@ -250,12 +271,13 @@ const schoolsReceived = guard({
 sample({
   source: $mapContext,
   clock: combine([$schoolsGlobal, $map]),
-  fn: ({ paintData, map }, [schoolsGlobal]) => ({
+  fn: ({ paintData, map, countryId }, [schoolsGlobal]) => ({
     map,
     paintData,
     schoolsGlobal,
+    countryId,
   }),
-  target: updateGlobalSchools,
+  target: updateGlobalSchoolsFx,
 });
 
 sample({
@@ -291,27 +313,6 @@ sample({
   clock: changeCountryId,
   fn: (map) => map,
   target: removeSchoolsFx,
-});
-
-// Routing
-const isEqualText = (a: string, b: string) =>
-  a.toLocaleLowerCase() === b.toLocaleLowerCase();
-
-sample({
-  source: combine([mapCountry.params, $map]),
-  fn: ([params]) => params?.code ?? null,
-  target: $countryCode,
-});
-
-sample({
-  source: $countries,
-  clock: $countryCode,
-  fn: (countries, code) => {
-    if (!countries || !code) return 0;
-    const country = countries.find((data) => isEqualText(data.code, code));
-    return country?.id ?? 0;
-  },
-  target: changeCountryId,
 });
 
 // Leave country route

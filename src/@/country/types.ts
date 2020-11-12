@@ -24,6 +24,7 @@ export type UpdateGlobalSchools = {
   map: Map | null;
   paintData: StylePaintData;
   schoolsGlobal: FeatureCollection | null;
+  countryId: number;
 };
 
 export type UpdateSchoolsColors = {

@@ -5,6 +5,7 @@ import React from 'react';
 
 import { getDatasetUrl } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
+import IconBackArrow from '~/assets/images/icon-back-arrow.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
@@ -227,8 +228,6 @@ const $showBreadcrumbs = combine(
 
 export const CountryInfo = () => {
   const mapType = useStore($mapType);
-  const country = useStore($country);
-  const countryName = country?.name ?? '';
   const searchActive = useStore($searchActive);
   const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
@@ -256,10 +255,9 @@ export const CountryInfo = () => {
             className="breadcrumbs__link"
             onClick={() => selectMapTab()}
           >
-            Global view
+            <IconBackArrow className="breadcrumbs__arrow" />
+            change country
           </Link>
-          {' > '}
-          <span>{countryName}</span>
         </div>
       )}
 

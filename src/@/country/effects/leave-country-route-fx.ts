@@ -1,12 +1,11 @@
 import { createEffect } from 'effector';
 
+// eslint-disable-next-line no-restricted-imports
+import { addCountriesLayer } from '@/country/effects/add-countries-layer';
+// eslint-disable-next-line no-restricted-imports
+import { addGlobalSchoolsLayer } from '@/country/effects/add-global-schools-layer';
 import { LeaveCountryRoute } from '@/country/types';
-import {
-  defaultCenter,
-  defaultZoom,
-  getDefaultCountryColor,
-  getDefaultCountryOpacity,
-} from '@/map/constants';
+import { defaultCenter, defaultZoom } from '@/map/constants';
 
 import { removeCountryFx } from './remove-country-fx';
 import { removeSchoolsFx } from './remove-schools-fx';
@@ -22,23 +21,8 @@ export const leaveCountryRouteFx = createEffect(
       zoom: defaultZoom,
     });
 
-    map.setPaintProperty(
-      'countries',
-      'fill-color',
-      getDefaultCountryColor(paintData)
-    );
-
-    map.setPaintProperty(
-      'countries',
-      'fill-opacity',
-      getDefaultCountryOpacity(paintData)
-    );
-
-    map.setPaintProperty(
-      'countries',
-      'fill-outline-color',
-      paintData.background
-    );
+    addGlobalSchoolsLayer({ map, paintData });
+    addCountriesLayer({ map, paintData });
 
     await Promise.all([
       removeSchoolsFx(map),
