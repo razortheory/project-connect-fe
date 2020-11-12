@@ -8,6 +8,7 @@ import {
   fetchSchoolsFx,
   fetchSchoolsGlobal,
 } from '~/api/project-connect';
+import { project } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { changeCountryId } from '@/country/model';
@@ -37,6 +38,9 @@ $globalStats.on(fetchGlobalStatsFx.doneData, setPayload);
 $loader.on(setLoader, setPayload);
 $mapType.on(changeMapType, setPayload);
 $mapType.reset(changeCountryId);
+
+// Reset map after leave map page
+$map.reset(guard(project.visible, { filter: Boolean }));
 
 sample({
   source: $style,
