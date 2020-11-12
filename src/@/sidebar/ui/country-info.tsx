@@ -103,44 +103,48 @@ const CountryInfoStatistics = () => {
           </h3>
           <p className="info-list__description">{schoolsTotal}</p>
         </li>
-        <li className="info-list__item">
-          <h3 className="info-list__title info-list__title--full-width">
-            Connected schools
-          </h3>
-          <p className="info-list__description">{schoolsConnected}</p>
-        </li>
-        <li className="info-list__item">
-          <h3 className="info-list__title info-list__title--full-width">
-            Avg. internet speed (download)
-          </h3>
-          <p className="info-list__description">{connectionSpeed}</p>
-          <div className="average-speed">
-            <div className={connectivityLevel}>
-              <div className="average-speed__icon average-speed__icon--active">
-                <IconSpeedLow />
-                <div className="average-speed__tooltip tooltip tooltip--dark">
-                  Internet speed good for <strong>emails and texting</strong>
+        {schoolsConnected && (
+          <li className="info-list__item">
+            <h3 className="info-list__title info-list__title--full-width">
+              Connected schools
+            </h3>
+            <p className="info-list__description">{schoolsConnected}</p>
+          </li>
+        )}
+        {connectionSpeed && (
+          <li className="info-list__item">
+            <h3 className="info-list__title info-list__title--full-width">
+              Avg. internet speed (download)
+            </h3>
+            <p className="info-list__description">{connectionSpeed}</p>
+            <div className="average-speed">
+              <div className={connectivityLevel}>
+                <div className="average-speed__icon average-speed__icon--active">
+                  <IconSpeedLow />
+                  <div className="average-speed__tooltip tooltip tooltip--dark">
+                    Internet speed good for <strong>emails and texting</strong>
+                  </div>
+                </div>
+                <div className="average-speed__icon">
+                  <IconSpeedMedium />
+                  <div className="average-speed__tooltip tooltip tooltip--dark">
+                    Internet speed good for <strong>video streaming</strong>
+                  </div>
+                </div>
+                <div className="average-speed__icon">
+                  <IconSpeedHigh />
+                  <div className="average-speed__tooltip tooltip tooltip--dark">
+                    Internet speed good for <strong>e-learning</strong>
+                  </div>
                 </div>
               </div>
-              <div className="average-speed__icon">
-                <IconSpeedMedium />
-                <div className="average-speed__tooltip tooltip tooltip--dark">
-                  Internet speed good for <strong>video streaming</strong>
-                </div>
-              </div>
-              <div className="average-speed__icon">
-                <IconSpeedHigh />
-                <div className="average-speed__tooltip tooltip tooltip--dark">
-                  Internet speed good for <strong>e-learning</strong>
-                </div>
-              </div>
+              <p className="average-speed__description">
+                The average internet speed is good enough for accessing email
+                and basic internet browsing.
+              </p>
             </div>
-            <p className="average-speed__description">
-              The average internet speed is good enough for accessing email and
-              basic internet browsing.
-            </p>
-          </div>
-        </li>
+          </li>
+        )}
         <li className="info-list__item">
           <h3 className="info-list__title info-list__title--full-width">
             Schools with no internet

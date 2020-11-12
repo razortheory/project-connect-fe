@@ -40,8 +40,12 @@ export const getCountryInfo = (
 
   return {
     schoolsTotal: formatNumber(schools_total),
-    schoolsConnected: formatNumber(schools_connected),
-    connectionSpeed: formatConnectionSpeed(connectivity_speed),
+    schoolsConnected: schools_connected
+      ? formatNumber(schools_connected)
+      : null,
+    connectionSpeed: connectivity_speed
+      ? formatConnectionSpeed(connectivity_speed)
+      : null,
     schoolsWithNoInternet: schools_total
       ? formatPercent(schools_connectivity_no / schools_total)
       : 'N/A',
