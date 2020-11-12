@@ -5,6 +5,7 @@ import React from 'react';
 
 import { getDatasetUrl } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
+import IconBackArrow from '~/assets/images/icon-back-arrow.svg';
 import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
@@ -254,7 +255,8 @@ export const CountryInfo = () => {
             className="breadcrumbs__link"
             onClick={() => selectMapTab()}
           >
-            ← change country
+            <IconBackArrow className="breadcrumbs__arrow" />
+            change country
           </Link>
         </div>
       )}

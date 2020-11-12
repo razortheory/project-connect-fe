@@ -21,13 +21,25 @@
     content: '';
   }
 }
-
+.breadcrumbs__arrow {
+  @include transition;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  color: #fff;
+}
 .breadcrumbs__link {
   @include transition;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   text-decoration: none;
 
   &:hover,
   &:focus {
     color: $color-primary;
+
+    .breadcrumbs__arrow {
+      color: $color-primary;
+    }
   }
 }
