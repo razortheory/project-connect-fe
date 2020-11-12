@@ -14,7 +14,8 @@ const DescriptionSection = () => {
     $globalStats
   );
 
-  const connectedPercent = countries_connected_to_realtime / countries_joined;
+  const connectedPercent =
+    countries_connected_to_realtime / countries_joined || 0;
 
   const commitedCountries = Number(countries_joined) || 'No data';
 
@@ -23,10 +24,9 @@ const DescriptionSection = () => {
       <div className="container">
         <div className="page-heading">
           <h2 className="page-heading__title">
-            Countries have been listed below with real-time updates on their
-            progress with school mapping. The key metric that is used to
-            evaluate project progress is the stage of mapping and the percentage
-            of schools mapped.
+            Countries are listed below with real-time updates on school mapping
+            progress. The key metrics used to evaluate project progress is the
+            stage of mapping and the percentage of schools mapped.
           </h2>
 
           <div className="page-heading__media">

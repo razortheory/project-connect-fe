@@ -14,7 +14,8 @@ export const JoinUs = () => (
           <h2 className="page-heading__title">
             Project Connect’s mission to map the connectivity of every school in
             the world is ambitious and we need your help to succeed. There are a
-            multitude of ways in which we can work together.
+            multitude of ways in which we can work together. Interested in
+            joining?
           </h2>
           <div className="page-heading__media">
             <div className="page-heading__image-wrapper">
@@ -85,12 +86,13 @@ export const JoinUs = () => (
             </button>
           </div>
           <div className="partnership__tab-content">
-            <h3 className="partnership__title">Share your data</h3>
+            <h3 className="partnership__title">
+              Map school connectivity in your country
+            </h3>
             <p className="partnership__description">
-              We are looking for information on locations of schools and their
-              level of online connectivity. However, any piece of information
-              about schools that you are interested in sharing, no matter how
-              small, is extremely useful.
+              If you are a country government interested in joining, you can
+              contact us and we will help you map every school and connectivity
+              status in your country.
             </p>
             <h3 className="partnership__title">Share your data</h3>
             <p className="partnership__description">
@@ -99,19 +101,25 @@ export const JoinUs = () => (
               about schools that you are interested in sharing, no matter how
               small, is extremely useful.
             </p>
-            <h3 className="partnership__title">Share your data</h3>
+            <h3 className="partnership__title">Provide funding</h3>
             <p className="partnership__description">
-              We are looking for information on locations of schools and their
-              level of online connectivity. However, any piece of information
-              about schools that you are interested in sharing, no matter how
-              small, is extremely useful.
+              You can provide funding to support Project Connect’s platform, and
+              help other countries get their maps.
             </p>
-            <h3 className="partnership__title">Share your data</h3>
+            <h3 className="partnership__title">
+              Contribute with engineering and data science capacity
+            </h3>
             <p className="partnership__description">
-              We are looking for information on locations of schools and their
-              level of online connectivity. However, any piece of information
-              about schools that you are interested in sharing, no matter how
-              small, is extremely useful.
+              Help us build the Project Connect platform and tech solutions to
+              accelerate the mapping work globally.
+            </p>
+            <h3 className="partnership__title">
+              Collaborate on joint research
+            </h3>
+            <p className="partnership__description">
+              We can conduct joint research on topics such as the impact of
+              connectivity in outcomes, optimization of service delivery or deep
+              learning for automatic mapping.
             </p>
           </div>
         </div>
