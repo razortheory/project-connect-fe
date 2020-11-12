@@ -229,6 +229,7 @@ const $showBreadcrumbs = combine(
 export const CountryInfo = () => {
   const mapType = useStore($mapType);
   const searchActive = useStore($searchActive);
+  const country = useStore($country);
   const isSearchFocused = useStore($isSearchFocused);
   const noSearchCountryFound = useStore($noSearchCountryFound);
   const showBreadcrumbs = useStore($showBreadcrumbs);
