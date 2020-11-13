@@ -8,9 +8,7 @@ import IconAccountability from '~/assets/images/icon-accountability.svg';
 import IconEquity from '~/assets/images/icon-data-equity.svg';
 import IconPlanning from '~/assets/images/icon-information-for-planning.svg';
 import IconInvestment from '~/assets/images/icon-investment.svg';
-import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
 import IconMarket from '~/assets/images/icon-market-data.svg';
-import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
 import LogoArm from '~/assets/images/logo-arm.svg';
 import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
@@ -28,6 +26,7 @@ import { Link } from '~/lib/router';
 import { $isLoading } from '@/dashboard/model';
 import { defaultGlobalStats } from '@/map/constants';
 import { $globalStats } from '@/map/model';
+import { Slider } from '@/project/ui';
 
 export const onAboutRef = createEvent<HTMLDivElement | null>();
 
@@ -102,58 +101,11 @@ const AboutContent = () => {
         </div>
       </section>
       <section className="section case-studies" id="case-studies">
-        <div className="container">
+        <div className="container no-left-padding">
           <a href="#case-studies">
-            <h2 className="section__title">Case studies</h2>
+            <h2 className="section__title with-margin">Case studies</h2>
+            <Slider />
           </a>
-          <div className="case-studies__row">
-            <div className="case-studies__col">
-              <div className="case-studies__slider-wrapper">
-                <div className="case-studies__slider slider">
-                  <div className="slider__image-wrapper">
-                    <img
-                      className="slider__image"
-                      src="http://placehold.it/500x500.png"
-                      alt=""
-                    />
-                  </div>
-                  <div className="slider__info-wrapper">
-                    <div className="slider__title">Colombia</div>
-                    <p className="slider__text">
-                      Project Connect applied artificial intelligence techniques
-                      to automatically map schools from satellite imagery and
-                      provide the government with the locations of 7,000 schools
-                      that were not part of their official datasets.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="case-studies__slider-controls">
-                <ul className="case-studies__slider-pagination slider-pagination">
-                  <li className="slider-pagination__item slider-pagination__item--active">
-                    Colombia
-                  </li>
-                  <li className="slider-pagination__item">Seirra Leone</li>
-                  <li className="slider-pagination__item">Kyrgysztan</li>
-                  <li className="slider-pagination__item">Kenya</li>
-                </ul>
-                <div className="case-studies__slider-navigation slider-navigation">
-                  <button type="button" className="slider-navigation__button">
-                    <IconLeftArrow
-                      className="slider-navigation__icon"
-                      alt="Go to previous slide"
-                    />
-                  </button>
-                  <button type="button" className="slider-navigation__button">
-                    <IconRightArrow
-                      className="slider-navigation__icon"
-                      alt="Go to next slide"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       <section className="section mapping" id="why-mapping">

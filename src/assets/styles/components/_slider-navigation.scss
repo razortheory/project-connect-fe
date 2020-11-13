@@ -16,6 +16,10 @@
   border: none;
   outline: none;
 
+  @include media-breakpoint-down(xs) {
+    width: 5rem;
+  }
+
   &:hover,
   &:active {
     color: $text-color-light;

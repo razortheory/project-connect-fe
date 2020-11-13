@@ -57,6 +57,10 @@
   &:hover::after {
     transform: translateY(0.8rem);
   }
+
+  &.with-margin {
+    margin-left: 24px;
+  }
 }
 
 .section-dashboard {
