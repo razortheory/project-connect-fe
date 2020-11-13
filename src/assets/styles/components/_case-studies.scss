@@ -17,15 +17,6 @@
 
 }
 
-@keyframes fromRight {
-  0% {
-    margin-left: 200%;
-  }
-  40% {
-    margin-left: 0;
-  }
-}
-
 .case-studies__slider-background {
   display: none;
 }
@@ -35,7 +26,6 @@
   display: flex;
   width: 100%;
   height: calc(100% - 5rem);
-  animation: fromRight 1.5s linear;
 
   @include media-breakpoint-up(md) {
     flex-direction: row;

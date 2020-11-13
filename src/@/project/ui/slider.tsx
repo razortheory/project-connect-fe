@@ -96,9 +96,11 @@ export const Slider = () => {
                 alt=""
               />
             </div>
-            <div className="slider__info-wrapper">
-              <div className="slider__title">{SLIDES[slideIndex].title}</div>
-              <p className="slider__text">{SLIDES[slideIndex].content}</p>
+            <div className="slider__info-animation-wrapper">
+              <div className="slider__info-wrapper">
+                <div className="slider__title">{SLIDES[slideIndex].title}</div>
+                <p className="slider__text">{SLIDES[slideIndex].content}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -112,7 +114,10 @@ export const Slider = () => {
                   'slider-pagination__item--active': index === slideIndex,
                 })}
                 onKeyPress={() => {}}
-                onClick={() => setSlideIndex(index)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setSlideIndex(index);
+                }}
               >
                 {slide.title}
               </li>
@@ -122,7 +127,10 @@ export const Slider = () => {
             <button
               type="button"
               className="slider-navigation__button"
-              onClick={previousSlide}
+              onClick={(event) => {
+                event.preventDefault();
+                previousSlide();
+              }}
             >
               <IconLeftArrow
                 className="slider-navigation__icon"
@@ -132,7 +140,10 @@ export const Slider = () => {
             <button
               type="button"
               className="slider-navigation__button"
-              onClick={nextSlide}
+              onClick={(event) => {
+                event.preventDefault();
+                nextSlide();
+              }}
             >
               <IconRightArrow
                 className="slider-navigation__icon"

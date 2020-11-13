@@ -1,0 +1,44 @@
+@keyframes textFromRight {
+  0% {
+    margin-left: 100%;
+  }
+  30% {
+    margin-left: 100%;
+  }
+  70% {
+    margin-left: 0;
+  }
+}
+
+.slider__info-wrapper {
+  animation: textFromRight $animation-speed ease-in;
+}
+
+@keyframes imageFromLeft {
+  0% {
+    left: -100%
+  }
+  60% {
+    left: -100%
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.slider__image {
+  animation: imageFromLeft $animation-speed ease-in;
+}
+
+@keyframes slideFromRight {
+  0% {
+    margin-left: 100%;
+  }
+  40% {
+    margin-left: 0;
+  }
+}
+
+.case-studies__slider-wrapper {
+  animation: slideFromRight $animation-speed ease-in;
+}
