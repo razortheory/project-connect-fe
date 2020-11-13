@@ -3,7 +3,6 @@ import { combine, forward, guard, sample } from 'effector';
 import { fetchCountriesFx, fetchGlobalStatsFx } from '~/api/project-connect';
 import { CountryBasic } from '~/api/types';
 import { $isDesktop, $isMobile } from '~/core/media-query';
-import { router } from '~/core/routes';
 import {
   getInverted,
   getVoid,
@@ -12,7 +11,6 @@ import {
 } from '~/lib/effector-kit';
 
 import { $countries } from '@/country/model';
-import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
 import { sortCountries } from '@/sidebar/sort-countries';
 
 import {
@@ -110,16 +108,6 @@ sample({
   source: combine([fetchCountriesFx.pending, fetchGlobalStatsFx.pending]),
   fn: (states) => states.some(Boolean),
   target: $isLoading,
-});
-
-// Scroll to hash
-sample({
-  source: router.hash,
-  clock: guard({
-    source: $isLoading,
-    filter: getInverted,
-  }),
-  target: scrollToHashFx,
 });
 
 // Sort tab

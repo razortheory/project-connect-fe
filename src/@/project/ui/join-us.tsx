@@ -4,8 +4,6 @@ import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
 import { Link } from '~/lib/router';
 
-import { scrollToHashFx } from '@/scroll/scroll-to-hash-fx';
-
 export const JoinUs = () => (
   <>
     <section className="section">
@@ -31,7 +29,6 @@ export const JoinUs = () => (
           to={joinUs}
           hash="write-to-us"
           className="header__button button button--primary"
-          onClick={async () => scrollToHashFx('write-to-us')}
         >
           Write to us
         </Link>
