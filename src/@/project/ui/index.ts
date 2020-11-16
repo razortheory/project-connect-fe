@@ -6,3 +6,4 @@ export { ProjectPage } from './project-page';
 export { Header } from './header';
 export { Privacy, onPrivacyRef } from './privacy';
 export { Footer } from './footer';
+export { Slider } from './slider';
