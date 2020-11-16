@@ -1,0 +1,42 @@
+.about-intro {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rem;
+
+  @include media-breakpoint-up(lg) {
+    width: 50%;
+    max-width: 650px;
+    margin-bottom: 15rem;
+  }
+}
+
+.about-intro__title {
+  margin-bottom: 0;
+  line-height: 1.27;
+}
+
+.page-heading__title {
+  @include media-breakpoint-up(lg) {
+    &.about-intro__title {
+      width: 100%;
+    }
+  }
+}
+
+.about-intro__subtitle {
+  margin-top: 7rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  font-size: 2.3rem;
+  font-family: $font-family-primary;
+  line-height: 1.3;
+}
+
+.about-intro__text {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 2.3rem;
+  font-family: $font-family-primary;
+  line-height: 1.3;
+}

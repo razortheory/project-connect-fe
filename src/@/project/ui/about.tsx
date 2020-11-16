@@ -18,6 +18,7 @@ import LogoItu from '~/assets/images/logo-itu.svg';
 import LogoLiquid from '~/assets/images/logo-liquid.svg';
 import LogoMaxar from '~/assets/images/logo-maxar.svg';
 import LogoSoftbank from '~/assets/images/logo-softbank.svg';
+import WhyMapping from '~/assets/images/why-mapping.jpg';
 import { formatPercent } from '~/core/formatters';
 import { joinUs } from '~/core/routes';
 import { humanFormat } from '~/lib/human-format';
@@ -40,36 +41,35 @@ const AboutContent = () => {
       <section className="section" id="introduction">
         <div className="container">
           <div className="page-heading">
-            <h2 className="page-heading__title">
-              Project Connect aims to create a global, live map of schools and
-              their connection to the internet. It is the data foundation for
-              Giga, a UNICEF and ITU initiative to connect every school, and
-              every young person to information, opportunity, and choice.
-              <br />
-              <br />
-              <i>How many schools are in the world?</i>
-              <br />
-              <br />
-              <i>Where are they?</i>
-              <br />
-              <br />
-              <i>How many of them are connected to the Internet?</i>
-              <br />
-              <br />
-              Nobody has the answer to these foundational questions, at least
-              not yet. In an increasingly digital world, lack of access to
-              education and internet translates to exclusion, fewer resources to
-              learn and grow, and limited opportunities for the most vulnerable
-              children and youth. But without answers to these questions, we
-              can’t change that.
-              <br />
-              In response, UNICEF is mapping the location and real-time internet
-              connection of every school in the world. This map, hosted on an
-              open data platform, is helping governments and partners eliminate
-              the digital divide globally. To date, 800,000 schools in more than
-              30 countries have been mapped, and the number continues to grow at
-              an accelerated pace.
-            </h2>
+            <div className="about-intro">
+              <h2 className="page-heading__title about-intro__title">
+                Project Connect aims to create a global, live map of schools and
+                their connection to the internet. It is the data foundation for
+                Giga, a UNICEF and ITU initiative to connect every school, and
+                every young person to information, opportunity, and choice.
+              </h2>
+              <h4 className="about-intro__subtitle">
+                How many schools are in the world? Where are they? How many of
+                them are connected to the Internet?
+              </h4>
+              <h4 className="about-intro__text">
+                Nobody has the answer to these foundational questions, at least
+                not yet. In an increasingly digital world, lack of access to
+                education and internet translates to exclusion, fewer resources
+                to learn and grow, and limited opportunities for the most
+                vulnerable children and youth. But without answers to these
+                questions, we can’t change that.
+              </h4>
+              <h4 className="about-intro__subtitle">In response</h4>
+              <h4 className="about-intro__text">
+                UNICEF is mapping the location and real-time internet connection
+                of every school in the world. This map, hosted on an open data
+                platform, is helping governments and partners eliminate the
+                digital divide globally. To date, 800,000 schools in more than
+                30 countries have been mapped, and the number continues to grow
+                at an accelerated pace.
+              </h4>
+            </div>
             <div className="page-heading__media">
               <div className="page-heading__image-wrapper">
                 <img
@@ -117,8 +117,8 @@ const AboutContent = () => {
             <div className="mapping__media">
               <div className="mapping__image-wrapper">
                 <img
-                  src="http://placehold.it/508x585.png"
-                  alt=""
+                  src={WhyMapping}
+                  alt="Why mapping"
                   className="mapping__image"
                 />
               </div>

@@ -12,6 +12,10 @@
 
 .slider__info-wrapper {
   animation: textFromRight $animation-speed ease-in;
+
+  @include media-breakpoint-down(xs) {
+    animation: unset;
+  }
 }
 
 @keyframes imageFromLeft {
@@ -28,6 +32,10 @@
 
 .slider__image {
   animation: imageFromLeft $animation-speed ease-in;
+
+  @include media-breakpoint-down(xs) {
+    animation: unset;
+  }
 }
 
 @keyframes slideFromRight {
