@@ -77,6 +77,8 @@ export const Header = () => {
                 onClick={() => {
                   if (isMobile) {
                     setIsAboutSubmenuOpen(!isAboutSubmenuOpen);
+                  } else {
+                    about.navigate();
                   }
                 }}
               >
@@ -132,6 +134,8 @@ export const Header = () => {
                 onClick={() => {
                   if (isMobile) {
                     setIsPrivacySubmenuOpen(!isPrivacySubmenuOpen);
+                  } else {
+                    privacy.navigate();
                   }
                 }}
               >
