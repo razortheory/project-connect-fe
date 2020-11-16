@@ -50,6 +50,12 @@
   font-size: 2.6rem;
 }
 
+.history-modal__place-name {
+  &--capitalize {
+    text-transform: capitalize;
+  }
+}
+
 .history-modal__close {
   padding: 1.2rem;
 }

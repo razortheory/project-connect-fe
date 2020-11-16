@@ -140,6 +140,7 @@ export const HistoryModal = () => {
   );
 
   const placeName = useStore($historyPlaceName);
+  const isUppercaseName = placeName === placeName?.toUpperCase();
   const pending = useStore($historyDataPending);
 
   return (
@@ -150,7 +151,15 @@ export const HistoryModal = () => {
           <div className="history-modal__scrollable">
             <div className="history-modal__header">
               <div className="history-modal__title">
-                Average download speed {'>'} {placeName}
+                Average download speed
+                {' > '}
+                <span
+                  className={clsx('history-modal__place-name', {
+                    'history-modal__place-name--capitalize': isUppercaseName,
+                  })}
+                >
+                  {isUppercaseName ? placeName?.toLowerCase() : placeName}
+                </span>
               </div>
               <button
                 onClick={() => closeHistoryModal()}
