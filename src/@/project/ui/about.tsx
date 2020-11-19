@@ -101,9 +101,9 @@ const AboutContent = () => {
         </div>
       </section>
       <section className="section case-studies" id="case-studies">
-        <div className="container no-left-padding">
+        <div className="container">
           <a href="#case-studies">
-            <h2 className="section__title with-margin">Case studies</h2>
+            <h2 className="section__title">Case studies</h2>
             <Slider />
           </a>
         </div>

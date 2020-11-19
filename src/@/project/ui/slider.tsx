@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
 import ColombiaBackground from '~/assets/images/case-studies.jpg';
 import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
@@ -75,35 +76,47 @@ export const Slider = () => {
   return (
     <div className="case-studies__row">
       <div className="case-studies__col">
-        <div className="case-studies__slider-wrapper" key={slideIndex}>
-          <img
-            className="case-studies__slider-background"
-            src={
-              SLIDES[slideIndex].backgroundImage ??
-              'http://placehold.it/875x578.png'
-            }
-            alt=""
-          />
-          <div className="case-studies__slider slider">
-            <div className="slider__image-wrapper">
+        <SwitchTransition>
+          <CSSTransition
+            key={slideIndex}
+            addEndListener={(node, done) => {
+              node.addEventListener('transitionend', done, false);
+            }}
+            classNames="cross-fade"
+          >
+            <div className="case-studies__slider-wrapper">
               <img
-                key={slideIndex}
-                className="slider__image"
+                className="case-studies__slider-background"
                 src={
-                  SLIDES[slideIndex].sideImage ??
-                  'http://placehold.it/500x500.png'
+                  SLIDES[slideIndex].backgroundImage ??
+                  'http://placehold.it/875x578.png'
                 }
                 alt=""
               />
-            </div>
-            <div className="slider__info-animation-wrapper">
-              <div className="slider__info-wrapper">
-                <div className="slider__title">{SLIDES[slideIndex].title}</div>
-                <p className="slider__text">{SLIDES[slideIndex].content}</p>
+              <div className="case-studies__slider slider">
+                <div className="slider__image-wrapper">
+                  <img
+                    key={slideIndex}
+                    className="slider__image"
+                    src={
+                      SLIDES[slideIndex].sideImage ??
+                      'http://placehold.it/500x500.png'
+                    }
+                    alt=""
+                  />
+                </div>
+                <div className="slider__info-animation-wrapper">
+                  <div className="slider__info-wrapper">
+                    <div className="slider__title">
+                      {SLIDES[slideIndex].title}
+                    </div>
+                    <p className="slider__text">{SLIDES[slideIndex].content}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </CSSTransition>
+        </SwitchTransition>
         <div className="case-studies__slider-controls">
           <ul className="case-studies__slider-pagination slider-pagination">
             {SLIDES.map((slide, index) => (

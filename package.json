@@ -147,6 +147,7 @@
     "webpack-merge": "^5.1.4"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.4.0",
     "clsx": "^1.1.1",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
@@ -160,6 +161,7 @@
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
     "react-perfect-scrollbar": "1.5.3",
+    "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.0",
     "styled-normalize": "^8.0.7"
   },

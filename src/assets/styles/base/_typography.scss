@@ -48,9 +48,4 @@ body {
   padding-right: ($grid-gutter-width-lg / 2);
   padding-left: ($grid-gutter-width-lg / 2);
   overflow-x: hidden;
-
-  &.no-left-padding {
-    padding-right: $grid-gutter-width-lg;
-    padding-left: 0;
-  }
 }

@@ -1,52 +1,14 @@
-@keyframes textFromRight {
-  0% {
-    margin-left: 100%;
-  }
-  30% {
-    margin-left: 100%;
-  }
-  70% {
-    margin-left: 0;
-  }
+.cross-fade-enter {
+  opacity: 0.1;
 }
-
-.slider__info-wrapper {
-  animation: textFromRight $animation-speed ease-in;
-
-  @include media-breakpoint-down(xs) {
-    animation: unset;
-  }
+.cross-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
 }
-
-@keyframes imageFromLeft {
-  0% {
-    left: -100%
-  }
-  60% {
-    left: -100%
-  }
-  100% {
-    left: 0;
-  }
+.cross-fade-exit {
+  opacity: 1;
 }
-
-.slider__image {
-  animation: imageFromLeft $animation-speed ease-in;
-
-  @include media-breakpoint-down(xs) {
-    animation: unset;
-  }
-}
-
-@keyframes slideFromRight {
-  0% {
-    margin-left: 100%;
-  }
-  40% {
-    margin-left: 0;
-  }
-}
-
-.case-studies__slider-wrapper {
-  animation: slideFromRight $animation-speed ease-in;
+.cross-fade-exit-active {
+  opacity: 0.1;
+  transition: opacity 300ms ease-in-out;
 }
