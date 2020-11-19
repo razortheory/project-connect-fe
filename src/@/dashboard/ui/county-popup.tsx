@@ -27,7 +27,6 @@ export const CountryPopupDetails = () => {
     flag,
     name,
     joinDate,
-    description,
     progressPercent,
     progressBarStyle,
     mapPreviewStyle,
@@ -77,8 +76,6 @@ export const CountryPopupDetails = () => {
       </div>
 
       <div className="country__separator" />
-
-      <p className="country__description">{description}</p>
 
       <div className="country__view-on-map view-on-map" style={mapPreviewStyle}>
         <Link to={mapCountry} params={{ code }}>

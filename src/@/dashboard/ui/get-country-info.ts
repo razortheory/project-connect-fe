@@ -6,9 +6,6 @@ import { formatPercent } from '~/core/formatters';
 
 import { CountryInfo } from '@/dashboard/types';
 
-const loremIpsum =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum urna tortor, eget laoreet arcu fermentum sit amet. Sed aliquet, turpis vel fermentum elementum.';
-
 const progressInfo = new Map([
   [
     0,
@@ -49,7 +46,6 @@ export const getCountryInfo = (
     code,
     flag,
     name,
-    description,
     date_of_join: dateOfJoin,
     map_preview: mapPreview,
     integration_status: integrationStatus,
@@ -70,7 +66,6 @@ export const getCountryInfo = (
     flag,
     name,
     joinDate: isListType ? listDate : tileDate,
-    description: description || loremIpsum,
     progressPercent,
     progressBarStyle: {
       width: formatPercent(progressPercent),

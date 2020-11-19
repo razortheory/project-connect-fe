@@ -12,7 +12,6 @@ export type CountryInfo = {
   flag: string;
   name: string;
   joinDate: string;
-  description: string;
   progressPercent: number;
   progressBarStyle: ProgressBar;
   bubbleProgressClass: string;

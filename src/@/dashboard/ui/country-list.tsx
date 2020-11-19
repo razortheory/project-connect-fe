@@ -35,7 +35,6 @@ export const CountryList = () => {
           flag,
           name,
           joinDate,
-          description,
           progressPercent,
           progressBarStyle,
           mapPreviewStyle,
@@ -73,7 +72,8 @@ export const CountryList = () => {
                   </div>
 
                   <div className="country__link">
-]                    <div className="country__link-inner">
+                    ]{' '}
+                    <div className="country__link-inner">
                       <Chevron alt="View in map" />
                     </div>
                   </div>
@@ -134,8 +134,6 @@ export const CountryList = () => {
                 </div>
 
                 <div className="country__separator" />
-
-                <p className="country__description">{description}</p>
 
                 <Link
                   className="country__view-on-map view-on-map"
