@@ -91,6 +91,12 @@ $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 $country.reset(changeCountryId, fetchCountryFx.fail);
 $schools.reset(changeCountryId, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+$hasConnectivityStatus.reset(changeCountryId, leaveCountryRouteFx.doneData);
+$hasConnectivity.reset(changeCountryId, leaveCountryRouteFx.doneData);
+$hasCoverageType.reset(changeCountryId, leaveCountryRouteFx.doneData);
+$hasCoverageAvailability.reset(changeCountryId, leaveCountryRouteFx.doneData);
+$countryHasConnectivity.reset(changeCountryId, leaveCountryRouteFx.doneData);
+$countryHasCoverage.reset(changeCountryId, leaveCountryRouteFx.doneData);
 
 sample({
   source: combine([$hasConnectivityStatus, $hasConnectivity]),

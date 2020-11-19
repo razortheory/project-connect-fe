@@ -106,7 +106,7 @@ export const Popup = () => {
 
           {networkCoverage && (
             <li className="definition-list__item">
-              Network coverage <strong>{networkCoverage}</strong>
+              Network coverage <strong>{coverageType}</strong>
             </li>
           )}
 
