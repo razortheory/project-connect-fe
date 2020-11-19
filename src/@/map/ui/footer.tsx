@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -7,6 +8,7 @@ import { mapCountry } from '~/core/routes';
 
 import { styles } from '@/map/constants';
 import {
+  $pending,
   $style,
   $stylePaintData,
   changeStyle,
@@ -107,20 +109,27 @@ const LegendForSchools = () => {
 
 const StyleControl = () => {
   const activeStyle = useStore($style);
+  const pending = useStore($pending);
 
   return (
     <ul className="footer__map-switcher map-switcher">
       {styles.map((style) => (
         <li
           key={String(style)}
-          className={`map-switcher__item
-        ${style === activeStyle ? 'map-switcher__item--active' : ''}`}
+          className={clsx('map-switcher__item', {
+            'map-switcher__item--active': style === activeStyle,
+            'map-switcher__item--disabled': pending,
+          })}
         >
           <div
             role="button"
             className="map-switcher__button"
             onKeyPress={() => {}}
-            onClick={() => changeStyle(style)}
+            onClick={() => {
+              if (!pending) {
+                changeStyle(style);
+              }
+            }}
             tabIndex={0}
           >
             {style}

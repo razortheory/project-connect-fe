@@ -56,6 +56,7 @@ sample({
     fetchCountriesFx.pending,
     fetchCountriesGeometryFx.pending,
     fetchSchoolsGlobal.pending,
+    initMapFx.pending,
     // Other effects
   ]),
   fn: (states) => states.some(Boolean),
