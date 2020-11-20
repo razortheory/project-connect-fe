@@ -244,7 +244,7 @@ const AboutContent = () => {
                 Project Connect is grateful to its partners for supporting and
                 continuing to support our school mapping work. If you are
                 interested in contributing to this mission and joining us as a
-                partner, please reach out to XYZ@ProCo.com.
+                partner, please reach out to projectconnect@unicef.org.
               </h3>
               <Link
                 to={joinUs}
