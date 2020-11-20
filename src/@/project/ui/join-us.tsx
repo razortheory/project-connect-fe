@@ -132,11 +132,21 @@ export const JoinUs = () => (
             <h3 className="feedback__title">
               Drop us a few lines about how you would like to engage with us.
             </h3>
-            <form action="" className="feedback__form form">
+            <form
+              action="mailto:projectconnect@unicef.org"
+              method="POST"
+              encType="text/plain"
+              className="feedback__form form"
+            >
               <div className="form__row">
                 <label htmlFor="name" className="form__item">
                   <p className="form__label">Full Name</p>
-                  <input id="name" className="form__input input" type="text" />
+                  <input
+                    id="name"
+                    className="form__input input"
+                    type="text"
+                    name="name"
+                  />
                 </label>
               </div>
               <div className="form__row">
@@ -146,6 +156,7 @@ export const JoinUs = () => (
                     id="organization"
                     className="form__input input"
                     type="text"
+                    name="organization"
                   />
                 </label>
               </div>
@@ -156,17 +167,22 @@ export const JoinUs = () => (
                     id="purpose"
                     className="form__input input"
                     type="text"
+                    name="purpose"
                   />
                 </label>
               </div>
               <div className="form__row">
                 <label htmlFor="message" className="form__item">
                   <p className="form__label">Your message</p>
-                  <textarea id="message" className="form__input textarea" />
+                  <textarea
+                    id="message"
+                    className="form__input textarea"
+                    name="message"
+                  />
                 </label>
               </div>
               <button
-                type="button"
+                type="submit"
                 className="button button--full-width button--primary"
               >
                 Send
