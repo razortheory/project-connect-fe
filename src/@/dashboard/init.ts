@@ -91,9 +91,9 @@ const $sortedCountries = combine(
 sample({
   source: combine([$sortedCountries, $searchText]),
   fn: ([sortedCountries, searchText]) =>
-    sortedCountries
-      ?.filter((country) => startsWith(country.name, searchText))
-      ?.slice(0, 8) ?? [],
+    sortedCountries?.filter((country) =>
+      startsWith(country.name, searchText)
+    ) ?? [],
   target: $countriesList,
 });
 
