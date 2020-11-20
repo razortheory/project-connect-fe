@@ -8,7 +8,6 @@
 
 .case-studies__col {
   width: 100%;
-  margin-left: 24px;
 
   @include media-breakpoint-up(lg) {
     @include make-col-ready-no-breakpoints;

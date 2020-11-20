@@ -72,7 +72,7 @@ export const CountryList = () => {
                   </div>
 
                   <div className="country__link">
-                    ]{' '}
+                    {' '}
                     <div className="country__link-inner">
                       <Chevron alt="View in map" />
                     </div>
