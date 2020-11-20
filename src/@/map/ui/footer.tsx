@@ -51,13 +51,13 @@ const LegendForCountries = () => {
         className="map-legend__item"
         style={{ borderTopColor: paintData.countryVerified }}
       >
-        School location (verified)
+        School location (processed)
       </li>
       <li
         className="map-legend__item"
         style={{ borderTopColor: paintData.countryNotVerified }}
       >
-        School location (not&nbsp;verified)
+        School location (not&nbsp;processed)
       </li>
     </ul>
   );
