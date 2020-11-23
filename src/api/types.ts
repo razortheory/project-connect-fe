@@ -53,6 +53,10 @@ export type CountryWeeklyStats = {
   schools_connectivity_no: number;
   schools_connectivity_moderate: number;
   schools_connectivity_good: number;
+  schools_coverage_unknown: number;
+  schools_coverage_no: number;
+  schools_coverage_moderate: number;
+  schools_coverage_good: number;
   connectivity_speed: number;
   integration_status: IntegrationStatus;
   avg_distance_school: number;
