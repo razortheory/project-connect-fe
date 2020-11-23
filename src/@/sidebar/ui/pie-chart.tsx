@@ -99,8 +99,6 @@ export const PieChart = () => {
   const paintData = useStore($stylePaintData);
   const mapType = useStore($mapType);
 
-  console.log(countryWeeklyStats);
-
   if (!countryWeeklyStats) {
     return null;
   }
