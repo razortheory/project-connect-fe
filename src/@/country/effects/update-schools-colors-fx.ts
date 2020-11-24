@@ -5,13 +5,7 @@ import { UpdateSchoolsColors } from '@/country/types';
 import { getSchoolsColors } from './get-schools-colors';
 
 export const updateSchoolsColorsFx = createEffect(
-  ({
-    map,
-    mapType,
-    hasConnectivityStatus,
-    hasCoverageType,
-    paintData,
-  }: UpdateSchoolsColors) => {
+  ({ map, mapType, paintData }: UpdateSchoolsColors) => {
     if (!map) return;
 
     if (map.getLayer('schools')) {
@@ -20,8 +14,6 @@ export const updateSchoolsColorsFx = createEffect(
         'circle-color',
         getSchoolsColors({
           mapType,
-          hasConnectivityStatus,
-          hasCoverageType,
           paintData,
         })
       );

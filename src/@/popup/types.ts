@@ -1,11 +1,6 @@
 import mapboxGl, { MapMouseEvent } from 'mapbox-gl';
 
-import {
-  Connectivity,
-  ConnectivityStatus,
-  CoverageAvailability,
-  CoverageType,
-} from '~/api/types';
+import { ConnectionStatus } from '~/api/types';
 
 import { Map } from '@/map/types';
 
@@ -15,16 +10,16 @@ export type SchoolInfo = {
   address: string;
   postalCode: string;
   gpsConfidence: string | null;
-  connectivityStatus: ConnectivityStatus;
+  connectivityStatus: ConnectionStatus;
   connectionSpeed: string;
   connectivityType: string;
   latitude: number;
   longitude: number;
   networkCoverage: string;
-  coverageType: CoverageType;
+  coverageType: string;
   regionClassification: string;
-  connectivity: Connectivity;
-  coverageAvailability: CoverageAvailability;
+  connectivity: boolean | null;
+  coverageStatus: ConnectionStatus;
 };
 
 export type AddSchoolPopup = {

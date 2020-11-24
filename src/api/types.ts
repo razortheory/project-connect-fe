@@ -2,10 +2,7 @@
 
 import { Geometry, Point } from 'geojson';
 
-export type ConnectivityStatus = 'no' | 'moderate' | 'good' | 'unknown';
-export type Connectivity = boolean | null;
-export type CoverageType = 'unknown' | 'no' | '2g' | '3g' | '4g';
-export type CoverageAvailability = boolean | null;
+export type ConnectionStatus = 'no' | 'moderate' | 'good' | 'unknown';
 
 export type GlobalStats = {
   total_schools: number;
@@ -18,6 +15,16 @@ export type GlobalStats = {
 };
 
 export type IntegrationStatus = 0 | 1 | 2 | 3;
+export type ConnectivityAvailability =
+  | 'no_connectivity'
+  | 'connectivity'
+  | 'static_speed'
+  | 'realtime_speed';
+
+export type CoverageAvailability =
+  | 'no_coverage'
+  | 'coverage_availability'
+  | 'coverage_type';
 
 export type CountryBasic = {
   id: number;
@@ -31,6 +38,9 @@ export type CountryBasic = {
   date_of_join: string;
   schools_with_data_percentage: number;
   schools_total: number;
+  connectivity_availability: ConnectivityAvailability;
+  coverage_availability: CoverageAvailability;
+  date_schools_mapped: string;
 };
 
 export type Country = {
@@ -62,6 +72,8 @@ export type CountryWeeklyStats = {
   avg_distance_school: number;
   created: string;
   modified: string;
+  connectivity_availability: ConnectivityAvailability;
+  coverage_availability: CoverageAvailability;
 };
 
 export type CountryGeometry = {
@@ -73,10 +85,8 @@ export type SchoolBasic = {
   id: number;
   name: string;
   geopoint: Geometry;
-  connectivity_status: ConnectivityStatus;
-  connectivity: Connectivity;
-  coverage_type: CoverageType;
-  coverage_availability: CoverageAvailability;
+  connectivity_status: ConnectionStatus;
+  coverage_status: ConnectionStatus;
 };
 
 export type SchoolSimplified = {
@@ -98,16 +108,15 @@ export type School = {
     electricity_availability: boolean;
     computer_lab: boolean;
     num_computers: number;
-    connectivity: Connectivity;
-    connectivity_status: ConnectivityStatus;
+    connectivity: boolean | null;
     connectivity_type: string;
     connectivity_speed: number;
     connectivity_latency: number;
     connectivity_availability: number;
     created: string;
     modified: string;
-    coverage_type: CoverageType;
-    coverage_availability: CoverageAvailability;
+    coverage_type: string;
+    coverage_availability: boolean | null;
   };
   gps_confidence: string | null;
   address: string;
@@ -122,7 +131,8 @@ export type School = {
   education_level: string;
   environment: string;
   school_type: string;
-  coverage_status: CoverageType;
+  connectivity_status: ConnectionStatus;
+  coverage_status: ConnectionStatus;
 };
 
 export type DailyStats = {

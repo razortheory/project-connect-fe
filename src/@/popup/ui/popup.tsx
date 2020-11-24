@@ -6,15 +6,9 @@ import IconLocation from '~/assets/images/icon-location.svg';
 import { setPayload } from '~/lib/effector-kit';
 import { ProgressBar } from '~/ui';
 
-import {
-  $hasConnectivityStatus,
-  $hasCoverageType,
-  $school,
-  $schoolDailyStats,
-  $schoolPending,
-} from '@/country/model';
+import { $school, $schoolDailyStats, $schoolPending } from '@/country/model';
 import { $stylePaintData, changeMap } from '@/map/model';
-import { getSchoolInfo, getSchoolStatus } from '@/popup/lib';
+import { getSchoolInfo } from '@/popup/lib';
 import { $popup } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
 import { getWeekGraphData } from '@/week-graph/lib/get-week-graph-data';
@@ -40,8 +34,6 @@ export const Popup = () => {
   const pending = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
   const mapType = useStore($controlsMapType);
-  const hasConnectivityStatus = useStore($hasConnectivityStatus);
-  const hasCoverageType = useStore($hasCoverageType);
   const paintData = useStore($stylePaintData);
 
   if (!school || pending) {
@@ -66,21 +58,13 @@ export const Popup = () => {
     longitude,
     networkCoverage,
     regionClassification,
-    connectivity,
     connectivityStatus,
+    coverageStatus,
     coverageType,
-    coverageAvailability,
   } = getSchoolInfo(school);
 
-  const status = getSchoolStatus({
-    mapType,
-    connectivity,
-    connectivityStatus,
-    coverageType,
-    coverageAvailability,
-    hasConnectivityStatus,
-    hasCoverageType,
-  });
+  const status =
+    mapType === 'connectivity' ? connectivityStatus : coverageStatus;
 
   return (
     <div

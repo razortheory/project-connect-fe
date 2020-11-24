@@ -18,12 +18,12 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     statistics: {
       connectivity_type,
       connectivity_speed,
-      connectivity_status,
       connectivity,
       coverage_type,
-      coverage_availability,
     },
     environment,
+    connectivity_status,
+    coverage_status,
   } = school;
 
   const connectionSpeed = formatConnectionSpeed(connectivity_speed);
@@ -42,7 +42,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     networkCoverage: 'No data',
     connectivity,
     coverageType: coverage_type,
-    coverageAvailability: coverage_availability,
     regionClassification: environment || 'No data',
+    coverageStatus: coverage_status,
   };
 };

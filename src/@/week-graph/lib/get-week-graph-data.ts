@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import { ConnectivityStatus, DailyStats, WeekDay } from '~/api/types';
+import { ConnectionStatus, DailyStats, WeekDay } from '~/api/types';
 import { formatConnectionSpeed } from '~/core/formatters';
 
 import {
@@ -30,7 +30,7 @@ export const getPercent = (
   return `${((speed / maxSpeed) * 100).toFixed(2)}%`;
 };
 
-export const getStatus = (speed: number): ConnectivityStatus => {
+export const getStatus = (speed: number): ConnectionStatus => {
   if (speed >= MED_SPEED_MAX) {
     return 'good';
   }

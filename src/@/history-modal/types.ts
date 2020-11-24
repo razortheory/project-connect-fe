@@ -1,4 +1,4 @@
-import { ConnectivityStatus } from '~/api/types';
+import { ConnectionStatus } from '~/api/types';
 
 export type StatsDataType = 'country' | 'school';
 
@@ -13,5 +13,5 @@ export type HistoryGraphItem = {
   date: string;
   speedFormatted?: string;
   speed?: number;
-  status?: ConnectivityStatus;
+  status?: ConnectionStatus;
 };

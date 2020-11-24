@@ -15,8 +15,6 @@ export type UpdateSchools = {
   map: Map | null;
   schools: FeatureCollection | null;
   mapType: MapType;
-  hasConnectivityStatus: boolean;
-  hasCoverageType: boolean;
   paintData: StylePaintData;
 };
 
@@ -30,8 +28,6 @@ export type UpdateGlobalSchools = {
 export type UpdateSchoolsColors = {
   map: Map | null;
   mapType: MapType;
-  hasConnectivityStatus: boolean;
-  hasCoverageType: boolean;
   paintData: StylePaintData;
 };
 

@@ -4,8 +4,6 @@ import { MapType, StylePaintData } from '@/map/types';
 
 type GetSchoolsColors = {
   mapType: MapType;
-  hasConnectivityStatus: boolean;
-  hasCoverageType: boolean;
   paintData: StylePaintData;
 };
 
@@ -30,22 +28,14 @@ const getColorExpression = (
 
 export const getSchoolsColors = ({
   mapType,
-  hasConnectivityStatus,
-  hasCoverageType,
   paintData,
 }: GetSchoolsColors): string | StyleFunction | Expression | undefined => {
   if (mapType === 'connectivity') {
-    return getColorExpression(
-      hasConnectivityStatus ? 'connectivity_status' : 'connectivity',
-      paintData
-    );
+    return getColorExpression('connectivity_status', paintData);
   }
 
   if (mapType === 'coverage') {
-    return getColorExpression(
-      hasCoverageType ? 'coverage_type' : 'coverage_availability',
-      paintData
-    );
+    return getColorExpression('coverage_status', paintData);
   }
 
   return '#ffffff';

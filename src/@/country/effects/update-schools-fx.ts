@@ -7,14 +7,7 @@ import { mapCircleSizes } from '@/map/constants';
 import { getSchoolsColors } from './get-schools-colors';
 
 export const updateSchoolsFx = createEffect(
-  ({
-    map,
-    schools,
-    mapType,
-    hasConnectivityStatus,
-    hasCoverageType,
-    paintData,
-  }: UpdateSchools) => {
+  ({ map, schools, mapType, paintData }: UpdateSchools) => {
     if (!map || !schools) return;
 
     if (schools.features.length > 0) {
@@ -33,8 +26,6 @@ export const updateSchoolsFx = createEffect(
           },
           'circle-color': getSchoolsColors({
             mapType,
-            hasConnectivityStatus,
-            hasCoverageType,
             paintData,
           }),
         },
