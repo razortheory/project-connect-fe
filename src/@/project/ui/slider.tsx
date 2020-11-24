@@ -105,13 +105,11 @@ export const Slider = () => {
                     alt=""
                   />
                 </div>
-                <div className="slider__info-animation-wrapper">
-                  <div className="slider__info-wrapper">
-                    <div className="slider__title">
-                      {SLIDES[slideIndex].title}
-                    </div>
-                    <p className="slider__text">{SLIDES[slideIndex].content}</p>
+                <div className="slider__info-wrapper">
+                  <div className="slider__title">
+                    {SLIDES[slideIndex].title}
                   </div>
+                  <p className="slider__text">{SLIDES[slideIndex].content}</p>
                 </div>
               </div>
             </div>
