@@ -81,7 +81,10 @@ const CountryListContent = () => {
 
 export const CountryList = () => (
   <>
-    <Search />
+    <Search
+      searchBarClassName="search-bar-connectivity"
+      searchBarInputClassName="search-bar-connectivity__input"
+    />
     {!useStore($searchActive) && (
       <>
         <Tabs />

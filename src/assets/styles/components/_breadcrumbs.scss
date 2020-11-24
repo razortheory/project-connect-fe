@@ -8,25 +8,31 @@
   line-height: 20pt;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
-  background-color: $color-deep-blue;
+  background-color: $color-primary;
 
-  &::before {
-    position: absolute;
-    top: 0;
-    right: ($grid-gutter-width-lg / 2);
-    left: ($grid-gutter-width-lg / 2);
-    display: inline-flex;
-    height: 0.1rem;
-    background-color: #646973;
-    content: '';
+  @include media-breakpoint-down(sm){
+    background-color: $color-deep-blue;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: ($grid-gutter-width-lg / 2);
+      left: ($grid-gutter-width-lg / 2);
+      display: inline-flex;
+      height: 0.1rem;
+      background-color: #646973;
+      content: '';
+    }
   }
 }
+
 .breadcrumbs__arrow {
   @include transition;
   height: 1.2rem;
   margin-right: 0.5rem;
   color: #fff;
 }
+
 .breadcrumbs__link {
   @include transition;
   display: inline-flex;
@@ -37,7 +43,7 @@
 
   &:hover,
   &:focus {
-    background-color: #232832;
+    background-color: $color-primary-hover;
   }
 
   &:active {

@@ -15,6 +15,17 @@
   background-color: $color-primary;
   border: none;
 
+  //&::before {
+  //  position: absolute;
+  //  top: 0;
+  //  right: ($grid-gutter-width-lg / 2);
+  //  left: ($grid-gutter-width-lg / 2);
+  //  display: inline-flex;
+  //  height: 0.1rem;
+  //  background-color: #fff;
+  //  content: '';
+  //}
+
   &:hover,
   &:focus {
     background-color: $color-primary-hover;

@@ -15,7 +15,7 @@ import { $isMobile } from '~/core/media-query';
 import { mapCountries } from '~/core/routes';
 import { getVoid } from '~/lib/effector-kit';
 import { Link } from '~/lib/router';
-import { Dropdown, ProgressBar } from '~/ui';
+import { ProgressBar, RadioButtons } from '~/ui';
 
 import {
   $country,
@@ -204,7 +204,7 @@ const CountryInfoContent = () => {
             >
               <Chevron className="chevron chevron--left" />
             </button>
-            <div className="period-picker__period">
+            <div className="period-picker-sidebar__period">
               {isThisWeek ? 'This week' : formatWeekInterval(week)}
             </div>
             <button
@@ -250,7 +250,10 @@ export const CountryInfo = () => {
     <ProgressBar wide />
   ) : (
     <>
-      <Search />
+      <Search
+        searchBarClassName="search-bar-connectivity"
+        searchBarInputClassName="search-bar-connectivity__input"
+      />
       {showSearchResults && <SearchResults />}
 
       {showBreadcrumbs && (
@@ -266,18 +269,17 @@ export const CountryInfo = () => {
         </div>
       )}
 
-      {countryHasConnectivity && countryHasCoverage && (
-        <Dropdown<MapType>
-          items={[
-            { title: 'Connectivity map', value: 'connectivity' },
-            { title: 'Coverage map', value: 'coverage' },
-          ]}
-          value={mapType}
-          onChange={changeMapType}
-          wrapperClassName="select-wrapper"
-          selectClassName="select"
-        />
-      )}
+      <RadioButtons<MapType>
+        items={[
+          { title: 'Connectivity map', value: 'connectivity' },
+          { title: 'Coverage map', value: 'coverage' },
+        ]}
+        value={mapType}
+        onChange={changeMapType}
+        wrapperClassName="select-wrapper"
+        radioBtnClassName="select"
+        disabled={!countryHasConnectivity || !countryHasCoverage}
+      />
 
       <Tabs />
       <Scroll>
