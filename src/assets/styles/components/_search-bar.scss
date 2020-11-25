@@ -51,7 +51,9 @@
   background-color: transparent;
   border: none;
   outline: none;
+}
 
+.search-bar-connectivity__input {
   &::selection {
     background: #232832;
 
@@ -59,9 +61,6 @@
       background: #67abff;
     }
   }
-}
-
-.search-bar-connectivity__input {
   /* stylelint-disable-next-line selector-no-vendor-prefix */
   &::-webkit-input-placeholder {
     color: #67abff;
