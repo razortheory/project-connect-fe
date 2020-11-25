@@ -81,9 +81,11 @@ const $sortedCountries = combine(
     if (!countries) return null;
 
     return [
-      ...countries.sort((a: CountryBasic, b: CountryBasic) =>
-        sortCountries(a, b, sortKey)
-      ),
+      ...countries
+        .filter((country) => country.integration_status !== 0)
+        .sort((a: CountryBasic, b: CountryBasic) =>
+          sortCountries(a, b, sortKey)
+        ),
     ];
   }
 );
