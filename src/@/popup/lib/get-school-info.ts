@@ -26,7 +26,10 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     coverage_status,
   } = school;
 
-  const connectionSpeed = formatConnectionSpeed(connectivity_speed);
+  const connectionSpeed =
+    connectivity_speed === null
+      ? 'No data'
+      : formatConnectionSpeed(connectivity_speed);
 
   return {
     id,
