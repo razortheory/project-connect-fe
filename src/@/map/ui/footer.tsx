@@ -8,6 +8,7 @@ import { mapCountry } from '~/core/routes';
 
 import { styles } from '@/map/constants';
 import {
+  $mapType,
   $pending,
   $style,
   $stylePaintData,
@@ -65,6 +66,8 @@ const LegendForCountries = () => {
 
 const LegendForSchools = () => {
   const paintData = useStore($stylePaintData);
+  const mapType = useStore($mapType);
+  const isConnectivity = mapType === 'connectivity';
   return (
     <ul className="footer__map-legend map-legend">
       <li
@@ -73,7 +76,13 @@ const LegendForSchools = () => {
       >
         Data unavailable
         <div className="map-legend__tooltip tooltip tooltip--dark">
-          Internet speed <strong>unknown</strong>
+          {isConnectivity ? (
+            <>
+              Internet speed <strong>unknown</strong>
+            </>
+          ) : (
+            'Unknown mobile coverage'
+          )}
         </div>
       </li>
       <li
@@ -82,7 +91,13 @@ const LegendForSchools = () => {
       >
         No connectivity
         <div className="map-legend__tooltip tooltip tooltip--dark">
-          Internet speed <strong>0 mb/s</strong>
+          {isConnectivity ? (
+            <>
+              Internet speed <strong>0 mb/s</strong>
+            </>
+          ) : (
+            'No mobile coverage'
+          )}
         </div>
       </li>
       <li
@@ -91,7 +106,13 @@ const LegendForSchools = () => {
       >
         Moderate
         <div className="map-legend__tooltip tooltip tooltip--dark">
-          Internet speed <strong>0.5-3 mb/s</strong>
+          {isConnectivity ? (
+            <>
+              Internet speed <strong>0.5-3 mb/s</strong>
+            </>
+          ) : (
+            '2G'
+          )}
         </div>
       </li>
       <li
@@ -100,7 +121,13 @@ const LegendForSchools = () => {
       >
         Good
         <div className="map-legend__tooltip tooltip tooltip--dark">
-          Internet speed <strong>Above 3 mb/s</strong>
+          {isConnectivity ? (
+            <>
+              Internet speed <strong>Above 3 mb/s</strong>
+            </>
+          ) : (
+            'More than 3G'
+          )}
         </div>
       </li>
     </ul>
