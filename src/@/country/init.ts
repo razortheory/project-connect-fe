@@ -97,7 +97,7 @@ sample({
     }
     return 'connectivity';
   },
-  target: $mapType,
+  target: changeMapType,
 });
 
 const onClosePopup = guard($isOpenPopup, { filter: getInverted });
