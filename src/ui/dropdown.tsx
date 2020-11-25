@@ -12,6 +12,17 @@ const DropdownWrapper = styled.div`
   position: relative;
   cursor: pointer;
   appearance: none;
+
+  &::before {
+    position: absolute;
+    top: 5.2rem;
+    right: ($grid-gutter-width-lg / 2);
+    left: ($grid-gutter-width-lg / 2);
+    display: inline-flex;
+    height: 0.1rem;
+    background-color: #fff;
+    content: '';
+  }
 `;
 
 const DropdownSelect = styled.div<{ isOpen: boolean }>`

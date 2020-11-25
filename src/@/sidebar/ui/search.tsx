@@ -19,15 +19,33 @@ import {
 const onChange = changeSearchText.prepend(getInputValue);
 const onClear = clearSearchText.prepend(getVoid);
 
-export const Search = () => {
+type SearchPropsType = {
+  searchBarClassName?: string;
+  searchBarInputClassName?: string;
+};
+
+export const Search = ({
+  searchBarClassName,
+  searchBarInputClassName,
+}: SearchPropsType) => {
   const isMapCountry = useStore(mapCountry.visible);
   return (
-    <div className="sidebar__search-bar search-bar">
+    <div
+      className={
+        searchBarClassName
+          ? ['sidebar__search-bar', 'search-bar', searchBarClassName].join(' ')
+          : 'sidebar__search-bar search-bar'
+      }
+    >
       <div className="search-bar__icon">
         <IconSearch />
       </div>
       <input
-        className="search-bar__input"
+        className={
+          searchBarInputClassName
+            ? ['search-bar__input', searchBarInputClassName].join(' ')
+            : 'search-bar__input'
+        }
         type="text"
         placeholder="Search for a country"
         onKeyPress={onSearchPressKey}
