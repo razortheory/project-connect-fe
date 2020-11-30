@@ -18,6 +18,18 @@
   // empty
 }
 
+.input__error {
+  color: #ec0707;
+  border: 2px solid #ec0707;
+  outline: none;
+}
+
+.textarea__error {
+  color: #ec0707;
+  border: 2px solid #ec0707;
+  outline: none;
+}
+
 .form__item {
   display: flex;
   flex-direction: column;
@@ -31,6 +43,7 @@
 }
 
 .form__row {
+  position: relative;
   display: flex;
   flex-direction: row;
 
