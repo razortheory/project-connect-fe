@@ -18,6 +18,9 @@ const RadioWrapper = styled.div`
 const Label = styled.label`
   /* stylelint-disable scss/operator-no-unspaced */
   margin-right: 2rem;
+  font-size: 0.9rem;
+  font-family: Cabin, sans-serif;
+  letter-spacing: 1px;
 `;
 
 const IconWrapper = styled.div`
