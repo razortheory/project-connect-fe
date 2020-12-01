@@ -269,20 +269,20 @@ export const CountryInfo = () => {
         </div>
       )}
 
-      <RadioButtons<MapType>
-        items={[
-          { title: 'Connectivity map', value: 'connectivity' },
-          { title: 'Coverage map', value: 'coverage' },
-        ]}
-        value={mapType}
-        onChange={changeMapType}
-        wrapperClassName="select-wrapper"
-        radioBtnClassName="select"
-        disabled={!countryHasConnectivity || !countryHasCoverage}
-      />
-
       <Tabs />
       <Scroll>
+        <RadioButtons<MapType>
+          items={[
+            { title: 'Connectivity map', value: 'connectivity' },
+            { title: 'Coverage map', value: 'coverage' },
+          ]}
+          value={mapType}
+          onChange={changeMapType}
+          wrapperClassName="select-wrapper"
+          radioBtnClassName="select"
+          disabled={!countryHasConnectivity || !countryHasCoverage}
+        />
+
         <div
           className={clsx('sidebar__content', {
             'sidebar__content--hidden': isMapTab,
