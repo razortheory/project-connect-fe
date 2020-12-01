@@ -27,11 +27,14 @@ const IconWrapper = styled.div`
   margin-left: 1.4rem;
   cursor: pointer;
 `;
-
+// Styles for sticky popup info
+// Position: absolute;
+// Top: 7.3rem;
+// Left: 32rem;
 const InfoPopup = styled.div`
-  position: absolute;
-  top: 7.3rem;
-  left: 32rem;
+  position: fixed;
+  top: 14.3rem;
+  left: 35rem;
   z-index: 1000;
   width: 23.386rem;
   height: 14.6rem;
