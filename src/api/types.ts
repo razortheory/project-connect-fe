@@ -14,7 +14,7 @@ export type GlobalStats = {
   last_date_updated: string | null;
 };
 
-export type IntegrationStatus = 0 | 1 | 2 | 3;
+export type IntegrationStatus = 0 | 1 | 2 | 3 | 4 | 5;
 export type ConnectivityAvailability =
   | 'no_connectivity'
   | 'connectivity'
@@ -87,6 +87,7 @@ export type SchoolBasic = {
   geopoint: Geometry;
   connectivity_status: ConnectionStatus;
   coverage_status: ConnectionStatus;
+  is_verified: boolean;
 };
 
 export type SchoolSimplified = {
@@ -133,6 +134,7 @@ export type School = {
   school_type: string;
   connectivity_status: ConnectionStatus;
   coverage_status: ConnectionStatus;
+  is_verified: boolean;
 };
 
 export type DailyStats = {

@@ -16,13 +16,15 @@ export const CountryListItem = ({ country }: { country: CountryBasic }) => {
   return (
     <li
       className={clsx('list__item', {
-        'list__item--disabled': country.integration_status === 0,
+        'list__item--disabled':
+          country.integration_status === 0 || country.integration_status === 4,
       })}
     >
       <span
         className="list__circle"
         style={{
-          backgroundColor: paintData[paintField].toString(),
+          // eslint-disable-next-line @typescript-eslint/no-base-to-string
+          backgroundColor: paintData[paintField]?.toString(),
         }}
       />
       <Link

@@ -1,5 +1,6 @@
 import { CountryBasic } from '~/api/types';
 import { getInterval } from '~/lib/date-fns-kit';
+// eslint-disable-next-line no-restricted-imports
 import { DropdownItem } from '~/ui/dropdown';
 
 import { SortKey, SortType } from '@/sidebar/types';
@@ -24,7 +25,7 @@ export const countriesSortData: {
   },
   countryProgress: {
     field: 'integration_status',
-    sortType: 'number',
+    sortType: 'integration_status',
   },
   percentSchoolWithConnectivity: {
     field: 'schools_with_data_percentage',
