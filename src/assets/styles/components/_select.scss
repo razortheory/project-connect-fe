@@ -36,6 +36,19 @@
   }
 }
 
+.select-white-line {
+  &::before {
+    position: absolute;
+    top: 0;
+    right: ($grid-gutter-width-lg / 2);
+    left: ($grid-gutter-width-lg / 2);
+    display: inline-flex;
+    height: 0.1rem;
+    background-color: #fff;
+    content: '';
+  }
+}
+
 .select__option {
   color: $text-color-dark;
   font-weight: normal;

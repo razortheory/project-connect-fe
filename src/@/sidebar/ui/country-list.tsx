@@ -88,7 +88,7 @@ export const CountryList = () => (
     {!useStore($searchActive) && (
       <>
         <Tabs />
-        <Sort />
+        <Sort whiteLineClass="select-white-line" />
       </>
     )}
     <Scroll>
