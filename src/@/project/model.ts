@@ -10,11 +10,8 @@ export const onPurposeChange = createEvent<ChangeEvent<HTMLInputElement>>();
 export const onYourMessageChange = createEvent<
   ChangeEvent<HTMLTextAreaElement>
 >();
-export const setFullNameError = createEvent<string>();
-export const setPurposeError = createEvent<string>();
-export const setOrganizationError = createEvent<string>();
-export const setYourMessageError = createEvent<string>();
 export const clearFormFields = createEvent();
+export const onJoinUsFormRequest = createEvent();
 export const onJoinUsFormSubmit = createEvent();
 
 export const $isMenuOpen = createStore(false);

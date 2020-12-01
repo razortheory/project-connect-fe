@@ -3,17 +3,16 @@ import { createEffect } from 'effector';
 import { JoinUsFormFields } from '@/project/types';
 
 export const sendJoinUsFormFx = createEffect(
-  async ({
-    fullName,
-    organization,
-    purpose,
-    yourMessage,
-  }: JoinUsFormFields) => {
+  async (formFields: JoinUsFormFields | null) => {
     // TODO
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ fullName, organization, purpose, yourMessage });
-      }, 1500);
+    return new Promise((resolve, reject) => {
+      if (formFields !== null) {
+        setTimeout(() => {
+          resolve(formFields);
+        }, 1500);
+      } else {
+        reject(new Error('Some error'));
+      }
     });
   }
 );

@@ -6,11 +6,9 @@ import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
 import { Link } from '~/lib/router';
 
-import { sendJoinUsFormFx } from '@/project/effects';
 import {
   $fullName,
   $fullNameError,
-  // eslint-disable-next-line import/named
   $isSendButtonDisabled,
   $organization,
   $organizationError,
@@ -18,16 +16,11 @@ import {
   $purposeError,
   $yourMessage,
   $yourMessageError,
-  clearFormFields,
   onFullNameChange,
   onJoinUsFormSubmit,
   onOrganizationChange,
   onPurposeChange,
   onYourMessageChange,
-  setFullNameError,
-  setOrganizationError,
-  setPurposeError,
-  setYourMessageError,
 } from '@/project/model';
 
 const Error = styled.div`
@@ -45,85 +38,9 @@ const Error = styled.div`
   }
 `;
 
-const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+const onSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
-
-  const minInputLength = 1;
-  const minTextAreaLength = 1;
-  const maxInputLength = 50;
-  const maxTextAreaLength = 250;
-  const validateInputOnMinLength = (fieldValue: string) =>
-    fieldValue.trim().length >= minInputLength;
-  const validateInputOnMaxLength = (fieldValue: string) =>
-    fieldValue.length <= maxInputLength;
-
-  if (
-    validateInputOnMinLength($fullName.getState()) &&
-    validateInputOnMaxLength($fullName.getState()) &&
-    validateInputOnMinLength($organization.getState()) &&
-    validateInputOnMaxLength($organization.getState()) &&
-    validateInputOnMinLength($purpose.getState()) &&
-    validateInputOnMaxLength($purpose.getState()) &&
-    $yourMessage.getState().trim().length >= minTextAreaLength &&
-    $yourMessage.getState().length <= maxTextAreaLength
-  ) {
-    onJoinUsFormSubmit();
-    const result = await sendJoinUsFormFx({
-      fullName: $fullName.getState(),
-      organization: $organization.getState(),
-      purpose: $purpose.getState(),
-      yourMessage: $yourMessage.getState(),
-    });
-
-    // TODO
-    console.log(result);
-    setFullNameError('');
-    setOrganizationError('');
-    setPurposeError('');
-    setYourMessageError('');
-    clearFormFields();
-    return;
-  }
-
-  if (!validateInputOnMinLength($fullName.getState())) {
-    setFullNameError(`Full Name field is required`);
-  } else if (!validateInputOnMaxLength($fullName.getState())) {
-    setFullNameError(
-      `Full Name  should not be more than ${maxInputLength} characters`
-    );
-  } else {
-    setFullNameError('');
-  }
-
-  if (!validateInputOnMinLength($organization.getState())) {
-    setOrganizationError(`Organization field is required`);
-  } else if (!validateInputOnMaxLength($organization.getState())) {
-    setOrganizationError(
-      `Organization should not be more than ${maxInputLength} characters`
-    );
-  } else {
-    setOrganizationError('');
-  }
-
-  if (!validateInputOnMinLength($purpose.getState())) {
-    setPurposeError(`Purpose field is required`);
-  } else if (!validateInputOnMaxLength($purpose.getState())) {
-    setPurposeError(
-      `Purpose should not be more than ${maxInputLength} characters`
-    );
-  } else {
-    setPurposeError('');
-  }
-
-  if ($yourMessage.getState().trim().length < minTextAreaLength) {
-    setYourMessageError(`Your message field is required`);
-  } else if ($yourMessage.getState().length > maxTextAreaLength) {
-    setYourMessageError(
-      `Your message should not be more than ${maxTextAreaLength} characters`
-    );
-  } else {
-    setYourMessageError('');
-  }
+  onJoinUsFormSubmit();
 };
 
 export const JoinUs = () => {
