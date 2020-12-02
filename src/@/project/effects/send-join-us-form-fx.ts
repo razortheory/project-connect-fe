@@ -1,18 +1,27 @@
-import { createEffect } from 'effector';
+import { createRequest } from '~/lib/request';
+import { createRequestFx } from '~/lib/request-fx';
 
 import { JoinUsFormFields } from '@/project/types';
 
-export const sendJoinUsFormFx = createEffect(
-  async (formFields: JoinUsFormFields | null) => {
-    // TODO
-    return new Promise((resolve, reject) => {
-      if (formFields !== null) {
-        setTimeout(() => {
-          resolve(formFields);
-        }, 1500);
-      } else {
-        reject(new Error('Some error'));
-      }
+const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
+
+const request = createRequest({
+  baseUrl: apiBaseUrl,
+});
+
+export const sendJoinUsFormFx = createRequestFx(
+  async (formFields: JoinUsFormFields) => {
+    const { fullName, organization, purpose, yourMessage } = formFields;
+    const result = {
+      full_name: fullName,
+      organisation: organization,
+      purpose,
+      message: yourMessage,
+    };
+    return request({
+      url: `api/contact/contact`,
+      method: 'POST',
+      data: JSON.stringify(result),
     });
   }
 );

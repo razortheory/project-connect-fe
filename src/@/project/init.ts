@@ -38,16 +38,18 @@ $yourMessage.on(onYourMessageChange, (_, event) => event.target.value);
 $fullName.on(onFullNameChange, (_, event) => getInputValue(event));
 
 $isSendButtonDisabled.on(onJoinUsFormRequest, () => true);
-$isSendButtonDisabled.reset(sendJoinUsFormFx.done);
-
-sendJoinUsFormFx.done.watch(() => {
-  clearFormFields();
-});
-
+$isSendButtonDisabled.reset(sendJoinUsFormFx.done, sendJoinUsFormFx.fail);
 $fullName.reset(clearFormFields);
 $organization.reset(clearFormFields);
 $purpose.reset(clearFormFields);
 $yourMessage.reset(clearFormFields);
+
+sendJoinUsFormFx.done.watch(() => {
+  clearFormFields();
+});
+sendJoinUsFormFx.fail.watch(() => {
+  clearFormFields();
+});
 
 const validateInput = (fieldValue: string, fieldName: string) => {
   if (fieldValue.trim().length === 0) {
@@ -67,9 +69,7 @@ const validateTextArea = (fieldValue: string, fieldName: string) => {
   }
   return '';
 };
-const validateAllFields = (
-  state: JoinUsFormFields
-): JoinUsFormFields | null => {
+const validateAllFields = (state: JoinUsFormFields) => {
   const fullNameError = validateInput(state.fullName, 'Full Name');
   const organizationError = validateInput(state.organization, 'Organization');
   const purposeError = validateInput(state.purpose, 'Purpose');
@@ -81,9 +81,7 @@ const validateAllFields = (
     yourMessageError === ''
   ) {
     onJoinUsFormRequest();
-    return state;
   }
-  return null;
 };
 
 sample({
@@ -95,7 +93,17 @@ sample({
   },
   clock: onJoinUsFormSubmit,
   fn: validateAllFields,
-  target: sendJoinUsFormFx,
+});
+
+sample({
+  source: {
+    fullName: $fullName,
+    organization: $organization,
+    purpose: $purpose,
+    yourMessage: $yourMessage,
+  },
+  clock: onJoinUsFormRequest,
+  fn: sendJoinUsFormFx,
 });
 
 sample({
@@ -111,6 +119,7 @@ sample({
   fn: (state) => validateInput(state, 'Organization'),
   target: $organizationError,
 });
+
 sample({
   source: $purpose,
   clock: onJoinUsFormSubmit,
