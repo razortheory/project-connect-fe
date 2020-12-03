@@ -61,30 +61,23 @@ export const JoinUsTabContent = ({ state }: { state?: string }) => {
   );
 };
 
-export const JoinUs = () => {
-  const [joinUpTabState, setJoinUpTabState] = useState<
-    | 'default'
-    | 'government'
-    | 'non-profit'
-    | 'international-organization'
-    | 'development-bank'
-    | 'ISP'
-    | 'tech-company'
-    | 'research-institute'
-  >('default');
+type JoinUsTabState =
+  | 'default'
+  | 'government'
+  | 'non-profit'
+  | 'international-organization'
+  | 'development-bank'
+  | 'ISP'
+  | 'tech-company'
+  | 'research-institute';
 
-  const clickJoinTab = (
-    value:
-      | 'default'
-      | 'government'
-      | 'non-profit'
-      | 'international-organization'
-      | 'development-bank'
-      | 'ISP'
-      | 'tech-company'
-      | 'research-institute'
-  ) => {
-    setJoinUpTabState(value);
+export const JoinUs = () => {
+  const [joinUsTabState, setJoinUsTabState] = useState<JoinUsTabState>(
+    'default'
+  );
+
+  const clickJoinTab = (value: JoinUsTabState) => {
+    setJoinUsTabState(value);
   };
 
   return (
@@ -132,7 +125,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'government',
+                      joinUsTabState === 'government',
                   }
                 )}
                 onClick={() => clickJoinTab('government')}
@@ -149,7 +142,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'non-profit',
+                      joinUsTabState === 'non-profit',
                   }
                 )}
                 onClick={() => clickJoinTab('non-profit')}
@@ -166,7 +159,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'international-organization',
+                      joinUsTabState === 'international-organization',
                   }
                 )}
                 onClick={() => clickJoinTab('international-organization')}
@@ -183,7 +176,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'development-bank',
+                      joinUsTabState === 'development-bank',
                   }
                 )}
                 onClick={() => clickJoinTab('development-bank')}
@@ -199,7 +192,7 @@ export const JoinUs = () => {
                   'button--large',
                   'button--tertiary',
                   {
-                    partnership__button__active: joinUpTabState === 'ISP',
+                    partnership__button__active: joinUsTabState === 'ISP',
                   }
                 )}
                 onClick={() => clickJoinTab('ISP')}
@@ -216,7 +209,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'tech-company',
+                      joinUsTabState === 'tech-company',
                   }
                 )}
                 onClick={() => clickJoinTab('tech-company')}
@@ -233,7 +226,7 @@ export const JoinUs = () => {
                   'button--tertiary',
                   {
                     partnership__button__active:
-                      joinUpTabState === 'research-institute',
+                      joinUsTabState === 'research-institute',
                   }
                 )}
                 onClick={() => clickJoinTab('research-institute')}
@@ -242,7 +235,7 @@ export const JoinUs = () => {
               </button>
             </div>
 
-            <JoinUsTabContent state={joinUpTabState} />
+            <JoinUsTabContent state={joinUsTabState} />
           </div>
         </div>
       </section>
