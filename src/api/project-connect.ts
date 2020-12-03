@@ -6,6 +6,7 @@ import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
 import { getGlobalSchoolsGeoJson, getSchoolsGeoJson } from '@/country/lib';
+import { JoinUsFormFields } from '@/project/types';
 
 import {
   Country,
@@ -152,3 +153,20 @@ const fetchSchoolDailyStats = async (
 
 export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
 export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
+
+export const sendJoinUsFormFx = createRequestFx(
+  async (formFields: JoinUsFormFields) => {
+    const { fullName, organization, purpose, yourMessage } = formFields;
+    const result = {
+      full_name: fullName,
+      organisation: organization,
+      purpose,
+      message: yourMessage,
+    };
+    return request({
+      url: `api/contact/contact`,
+      method: 'POST',
+      data: JSON.stringify(result),
+    });
+  }
+);

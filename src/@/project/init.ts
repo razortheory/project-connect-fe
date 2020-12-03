@@ -1,10 +1,10 @@
 import { combine, guard, sample } from 'effector';
 
+import { sendJoinUsFormFx } from '~/api/project-connect';
 import { router } from '~/core/routes';
 import { getInverted } from '~/lib/effector-kit';
 import { getInputValue } from '~/lib/event-reducers';
 
-import { sendJoinUsFormFx } from '@/project/effects';
 import {
   $fullName,
   $fullNameError,
