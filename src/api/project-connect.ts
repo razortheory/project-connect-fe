@@ -155,7 +155,7 @@ export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
 export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
 
 export const sendJoinUsFormFx = createRequestFx(
-  async (formFields: JoinUsFormFields) => {
+  async (formFields: JoinUsFormFields): Promise<JoinUsFormFields | null> => {
     const { fullName, organization, purpose, yourMessage } = formFields;
     const result = {
       full_name: fullName,

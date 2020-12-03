@@ -53,6 +53,7 @@ export const JoinUs = () => {
   const purposeError = useStore($purposeError);
   const yourMessageError = useStore($yourMessageError);
   const isSendButtonDisabled = useStore($isSendButtonDisabled);
+  const errorText = 'This field is required';
 
   return (
     <>
@@ -195,17 +196,18 @@ export const JoinUs = () => {
                     <input
                       id="name"
                       className={
-                        fullNameError === ''
-                          ? ['form__input', 'input'].join(' ')
-                          : ['form__input', 'input', 'input__error'].join(' ')
+                        fullNameError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
                       }
                       type="text"
                       name="name"
                       value={fullName}
                       onChange={onFullNameChange}
+                      maxLength={50}
                     />
                   </label>
-                  {fullNameError !== '' && <Error>{fullNameError}</Error>}
+                  {fullNameError && <Error>{errorText}</Error>}
                 </div>
 
                 <div className="form__row">
@@ -214,19 +216,18 @@ export const JoinUs = () => {
                     <input
                       id="organization"
                       className={
-                        organizationError === ''
-                          ? ['form__input', 'input'].join(' ')
-                          : ['form__input', 'input', 'input__error'].join(' ')
+                        organizationError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
                       }
                       type="text"
                       name="organization"
                       value={organization}
                       onChange={onOrganizationChange}
+                      maxLength={50}
                     />
                   </label>
-                  {organizationError !== '' && (
-                    <Error>{organizationError}</Error>
-                  )}
+                  {organizationError && <Error>{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="purpose" className="form__item">
@@ -234,17 +235,18 @@ export const JoinUs = () => {
                     <input
                       id="purpose"
                       className={
-                        purposeError === ''
-                          ? ['form__input', 'input'].join(' ')
-                          : ['form__input', 'input', 'input__error'].join(' ')
+                        purposeError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
                       }
                       type="text"
                       name="purpose"
                       value={purpose}
                       onChange={onPurposeChange}
+                      maxLength={50}
                     />
                   </label>
-                  {purposeError !== '' && <Error>{purposeError}</Error>}
+                  {purposeError && <Error>{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="message" className="form__item">
@@ -252,18 +254,19 @@ export const JoinUs = () => {
                     <textarea
                       id="message"
                       className={
-                        yourMessageError === ''
-                          ? ['form__input', 'textarea'].join(' ')
-                          : ['form__input', 'textarea', 'textarea__error'].join(
+                        yourMessageError
+                          ? ['form__input', 'textarea', 'textarea__error'].join(
                               ' '
                             )
+                          : ['form__input', 'textarea'].join(' ')
                       }
                       name="message"
                       value={yourMessage}
                       onChange={onYourMessageChange}
+                      maxLength={250}
                     />
                   </label>
-                  {yourMessageError !== '' && <Error>{yourMessageError}</Error>}
+                  {yourMessageError && <Error>{errorText}</Error>}
                 </div>
                 <button
                   type="submit"
