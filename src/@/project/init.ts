@@ -2,8 +2,7 @@ import { combine, guard, merge, sample } from 'effector';
 
 import { sendJoinUsFormFx } from '~/api/project-connect';
 import { router } from '~/core/routes';
-import { getInverted } from '~/lib/effector-kit';
-import { getInputValue } from '~/lib/event-reducers';
+import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
   $fullName,
@@ -29,14 +28,11 @@ import { scrollToHashFx } from '@/scroll';
 
 $isMenuOpen.on(toggleMenu, getInverted);
 
-$fullName.on(onFullNameChange, (_, event) => getInputValue(event));
-$organization.on(onOrganizationChange, (_, event) => getInputValue(event));
-$purpose.on(onPurposeChange, (_, event) => getInputValue(event));
+$fullName.on(onFullNameChange, setPayload);
+$organization.on(onOrganizationChange, setPayload);
+$purpose.on(onPurposeChange, setPayload);
 $yourMessage.on(onYourMessageChange, (_, event) => event.target.value);
-$fullName.on(onFullNameChange, (_, event) => getInputValue(event));
 
-$isSendButtonDisabled.on(sendJoinUsFormFx, () => true);
-$isSendButtonDisabled.reset(sendJoinUsFormFx.done, sendJoinUsFormFx.fail);
 $fullName.reset(clearFormFields);
 $organization.reset(clearFormFields);
 $purpose.reset(clearFormFields);
@@ -50,52 +46,60 @@ sendJoinUsFormFx.fail.watch(() => {
 });
 
 sample({
+  source: sendJoinUsFormFx.pending,
+  target: $isSendButtonDisabled,
+});
+
+sample({
   source: $fullName,
   clock: merge([onFullNameChange, onJoinUsFormSubmit]),
-  fn: (state) => getInverted(state.trim().length !== 0),
+  fn: (state) => state.trim().length === 0,
   target: $fullNameError,
 });
 
 sample({
   source: $organization,
   clock: merge([onOrganizationChange, onJoinUsFormSubmit]),
-  fn: (state) => getInverted(state.trim().length !== 0),
+  fn: (state) => state.trim().length === 0,
   target: $organizationError,
 });
 
 sample({
   source: $purpose,
   clock: merge([onPurposeChange, onJoinUsFormSubmit]),
-  fn: (state) => getInverted(state.trim().length !== 0),
+  fn: (state) => state.trim().length === 0,
   target: $purposeError,
 });
 
 sample({
   source: $yourMessage,
   clock: merge([onYourMessageChange, onJoinUsFormSubmit]),
-  fn: (state) => getInverted(state.trim().length !== 0),
+  fn: (state) => state.trim().length === 0,
   target: $yourMessageError,
 });
 
-sample({
-  source: combine([
-    $fullNameError,
-    $organizationError,
-    $purposeError,
-    $yourMessageError,
-  ]),
+const $formError = combine(
+  [$fullNameError, $organizationError, $purposeError, $yourMessageError],
+  (states) => states.some(Boolean)
+);
+
+const $formValues = combine([$fullName, $organization, $purpose, $yourMessage]);
+
+const onSubmitForm = sample({
+  source: $formError,
   clock: onJoinUsFormSubmit,
-  fn: (state) => {
-    if (state.every((element) => !element)) {
-      return sendJoinUsFormFx({
-        fullName: $fullName.getState(),
-        organization: $organization.getState(),
-        purpose: $purpose.getState(),
-        yourMessage: $yourMessage.getState(),
-      });
-    }
-    return null;
-  },
+});
+
+sample({
+  source: $formValues,
+  clock: guard(onSubmitForm, { filter: getInverted }),
+  fn: ([fullName, organization, purpose, yourMessage]) => ({
+    fullName,
+    organization,
+    purpose,
+    yourMessage,
+  }),
+  target: sendJoinUsFormFx,
 });
 
 sample({

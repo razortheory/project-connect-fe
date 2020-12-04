@@ -164,9 +164,12 @@ export const sendJoinUsFormFx = createRequestFx(
       message: yourMessage,
     };
     return request({
-      url: `api/contact/contact`,
+      url: `api/contact/contact/`,
       method: 'POST',
-      data: JSON.stringify(result),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(result),
     });
   }
 );

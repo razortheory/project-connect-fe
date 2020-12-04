@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
+import { getInputValue } from '~/lib/event-reducers';
 import { Link } from '~/lib/router';
 
 import {
@@ -54,6 +55,9 @@ export const JoinUs = () => {
   const yourMessageError = useStore($yourMessageError);
   const isSendButtonDisabled = useStore($isSendButtonDisabled);
   const errorText = 'This field is required';
+  const handleFullNameChange = onFullNameChange.prepend(getInputValue);
+  const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
+  const handlePurposeChange = onPurposeChange.prepend(getInputValue);
 
   return (
     <>
@@ -203,7 +207,7 @@ export const JoinUs = () => {
                       type="text"
                       name="name"
                       value={fullName}
-                      onChange={onFullNameChange}
+                      onChange={handleFullNameChange}
                       maxLength={50}
                     />
                   </label>
@@ -223,7 +227,7 @@ export const JoinUs = () => {
                       type="text"
                       name="organization"
                       value={organization}
-                      onChange={onOrganizationChange}
+                      onChange={handleOrganizationChange}
                       maxLength={50}
                     />
                   </label>
@@ -242,7 +246,7 @@ export const JoinUs = () => {
                       type="text"
                       name="purpose"
                       value={purpose}
-                      onChange={onPurposeChange}
+                      onChange={handlePurposeChange}
                       maxLength={50}
                     />
                   </label>
