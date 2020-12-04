@@ -137,12 +137,21 @@ export const JoinUs = () => {
       <section className="section">
         <div className="container">
           <div className="page-heading">
-            <h2 className="page-heading__title">
-              Project Connect’s mission to map the connectivity of every school
-              in the world is ambitious and we need your help to succeed. There
-              are a multitude of ways in which we can work together. Interested
-              in joining?
-            </h2>
+            <div className="page-heading__title-wrapper">
+              <h2 className="page-heading__title">
+                Project Connect’s mission to map the connectivity of every
+                school in the world is ambitious and we need your help to
+                succeed. There are a multitude of ways in which we can work
+                together. Interested in joining?
+              </h2>
+              <Link
+                to={joinUs}
+                hash="write-to-us"
+                className="header__button button button--primary write-to-us-btn"
+              >
+                Write to us
+              </Link>
+            </div>
             <div className="page-heading__media">
               <div className="page-heading__image-wrapper">
                 <img
@@ -153,13 +162,11 @@ export const JoinUs = () => {
               </div>
             </div>
           </div>
-          <Link
-            to={joinUs}
-            hash="write-to-us"
-            className="header__button button button--primary"
-          >
-            Write to us
-          </Link>
+          <a href="#work-together" id="work-together">
+            <h2 className="section__title work-together">
+              How we can work together
+            </h2>
+          </a>
         </div>
       </section>
       <section className="section section--inverted">
