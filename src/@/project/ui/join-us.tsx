@@ -1,9 +1,44 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import { useStore } from 'effector-react';
+import React, { FormEvent, useState } from 'react';
+import styled from 'styled-components';
 
 import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
+import { getInputValue } from '~/lib/event-reducers';
 import { Link } from '~/lib/router';
+
+import {
+  $fullName,
+  $fullNameError,
+  $isSendButtonDisabled,
+  $organization,
+  $organizationError,
+  $purpose,
+  $purposeError,
+  $yourMessage,
+  $yourMessageError,
+  onFullNameChange,
+  onJoinUsFormSubmit,
+  onOrganizationChange,
+  onPurposeChange,
+  onYourMessageChange,
+} from '@/project/model';
+
+const Error = styled.div`
+  /* stylelint-disable scss/operator-no-unspaced */
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  color: #ec0707;
+  font-size: 1.5rem;
+  font-family: Cabin, sans-serif;
+  letter-spacing: 1px;
+
+  @media (max-width: 991px) {
+    font-size: 1.1rem;
+  }
+`;
 
 export const JoinUsTabContent = ({ state }: { state?: string }) => {
   return (
@@ -71,14 +106,31 @@ type JoinUsTabState =
   | 'tech-company'
   | 'research-institute';
 
+const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  onJoinUsFormSubmit();
+};
+
 export const JoinUs = () => {
   const [joinUsTabState, setJoinUsTabState] = useState<JoinUsTabState>(
     'default'
   );
-
   const clickJoinTab = (value: JoinUsTabState) => {
     setJoinUsTabState(value);
   };
+  const fullName = useStore($fullName);
+  const organization = useStore($organization);
+  const purpose = useStore($purpose);
+  const yourMessage = useStore($yourMessage);
+  const fullNameError = useStore($fullNameError);
+  const organizationError = useStore($organizationError);
+  const purposeError = useStore($purposeError);
+  const yourMessageError = useStore($yourMessageError);
+  const isSendButtonDisabled = useStore($isSendButtonDisabled);
+  const errorText = 'This field is required';
+  const handleFullNameChange = onFullNameChange.prepend(getInputValue);
+  const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
+  const handlePurposeChange = onPurposeChange.prepend(getInputValue);
 
   return (
     <>
@@ -250,57 +302,94 @@ export const JoinUs = () => {
                 Drop us a few lines about how you would like to engage with us.
               </h3>
               <form
-                action="mailto:projectconnect@unicef.org"
-                method="POST"
+                // Action="mailto:projectconnect@unicef.org"
+                // Method="POST"
                 encType="text/plain"
                 className="feedback__form form"
+                onSubmit={onSubmit}
               >
                 <div className="form__row">
                   <label htmlFor="name" className="form__item">
                     <p className="form__label">Full Name</p>
                     <input
                       id="name"
-                      className="form__input input"
+                      className={
+                        fullNameError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
+                      }
                       type="text"
                       name="name"
+                      value={fullName}
+                      onChange={handleFullNameChange}
+                      maxLength={50}
                     />
                   </label>
+                  {fullNameError && <Error>{errorText}</Error>}
                 </div>
+
                 <div className="form__row">
                   <label htmlFor="organization" className="form__item">
                     <p className="form__label">Your organisation</p>
                     <input
                       id="organization"
-                      className="form__input input"
+                      className={
+                        organizationError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
+                      }
                       type="text"
                       name="organization"
+                      value={organization}
+                      onChange={handleOrganizationChange}
+                      maxLength={50}
                     />
                   </label>
+                  {organizationError && <Error>{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="purpose" className="form__item">
                     <p className="form__label">Purpose</p>
                     <input
                       id="purpose"
-                      className="form__input input"
+                      className={
+                        purposeError
+                          ? ['form__input', 'input', 'input__error'].join(' ')
+                          : ['form__input', 'input'].join(' ')
+                      }
                       type="text"
                       name="purpose"
+                      value={purpose}
+                      onChange={handlePurposeChange}
+                      maxLength={50}
                     />
                   </label>
+                  {purposeError && <Error>{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="message" className="form__item">
                     <p className="form__label">Your message</p>
                     <textarea
                       id="message"
-                      className="form__input textarea"
+                      className={
+                        yourMessageError
+                          ? ['form__input', 'textarea', 'textarea__error'].join(
+                              ' '
+                            )
+                          : ['form__input', 'textarea'].join(' ')
+                      }
                       name="message"
+                      value={yourMessage}
+                      onChange={onYourMessageChange}
+                      maxLength={250}
                     />
                   </label>
+                  {yourMessageError && <Error>{errorText}</Error>}
                 </div>
                 <button
                   type="submit"
                   className="button button--full-width button--primary"
+                  disabled={isSendButtonDisabled}
                 >
                   Send
                 </button>
