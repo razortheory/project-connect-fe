@@ -1,5 +1,6 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import joinUsImage from '~/assets/images/join-us.jpg';
@@ -39,12 +40,84 @@ const Error = styled.div`
   }
 `;
 
+export const JoinUsTabContent = ({ state }: { state?: string }) => {
+  return (
+    <>
+      {state === 'default' && (
+        <div className="partnership__tab-content">
+          <div className="partnership__arrow-wrapper">
+            <div className="partnership__arrow" />
+          </div>
+
+          <div className="partnership__default-description">
+            Select your organisation type to see how we can work together
+          </div>
+        </div>
+      )}
+
+      {state !== 'default' && (
+        <div className="partnership__tab-content">
+          <h3 className="partnership__title">
+            Map school connectivity in your country
+          </h3>
+          <p className="partnership__description">
+            If you are a country government interested in joining, you can
+            contact us and we will help you map every school and connectivity
+            status in your country.
+          </p>
+          <h3 className="partnership__title">Share your data</h3>
+          <p className="partnership__description">
+            We are looking for information on locations of schools and their
+            level of online connectivity. However, any piece of information
+            about schools that you are interested in sharing, no matter how
+            small, is extremely useful.
+          </p>
+          <h3 className="partnership__title">Provide funding</h3>
+          <p className="partnership__description">
+            You can provide funding to support Project Connect’s platform, and
+            help other countries get their maps.
+          </p>
+          <h3 className="partnership__title">
+            Contribute with engineering and data science capacity
+          </h3>
+          <p className="partnership__description">
+            Help us build the Project Connect platform and tech solutions to
+            accelerate the mapping work globally.
+          </p>
+          <h3 className="partnership__title">Collaborate on joint research</h3>
+          <p className="partnership__description">
+            We can conduct joint research on topics such as the impact of
+            connectivity in outcomes, optimization of service delivery or deep
+            learning for automatic mapping.
+          </p>
+        </div>
+      )}
+    </>
+  );
+};
+
+type JoinUsTabState =
+  | 'default'
+  | 'government'
+  | 'non-profit'
+  | 'international-organization'
+  | 'development-bank'
+  | 'ISP'
+  | 'tech-company'
+  | 'research-institute';
+
 const onSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
   onJoinUsFormSubmit();
 };
 
 export const JoinUs = () => {
+  const [joinUsTabState, setJoinUsTabState] = useState<JoinUsTabState>(
+    'default'
+  );
+  const clickJoinTab = (value: JoinUsTabState) => {
+    setJoinUsTabState(value);
+  };
   const fullName = useStore($fullName);
   const organization = useStore($organization);
   const purpose = useStore($purpose);
@@ -95,85 +168,126 @@ export const JoinUs = () => {
           <div className="partnership__row">
             <div className="partnership__tabs-list">
               <button
+                name="government"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'government',
+                  }
+                )}
+                onClick={() => clickJoinTab('government')}
               >
                 Government
               </button>
               <button
+                name="non-profit"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'non-profit',
+                  }
+                )}
+                onClick={() => clickJoinTab('non-profit')}
               >
                 Non-profit or similar
               </button>
               <button
+                name="international-organization"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'international-organization',
+                  }
+                )}
+                onClick={() => clickJoinTab('international-organization')}
               >
                 International organization
               </button>
               <button
+                name="development-bank"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'development-bank',
+                  }
+                )}
+                onClick={() => clickJoinTab('development-bank')}
               >
                 Development bank
               </button>
               <button
+                name="ISP"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active: joinUsTabState === 'ISP',
+                  }
+                )}
+                onClick={() => clickJoinTab('ISP')}
               >
                 ISP or Network provider
               </button>
               <button
+                name="tech-company"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'tech-company',
+                  }
+                )}
+                onClick={() => clickJoinTab('tech-company')}
               >
                 tech company
               </button>
               <button
+                name="research-institute"
                 type="button"
-                className="partnership__button button button--large button--tertiary"
+                className={clsx(
+                  'partnership__button',
+                  'button',
+                  'button--large',
+                  'button--tertiary',
+                  {
+                    partnership__button__active:
+                      joinUsTabState === 'research-institute',
+                  }
+                )}
+                onClick={() => clickJoinTab('research-institute')}
               >
                 research institute
               </button>
             </div>
-            <div className="partnership__tab-content">
-              <h3 className="partnership__title">
-                Map school connectivity in your country
-              </h3>
-              <p className="partnership__description">
-                If you are a country government interested in joining, you can
-                contact us and we will help you map every school and
-                connectivity status in your country.
-              </p>
-              <h3 className="partnership__title">Share your data</h3>
-              <p className="partnership__description">
-                We are looking for information on locations of schools and their
-                level of online connectivity. However, any piece of information
-                about schools that you are interested in sharing, no matter how
-                small, is extremely useful.
-              </p>
-              <h3 className="partnership__title">Provide funding</h3>
-              <p className="partnership__description">
-                You can provide funding to support Project Connect’s platform,
-                and help other countries get their maps.
-              </p>
-              <h3 className="partnership__title">
-                Contribute with engineering and data science capacity
-              </h3>
-              <p className="partnership__description">
-                Help us build the Project Connect platform and tech solutions to
-                accelerate the mapping work globally.
-              </p>
-              <h3 className="partnership__title">
-                Collaborate on joint research
-              </h3>
-              <p className="partnership__description">
-                We can conduct joint research on topics such as the impact of
-                connectivity in outcomes, optimization of service delivery or
-                deep learning for automatic mapping.
-              </p>
-            </div>
+
+            <JoinUsTabContent state={joinUsTabState} />
           </div>
         </div>
       </section>

@@ -24,6 +24,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     environment,
     connectivity_status,
     coverage_status,
+    is_verified,
   } = school;
 
   const connectionSpeed =
@@ -47,5 +48,6 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     coverageType: coverage_type,
     regionClassification: environment || 'No data',
     coverageStatus: coverage_status,
+    isVerified: is_verified,
   };
 };

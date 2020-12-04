@@ -36,6 +36,7 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
       no: '#ff615b',
       moderate: '#ffc93d',
       good: '#8bd432',
+      notVerified: '#555555',
     },
   },
   light: {
@@ -55,6 +56,7 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
       no: '#ff615b',
       moderate: '#ffc93d',
       good: '#8bd432',
+      notVerified: '#555555',
     },
   },
   satellite: {
@@ -74,6 +76,7 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
       no: '#ff615b',
       moderate: '#ffc93d',
       good: '#8bd432',
+      notVerified: '#555555',
     },
   },
   accessible: {
@@ -94,6 +97,7 @@ export const stylePaintData: { [style in Style]: StylePaintData } = {
       no: '#f5793a',
       moderate: '#85c0f9',
       good: '#ffffff',
+      notVerified: '#555555',
     },
   },
 };
@@ -146,6 +150,8 @@ export const statusPaintField: {
   1: 'countryVerified',
   2: 'countryWithConnectivity',
   3: 'countryWithConnectivity',
+  4: 'countryNotVerified',
+  5: 'countryNotVerified',
 };
 
 export const defaultGlobalStats: GlobalStats = {

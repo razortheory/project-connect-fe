@@ -82,7 +82,10 @@ const $sortedCountries = combine(
 
     return [
       ...countries
-        .filter((country) => country.integration_status !== 0)
+        .filter(
+          (country) =>
+            country.integration_status > 0 && country.integration_status < 4
+        )
         .sort((a: CountryBasic, b: CountryBasic) =>
           sortCountries(a, b, sortKey)
         ),

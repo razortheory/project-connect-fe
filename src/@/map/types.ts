@@ -23,6 +23,7 @@ export type StylePaintData = {
     no: string;
     moderate: string;
     good: string;
+    notVerified: string;
   };
 };
 

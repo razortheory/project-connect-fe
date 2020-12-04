@@ -1,4 +1,4 @@
-import { CountryBasic } from '~/api/types';
+import { CountryBasic, IntegrationStatus } from '~/api/types';
 
 import { countriesSortData } from './constants';
 import { SortKey } from './types';
@@ -17,6 +17,25 @@ export const sortCountries = (
         // Sort by alphabet items with same sort values
         a.name.localeCompare(b.name)
       );
+    case 'integration_status': {
+      const getIntegrationStatusSortAlias = (
+        value: IntegrationStatus
+      ): number => {
+        if (value === 4) {
+          return -2;
+        }
+        if (value === 5) {
+          return -1;
+        }
+        return value;
+      };
+      return (
+        getIntegrationStatusSortAlias(b[field] as IntegrationStatus) -
+          getIntegrationStatusSortAlias(a[field] as IntegrationStatus) ||
+        // Sort by alphabet items with same sort values
+        a.name.localeCompare(b.name)
+      );
+    }
     case 'date':
       return (
         new Date(b[field] as string).getTime() -
