@@ -9,8 +9,12 @@ export const getSchoolsGeoJson = (points: SchoolBasic[]): FeatureCollection => {
       type: 'Feature',
       properties: {
         name: point.name,
-        connectivity_status: point.connectivity_status,
-        coverage_status: point.coverage_status,
+        connectivity_status: point.is_verified
+          ? point.connectivity_status
+          : 'notVerified',
+        coverage_status: point.is_verified
+          ? point.coverage_status
+          : 'notVerified',
       },
       geometry: point.geopoint,
       id: point.id,

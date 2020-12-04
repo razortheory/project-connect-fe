@@ -20,7 +20,7 @@
     left: ($grid-gutter-width-lg / 2);
     display: inline-flex;
     height: 0.1rem;
-    background-color: #fff;
+    //background-color: #fff;
     content: '';
 
     @include media-breakpoint-down(sm) {

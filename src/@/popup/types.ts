@@ -20,6 +20,7 @@ export type SchoolInfo = {
   regionClassification: string;
   connectivity: boolean | null;
   coverageStatus: ConnectionStatus;
+  isVerified: boolean;
 };
 
 export type AddSchoolPopup = {

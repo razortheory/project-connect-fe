@@ -33,7 +33,6 @@ const Error = styled.div`
   font-size: 1.5rem;
   font-family: Cabin, sans-serif;
   letter-spacing: 1px;
-
   @media (max-width: 991px) {
     font-size: 1.1rem;
   }

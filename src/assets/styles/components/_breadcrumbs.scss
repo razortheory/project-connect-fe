@@ -10,7 +10,7 @@
   text-transform: uppercase;
   background-color: $color-primary;
 
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(sm) {
     background-color: $color-deep-blue;
 
     &::before {
@@ -23,6 +23,17 @@
       background-color: #646973;
       content: '';
     }
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: ($grid-gutter-width-lg / 2);
+    left: ($grid-gutter-width-lg / 2);
+    display: inline-flex;
+    height: 0.1rem;
+    background-color: #fff;
+    content: '';
   }
 }
 

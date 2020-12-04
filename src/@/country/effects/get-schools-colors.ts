@@ -22,6 +22,8 @@ const getColorExpression = (
     paintData.schoolConnectivity.moderate,
     'good',
     paintData.schoolConnectivity.good,
+    'notVerified',
+    paintData.schoolConnectivity.notVerified,
     paintData.schoolConnectivity.unknown,
   ];
 };
