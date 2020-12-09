@@ -106,7 +106,7 @@ type JoinUsTabState =
   | 'tech-company'
   | 'research-institute';
 
-const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+export const onSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
   onJoinUsFormSubmit();
 };
@@ -332,7 +332,9 @@ export const JoinUs = () => {
                       maxLength={50}
                     />
                   </label>
-                  {fullNameError && <Error>{errorText}</Error>}
+                  {fullNameError && (
+                    <Error id="fullNameError">{errorText}</Error>
+                  )}
                 </div>
 
                 <div className="form__row">
@@ -352,7 +354,9 @@ export const JoinUs = () => {
                       maxLength={50}
                     />
                   </label>
-                  {organizationError && <Error>{errorText}</Error>}
+                  {organizationError && (
+                    <Error id="organizationError">{errorText}</Error>
+                  )}
                 </div>
                 <div className="form__row">
                   <label htmlFor="purpose" className="form__item">
@@ -371,7 +375,7 @@ export const JoinUs = () => {
                       maxLength={50}
                     />
                   </label>
-                  {purposeError && <Error>{errorText}</Error>}
+                  {purposeError && <Error id="purposeError">{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="message" className="form__item">
@@ -391,10 +395,13 @@ export const JoinUs = () => {
                       maxLength={250}
                     />
                   </label>
-                  {yourMessageError && <Error>{errorText}</Error>}
+                  {yourMessageError && (
+                    <Error id="yourMessageError">{errorText}</Error>
+                  )}
                 </div>
                 <button
                   type="submit"
+                  id="submit"
                   className="button button--full-width button--primary"
                   disabled={isSendButtonDisabled}
                 >
