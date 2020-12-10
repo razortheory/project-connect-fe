@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-export const getInputValue = (event: ChangeEvent<HTMLInputElement>): string =>
+export const getInputValue = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): string =>
   event.target.value;
 
 export const inputValue = <T extends string>() => (

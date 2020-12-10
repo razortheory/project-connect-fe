@@ -131,6 +131,7 @@ export const JoinUs = () => {
   const handleFullNameChange = onFullNameChange.prepend(getInputValue);
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
   const handlePurposeChange = onPurposeChange.prepend(getInputValue);
+  const handleMessageChange = onYourMessageChange.prepend(getInputValue);
 
   return (
     <>
@@ -391,7 +392,7 @@ export const JoinUs = () => {
                       }
                       name="message"
                       value={yourMessage}
-                      onChange={onYourMessageChange}
+                      onChange={handleMessageChange}
                       maxLength={250}
                     />
                   </label>

@@ -50,9 +50,7 @@ describe('Join Us Form tests', () => {
     const yourMessageError = document.querySelector(
       '#yourMessageError'
     ) as HTMLDivElement;
-    expect(fullNameErrorContainer.textContent).toEqual(
-      'This field is required'
-    );
+    expect(fullNameErrorContainer.textContent).toEqual('This field is required');
     expect(organizationError.textContent).toEqual('This field is required');
     expect(purposeError.textContent).toEqual('This field is required');
     expect(yourMessageError.textContent).toEqual('This field is required');

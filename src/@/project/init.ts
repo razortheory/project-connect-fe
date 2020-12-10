@@ -31,7 +31,7 @@ $isMenuOpen.on(toggleMenu, getInverted);
 $fullName.on(onFullNameChange, setPayload);
 $organization.on(onOrganizationChange, setPayload);
 $purpose.on(onPurposeChange, setPayload);
-$yourMessage.on(onYourMessageChange, (_, event) => event.target.value);
+$yourMessage.on(onYourMessageChange, setPayload);
 
 $fullName.reset(clearFormFields);
 $organization.reset(clearFormFields);
