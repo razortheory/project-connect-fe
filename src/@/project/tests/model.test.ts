@@ -11,9 +11,11 @@ import {
 } from '@/project/model';
 
 describe('Join Us Form tests', () => {
-  it('error values should be changed when onJoinUsFormSubmit called', () => {
+  beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     init;
+  });
+  it('error values should be changed when onJoinUsFormSubmit called', () => {
     expect($fullNameError.getState()).toEqual(false);
     expect($organizationError.getState()).toEqual(false);
     expect($purposeError.getState()).toEqual(false);
