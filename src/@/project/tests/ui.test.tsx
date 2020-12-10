@@ -42,13 +42,13 @@ describe('Join Us Form tests', () => {
       '#fullNameError'
     ) as HTMLDivElement;
     const organizationError = document.querySelector(
-      '#fullNameError'
+      '#organizationError'
     ) as HTMLDivElement;
     const purposeError = document.querySelector(
-      '#fullNameError'
+      '#purposeError'
     ) as HTMLDivElement;
     const yourMessageError = document.querySelector(
-      '#fullNameError'
+      '#yourMessageError'
     ) as HTMLDivElement;
     expect(fullNameErrorContainer.textContent).toEqual(
       'This field is required'
