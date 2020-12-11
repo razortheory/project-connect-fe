@@ -6,7 +6,8 @@ import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
 import { getGlobalSchoolsGeoJson, getSchoolsGeoJson } from '@/country/lib';
-import { JoinUsFormFields } from '@/project/types';
+// eslint-disable-next-line import/named
+import { ApiJoinUsFormFields, JoinUsFormFields } from '@/project/types';
 
 import {
   Country,
@@ -155,7 +156,7 @@ export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
 export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
 
 export const sendJoinUsFormFx = createRequestFx(
-  async (formFields: JoinUsFormFields): Promise<JoinUsFormFields | null> => {
+  async (formFields: JoinUsFormFields): Promise<ApiJoinUsFormFields | null> => {
     const { fullName, organization, purpose, yourMessage } = formFields;
     const result = {
       full_name: fullName,
