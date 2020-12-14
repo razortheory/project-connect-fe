@@ -209,3 +209,83 @@ describe('Join Us Form tests', () => {
     expect(yourMessageInput.value).toEqual('');
   });
 });
+
+describe('Join Us page tabs', () => {
+  beforeEach(() => {
+    container = document.createElement('div');
+    document.body.append(container);
+  });
+
+  afterEach(() => {
+    unmountComponentAtNode(container);
+    container.remove();
+    container = (null as unknown) as Element;
+  });
+  it('tabs content default state', () => {
+    act(() => {
+      render(<JoinUs />, container);
+    });
+    const contentContainer = document.querySelector(
+      '.partnership__default-description'
+    ) as HTMLDivElement;
+    expect(contentContainer.textContent).toEqual(
+      'Select your organisation type to see how we can work together'
+    );
+  });
+
+  it('tabs content should be changed when tab button is clicked', () => {
+    act(() => {
+      render(<JoinUs />, container);
+    });
+    const button = document.querySelector(
+      '[name=government]'
+    ) as HTMLButtonElement;
+
+    act(() => {
+      button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    const contentContainer = document.querySelector(
+      '.partnership__title'
+    ) as HTMLDivElement;
+    const titlesContainer = document.querySelectorAll('.partnership__title');
+    const descriptionsContainer = document.querySelectorAll(
+      '.partnership__description'
+    );
+    expect(contentContainer.textContent).toEqual(
+      'Map school connectivity in your country'
+    );
+    expect(titlesContainer[0].textContent).toEqual(
+      'Map school connectivity in your country'
+    );
+    expect(titlesContainer[1].textContent).toEqual('Share your data');
+    expect(titlesContainer[2].textContent).toEqual('Provide funding');
+    expect(titlesContainer[3].textContent).toEqual(
+      'Contribute with engineering and data science capacity'
+    );
+    expect(titlesContainer[4].textContent).toEqual(
+      'Collaborate on joint research'
+    );
+    expect(descriptionsContainer[0].textContent).toEqual(
+      'If you are a country government interested in joining, you can ' +
+        'contact us and we will help you map every school and connectivity status in your country.'
+    );
+    expect(descriptionsContainer[1].textContent).toEqual(
+      'We are looking for information on locations of schools and their ' +
+        'level of online connectivity. However, any piece of information about schools that you are interested in sharing, no matter how ' +
+        'small, is extremely useful.'
+    );
+    expect(descriptionsContainer[2].textContent).toEqual(
+      'You can provide funding to support Project Connect’s platform, and ' +
+        'help other countries get their maps.'
+    );
+    expect(descriptionsContainer[3].textContent).toEqual(
+      'Help us build the Project Connect platform and tech solutions to ' +
+        'accelerate the mapping work globally.'
+    );
+    expect(descriptionsContainer[4].textContent).toEqual(
+      'We can conduct joint research on topics such as the impact of ' +
+        'connectivity in outcomes, optimization of service delivery or deep learning for automatic mapping.'
+    );
+  });
+});
