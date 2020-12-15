@@ -35,7 +35,7 @@ export const addCountriesLayer = ({
     source: 'countries',
     paint: {
       'line-color': paintData.background,
-      'line-width': 2,
+      'line-width': 1,
     },
   });
 

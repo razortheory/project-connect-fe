@@ -22,7 +22,7 @@ export const updateCountryFx = createEffect(
         source: 'selectedCountry',
         paint: {
           'fill-color': paintData.countrySelected,
-          'fill-opacity': paintData.opacity,
+          'fill-opacity': paintData.selectedCountryOpacity,
           'fill-outline-color': paintData.background,
         },
       },
