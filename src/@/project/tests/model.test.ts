@@ -5,7 +5,7 @@
 
 import '../../../__mocks__/match-media';
 
-import { sendJoinUsFormMockFx } from '~/__mocks__/sendJoinUsFormMockFx';
+import { sendJoinUsFormMockFx } from '~/../src/__mocks__/sendJoinUsFormMockFx';
 import { sendJoinUsFormFx } from '~/api/project-connect';
 
 describe('Join Us Form tests', () => {

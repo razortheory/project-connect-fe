@@ -1,11 +1,13 @@
 /* eslint-disable jest/no-mocks-import */
-import '~/__mocks__/match-media';
+// eslint-disable-next-line no-restricted-imports
+import '~/../src/__mocks__/match-media';
 
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import ReactTestUtils, { act } from 'react-dom/test-utils';
 
-import { sendJoinUsFormMockFx } from '~/__mocks__/sendJoinUsFormMockFx';
+// eslint-disable-next-line no-restricted-imports
+import { sendJoinUsFormMockFx } from '~/../src/__mocks__/sendJoinUsFormMockFx';
 import { sendJoinUsFormFx } from '~/api/project-connect';
 
 import * as init from '@/project/init';
