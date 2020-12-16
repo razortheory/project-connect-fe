@@ -1,9 +1,11 @@
 /* eslint-disable jest/no-mocks-import,no-restricted-imports,
    @typescript-eslint/no-unsafe-assignment,global-require,@typescript-eslint/no-unused-expressions,
-   @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+   @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access, @typescript-eslint/ban-ts-comment
 */
 
 import '~/../src/__mocks__/match-media';
+
+import { styleUrls } from '@/map/constants';
 
 describe('Join Us Form tests', () => {
   window.URL.createObjectURL = jest.fn();
@@ -23,30 +25,39 @@ describe('Join Us Form tests', () => {
     mapboxgl;
   });
   afterEach(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     window.URL.createObjectURL.mockReset();
   });
 
-  it('styles should be changed when changeStyle is called with according argument', () => {
+  it('styles and their urls should be changed when changeStyle is called with according argument', () => {
     expect(Model.$style.getState()).toEqual('dark');
+    // @ts-expect-error
+    expect(styleUrls[Model.$style.getState()]).toEqual(
+      'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4'
+    );
     Model.changeStyle('light');
     expect(Model.$style.getState()).toEqual('light');
+    // @ts-expect-error
+    expect(styleUrls[Model.$style.getState()]).toEqual(
+      'mapbox://styles/ivanrt/ckdzse0bp0r2419lbj96dw07a'
+    );
     Model.changeStyle('satellite');
     expect(Model.$style.getState()).toEqual('satellite');
+    // @ts-expect-error
+    expect(styleUrls[Model.$style.getState()]).toEqual(
+      'mapbox://styles/ivanrt/cke2hmks20xc119mpssxyiytb'
+    );
     Model.changeStyle('accessible');
     expect(Model.$style.getState()).toEqual('accessible');
+    // @ts-expect-error
+    expect(styleUrls[Model.$style.getState()]).toEqual(
+      'mapbox://styles/ivanrt/cke16a91g0lg41aoz5zk4ddr2'
+    );
     Model.changeStyle('dark');
     expect(Model.$style.getState()).toEqual('dark');
-  });
-
-  it('trash', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const container = document.createElement('div');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const spy = jest.fn();
-    InitMapFx.initMapFx.watch(spy);
-    InitMapFx.initMapFx();
-    expect(spy).toHaveBeenCalledTimes(1);
+    // @ts-expect-error
+    expect(styleUrls[Model.$style.getState()]).toEqual(
+      'mapbox://styles/ivanrt/ckdk80nes0wb01iqminlchno4'
+    );
   });
 });

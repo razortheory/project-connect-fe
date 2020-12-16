@@ -17,7 +17,7 @@ import {
   zoomOut,
 } from '@/map/model';
 
-const ZoomControl = () => (
+export const ZoomControl = () => (
   <div className="footer__map-resizer map-resizer">
     <button
       className="map-resizer__button"
@@ -134,7 +134,7 @@ const LegendForSchools = () => {
   );
 };
 
-const StyleControl = () => {
+export const StyleControl = () => {
   const activeStyle = useStore($style);
   const pending = useStore($pending);
 
