@@ -37,7 +37,7 @@ const InfoPopup = styled.div`
   left: 35rem;
   z-index: 1000;
   width: 23.386rem;
-  height: 14.6rem;
+  height: 16rem;
   padding: 1rem 1.086rem 1rem 1.6rem;
   background-color: #6e737d;
   border-radius: 2px;
