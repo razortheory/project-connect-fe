@@ -92,7 +92,7 @@ describe('map tests', () => {
     expect(window.location.pathname).toEqual(`/map/country/${country.code}`);
   });
 
-  it('url should be change on change country link click', () => {
+  it('url should be changed on change country link click', () => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 
     window.history.pushState(
