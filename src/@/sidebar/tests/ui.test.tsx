@@ -13,10 +13,19 @@ import { act } from 'react-dom/test-utils';
 import { CountryBasic } from '~/api/types';
 import { $isMobile } from '~/core/media-query';
 
-import { $country } from '@/country/model';
+import {
+  $country,
+  $countryHasConnectivity,
+  $countryHasCoverage,
+} from '@/country/model';
 import { $pending } from '@/map/model';
 import { $isOpenPopup } from '@/popup/model';
-import { $isMapTab } from '@/sidebar/model';
+import {
+  $isContentTab,
+  $isControlsTab,
+  $isMapTab,
+  $noSearchCountryFound,
+} from '@/sidebar/model';
 import { CountryInfo } from '@/sidebar/ui/country-info';
 import { CountryListItem } from '@/sidebar/ui/country-list-item';
 import { WorldView } from '@/sidebar/ui/world-view';
@@ -35,6 +44,10 @@ describe('sidebar tests', () => {
 
   afterEach(() => {
     act(() => {
+      // @ts-expect-error
+      $isControlsTab.setState(false);
+      // @ts-expect-error
+      $isContentTab.setState(false);
       // @ts-expect-error
       $pending.setState(false);
       // @ts-expect-error
@@ -235,5 +248,228 @@ describe('sidebar tests', () => {
     });
 
     expect(window.location.pathname).toEqual(`/map/countries`);
+  });
+
+  test("CountryInfoContent shouldn't be rendered in CountryInfo by the reason of $isContentTab state is false", () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
+    expect($isContentTab.getState()).toEqual(false);
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__period-picker')).toBeNull();
+    expect(document.querySelector('.sidebar__not-found')).toBeNull();
+  });
+
+  test("sidebar__period-picker should be rendered in CountryInfo,sidebar__not-found shouldn't be rendered in CountryInfo by the reason of noSearchCountryFound is false", () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
+    expect($isContentTab.getState()).toEqual(false);
+    // @ts-expect-error
+    $isContentTab.setState(true);
+    expect($isContentTab.getState()).toEqual(true);
+
+    // $noSearchCountryFound is false
+    expect($noSearchCountryFound.getState()).toEqual(false);
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__not-found')).toBeNull();
+    expect(document.querySelector('.sidebar__period-picker')).not.toBeNull();
+  });
+
+  test("sidebar__period-picker shouldn't be rendered in CountryInfo,sidebar__not-found should be rendered in CountryInfo by the reason of noSearchCountryFound is true", () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
+    expect($isContentTab.getState()).toEqual(false);
+    // @ts-expect-error
+    $isContentTab.setState(true);
+    expect($isContentTab.getState()).toEqual(true);
+    expect($noSearchCountryFound.getState()).toEqual(false);
+    // @ts-expect-error
+    $noSearchCountryFound.setState(true);
+    // $noSearchCountryFound is true
+    expect($noSearchCountryFound.getState()).toEqual(true);
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__not-found')).not.toBeNull();
+    expect(document.querySelector('.sidebar__period-picker')).toBeNull();
+  });
+
+  test("Controls shouldn't be rendered in CountryInfo by the reason of isControlsTab state is false", () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    expect($isControlsTab.getState()).toEqual(false);
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__form')).toBeNull();
+    expect(document.querySelector('.sidebar__secondary-title')).toBeNull();
+  });
+
+  test("sidebar__secondary-title shouldn't be rendered in CountryInfo,sidebar__form-found in CountryInfo should be rendered by the reason of $countryHasConnectivity and $countryHasCoverage are false", () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
+    expect($isControlsTab.getState()).toEqual(false);
+    // @ts-expect-error
+    $isControlsTab.setState(true);
+    expect($isControlsTab.getState()).toEqual(true);
+    expect($countryHasConnectivity.getState()).toEqual(false);
+    expect($countryHasCoverage.getState()).toEqual(false);
+
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__form')).not.toBeNull();
+    expect(document.querySelector('.controls__secondary-title')).toBeNull();
+  });
+
+  test('sidebar__form-found and sidebar__secondary-title should be rendered in CountryInfo by the reason of $countryHasConnectivity and $countryHasCoverage are true', () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+
+    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
+    expect($isControlsTab.getState()).toEqual(false);
+    // @ts-expect-error
+    $isControlsTab.setState(true);
+    expect($isControlsTab.getState()).toEqual(true);
+    expect($countryHasConnectivity.getState()).toEqual(false);
+    expect($countryHasCoverage.getState()).toEqual(false);
+    // @ts-expect-error
+    $countryHasConnectivity.setState(true);
+    // @ts-expect-error
+    $countryHasCoverage.setState(true);
+    expect($countryHasConnectivity.getState()).toEqual(true);
+    expect($countryHasCoverage.getState()).toEqual(true);
+
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.sidebar__form')).not.toBeNull();
+    expect(document.querySelector('.controls__secondary-title')).not.toBeNull();
   });
 });
