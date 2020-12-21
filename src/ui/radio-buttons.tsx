@@ -37,7 +37,7 @@ const IconWrapper = styled.div`
 // Left: 32rem;
 const InfoPopup = styled.div`
   position: fixed;
-  top: 20%;
+  top: 14.5rem;
   left: 35rem;
   z-index: 3000;
   width: 23.8rem;
