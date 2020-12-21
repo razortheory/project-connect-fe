@@ -53,7 +53,7 @@ export const ProgressBar = ({
   pending = true,
   wide = false,
 }: ProgressBarProps) => (
-  <HorizontalLine wide={wide}>
+  <HorizontalLine className="horizontal-line" wide={wide}>
     {pending && <Progress wide={wide} />}
   </HorizontalLine>
 );
