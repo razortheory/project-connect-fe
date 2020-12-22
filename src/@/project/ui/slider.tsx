@@ -5,6 +5,12 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import ColombiaBackground from '~/assets/images/case-studies.jpg';
 import IconLeftArrow from '~/assets/images/icon-left-arrow.svg';
 import IconRightArrow from '~/assets/images/icon-right-arrow.svg';
+import KenyaSideImage from '~/assets/images/Kenya1.jpg';
+import KenyaBackground from '~/assets/images/Kenya2.jpg';
+import KyrgyzstanSideImage from '~/assets/images/Kyrgyzstan1.jpg';
+import KyrgyzstanBackground from '~/assets/images/Kyrgyzstan2.jpg';
+import SierraLeoneSideImage from '~/assets/images/SierraLeone1.jpg';
+import SierraLeoneBackground from '~/assets/images/SierraLeone2.jpg';
 import ColombiaSideImage from '~/assets/images/slider-colombia.jpg';
 
 type Slide = {
@@ -37,6 +43,8 @@ const SLIDES: Slide[] = [
       'month reduced to nearly half from $50 to $28.50 and speed was doubled ' +
       'from 2 Mbps to 4 Mbps -- generating about $200,000 USD in savings per ' +
       'year for the education budget.',
+    sideImage: KyrgyzstanSideImage,
+    backgroundImage: KyrgyzstanBackground,
   },
   {
     title: 'Kenya',
@@ -45,6 +53,8 @@ const SLIDES: Slide[] = [
       'estimate the cost of extending connectivity to every public primary ' +
       'school in the country. This helped unlock the necessary funding to ' +
       'bring connectivity to them.',
+    sideImage: KenyaSideImage,
+    backgroundImage: KenyaBackground,
   },
   {
     title: 'Sierra Leone',
@@ -57,6 +67,8 @@ const SLIDES: Slide[] = [
       'students live in areas without mobile coverage. Building from this work, ' +
       'UNICEF is now supporting the government to expand connectivity from ' +
       '80 schools to the remaining >10,000 schools in the country.',
+    sideImage: SierraLeoneSideImage,
+    backgroundImage: SierraLeoneBackground,
   },
 ];
 
