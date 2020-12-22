@@ -1,14 +1,14 @@
 /* eslint-disable jest/no-mocks-import,no-restricted-imports,
    @typescript-eslint/no-unsafe-assignment,global-require,@typescript-eslint/no-unused-expressions,
    @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,
-   @typescript-eslint/ban-ts-comment, @typescript-eslint/ban-ts-comment
+   @typescript-eslint/ban-ts-comment, @typescript-eslint/ban-ts-comment, @typescript-eslint/no-var-requires
 */
 
 import '../../../__mocks__/match-media';
 
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import ReactTestUtils, { act } from 'react-dom/test-utils';
 
 import { CountryBasic } from '~/api/types';
 import { $isMobile } from '~/core/media-query';
@@ -25,6 +25,8 @@ import {
   $isControlsTab,
   $isMapTab,
   $noSearchCountryFound,
+  $searchText,
+  onSearchPressKey,
 } from '@/sidebar/model';
 import { CountryInfo } from '@/sidebar/ui/country-info';
 import { CountryListItem } from '@/sidebar/ui/country-list-item';
@@ -273,7 +275,6 @@ describe('sidebar tests', () => {
     expect($pending.getState()).toEqual(false);
     expect($country.getState()).not.toBeNull();
 
-    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
     expect($isContentTab.getState()).toEqual(false);
     act(() => {
       render(<CountryInfo />, container);
@@ -305,7 +306,6 @@ describe('sidebar tests', () => {
     expect($pending.getState()).toEqual(false);
     expect($country.getState()).not.toBeNull();
 
-    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
     expect($isContentTab.getState()).toEqual(false);
     // @ts-expect-error
     $isContentTab.setState(true);
@@ -343,7 +343,6 @@ describe('sidebar tests', () => {
     expect($pending.getState()).toEqual(false);
     expect($country.getState()).not.toBeNull();
 
-    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
     expect($isContentTab.getState()).toEqual(false);
     // @ts-expect-error
     $isContentTab.setState(true);
@@ -414,7 +413,6 @@ describe('sidebar tests', () => {
     expect($pending.getState()).toEqual(false);
     expect($country.getState()).not.toBeNull();
 
-    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
     expect($isControlsTab.getState()).toEqual(false);
     // @ts-expect-error
     $isControlsTab.setState(true);
@@ -452,7 +450,6 @@ describe('sidebar tests', () => {
     expect($pending.getState()).toEqual(false);
     expect($country.getState()).not.toBeNull();
 
-    // CountryInfoContent shouldn't be rendered by the reason of $isContentTab state is false
     expect($isControlsTab.getState()).toEqual(false);
     // @ts-expect-error
     $isControlsTab.setState(true);
@@ -471,5 +468,75 @@ describe('sidebar tests', () => {
     });
     expect(document.querySelector('.sidebar__form')).not.toBeNull();
     expect(document.querySelector('.controls__secondary-title')).not.toBeNull();
+  });
+
+  test('onSearchPressKey should be called when enter is clicked in search input', () => {
+    const Init = require('@/sidebar/init');
+    Init;
+
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    const searchInput = document.querySelector(
+      '.search-bar-connectivity__input'
+    );
+    const spy = jest.fn();
+    onSearchPressKey.watch(spy);
+
+    act(() => {
+      // @ts-expect-error
+      $searchText.setState('Brazil');
+    });
+    // @ts-expect-error
+    expect(searchInput.value).toEqual('Brazil');
+
+    act(() => {
+      // @ts-expect-error
+      ReactTestUtils.Simulate.keyPress(searchInput, {
+        key: 'Enter',
+        keyCode: 13,
+        which: 13,
+      });
+    });
+    expect(spy).toHaveBeenCalled();
+  });
+
+  test('onSearchPressEnter and blurInputFx should be called when onSearchPressKey occurred with key=Enter', () => {
+    const Model = require('@/sidebar/model');
+    Model;
+    const Init = require('@/sidebar/init');
+    Init;
+    const spy = jest.fn();
+    const spy2 = jest.fn();
+    Model.onSearchPressEnter.watch(spy);
+    Model.blurInputFx.watch(spy2);
+    act(() => {
+      Model.onSearchPressKey({
+        key: 'Enter',
+        keyCode: 13,
+        which: 13,
+      });
+    });
+    expect(spy).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
   });
 });
