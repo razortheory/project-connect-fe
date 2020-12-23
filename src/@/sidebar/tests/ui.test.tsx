@@ -18,28 +18,28 @@ import {
   $countryHasConnectivity,
   $countryHasCoverage,
 } from '@/country/model';
-import { $pending } from '@/map/model';
+import { $pending, changeMapType } from '@/map/model';
 import { $isOpenPopup } from '@/popup/model';
 import {
   $isContentTab,
   $isControlsTab,
   $isMapTab,
   $noSearchCountryFound,
+  $searchActive,
   $searchText,
+  clearSearchText,
   onSearchPressKey,
 } from '@/sidebar/model';
 import { CountryInfo } from '@/sidebar/ui/country-info';
+import { CountryList } from '@/sidebar/ui/country-list';
 import { CountryListItem } from '@/sidebar/ui/country-list-item';
 import { WorldView } from '@/sidebar/ui/world-view';
 
 let container = (null as unknown) as Element;
 
 describe('sidebar tests', () => {
-  window.URL.createObjectURL = jest.fn();
-
   beforeEach(() => {
     window.history.pushState({}, 'Default location pathname', '/map');
-    jest.resetModules();
     container = document.createElement('div');
     document.body.append(container);
   });
@@ -55,9 +55,6 @@ describe('sidebar tests', () => {
       // @ts-expect-error
       $country.setState(null);
     });
-    // @ts-expect-error
-    window.URL.createObjectURL.mockReset();
-
     unmountComponentAtNode(container);
     container.remove();
     container = (null as unknown) as Element;
@@ -79,6 +76,15 @@ describe('sidebar tests', () => {
     });
 
     expect(window.location.pathname).toEqual(`/map/countries`);
+  });
+
+  test('CountryList should be rendered', () => {
+    act(() => {
+      render(<CountryList />, container);
+    });
+    expect(document.querySelector('.search-bar-connectivity')).not.toBeNull();
+    expect(document.querySelector('.select-white-line')).not.toBeNull();
+    expect(document.querySelector('.sidebar__content')).not.toBeNull();
   });
 
   test('county list item should be rendered if appropriate props were given, url should be changed after country link clicked', () => {
@@ -311,7 +317,6 @@ describe('sidebar tests', () => {
     $isContentTab.setState(true);
     expect($isContentTab.getState()).toEqual(true);
 
-    // $noSearchCountryFound is false
     expect($noSearchCountryFound.getState()).toEqual(false);
     act(() => {
       render(<CountryInfo />, container);
@@ -538,5 +543,119 @@ describe('sidebar tests', () => {
     });
     expect(spy).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();
+  });
+
+  test('clear search button should be appeared when $searchActive is true, clearSearchText should be called on clear button click', () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    const searchInput = document.querySelector(
+      '.search-bar-connectivity__input'
+    );
+    const spy = jest.fn();
+    clearSearchText.watch(spy);
+
+    act(() => {
+      // @ts-expect-error
+      $searchText.setState('Brazil');
+    });
+    // @ts-expect-error
+    expect(searchInput.value).toEqual('Brazil');
+
+    act(() => {
+      // @ts-expect-error
+      $searchActive.setState(true);
+    });
+
+    const clearButton = document.querySelector('.search-bar__close');
+
+    act(() => {
+      // @ts-expect-error
+      clearButton.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(spy).toHaveBeenCalled();
+  });
+
+  test('$searchText should be cleared when clearSearchText is called', () => {
+    const Model = require('@/sidebar/model');
+    Model;
+    const Init = require('@/sidebar/init');
+    Init;
+    act(() => {
+      Model.$searchText.setState('Brazil');
+    });
+    Model.clearSearchText();
+    expect(Model.$searchText.getState()).toEqual('');
+  });
+
+  test('sidebar radiobutton should be changed, changeMapType should be called', () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+
+    expect(document.querySelector('.select')).not.toBeNull();
+
+    const initialRadioButton = document.querySelector('#connectivity');
+    const targetRadioButton = document.querySelector('#coverage');
+
+    // @ts-expect-error
+    expect(initialRadioButton.checked).toEqual(true);
+    // @ts-expect-error
+    expect(targetRadioButton.checked).toEqual(false);
+
+    const spy = jest.fn();
+    changeMapType.watch(spy);
+
+    act(() => {
+      // @ts-expect-error
+      ReactTestUtils.Simulate.change(targetRadioButton, {
+        target: { checked: true },
+      });
+      // @ts-expect-error
+      targetRadioButton.checked = true;
+    });
+    // @ts-expect-error
+    expect(initialRadioButton.checked).toEqual(false);
+    // @ts-expect-error
+    expect(targetRadioButton.checked).toEqual(true);
+    expect(spy).toHaveBeenCalled();
   });
 });
