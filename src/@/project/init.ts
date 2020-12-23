@@ -1,4 +1,4 @@
-import { combine, guard, merge, sample } from 'effector';
+import { combine, forward, guard, merge, sample } from 'effector';
 
 import { sendJoinUsFormFx } from '~/api/project-connect';
 import { router } from '~/core/routes';
@@ -16,6 +16,7 @@ import {
   $yourMessage,
   $yourMessageError,
   clearFormFields,
+  onDropdownOpenClosed,
   onFullNameChange,
   onJoinUsFormSubmit,
   onOrganizationChange,
@@ -43,6 +44,11 @@ sendJoinUsFormFx.done.watch(() => {
 });
 sendJoinUsFormFx.fail.watch(() => {
   clearFormFields();
+});
+
+forward({
+  from: onDropdownOpenClosed,
+  to: $isSendButtonDisabled,
 });
 
 sample({
