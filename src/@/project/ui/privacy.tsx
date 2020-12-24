@@ -158,11 +158,19 @@ export const Privacy = () => {
                       goods
                     </h4>
                     <p className="mapping-list__text">
-                      Digital cooperation is a key enabler of Project Connect’s
-                      mission and is reflected in the priorities of many
-                      organizations, including the recommendations of the
-                      Secretary General’s High-Level Panel on Digital
-                      Cooperation.
+                      <a
+                        href="https://www.un.org/en/digital-cooperation-panel/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="post__title"
+                        style={{ fontSize: '1.9rem', fontWeight: 'bold' }}
+                      >
+                        Digital cooperation{' '}
+                      </a>
+                      is a key enabler of Project Connect’s mission and is
+                      reflected in the priorities of many organizations,
+                      including the recommendations of the Secretary General’s
+                      High-Level Panel on Digital Cooperation.
                     </p>
                   </div>
                 </li>

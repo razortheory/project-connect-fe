@@ -25,7 +25,7 @@ const DescriptionSection = () => {
         <div className="page-heading">
           <h2 className="page-heading__title country-progress-heading__title">
             Countries are listed below with real-time updates on school mapping
-            progress. The key metrics used to evaluate project progress is the
+            progress. The key metrics used to evaluate project progress are the
             stage of mapping and the percentage of schools mapped.
           </h2>
 

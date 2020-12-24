@@ -43,10 +43,11 @@ const AboutContent = () => {
           <div className="page-heading">
             <div className="about-intro">
               <h2 className="page-heading__title about-intro__title">
-                Project Connect aims to create a global, live map of schools and
-                their connection to the internet. It is the data foundation for
-                Giga, a UNICEF and ITU initiative to connect every school, and
-                every young person to information, opportunity, and choice.
+                Project Connect aims to create a live map of all schools in the
+                world and the status of their Internet connection. It is the
+                data foundation for Giga, a UNICEF and ITU initiative to connect
+                every school, and every young person to information,
+                opportunity, and choice.
               </h2>
               <h4 className="about-intro__subtitle">
                 How many schools are in the world? Where are they? How many of
@@ -139,7 +140,7 @@ const AboutContent = () => {
                     <p className="mapping-list__text">
                       Many governments do not know where all the schools in
                       their countries are. Without that information, they – and
-                      other nongovernmental organizations – cannot effectively
+                      other stakeholder organizations – cannot effectively
                       provide services or deliver resources to children and
                       their communities.
                     </p>

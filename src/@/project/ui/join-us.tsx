@@ -301,12 +301,13 @@ export const JoinUs = () => {
       <section className="section">
         <div className="container feedback">
           <a href="#write-to-us" id="write-to-us">
-            <h2 className="section__title">Write to us</h2>
+            <h2 className="section__title">Join us</h2>
           </a>
           <div className="feedback__row">
             <div className="feedback__col">
               <h3 className="feedback__title">
-                Drop us a few lines about how you would like to engage with us.
+                Questions or clarifications? Get in touch with us below – and
+                let’s connect
               </h3>
               <form
                 // Action="mailto:projectconnect@unicef.org"
