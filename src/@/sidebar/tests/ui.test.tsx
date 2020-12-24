@@ -658,4 +658,47 @@ describe('sidebar tests', () => {
     expect(targetRadioButton.checked).toEqual(true);
     expect(spy).toHaveBeenCalled();
   });
+
+  test('infoPopup should be appeared on mouse over,infoPopup should be disappeared on mouse leave', () => {
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).toBeNull();
+    act(() => {
+      // @ts-expect-error
+      $country.setState({
+        id: 1,
+        name: 'string',
+        code: 'string',
+        flag: 'string',
+        map_preview: 'string',
+        description: 'string',
+        data_source: 'string',
+        date_schools_mapped: 'string',
+        statistics: 'CountryWeeklyStats',
+        geometry: 'Geometry',
+      });
+    });
+    expect($pending.getState()).toEqual(false);
+    expect($country.getState()).not.toBeNull();
+    act(() => {
+      render(<CountryInfo />, container);
+    });
+    expect(document.querySelector('.select')).not.toBeNull();
+    const iconWrapper = document.querySelector('.icon-wrapper');
+    const infoPopup = document.querySelector('.info-popup');
+    // @ts-expect-error
+    expect(infoPopup.style.visibility).toBeFalsy();
+
+    act(() => {
+      // @ts-expect-error
+      ReactTestUtils.Simulate.mouseOver(iconWrapper);
+    });
+    // @ts-expect-error
+    expect(infoPopup.style.visibility).toEqual('visible');
+    act(() => {
+      // @ts-expect-error
+      ReactTestUtils.Simulate.mouseLeave(iconWrapper);
+    });
+    // @ts-expect-error
+    expect(infoPopup.style.visibility).toBeFalsy();
+  });
 });

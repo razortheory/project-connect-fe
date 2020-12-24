@@ -171,6 +171,7 @@ export const RadioButtons = <T,>({
       ))}
 
       <IconWrapper
+        className="icon-wrapper"
         onMouseOver={() => {
           setInfoPopupAppeared(true);
         }}
@@ -179,7 +180,10 @@ export const RadioButtons = <T,>({
         }}
       >
         <IconMoreInfo />
-        <InfoPopup style={isInfoPopupAppeared ? { visibility: 'visible' } : {}}>
+        <InfoPopup
+          className="info-popup"
+          style={isInfoPopupAppeared ? { visibility: 'visible' } : {}}
+        >
           <div>
             <PopupSubtitle>Connectivity map</PopupSubtitle>
             <PopupSubContent>
