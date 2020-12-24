@@ -54,6 +54,9 @@ export const WorldView = () => {
                 Countries joined Project Connect
               </h3>
             </li>
+            <h3 className="info-list__clarification">
+              * Estimated schools, globally
+            </h3>
           </ul>
           <Link
             to={mapCountries}
