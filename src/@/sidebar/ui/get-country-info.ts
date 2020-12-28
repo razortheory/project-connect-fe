@@ -20,6 +20,7 @@ export const getCountryInfo = (
     schools_connected,
     connectivity_speed,
     schools_connectivity_no,
+    schools_connectivity_unknown,
   } = countryWeeklyStats;
 
   const getConnectivityLevel = (): string => {
@@ -47,7 +48,10 @@ export const getCountryInfo = (
       ? formatConnectionSpeed(connectivity_speed)
       : null,
     schoolsWithNoInternet: schools_total
-      ? formatPercent(schools_connectivity_no / schools_total)
+      ? formatPercent(
+          schools_connectivity_no /
+            (schools_total - schools_connectivity_unknown)
+        )
       : 'N/A',
     hasStatistics: Boolean(schools_total),
     connectivityLevel: getConnectivityLevel(),
