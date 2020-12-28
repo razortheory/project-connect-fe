@@ -24,12 +24,15 @@ import {
   $isContentTab,
   $isControlsTab,
   $isMapTab,
+  $isSidebarCollapsed,
   $noSearchCountryFound,
   $searchActive,
   $searchText,
   clearSearchText,
   onSearchPressKey,
+  toggleSidebar,
 } from '@/sidebar/model';
+import { Sidebar } from '@/sidebar/ui';
 import { CountryInfo } from '@/sidebar/ui/country-info';
 import { CountryList } from '@/sidebar/ui/country-list';
 import { CountryListItem } from '@/sidebar/ui/country-list-item';
@@ -46,6 +49,8 @@ describe('sidebar tests', () => {
 
   afterEach(() => {
     act(() => {
+      // @ts-expect-error
+      $isSidebarCollapsed.setState(false);
       // @ts-expect-error
       $isControlsTab.setState(false);
       // @ts-expect-error
@@ -700,5 +705,40 @@ describe('sidebar tests', () => {
     });
     // @ts-expect-error
     expect(infoPopup.style.visibility).toBeFalsy();
+  });
+
+  test('toggleSidebar event should be called on sidebar expander click', () => {
+    const spy = jest.fn();
+    toggleSidebar.watch(spy);
+    act(() => {
+      render(<Sidebar />, container);
+    });
+    const expander = document.querySelector('.sidebar__expander');
+    act(() => {
+      // @ts-expect-error
+      expander.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(spy).toHaveBeenCalled();
+  });
+
+  test('sidebar--collapsed class should be added/deleted for/from sidebar when toggleSidebar event called', () => {
+    const Model = require('@/sidebar/model');
+    Model;
+    const Init = require('@/sidebar/init');
+    Init;
+    act(() => {
+      render(<Sidebar />, container);
+    });
+    expect(document.querySelector('.sidebar--collapsed')).toBeNull();
+    act(() => {
+      Model.toggleSidebar();
+    });
+    expect(Model.$isSidebarCollapsed.getState()).toEqual(true);
+    expect(document.querySelector('.sidebar--collapsed')).not.toBeNull();
+    act(() => {
+      Model.toggleSidebar();
+    });
+    expect(Model.$isSidebarCollapsed.getState()).toEqual(false);
+    expect(document.querySelector('.sidebar--collapsed')).toBeNull();
   });
 });
