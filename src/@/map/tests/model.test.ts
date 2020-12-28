@@ -7,7 +7,7 @@ import '~/../src/__mocks__/match-media';
 
 import { styleUrls } from '@/map/constants';
 
-describe('Join Us Form tests', () => {
+describe('map tests', () => {
   window.URL.createObjectURL = jest.fn();
   let Model: any;
   let INIT: any;
