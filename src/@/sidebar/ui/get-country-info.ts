@@ -47,12 +47,13 @@ export const getCountryInfo = (
     connectionSpeed: connectivity_speed
       ? formatConnectionSpeed(connectivity_speed)
       : null,
-    schoolsWithNoInternet: schools_total
-      ? formatPercent(
-          schools_connectivity_no /
-            (schools_total - schools_connectivity_unknown)
-        )
-      : 'N/A',
+    schoolsWithNoInternet:
+      schools_total - schools_connectivity_unknown
+        ? formatPercent(
+            schools_connectivity_no /
+              (schools_total - schools_connectivity_unknown)
+          )
+        : 'N/A',
     hasStatistics: Boolean(schools_total),
     connectivityLevel: getConnectivityLevel(),
   };
