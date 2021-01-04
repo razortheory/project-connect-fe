@@ -11,7 +11,8 @@
   @include make-col(12);
 
   @include media-breakpoint-up(sm) {
-    max-width: 520px;
+    //max-width: 520px;
+    max-width: 53rem;
     margin-right: auto;
     margin-left: auto;
   }
