@@ -7,6 +7,8 @@ import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
 import { getInputValue } from '~/lib/event-reducers';
 import { Link } from '~/lib/router';
+// eslint-disable-next-line no-restricted-imports
+import { Dropdown } from '~/ui/join-us-dropdown';
 
 import {
   $fullName,
@@ -24,6 +26,7 @@ import {
   onPurposeChange,
   onYourMessageChange,
 } from '@/project/model';
+import { dropdownPurposeData } from '@/sidebar/constants';
 
 const Error = styled.div`
   /* stylelint-disable scss/operator-no-unspaced */
@@ -106,7 +109,7 @@ type JoinUsTabState =
   | 'tech-company'
   | 'research-institute';
 
-export const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+const onSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
   onJoinUsFormSubmit();
 };
@@ -130,8 +133,11 @@ export const JoinUs = () => {
   const errorText = 'This field is required';
   const handleFullNameChange = onFullNameChange.prepend(getInputValue);
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
-  const handlePurposeChange = onPurposeChange.prepend(getInputValue);
-  const handleMessageChange = onYourMessageChange.prepend(getInputValue);
+  const handleYourMessageChange = onYourMessageChange.prepend(getInputValue);
+  const [isOpenedDropdown, setOpenedDropdown] = useState(false);
+  const onOpenClosePurposeDropdown = (isOpened: boolean) => {
+    setOpenedDropdown(isOpened);
+  };
 
   return (
     <>
@@ -302,12 +308,13 @@ export const JoinUs = () => {
       <section className="section">
         <div className="container feedback">
           <a href="#write-to-us" id="write-to-us">
-            <h2 className="section__title">Write to us</h2>
+            <h2 className="section__title">Join us</h2>
           </a>
           <div className="feedback__row">
             <div className="feedback__col">
               <h3 className="feedback__title">
-                Drop us a few lines about how you would like to engage with us.
+                Questions or clarifications? Get in touch with us below – and
+                let’s connect
               </h3>
               <form
                 // Action="mailto:projectconnect@unicef.org"
@@ -360,20 +367,24 @@ export const JoinUs = () => {
                   )}
                 </div>
                 <div className="form__row">
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label htmlFor="purpose" className="form__item">
-                    <p className="form__label">Purpose</p>
-                    <input
+                    <p
+                      style={isOpenedDropdown ? { color: '#2779ff' } : {}}
+                      className="form__label"
+                    >
+                      Purpose
+                    </p>
+                    <Dropdown
                       id="purpose"
-                      className={
-                        purposeError
-                          ? ['form__input', 'input', 'input__error'].join(' ')
-                          : ['form__input', 'input'].join(' ')
-                      }
-                      type="text"
                       name="purpose"
+                      onOpenClosePurposeDropdown={onOpenClosePurposeDropdown}
+                      wrapperClassName="join-us-select-wrapper"
+                      selectClassName="join-us-select"
+                      isPurposeError={purposeError}
+                      items={dropdownPurposeData}
                       value={purpose}
-                      onChange={handlePurposeChange}
-                      maxLength={50}
+                      onChange={onPurposeChange}
                     />
                   </label>
                   {purposeError && <Error id="purposeError">{errorText}</Error>}
@@ -383,6 +394,7 @@ export const JoinUs = () => {
                     <p className="form__label">Your message</p>
                     <textarea
                       id="message"
+                      style={{ height: '16.5rem', resize: 'none' }}
                       className={
                         yourMessageError
                           ? ['form__input', 'textarea', 'textarea__error'].join(
@@ -392,8 +404,8 @@ export const JoinUs = () => {
                       }
                       name="message"
                       value={yourMessage}
-                      onChange={handleMessageChange}
-                      maxLength={250}
+                      onChange={handleYourMessageChange}
+                      maxLength={500}
                     />
                   </label>
                   {yourMessageError && (
@@ -401,8 +413,8 @@ export const JoinUs = () => {
                   )}
                 </div>
                 <button
+                  style={{ marginBottom: '8.2rem' }}
                   type="submit"
-                  id="submit"
                   className="button button--full-width button--primary"
                   disabled={isSendButtonDisabled}
                 >

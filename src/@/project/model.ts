@@ -5,6 +5,8 @@ export const onFullNameChange = createEvent<string>();
 export const onOrganizationChange = createEvent<string>();
 export const onPurposeChange = createEvent<string>();
 export const onYourMessageChange = createEvent<string>();
+
+export const onDropdownOpenClosed = createEvent<boolean>();
 export const clearFormFields = createEvent();
 export const onJoinUsFormRequest = createEvent();
 export const onJoinUsFormSubmit = createEvent();

@@ -27,17 +27,21 @@ const IconWrapper = styled.div`
   margin-left: 1.4rem;
   cursor: pointer;
 `;
+
+// Fixed
+// Top: 14.3rem;
+// Left: 35rem;
 // Styles for sticky popup info
 // Position: absolute;
 // Top: 7.3rem;
 // Left: 32rem;
 const InfoPopup = styled.div`
   position: fixed;
-  top: 14.3rem;
+  top: 14.5rem;
   left: 35rem;
-  z-index: 1000;
-  width: 23.386rem;
-  height: 16rem;
+  z-index: 3000;
+  width: 23.8rem;
+  height: 14.6rem;
   padding: 1rem 1.086rem 1rem 1.6rem;
   background-color: #6e737d;
   border-radius: 2px;
@@ -46,8 +50,8 @@ const InfoPopup = styled.div`
 
   &::after {
     position: absolute;
-    top: 6.3rem;
-    left: -20px;
+    top: 42%;
+    left: -19px;
     border: 10px solid transparent;
     border-right: 10px solid #6e737d;
     content: '';

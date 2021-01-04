@@ -21,9 +21,7 @@ export const WorldView = () => {
 
   return (
     <>
-      <h2 className="sidebar__title">
-        Connecting every young person to information, opportunity and choice.
-      </h2>
+      <h2 className="sidebar__title">Mapping school connectivity globally.</h2>
       <Scroll>
         <div className="sidebar__content">
           <div className="sidebar__view-connectivity view-connectivity">
@@ -33,13 +31,14 @@ export const WorldView = () => {
           </div>
           <p className="sidebar__paragraph">
             Project Connect aims to map real-time connectivity of every school
-            in the world. This will serve as foundation to work with governments
-            and service providers to connect every school to the internet.
+            in the world. This will serve as a foundation to work with
+            governments and service providers to connect every school to the
+            internet.
           </p>
           <ul className="sidebar__list info-list">
             <li className="info-list__item">
               <p className="info-list__description">
-                {humanFormat(schools_mapped)} / 6M
+                {humanFormat(schools_mapped)} / 6M*
               </p>
               <h3 className="info-list__title">Schools mapped</h3>
             </li>
@@ -55,6 +54,9 @@ export const WorldView = () => {
                 Countries joined Project Connect
               </h3>
             </li>
+            <h3 className="info-list__clarification">
+              * Estimated schools, globally
+            </h3>
           </ul>
           <Link
             to={mapCountries}

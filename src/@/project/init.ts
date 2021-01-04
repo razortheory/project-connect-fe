@@ -16,6 +16,7 @@ import {
   $yourMessage,
   $yourMessageError,
   clearFormFields,
+  onDropdownOpenClosed,
   onFullNameChange,
   onJoinUsFormSubmit,
   onOrganizationChange,
@@ -46,7 +47,7 @@ sendJoinUsFormFx.fail.watch(() => {
 });
 
 sample({
-  source: sendJoinUsFormFx.pending,
+  source: merge([onDropdownOpenClosed, sendJoinUsFormFx.pending]),
   target: $isSendButtonDisabled,
 });
 

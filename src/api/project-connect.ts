@@ -100,7 +100,10 @@ export const fetchCountryWeeklyStatsFx = createRequestFx(
     },
     controller?: Controller
   ): Promise<CountryWeeklyStats> => {
-    const weekNumber = getWeek(week.start);
+    const weekNumber = getWeek(week.start, {
+      weekStartsOn: 1,
+      firstWeekContainsDate: 4,
+    });
     const year = getYear(week.start);
     return request({
       url: `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`,

@@ -19,7 +19,7 @@ export const addGlobalSchoolsLayer = ({
           [2, 0.5],
           [3, 0.5],
           [4, 1],
-          [12, 2],
+          [8, 2],
         ],
       },
       'circle-color': getGlobalSchoolsColor(paintData),

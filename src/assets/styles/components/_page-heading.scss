@@ -18,6 +18,18 @@
 .work-together {
   margin-top: 14rem;
 }
+.page-heading__title {
+  margin: 0;
+  color: $text-color-dark;
+  font-weight: bold;
+  font-size: 3rem;
+  font-family: $font-family-primary;
+  line-height: 3.3rem;
+}
+
+.country-progress-heading__title {
+  width: 60.5rem;
+}
 
 .page-heading__title-wrapper {
   margin-top: 0;

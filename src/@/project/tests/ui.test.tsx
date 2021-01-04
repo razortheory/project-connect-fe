@@ -11,7 +11,7 @@ import { sendJoinUsFormMockFx } from '~/../src/__mocks__/sendJoinUsFormMockFx';
 import { sendJoinUsFormFx } from '~/api/project-connect';
 
 import * as init from '@/project/init';
-import { clearFormFields, onJoinUsFormSubmit } from '@/project/model';
+import { $purpose, clearFormFields, onJoinUsFormSubmit } from '@/project/model';
 import { JoinUs } from '@/project/ui';
 
 let container = (null as unknown) as Element;
@@ -96,17 +96,15 @@ describe('Join Us Form tests', () => {
     const organizationInput = document.querySelector(
       '#organization'
     ) as HTMLInputElement;
-    const purposeInput = document.querySelector('#purpose') as HTMLInputElement;
     const yourMessageInput = document.querySelector(
       '#message'
     ) as HTMLInputElement;
+
     act(() => {
       fullNameInput.value = 'Boris';
       ReactTestUtils.Simulate.change(fullNameInput);
       organizationInput.value = 'OOO RT';
       ReactTestUtils.Simulate.change(organizationInput);
-      purposeInput.value = 'Test';
-      ReactTestUtils.Simulate.change(purposeInput);
       yourMessageInput.value = 'Test';
       ReactTestUtils.Simulate.change(yourMessageInput);
     });
@@ -123,7 +121,6 @@ describe('Join Us Form tests', () => {
     ) as HTMLDivElement;
     expect(fullNameErrorContainer).toBeNull();
     expect(organizationError).toBeNull();
-    expect(purposeError).toBeNull();
     expect(yourMessageError).toBeNull();
   });
 
@@ -136,7 +133,6 @@ describe('Join Us Form tests', () => {
     const organizationInput = document.querySelector(
       '#organization'
     ) as HTMLInputElement;
-    const purposeInput = document.querySelector('#purpose') as HTMLInputElement;
     const yourMessageInput = document.querySelector(
       '#message'
     ) as HTMLInputElement;
@@ -146,8 +142,10 @@ describe('Join Us Form tests', () => {
       ReactTestUtils.Simulate.change(fullNameInput);
       organizationInput.value = 'OOO RT';
       ReactTestUtils.Simulate.change(organizationInput);
-      purposeInput.value = 'Test';
-      ReactTestUtils.Simulate.change(purposeInput);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      $purpose.setState('I want to join');
       yourMessageInput.value = 'Test';
       ReactTestUtils.Simulate.change(yourMessageInput);
     });
@@ -171,7 +169,6 @@ describe('Join Us Form tests', () => {
     const organizationInput = document.querySelector(
       '#organization'
     ) as HTMLInputElement;
-    const purposeInput = document.querySelector('#purpose') as HTMLInputElement;
     const yourMessageInput = document.querySelector(
       '#message'
     ) as HTMLInputElement;
@@ -182,15 +179,17 @@ describe('Join Us Form tests', () => {
       ReactTestUtils.Simulate.change(fullNameInput);
       organizationInput.value = 'OOO RT';
       ReactTestUtils.Simulate.change(organizationInput);
-      purposeInput.value = 'Test';
-      ReactTestUtils.Simulate.change(purposeInput);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      $purpose.setState('I want to join');
       yourMessageInput.value = 'Test';
       ReactTestUtils.Simulate.change(yourMessageInput);
     });
     const formFields = {
       fullName: fullNameInput.value,
       organization: organizationInput.value,
-      purpose: purposeInput.value,
+      purpose: $purpose.getState(),
       yourMessage: yourMessageInput.value,
     };
     sendJoinUsFormFx.use(sendJoinUsFormMockFx);
@@ -207,7 +206,7 @@ describe('Join Us Form tests', () => {
     expect(spy).toHaveBeenCalled();
     expect(fullNameInput.value).toEqual('');
     expect(organizationInput.value).toEqual('');
-    expect(purposeInput.value).toEqual('');
+    expect($purpose.getState()).toEqual('');
     expect(yourMessageInput.value).toEqual('');
   });
 });
