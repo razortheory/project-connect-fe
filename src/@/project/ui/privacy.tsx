@@ -163,7 +163,11 @@ export const Privacy = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="post__title"
-                        style={{ fontSize: '1.9rem', fontWeight: 'bold' }}
+                        style={{
+                          fontSize: '1.9rem',
+                          fontWeight: 'bold',
+                          color: '#2779FF',
+                        }}
                       >
                         Digital cooperation{' '}
                       </a>
