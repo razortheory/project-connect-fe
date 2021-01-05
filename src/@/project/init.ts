@@ -1,4 +1,4 @@
-import { combine, forward, guard, merge, sample } from 'effector';
+import { combine, guard, merge, sample } from 'effector';
 
 import { sendJoinUsFormFx } from '~/api/project-connect';
 import { router } from '~/core/routes';
@@ -32,7 +32,7 @@ $isMenuOpen.on(toggleMenu, getInverted);
 $fullName.on(onFullNameChange, setPayload);
 $organization.on(onOrganizationChange, setPayload);
 $purpose.on(onPurposeChange, setPayload);
-$yourMessage.on(onYourMessageChange, (_, event) => event.target.value);
+$yourMessage.on(onYourMessageChange, setPayload);
 
 $fullName.reset(clearFormFields);
 $organization.reset(clearFormFields);
@@ -46,13 +46,8 @@ sendJoinUsFormFx.fail.watch(() => {
   clearFormFields();
 });
 
-forward({
-  from: onDropdownOpenClosed,
-  to: $isSendButtonDisabled,
-});
-
 sample({
-  source: sendJoinUsFormFx.pending,
+  source: merge([onDropdownOpenClosed, sendJoinUsFormFx.pending]),
   target: $isSendButtonDisabled,
 });
 

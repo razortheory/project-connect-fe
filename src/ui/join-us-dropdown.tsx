@@ -163,7 +163,8 @@ export const Dropdown = ({
   useEffect(() => {
     onDropdownOpenClosed(isOpenList);
     onOpenClosePurposeDropdown(isOpenList);
-  }, [isOpenList, onOpenClosePurposeDropdown]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpenList]);
 
   const closeList = () => setIsOpenList(false);
 
@@ -179,7 +180,7 @@ export const Dropdown = ({
       >
         <CurrentValueWrapper>
           {prefix && <Prefix>{prefix}</Prefix>}
-          <CurrentValue>
+          <CurrentValue className="CurrentValue">
             {useStore($purpose) ? (
               items.find((item) => item.value === value)?.title
             ) : (

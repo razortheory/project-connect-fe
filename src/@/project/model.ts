@@ -1,13 +1,10 @@
 import { createEvent, createStore } from 'effector';
-import { ChangeEvent } from 'react';
 
 export const toggleMenu = createEvent();
 export const onFullNameChange = createEvent<string>();
 export const onOrganizationChange = createEvent<string>();
 export const onPurposeChange = createEvent<string>();
-export const onYourMessageChange = createEvent<
-  ChangeEvent<HTMLTextAreaElement>
->();
+export const onYourMessageChange = createEvent<string>();
 
 export const onDropdownOpenClosed = createEvent<boolean>();
 export const clearFormFields = createEvent();

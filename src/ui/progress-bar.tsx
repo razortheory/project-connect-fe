@@ -43,7 +43,7 @@ const Track = styled.div<{ wide: boolean }>`
 
 const Progress = ({ wide }: { wide: boolean }) => (
   <Track wide={wide}>
-    <Fill />
+    <Fill className="progress" />
   </Track>
 );
 
@@ -53,7 +53,7 @@ export const ProgressBar = ({
   pending = true,
   wide = false,
 }: ProgressBarProps) => (
-  <HorizontalLine wide={wide}>
+  <HorizontalLine className="horizontal-line" wide={wide}>
     {pending && <Progress wide={wide} />}
   </HorizontalLine>
 );

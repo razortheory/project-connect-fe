@@ -178,7 +178,7 @@ const CountryInfoStatistics = () => {
   );
 };
 
-const CountryInfoContent = () => {
+export const CountryInfoContent = () => {
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
   const isNextWeekAvailable = useStore($isNextWeekAvailable);

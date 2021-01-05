@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React from 'react';
 
@@ -36,7 +37,14 @@ export const Controls = () => {
     <form className="sidebar__form form" action="/">
       {countryHasConnectivity && countryHasCoverage && (
         <>
-          <h3 className="sidebar__secondary-title">Map</h3>
+          <h3
+            className={clsx(
+              'sidebar__secondary-title',
+              'controls__secondary-title'
+            )}
+          >
+            Map
+          </h3>
           <div className="radio-group">
             <label
               className="radio-group__item radio"

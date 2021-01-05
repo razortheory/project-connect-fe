@@ -7,7 +7,7 @@ import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
 import { getInputValue } from '~/lib/event-reducers';
 import { Link } from '~/lib/router';
-// eslint-disable-next-line import/no-cycle,no-restricted-imports
+// eslint-disable-next-line no-restricted-imports
 import { Dropdown } from '~/ui/join-us-dropdown';
 
 import {
@@ -26,7 +26,6 @@ import {
   onPurposeChange,
   onYourMessageChange,
 } from '@/project/model';
-// eslint-disable-next-line import/no-cycle
 import { dropdownPurposeData } from '@/sidebar/constants';
 
 const Error = styled.div`
@@ -134,6 +133,7 @@ export const JoinUs = () => {
   const errorText = 'This field is required';
   const handleFullNameChange = onFullNameChange.prepend(getInputValue);
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
+  const handleYourMessageChange = onYourMessageChange.prepend(getInputValue);
   const [isOpenedDropdown, setOpenedDropdown] = useState(false);
   const onOpenClosePurposeDropdown = (isOpened: boolean) => {
     setOpenedDropdown(isOpened);
@@ -340,7 +340,9 @@ export const JoinUs = () => {
                       maxLength={50}
                     />
                   </label>
-                  {fullNameError && <Error>{errorText}</Error>}
+                  {fullNameError && (
+                    <Error id="fullNameError">{errorText}</Error>
+                  )}
                 </div>
 
                 <div className="form__row">
@@ -360,7 +362,9 @@ export const JoinUs = () => {
                       maxLength={50}
                     />
                   </label>
-                  {organizationError && <Error>{errorText}</Error>}
+                  {organizationError && (
+                    <Error id="organizationError">{errorText}</Error>
+                  )}
                 </div>
                 <div className="form__row">
                   {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -383,7 +387,7 @@ export const JoinUs = () => {
                       onChange={onPurposeChange}
                     />
                   </label>
-                  {purposeError && <Error>{errorText}</Error>}
+                  {purposeError && <Error id="purposeError">{errorText}</Error>}
                 </div>
                 <div className="form__row">
                   <label htmlFor="message" className="form__item">
@@ -400,11 +404,13 @@ export const JoinUs = () => {
                       }
                       name="message"
                       value={yourMessage}
-                      onChange={onYourMessageChange}
+                      onChange={handleYourMessageChange}
                       maxLength={500}
                     />
                   </label>
-                  {yourMessageError && <Error>{errorText}</Error>}
+                  {yourMessageError && (
+                    <Error id="yourMessageError">{errorText}</Error>
+                  )}
                 </div>
                 <button
                   style={{ marginBottom: '8.2rem' }}
