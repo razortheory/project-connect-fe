@@ -5,6 +5,7 @@ import '@/dashboard/init';
 import '@/history-modal/init';
 import '@/popup/init';
 import '@/project/init';
+import '@/setDotsSize/init';
 
 import { guard } from 'effector';
 

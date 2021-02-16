@@ -16,6 +16,7 @@ import {
   zoomIn,
   zoomOut,
 } from '@/map/model';
+import { setIsOpenDotsPopup } from '@/setDotsSize/model';
 
 export const ZoomControl = () => (
   <div className="footer__map-resizer map-resizer">
@@ -184,6 +185,14 @@ export const Footer = () => {
         height="26"
         alt="Giga logo"
       />
+      <button
+        type="button"
+        onClick={() => {
+          setIsOpenDotsPopup(true);
+        }}
+      >
+        Set dots size
+      </button>
       {isCountryView ? <LegendForSchools /> : <LegendForCountries />}
       <StyleControl />
       <ZoomControl />

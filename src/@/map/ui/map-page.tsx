@@ -7,6 +7,8 @@ import { Layout, Main } from '~/ui';
 import { $isOpenHistoryModal } from '@/history-modal/model';
 import { HistoryModal } from '@/history-modal/ui';
 import { Popup } from '@/popup/ui';
+import { DotsPopup } from '@/setDotsSize/dots-popup';
+import { $isDotsPopupOpen } from '@/setDotsSize/model';
 import { Sidebar } from '@/sidebar/ui';
 
 import { Footer } from './footer';
@@ -30,6 +32,7 @@ export const MapPage = () => (
         <Popup />
       </PopupContainer>
       {useStore($isOpenHistoryModal) && <HistoryModal />}
+      {useStore($isDotsPopupOpen) && <DotsPopup />}
     </Main>
     <Footer />
   </Layout>
