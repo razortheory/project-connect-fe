@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useStore } from 'effector-react';
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import Giga from '~/assets/images/giga-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-map-footer.svg';
@@ -8,6 +9,7 @@ import { mapCountry } from '~/core/routes';
 
 import { styles } from '@/map/constants';
 import {
+  $map,
   $mapType,
   $pending,
   $style,
@@ -168,8 +170,23 @@ export const StyleControl = () => {
   );
 };
 
+const ZoomContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+`;
+
 export const Footer = () => {
   const isCountryView = useStore(mapCountry.visible);
+
+  const map = useStore($map);
+  const [zoom, setZoom] = useState(map?.getZoom().toFixed(2));
+
+  map?.on('zoom', () => {
+    setZoom(map?.getZoom().toFixed(2));
+  });
 
   return (
     <footer className="footer">
@@ -193,6 +210,7 @@ export const Footer = () => {
       >
         Set dots size
       </button>
+      <ZoomContainer>Current zoom: {zoom}</ZoomContainer>
       {isCountryView ? <LegendForSchools /> : <LegendForCountries />}
       <StyleControl />
       <ZoomControl />
