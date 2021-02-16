@@ -182,7 +182,7 @@ export const Footer = () => {
   const isCountryView = useStore(mapCountry.visible);
 
   const map = useStore($map);
-  const [zoom, setZoom] = useState(map?.getZoom().toFixed(2));
+  const [zoom, setZoom] = useState(map?.getZoom().toFixed(2) ?? 2);
 
   map?.on('zoom', () => {
     setZoom(map?.getZoom().toFixed(2));
