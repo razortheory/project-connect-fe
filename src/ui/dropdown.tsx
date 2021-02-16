@@ -115,7 +115,7 @@ export const Dropdown = <T,>({
         <CurrentValueWrapper>
           {prefix && <Prefix>{prefix}</Prefix>}
           <CurrentValue>
-            {items.find((item) => item.value === value)?.title}
+            Sort By: {items.find((item) => item.value === value)?.title}
           </CurrentValue>
         </CurrentValueWrapper>
       </DropdownSelect>

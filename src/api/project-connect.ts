@@ -6,6 +6,8 @@ import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
 import { getGlobalSchoolsGeoJson, getSchoolsGeoJson } from '@/country/lib';
+// eslint-disable-next-line import/named
+import { ApiJoinUsFormFields, JoinUsFormFields } from '@/project/types';
 
 import {
   Country,
@@ -98,7 +100,10 @@ export const fetchCountryWeeklyStatsFx = createRequestFx(
     },
     controller?: Controller
   ): Promise<CountryWeeklyStats> => {
-    const weekNumber = getWeek(week.start);
+    const weekNumber = getWeek(week.start, {
+      weekStartsOn: 1,
+      firstWeekContainsDate: 4,
+    });
     const year = getYear(week.start);
     return request({
       url: `api/statistics/country/${countryId}/weekly-stat/${year}/${weekNumber}/`,
@@ -121,8 +126,7 @@ const fetchCountryDailyStats = async (
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
-    url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}&page_size=all`,
     signal: controller?.getSignal(),
   });
 };
@@ -144,11 +148,30 @@ const fetchSchoolDailyStats = async (
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
-    url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}&page_size=all`,
     signal: controller?.getSignal(),
   });
 };
 
 export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
 export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
+
+export const sendJoinUsFormFx = createRequestFx(
+  async (formFields: JoinUsFormFields): Promise<ApiJoinUsFormFields | null> => {
+    const { fullName, organization, purpose, yourMessage } = formFields;
+    const result = {
+      full_name: fullName,
+      organisation: organization,
+      purpose,
+      message: yourMessage,
+    };
+    return request({
+      url: `api/contact/contact/`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(result),
+    });
+  }
+);

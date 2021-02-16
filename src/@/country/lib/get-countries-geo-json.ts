@@ -10,7 +10,10 @@ export const getCountriesGeoJson = (
     type: 'FeatureCollection',
     features:
       countriesProperties
-        ?.filter((country) => country.integration_status !== 0)
+        ?.filter(
+          (country) =>
+            country.integration_status !== 0 && country.integration_status !== 4
+        )
         .map((country) => {
           const countryGeometry = countriesGeometry?.find(
             (geometry) => geometry.id === country.id

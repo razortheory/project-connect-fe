@@ -3,10 +3,8 @@ import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import React from 'react';
 
-import { getDatasetUrl } from '~/api/project-connect';
 import Chevron from '~/assets/images/chevron.svg';
 import IconBackArrow from '~/assets/images/icon-back-arrow.svg';
-import IconDownload from '~/assets/images/icon-download.svg';
 import IconSpeedHigh from '~/assets/images/icon-speed-high.svg';
 import IconSpeedLow from '~/assets/images/icon-speed-low.svg';
 import IconSpeedMedium from '~/assets/images/icon-speed-medium.svg';
@@ -22,7 +20,6 @@ import {
   $countryDailyStats,
   $countryHasConnectivity,
   $countryHasCoverage,
-  $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
 } from '@/country/model';
@@ -69,8 +66,8 @@ const CountryInfoStatistics = () => {
   const dataSource = country?.data_source || 'N/A';
   const countryInfoPending = useStore($countryInfoPending);
   const weekGraphData = useStore($weekGraphData);
-  const countryId = useStore($countryId);
-  const datasetUrl = getDatasetUrl(countryId);
+  // Const countryId = useStore($countryId);
+  // Const datasetUrl = getDatasetUrl(countryId);
 
   const {
     schoolsTotal,
@@ -165,23 +162,23 @@ const CountryInfoStatistics = () => {
       <hr className="sidebar__divider" />
       <h3 className="sidebar__secondary-title">Connectivity distribution</h3>
       <PieChart />
-      <hr className="sidebar__divider" />
-      <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm">
-        Data set
-      </h3>
-      <p className="sidebar__paragraph">
-        You can download the country map data by clicking on the button below.
-        File format for the data set would be CSV and PDF.
-      </p>
-      <a className="sidebar__link link" href={datasetUrl} download>
-        <IconDownload className="link__icon" />
-        Download data set
-      </a>
+      {/* <hr className="sidebar__divider" /> */}
+      {/* <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm"> */}
+      {/*  Data set */}
+      {/* </h3> */}
+      {/* <p className="sidebar__paragraph"> */}
+      {/*  You can download the country map data by clicking on the button below. */}
+      {/*  File format for the data set would be CSV and PDF. */}
+      {/* </p> */}
+      {/* <a className="sidebar__link link" href={datasetUrl} download> */}
+      {/*  <IconDownload className="link__icon" /> */}
+      {/*  Download data set */}
+      {/* </a> */}
     </>
   );
 };
 
-const CountryInfoContent = () => {
+export const CountryInfoContent = () => {
   const week = useStore($week);
   const isThisWeek = useStore($isThisWeek);
   const isNextWeekAvailable = useStore($isNextWeekAvailable);
@@ -269,20 +266,20 @@ export const CountryInfo = () => {
         </div>
       )}
 
-      <RadioButtons<MapType>
-        items={[
-          { title: 'Connectivity map', value: 'connectivity' },
-          { title: 'Coverage map', value: 'coverage' },
-        ]}
-        value={mapType}
-        onChange={changeMapType}
-        wrapperClassName="select-wrapper"
-        radioBtnClassName="select"
-        disabled={!countryHasConnectivity || !countryHasCoverage}
-      />
-
       <Tabs />
       <Scroll>
+        <RadioButtons<MapType>
+          items={[
+            { title: 'Connectivity map', value: 'connectivity' },
+            { title: 'Coverage map', value: 'coverage' },
+          ]}
+          value={mapType}
+          onChange={changeMapType}
+          wrapperClassName="select-wrapper"
+          radioBtnClassName="select"
+          disabled={!countryHasConnectivity || !countryHasCoverage}
+        />
+
         <div
           className={clsx('sidebar__content', {
             'sidebar__content--hidden': isMapTab,

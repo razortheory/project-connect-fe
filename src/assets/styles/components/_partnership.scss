@@ -19,6 +19,13 @@
 .partnership__button {
   margin-right: 1.6rem;
   margin-bottom: 1.6rem;
+  //&:active, &:focus{
+  //  background-color: $color-primary;
+  //}
+}
+
+.partnership__button__active {
+  background-color: $color-primary;
 }
 
 .partnership__tab-content {
@@ -32,6 +39,71 @@
   @include media-breakpoint-up(xl) {
     @include make-col(5);
     @include make-col-offset(1);
+  }
+
+  .partnership__arrow-wrapper {
+    position: relative;
+
+    .partnership__arrow {
+      position: relative;
+      top: 25px;
+      left: 0;
+      display: block;
+      width: 7.8rem;
+      height: 3px;
+      background-color: $color-primary;
+      border-radius: 4px;
+
+      &::after {
+        position: absolute;
+        top: -9.5px;
+        left: -5px;
+        width: 3rem;
+        height: 2.5px;
+        background-color: $color-primary;
+        border-radius: 1px;
+        transform: rotate(-45deg);
+        content: '';
+      }
+
+      &::before {
+        position: absolute;
+        top: 11px;
+        left: -5px;
+        width: 3rem;
+        height: 2.5px;
+        background-color: $color-primary;
+        border-radius: 1px;
+        transform: rotate(45deg);
+        content: '';
+      }
+
+      // Arrow animation
+
+      //&:hover {
+      //  animation: arrow 1s linear infinite;
+      //}
+      //
+      //@keyframes arrow {
+      //  0% {
+      //    left: 0;
+      //  }
+      //  50% {
+      //    left: -10px;
+      //  }
+      //  100% {
+      //    left: 0;
+      //  }
+      //}
+    }
+  }
+
+  .partnership__default-description {
+    max-width: 30rem;
+    margin-top: 7rem;
+    font-size: 1.9rem;
+    font-family: $font-family-secondary;
+    line-height: 2.7rem;
   }
 }
 

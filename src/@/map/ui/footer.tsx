@@ -17,7 +17,7 @@ import {
   zoomOut,
 } from '@/map/model';
 
-const ZoomControl = () => (
+export const ZoomControl = () => (
   <div className="footer__map-resizer map-resizer">
     <button
       className="map-resizer__button"
@@ -46,7 +46,7 @@ const LegendForCountries = () => {
         className="map-legend__item"
         style={{ borderTopColor: paintData.countryWithConnectivity }}
       >
-        School location +connectivity
+        School location + connectivity
       </li>
       <li
         className="map-legend__item"
@@ -56,7 +56,7 @@ const LegendForCountries = () => {
       </li>
       <li
         className="map-legend__item"
-        style={{ borderTopColor: paintData.countryNotVerified }}
+        style={{ borderTopColor: paintData.countryWithOSM }}
       >
         School location (not&nbsp;processed)
       </li>
@@ -134,7 +134,7 @@ const LegendForSchools = () => {
   );
 };
 
-const StyleControl = () => {
+export const StyleControl = () => {
   const activeStyle = useStore($style);
   const pending = useStore($pending);
 

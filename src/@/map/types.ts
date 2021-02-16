@@ -9,12 +9,14 @@ export type Marker = mapboxGl.Marker;
 export type StylePaintData = {
   background: string;
   countryNotVerified: string;
+  countryWithOSM: string;
   countryVerified: string;
   countryWithConnectivity: string;
   countrySelected: string;
   countryNotSelected: string;
   opacity: number;
   opacityHover: number;
+  selectedCountryOpacity: number;
   schoolsNotVerified: string;
   schoolsVerified: string;
   schoolsWithConnectivity: string;
@@ -23,6 +25,7 @@ export type StylePaintData = {
     no: string;
     moderate: string;
     good: string;
+    notVerified: string;
   };
 };
 

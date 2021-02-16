@@ -61,6 +61,7 @@ export const Popup = () => {
     connectivityStatus,
     coverageStatus,
     coverageType,
+    isVerified,
   } = getSchoolInfo(school);
 
   const status =
@@ -71,7 +72,9 @@ export const Popup = () => {
       ref={onChangeRef}
       className="school-popup"
       style={{
-        borderTop: `0.9rem solid ${paintData.schoolConnectivity[status]}`,
+        borderTop: `0.9rem solid ${
+          paintData.schoolConnectivity[isVerified ? status : 'notVerified']
+        }`,
       }}
       data-id={id}
     >

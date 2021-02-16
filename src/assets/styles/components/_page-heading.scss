@@ -9,20 +9,43 @@
     align-items: flex-start;
     justify-content: space-between;
   }
+
+  .write-to-us-btn {
+    margin-top: 3.5rem;
+  }
 }
 
+.work-together {
+  margin-top: 14rem;
+}
 .page-heading__title {
-  margin-top: 0;
-  margin-bottom: 7rem;
+  margin: 0;
   color: $text-color-dark;
   font-weight: bold;
   font-size: 3rem;
   font-family: $font-family-primary;
-  line-height: 3.3rem;
+  line-height: 3.8rem;
+}
 
+.country-progress-heading__title {
+  width: 60.5rem;
+}
+
+.page-heading__title-wrapper {
+  margin-top: 0;
+  //margin-bottom: 7rem;
+  margin-bottom: 3.5rem;
   @include media-breakpoint-up(lg) {
     width: 50%;
     max-width: 650px;
+  }
+
+  .page-heading__title {
+    color: $text-color-dark;
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: $font-family-primary;
+    line-height: 3.8rem;
   }
 }
 

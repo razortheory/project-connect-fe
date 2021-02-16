@@ -18,6 +18,9 @@ const RadioWrapper = styled.div`
 const Label = styled.label`
   /* stylelint-disable scss/operator-no-unspaced */
   margin-right: 2rem;
+  font-size: 0.9rem;
+  font-family: Cabin, sans-serif;
+  letter-spacing: 1px;
 `;
 
 const IconWrapper = styled.div`
@@ -25,12 +28,19 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
+// Fixed
+// Top: 14.3rem;
+// Left: 35rem;
+// Styles for sticky popup info
+// Position: absolute;
+// Top: 7.3rem;
+// Left: 32rem;
 const InfoPopup = styled.div`
-  position: absolute;
-  top: 7.3rem;
-  left: 32rem;
-  z-index: 1000;
-  width: 23.386rem;
+  position: fixed;
+  top: 14.5rem;
+  left: 35rem;
+  z-index: 3000;
+  width: 23.8rem;
   height: 14.6rem;
   padding: 1rem 1.086rem 1rem 1.6rem;
   background-color: #6e737d;
@@ -40,8 +50,8 @@ const InfoPopup = styled.div`
 
   &::after {
     position: absolute;
-    top: 6.3rem;
-    left: -20px;
+    top: 42%;
+    left: -19px;
     border: 10px solid transparent;
     border-right: 10px solid #6e737d;
     content: '';
@@ -165,6 +175,7 @@ export const RadioButtons = <T,>({
       ))}
 
       <IconWrapper
+        className="icon-wrapper"
         onMouseOver={() => {
           setInfoPopupAppeared(true);
         }}
@@ -173,7 +184,10 @@ export const RadioButtons = <T,>({
         }}
       >
         <IconMoreInfo />
-        <InfoPopup style={isInfoPopupAppeared ? { visibility: 'visible' } : {}}>
+        <InfoPopup
+          className="info-popup"
+          style={isInfoPopupAppeared ? { visibility: 'visible' } : {}}
+        >
           <div>
             <PopupSubtitle>Connectivity map</PopupSubtitle>
             <PopupSubContent>
@@ -183,7 +197,7 @@ export const RadioButtons = <T,>({
             <PopupSubContent>
               This view shows internet coverage that is available at school
               level. It illustrates the potential of a school point getting
-              connectivty.
+              connectivity.
             </PopupSubContent>
           </div>
         </InfoPopup>
