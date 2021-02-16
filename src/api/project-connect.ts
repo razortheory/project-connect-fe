@@ -126,8 +126,7 @@ const fetchCountryDailyStats = async (
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
-    url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    url: `api/statistics/country/${countryId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}&page_size=all`,
     signal: controller?.getSignal(),
   });
 };
@@ -149,8 +148,7 @@ const fetchSchoolDailyStats = async (
   const endDate = format(interval.end, 'yyyy-MM-dd');
 
   return request({
-    url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}`,
-    fn: ({ jsonData }) => (jsonData as { results: DailyStats[] })?.results,
+    url: `api/statistics/school/${schoolId}/daily-stat/?date__gte=${startDate}&date__lte=${endDate}&page_size=all`,
     signal: controller?.getSignal(),
   });
 };
