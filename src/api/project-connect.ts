@@ -2,6 +2,7 @@ import { format, getWeek, getYear, Interval } from 'date-fns';
 import { createEffect } from 'effector';
 import { FeatureCollection } from 'geojson';
 
+import { API_BASE_URL } from '~/env';
 import { createRequest } from '~/lib/request';
 import { Controller, createRequestFx } from '~/lib/request-fx';
 
@@ -21,7 +22,7 @@ import {
   SchoolSimplified,
 } from './types';
 
-const apiBaseUrl = 'https://api.projectconnect.razortheory.com/';
+const apiBaseUrl = API_BASE_URL;
 
 const request = createRequest({
   baseUrl: apiBaseUrl,
