@@ -9,8 +9,8 @@ variables:
   app: 'project-connect-frontend'
   imageRepository: 'dev/$(app)'
   tag: '$(Build.BuildId)'
-  mapboxToken: 'test'
-  apiBaseUrl: 'https://api.projectconnect.razortheory.com/'
+  mapboxToken: '$(mapboxToken)'
+  apiBaseUrl: '$(apiBaseUrl)'
 
 steps:
   # Docker build and push
