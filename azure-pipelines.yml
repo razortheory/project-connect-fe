@@ -13,12 +13,18 @@ variables:
 steps:
   # Docker build and push
   - task: Docker@2
-    displayName: Build and push image to container registry
+    displayName: Build image
     inputs:
-      command: buildAndPush
-      repository: $(imageRepository)
+      command: build
       dockerfile: $(dockerfilePath)
-      containerRegistry: $(dockerRegistryServiceConnection)
       arguments: --build-arg=API_BASE_URL=$(apiBaseUrl) --build-arg=API_MAPBOX_ACCESS_TOKEN=$(mapboxToken)
+      tags: |
+        $(tag)
+  - task: Docker@2
+    displayName: Push image to container registry
+    inputs:
+      command: push
+      repository: $(imageRepository)
+      containerRegistry: $(dockerRegistryServiceConnection)
       tags: |
         $(tag)
