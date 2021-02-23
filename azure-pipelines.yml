@@ -9,8 +9,6 @@ variables:
   app: 'project-connect-frontend'
   imageRepository: 'dev/$(app)'
   tag: '$(Build.BuildId)'
-  mapboxToken: '$(mapboxToken)'
-  apiBaseUrl: '$(apiBaseUrl)'
 
 steps:
   # Docker build and push
