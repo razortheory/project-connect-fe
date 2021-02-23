@@ -17,6 +17,7 @@ steps:
     inputs:
       command: build
       repository: $(imageRepository)
+      containerRegistry: $(dockerRegistryServiceConnection)
       dockerfile: $(dockerfilePath)
       arguments: --build-arg=API_BASE_URL=$(apiBaseUrl) --build-arg=API_MAPBOX_ACCESS_TOKEN=$(mapboxToken)
   - task: Docker@2
