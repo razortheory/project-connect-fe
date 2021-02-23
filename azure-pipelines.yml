@@ -16,6 +16,7 @@ steps:
     displayName: Build image
     inputs:
       command: build
+      repository: $(imageRepository)
       dockerfile: $(dockerfilePath)
       arguments: --build-arg=API_BASE_URL=$(apiBaseUrl) --build-arg=API_MAPBOX_ACCESS_TOKEN=$(mapboxToken)
       tags: |
