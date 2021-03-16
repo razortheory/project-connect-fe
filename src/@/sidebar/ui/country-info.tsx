@@ -74,10 +74,13 @@ const CountryInfoStatistics = () => {
     schoolsConnected,
     connectionSpeed,
     schoolsWithNoInternet,
+    schoolWithNoCoverage,
     hasStatistics,
     connectivityLevel,
     connectivityDescription,
   } = useStore($countryInfo) ?? {};
+
+  const mapType = useStore($mapType);
 
   if (countryInfoPending) {
     return <ProgressBar pending wide />;
@@ -146,7 +149,11 @@ const CountryInfoStatistics = () => {
           <h3 className="info-list__title info-list__title--full-width">
             Schools with no internet
           </h3>
-          <p className="info-list__description">{schoolsWithNoInternet}</p>
+          <p className="info-list__description">
+            {mapType === 'connectivity'
+              ? schoolsWithNoInternet
+              : schoolWithNoCoverage}
+          </p>
         </li>
       </ul>
       {weekGraphData && (

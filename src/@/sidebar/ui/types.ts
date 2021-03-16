@@ -6,4 +6,5 @@ export interface CountryInfo {
   hasStatistics: boolean;
   connectivityLevel: string;
   connectivityDescription: string;
+  schoolWithNoCoverage: string;
 }
