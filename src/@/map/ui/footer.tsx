@@ -108,7 +108,7 @@ const LegendForSchools = () => {
         <div className="map-legend__tooltip tooltip tooltip--dark">
           {isConnectivity ? (
             <>
-              Internet speed <strong>0.5-3 mb/s</strong>
+              Internet speed <strong>{'< 5 mb/s'}</strong>
             </>
           ) : (
             '2G'
@@ -123,7 +123,7 @@ const LegendForSchools = () => {
         <div className="map-legend__tooltip tooltip tooltip--dark">
           {isConnectivity ? (
             <>
-              Internet speed <strong>Above 3 mb/s</strong>
+              Internet speed <strong>{'> 5 mb/s'}</strong>
             </>
           ) : (
             'More than 3G'
