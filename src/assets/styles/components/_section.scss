@@ -8,6 +8,10 @@
     color: $text-color-light;
     background-color: #373c46;
   }
+
+  &--last {
+    padding-bottom: 18rem;
+  }
 }
 
 .section__row {

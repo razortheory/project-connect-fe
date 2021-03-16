@@ -120,7 +120,7 @@ export const Privacy = () => {
           </div>
         </div>
       </section>
-      <section className="section mapping" id="data-sharing">
+      <section className="section section--last mapping" id="data-sharing">
         <div className="container">
           <a href="#data-sharing">
             <h2 className="section__title">Data Sharing & Privacy</h2>
