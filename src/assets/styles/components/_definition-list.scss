@@ -3,4 +3,8 @@
   font-size: 1.6rem;
   font-family: $font-family-secondary;
   line-height: 2.5rem;
+
+  &__item {
+    text-transform: capitalize;
+  }
 }
