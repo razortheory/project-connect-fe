@@ -39,6 +39,22 @@ export const getCountryInfo = (
     return 'average-speed__icons';
   };
 
+  const getConnectivityDescription = (): string => {
+    if (connectivity_speed <= LOW_SPEED_MAX && connectivity_speed) {
+      return 'The average internet speed is good enough for accessing email and basic internet browsing.';
+    }
+    if (
+      connectivity_speed > LOW_SPEED_MAX &&
+      connectivity_speed < MED_SPEED_MAX
+    ) {
+      return 'The average internet speed is good enough for video streaming.';
+    }
+    if (connectivity_speed >= MED_SPEED_MAX) {
+      return 'The average internet speed is good enough for e-learning.';
+    }
+    return '';
+  };
+
   return {
     schoolsTotal: formatNumber(schools_total),
     schoolsConnected: schools_connected
@@ -56,5 +72,6 @@ export const getCountryInfo = (
         : 'N/A',
     hasStatistics: Boolean(schools_total),
     connectivityLevel: getConnectivityLevel(),
+    connectivityDescription: getConnectivityDescription(),
   };
 };

@@ -76,6 +76,7 @@ const CountryInfoStatistics = () => {
     schoolsWithNoInternet,
     hasStatistics,
     connectivityLevel,
+    connectivityDescription,
   } = useStore($countryInfo) ?? {};
 
   if (countryInfoPending) {
@@ -136,8 +137,7 @@ const CountryInfoStatistics = () => {
                 </div>
               </div>
               <p className="average-speed__description">
-                The average internet speed is good enough for accessing email
-                and basic internet browsing.
+                {connectivityDescription}
               </p>
             </div>
           </li>
