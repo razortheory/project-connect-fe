@@ -1,12 +1,15 @@
 import { createEvent } from 'effector';
 import React from 'react';
 
+import IconChildProtection from '~/assets/images/child-protection.svg';
 import ImageDataSharing1 from '~/assets/images/data-sharing-1.jpg';
 import ImageDataSharing2 from '~/assets/images/data-sharing-2.jpg';
 import IconDataCollection from '~/assets/images/icon-data-collection.svg';
 import IconMachineLearning from '~/assets/images/icon-machine-learning.svg';
 import IconMeasurement from '~/assets/images/icon-measurement.svg';
 import IconPartnerships from '~/assets/images/icon-partnerships.svg';
+import IconPublicGoods from '~/assets/images/public-goods.svg';
+import IconSchoolLocation from '~/assets/images/school-location.svg';
 
 export const onPrivacyRef = createEvent<HTMLDivElement | null>();
 
@@ -147,7 +150,7 @@ export const Privacy = () => {
               <ul className="mapping__list mapping-list">
                 <li className="mapping-list__item">
                   <div className="mapping-list__icon-wrapper">
-                    <IconMachineLearning
+                    <IconPublicGoods
                       className="mapping-list__icon"
                       alt="School location data everywhere should be public"
                     />
@@ -180,7 +183,7 @@ export const Privacy = () => {
                 </li>
                 <li className="mapping-list__item">
                   <div className="mapping-list__icon-wrapper">
-                    <IconMachineLearning
+                    <IconSchoolLocation
                       className="mapping-list__icon"
                       alt="Public data gathered with public money creates
                           public goods"
@@ -202,7 +205,7 @@ export const Privacy = () => {
                 </li>
                 <li className="mapping-list__item">
                   <div className="mapping-list__icon-wrapper">
-                    <IconMachineLearning
+                    <IconChildProtection
                       className="mapping-list__icon"
                       alt="Child protection should always be prioritized"
                     />
