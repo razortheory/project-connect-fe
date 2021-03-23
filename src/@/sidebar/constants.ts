@@ -31,7 +31,7 @@ export const countriesSortData: {
   },
   percentSchoolWithConnectivity: {
     field: 'schools_with_data_percentage',
-    sortType: 'number',
+    sortType: 'schools_with_data_percentage',
   },
 };
 

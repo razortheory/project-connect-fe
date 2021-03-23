@@ -1,4 +1,8 @@
-export type SortType = 'number' | 'date' | 'integration_status';
+export type SortType =
+  | 'number'
+  | 'date'
+  | 'integration_status'
+  | 'schools_with_data_percentage';
 
 export type SortKey =
   | 'amountOfDataAvailable'

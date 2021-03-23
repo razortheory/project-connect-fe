@@ -36,6 +36,27 @@ export const sortCountries = (
         a.name.localeCompare(b.name)
       );
     }
+    case 'schools_with_data_percentage': {
+      const getIntegrationStatusSortAlias = (
+        value: IntegrationStatus
+      ): number => {
+        if (value === 4) {
+          return -2;
+        }
+        if (value === 5) {
+          return -1;
+        }
+        if (value === 3) {
+          return 2;
+        }
+        return value;
+      };
+      return (
+        getIntegrationStatusSortAlias(b.integration_status) -
+          getIntegrationStatusSortAlias(a.integration_status) ||
+        b.schools_with_data_percentage - a.schools_with_data_percentage
+      );
+    }
     case 'date':
       return (
         new Date(b[field] as string).getTime() -
