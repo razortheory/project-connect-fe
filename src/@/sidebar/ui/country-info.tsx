@@ -167,7 +167,11 @@ const CountryInfoStatistics = () => {
         </>
       )}
       <hr className="sidebar__divider" />
-      <h3 className="sidebar__secondary-title">Connectivity distribution</h3>
+      <h3 className="sidebar__secondary-title">
+        {mapType === 'connectivity'
+          ? 'Connectivity distribution'
+          : 'Coverage distribution'}
+      </h3>
       <PieChart />
       {/* <hr className="sidebar__divider" /> */}
       {/* <h3 className="sidebar__secondary-title sidebar__secondary-title--mb-sm"> */}

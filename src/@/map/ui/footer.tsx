@@ -89,7 +89,7 @@ const LegendForSchools = () => {
         className="map-legend__item map-legend__item--has-tooltip"
         style={{ borderTopColor: paintData.schoolConnectivity.no }}
       >
-        No connectivity
+        {isConnectivity ? 'No connectivity' : 'No coverage'}
         <div className="map-legend__tooltip tooltip tooltip--dark">
           {isConnectivity ? (
             <>
