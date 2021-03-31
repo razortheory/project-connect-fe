@@ -120,15 +120,20 @@ export const CountryList = () => {
                     <h4 className="country__subtitle">
                       Schools with connectivity
                     </h4>
-                    <div className="schools-connectivity__bar">
-                      <div
-                        className="schools-connectivity__filler"
-                        style={progressBarStyle}
-                      />
-                    </div>
+
+                    {progressPercent ? (
+                      <div className="schools-connectivity__bar">
+                        <div
+                          className="schools-connectivity__filler"
+                          style={progressBarStyle}
+                        />
+                      </div>
+                    ) : null}
 
                     <div className="schools-connectivity__percentage-connected">
-                      {formatPercent(progressPercent)}
+                      {progressPercent
+                        ? formatPercent(progressPercent)
+                        : 'No data'}
                     </div>
                   </div>
                 </div>
