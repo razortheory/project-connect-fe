@@ -1,5 +1,16 @@
 .slider-navigation {
   font-size: 4rem;
+
+  &.mobile {
+    display: none;
+
+    @include media-breakpoint-down(xs) {
+      display: flex;
+      height: fit-content;
+      padding-right: 2.4rem;
+      background-color: $color-deep-blue;
+    }
+  }
 }
 
 .slider-navigation__button {

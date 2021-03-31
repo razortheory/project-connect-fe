@@ -85,18 +85,54 @@ export const Slider = () => {
       previousState === 0 ? SLIDES.length - 1 : previousState - 1
     );
   };
+
+  const SliderNavigation = ({ isMobile }: { isMobile?: boolean }) => (
+    <div
+      className={`case-studies__slider-navigation slider-navigation ${
+        isMobile ? 'mobile' : ''
+      }`}
+    >
+      <button
+        type="button"
+        className="slider-navigation__button"
+        onClick={(event) => {
+          event.preventDefault();
+          previousSlide();
+        }}
+      >
+        <IconLeftArrow
+          className="slider-navigation__icon"
+          alt="Go to previous slide"
+        />
+      </button>
+      <button
+        type="button"
+        className="slider-navigation__button"
+        onClick={(event) => {
+          event.preventDefault();
+          nextSlide();
+        }}
+      >
+        <IconRightArrow
+          className="slider-navigation__icon"
+          alt="Go to next slide"
+        />
+      </button>
+    </div>
+  );
+
   return (
     <div className="case-studies__row">
       <div className="case-studies__col">
-        <SwitchTransition>
-          <CSSTransition
-            key={slideIndex}
-            addEndListener={(node, done) => {
-              node.addEventListener('transitionend', done, false);
-            }}
-            classNames="cross-fade"
-          >
-            <div className="case-studies__slider-wrapper">
+        <div className="case-studies__slider-wrapper">
+          <SwitchTransition>
+            <CSSTransition
+              key={slideIndex}
+              addEndListener={(node, done) => {
+                node.addEventListener('transitionend', done, false);
+              }}
+              classNames="cross-fade"
+            >
               <img
                 className="case-studies__slider-background"
                 src={
@@ -105,7 +141,17 @@ export const Slider = () => {
                 }
                 alt=""
               />
-              <div className="case-studies__slider slider">
+            </CSSTransition>
+          </SwitchTransition>
+          <div className="case-studies__slider slider">
+            <SwitchTransition>
+              <CSSTransition
+                key={slideIndex}
+                addEndListener={(node, done) => {
+                  node.addEventListener('transitionend', done, false);
+                }}
+                classNames="cross-fade"
+              >
                 <div className="slider__image-wrapper">
                   <img
                     key={slideIndex}
@@ -117,16 +163,27 @@ export const Slider = () => {
                     alt=""
                   />
                 </div>
+              </CSSTransition>
+            </SwitchTransition>
+            <SliderNavigation isMobile />
+            <SwitchTransition>
+              <CSSTransition
+                key={slideIndex}
+                addEndListener={(node, done) => {
+                  node.addEventListener('transitionend', done, false);
+                }}
+                classNames="cross-fade"
+              >
                 <div className="slider__info-wrapper">
                   <div className="slider__title">
                     {SLIDES[slideIndex].title}
                   </div>
                   <p className="slider__text">{SLIDES[slideIndex].content}</p>
                 </div>
-              </div>
-            </div>
-          </CSSTransition>
-        </SwitchTransition>
+              </CSSTransition>
+            </SwitchTransition>
+          </div>
+        </div>
         <div className="case-studies__slider-controls">
           <ul className="case-studies__slider-pagination slider-pagination">
             {SLIDES.map((slide, index) => (
@@ -146,34 +203,7 @@ export const Slider = () => {
               </li>
             ))}
           </ul>
-          <div className="case-studies__slider-navigation slider-navigation">
-            <button
-              type="button"
-              className="slider-navigation__button"
-              onClick={(event) => {
-                event.preventDefault();
-                previousSlide();
-              }}
-            >
-              <IconLeftArrow
-                className="slider-navigation__icon"
-                alt="Go to previous slide"
-              />
-            </button>
-            <button
-              type="button"
-              className="slider-navigation__button"
-              onClick={(event) => {
-                event.preventDefault();
-                nextSlide();
-              }}
-            >
-              <IconRightArrow
-                className="slider-navigation__icon"
-                alt="Go to next slide"
-              />
-            </button>
-          </div>
+          <SliderNavigation />
         </div>
       </div>
     </div>

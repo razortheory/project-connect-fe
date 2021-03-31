@@ -87,6 +87,10 @@
   font-size: 20px;
   background-color: $color-deep-blue;
 
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+
   @include media-breakpoint-up(lg) {
     margin-right: 0;
     margin-left: 0;
