@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { useOnClickOutside } from '~/lib/click-outside/use-click-outside';
 
-import { $purpose, onDropdownOpenClosed } from '@/project/model';
+import { $purpose } from '@/project/model';
 
 const ARROW_DOWN =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23b6bbc6' d='M9.978 11.679l-4.61-4.61c-.284-.284-.744-.285-1.027-.002-.285.285-.282.743.002 1.026l5.121 5.122.001.001c.143.142.328.213.513.213.186-.001.37-.072.512-.213l.001-.001 5.122-5.122c.284-.283.284-.743.001-1.026-.285-.285-.742-.282-1.026.002l-4.61 4.61z'/%3E%3C/svg%3E%0A";
@@ -161,7 +161,6 @@ export const Dropdown = ({
   const [isOpenList, setIsOpenList] = useState(false);
   const container = useRef(null);
   useEffect(() => {
-    onDropdownOpenClosed(isOpenList);
     onOpenClosePurposeDropdown(isOpenList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpenList]);

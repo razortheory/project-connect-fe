@@ -135,9 +135,6 @@ export const JoinUs = () => {
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
   const handleYourMessageChange = onYourMessageChange.prepend(getInputValue);
   const [isOpenedDropdown, setOpenedDropdown] = useState(false);
-  const onOpenClosePurposeDropdown = (isOpened: boolean) => {
-    setOpenedDropdown(isOpened);
-  };
 
   return (
     <>
@@ -378,7 +375,7 @@ export const JoinUs = () => {
                     <Dropdown
                       id="purpose"
                       name="purpose"
-                      onOpenClosePurposeDropdown={onOpenClosePurposeDropdown}
+                      onOpenClosePurposeDropdown={setOpenedDropdown}
                       wrapperClassName="join-us-select-wrapper"
                       selectClassName="join-us-select"
                       isPurposeError={purposeError}

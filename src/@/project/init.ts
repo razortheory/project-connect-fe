@@ -1,4 +1,4 @@
-import { combine, guard, merge, sample } from 'effector';
+import { combine, forward, guard, merge, sample } from 'effector';
 
 import { sendJoinUsFormFx } from '~/api/project-connect';
 import { router } from '~/core/routes';
@@ -16,7 +16,6 @@ import {
   $yourMessage,
   $yourMessageError,
   clearFormFields,
-  onDropdownOpenClosed,
   onFullNameChange,
   onJoinUsFormSubmit,
   onOrganizationChange,
@@ -46,9 +45,16 @@ sendJoinUsFormFx.fail.watch(() => {
   clearFormFields();
 });
 
-sample({
-  source: merge([onDropdownOpenClosed, sendJoinUsFormFx.pending]),
-  target: $isSendButtonDisabled,
+const hasEmptyField = combine(
+  [$fullName, $organization, $yourMessage, $purpose],
+  (states) => states.some((state) => !state)
+);
+
+forward({
+  from: combine([sendJoinUsFormFx.pending, hasEmptyField], (states) =>
+    states.some(Boolean)
+  ),
+  to: $isSendButtonDisabled,
 });
 
 sample({

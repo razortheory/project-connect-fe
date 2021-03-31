@@ -6,7 +6,6 @@ export const onOrganizationChange = createEvent<string>();
 export const onPurposeChange = createEvent<string>();
 export const onYourMessageChange = createEvent<string>();
 
-export const onDropdownOpenClosed = createEvent<boolean>();
 export const clearFormFields = createEvent();
 export const onJoinUsFormRequest = createEvent();
 export const onJoinUsFormSubmit = createEvent();
@@ -20,4 +19,4 @@ export const $fullNameError = createStore<boolean>(false);
 export const $organizationError = createStore<boolean>(false);
 export const $purposeError = createStore<boolean>(false);
 export const $yourMessageError = createStore<boolean>(false);
-export const $isSendButtonDisabled = createStore<boolean>(false);
+export const $isSendButtonDisabled = createStore<boolean>(true);
