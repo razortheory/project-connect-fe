@@ -20,3 +20,4 @@ export const $organizationError = createStore<boolean>(false);
 export const $purposeError = createStore<boolean>(false);
 export const $yourMessageError = createStore<boolean>(false);
 export const $isSendButtonDisabled = createStore<boolean>(true);
+export const $submitSuccess = createStore<boolean>(false);

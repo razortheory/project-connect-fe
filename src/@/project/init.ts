@@ -13,6 +13,7 @@ import {
   $organizationError,
   $purpose,
   $purposeError,
+  $submitSuccess,
   $yourMessage,
   $yourMessageError,
   clearFormFields,
@@ -41,8 +42,22 @@ $yourMessage.reset(clearFormFields);
 sendJoinUsFormFx.done.watch(() => {
   clearFormFields();
 });
-sendJoinUsFormFx.fail.watch(() => {
-  clearFormFields();
+
+sample({
+  source: sendJoinUsFormFx.done,
+  fn: () => true,
+  target: $submitSuccess,
+});
+
+sample({
+  source: merge([
+    onFullNameChange,
+    onOrganizationChange,
+    onPurposeChange,
+    onYourMessageChange,
+  ]),
+  fn: () => false,
+  target: $submitSuccess,
 });
 
 const hasEmptyField = combine(

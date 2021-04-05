@@ -1,3 +1,4 @@
+import ReCaptcha from '@matt-block/react-recaptcha-v2';
 import clsx from 'clsx';
 import { useStore } from 'effector-react';
 import React, { FormEvent, useState } from 'react';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 
 import joinUsImage from '~/assets/images/join-us.jpg';
 import { joinUs } from '~/core/routes';
+import { RECAPTCHA_KEY } from '~/env';
 import { getInputValue } from '~/lib/event-reducers';
 import { Link } from '~/lib/router';
 // eslint-disable-next-line no-restricted-imports
@@ -18,6 +20,7 @@ import {
   $organizationError,
   $purpose,
   $purposeError,
+  $submitSuccess,
   $yourMessage,
   $yourMessageError,
   onFullNameChange,
@@ -135,6 +138,8 @@ export const JoinUs = () => {
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
   const handleYourMessageChange = onYourMessageChange.prepend(getInputValue);
   const [isOpenedDropdown, setOpenedDropdown] = useState(false);
+
+  const [isRecaptchaVerified, setIsRecaptchaVerified] = useState(false);
 
   return (
     <>
@@ -386,7 +391,7 @@ export const JoinUs = () => {
                   </label>
                   {purposeError && <Error id="purposeError">{errorText}</Error>}
                 </div>
-                <div className="form__row">
+                <div className="form__row join-us-textarea">
                   <label htmlFor="message" className="form__item">
                     <p className="form__label">Your message</p>
                     <textarea
@@ -409,14 +414,34 @@ export const JoinUs = () => {
                     <Error id="yourMessageError">{errorText}</Error>
                   )}
                 </div>
+                <ReCaptcha
+                  siteKey={RECAPTCHA_KEY}
+                  theme="light"
+                  size="normal"
+                  onSuccess={() => {
+                    setIsRecaptchaVerified(true);
+                  }}
+                  onExpire={() => {
+                    setIsRecaptchaVerified(false);
+                  }}
+                  onError={() => {
+                    setIsRecaptchaVerified(false);
+                  }}
+                />
                 <button
-                  style={{ marginBottom: '8.2rem' }}
                   type="submit"
-                  className="button button--full-width button--primary"
-                  disabled={isSendButtonDisabled}
+                  className="button button--full-width button--primary join-us-button"
+                  disabled={isSendButtonDisabled || !isRecaptchaVerified}
                 >
                   Send
                 </button>
+                {useStore($submitSuccess) && (
+                  <div className="join-us-success-wrapper">
+                    <div className="join-us-success">
+                      Form submitted successfully
+                    </div>
+                  </div>
+                )}
               </form>
             </div>
           </div>

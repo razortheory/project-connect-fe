@@ -64,6 +64,10 @@
   }
 }
 
+.join-us-button {
+  margin-top: 2rem;
+}
+
 .join-us-dashboard {
   display: flex;
   flex-direction: row;
@@ -83,4 +87,22 @@
   @include media-breakpoint-up(xl) {
     width: 28rem;
   }
+}
+
+.join-us-success-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.join-us-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: 2.9rem;
+  padding: 1.1rem 3rem 0.9rem;
+  color: $text-color-light;
+  font-size: 1.9rem;
+  line-height: 1.58;
+  background-color: $color-primary;
 }
