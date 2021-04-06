@@ -9,6 +9,7 @@ import {
   $fullNameError,
   $isMenuOpen,
   $isSendButtonDisabled,
+  $isSendButtonPending,
   $organization,
   $organizationError,
   $purpose,
@@ -60,16 +61,16 @@ sample({
   target: $submitSuccess,
 });
 
-const hasEmptyField = combine(
-  [$fullName, $organization, $yourMessage, $purpose],
-  (states) => states.some((state) => !state)
-);
-
 forward({
-  from: combine([sendJoinUsFormFx.pending, hasEmptyField], (states) =>
-    states.some(Boolean)
+  from: combine([$fullName, $organization, $yourMessage, $purpose], (states) =>
+    states.some((state) => !state)
   ),
   to: $isSendButtonDisabled,
+});
+
+forward({
+  from: sendJoinUsFormFx.pending,
+  to: $isSendButtonPending,
 });
 
 sample({

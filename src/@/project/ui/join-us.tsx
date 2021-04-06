@@ -16,6 +16,7 @@ import {
   $fullName,
   $fullNameError,
   $isSendButtonDisabled,
+  $isSendButtonPending,
   $organization,
   $organizationError,
   $purpose,
@@ -133,6 +134,7 @@ export const JoinUs = () => {
   const purposeError = useStore($purposeError);
   const yourMessageError = useStore($yourMessageError);
   const isSendButtonDisabled = useStore($isSendButtonDisabled);
+  const isSendButtonPending = useStore($isSendButtonPending);
   const errorText = 'This field is required';
   const handleFullNameChange = onFullNameChange.prepend(getInputValue);
   const handleOrganizationChange = onOrganizationChange.prepend(getInputValue);
@@ -430,7 +432,15 @@ export const JoinUs = () => {
                 />
                 <button
                   type="submit"
-                  className="button button--full-width button--primary join-us-button"
+                  className={clsx(
+                    'button',
+                    'button--full-width',
+                    'button--primary',
+                    'join-us-button',
+                    {
+                      'button--primary-pending': isSendButtonPending,
+                    }
+                  )}
                   disabled={isSendButtonDisabled || !isRecaptchaVerified}
                 >
                   Send

@@ -40,6 +40,11 @@
       background-color: $color-primary-active;
     }
 
+    &-pending {
+      background-color: $color-primary-hover;
+      cursor: not-allowed;
+    }
+
     &:disabled {
       background-color: $color-primary-disabled;
       cursor: not-allowed;
