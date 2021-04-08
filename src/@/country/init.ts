@@ -41,7 +41,6 @@ import {
   $countryDailyStats,
   $countryHasConnectivity,
   $countryHasCoverage,
-  $countryId,
   $countryInfoPending,
   $countryWeeklyStats,
   $school,
@@ -49,8 +48,8 @@ import {
   $schoolId,
   $schools,
   $schoolsGlobal,
-  $zoomedCountryId,
-  changeCountryId,
+  $zoomedCountryCode,
+  changeCountryCode,
   changeSchoolId,
   clickSchool,
 } from './model';
@@ -59,7 +58,7 @@ $countries.on(fetchCountriesFx.doneData, setPayload);
 $countriesGeometry.on(fetchCountriesGeometryFx.doneData, setPayload);
 $schoolsGlobal.on(fetchSchoolsGlobal.doneData, setPayload);
 $country.on(fetchCountryFx.doneData, setPayload);
-$countryId.on(changeCountryId, setPayload);
+$countryCode.on(changeCountryCode, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
 
 $school.on(fetchSchoolFx.doneData, setPayload);
@@ -68,8 +67,8 @@ $countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
 $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
 
-$country.reset(changeCountryId, fetchCountryFx.fail);
-$schools.reset(changeCountryId, fetchSchoolsFx.fail);
+$country.reset(changeCountryCode, fetchCountryFx.fail);
+$schools.reset(changeCountryCode, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
 
 sample({
@@ -79,7 +78,7 @@ sample({
   target: $countryHasConnectivity,
 });
 
-$countryHasConnectivity.reset(changeCountryId, leaveCountryRouteFx.done);
+$countryHasConnectivity.reset(changeCountryCode, leaveCountryRouteFx.done);
 
 sample({
   source: guard($country, { filter: Boolean }),
@@ -87,7 +86,7 @@ sample({
   target: $countryHasCoverage,
 });
 
-$countryHasCoverage.reset(changeCountryId, leaveCountryRouteFx.done);
+$countryHasCoverage.reset(changeCountryCode, leaveCountryRouteFx.done);
 
 sample({
   source: combine([$countryHasConnectivity, $countryHasCoverage]),
@@ -104,14 +103,14 @@ const onClosePopup = guard($isOpenPopup, { filter: getInverted });
 $schoolId.reset(onClosePopup);
 
 $countryWeeklyStats.reset(
-  changeCountryId,
+  changeCountryCode,
   fetchCountryWeeklyStatsFx,
   nextWeek,
   previousWeek
 );
 
 $countryDailyStats.reset(
-  changeCountryId,
+  changeCountryCode,
   fetchCountryDailyStatsFx,
   nextWeek,
   previousWeek
@@ -132,54 +131,40 @@ const $mapContext = combine({
   country: $country,
   schools: $schools,
   popup: $popup,
-  countryId: $countryId,
+  countryCode: $countryCode,
   schoolId: $schoolId,
-  zoomedCountryId: $zoomedCountryId,
+  zoomedCountryCode: $zoomedCountryCode,
   isMobile: $isMobile,
 });
 
 // Routing
-const isEqualText = (a: string, b: string) =>
-  a.toLocaleLowerCase() === b.toLocaleLowerCase();
-
 sample({
-  source: combine([mapCountry.params, $map]),
-  fn: ([params]) => params?.code ?? null,
-  target: $countryCode,
-});
-
-sample({
-  source: $countries,
-  clock: $countryCode,
-  fn: (countries, code) => {
-    if (!countries || !code) return 0;
-    const country = countries.find((data) => isEqualText(data.code, code));
-    return country?.id ?? 0;
-  },
-  target: changeCountryId,
+  source: combine([mapCountry.params]),
+  fn: ([params]) => params?.code ?? '',
+  target: changeCountryCode,
 });
 
 // Fetch country data and schools data
 forward({
-  from: guard(changeCountryId, { filter: Boolean }),
+  from: guard(changeCountryCode, { filter: Boolean }),
   to: [fetchSchoolsFx, fetchCountryFx],
 });
 
 guard({
-  source: combine([$countryId, $week], ([countryId, week]) => ({
-    countryId,
+  source: combine([$countryCode, $week], ([countryCode, week]) => ({
+    countryCode,
     week,
   })),
-  filter: ({ countryId }) => Boolean(countryId),
+  filter: ({ countryCode }) => Boolean(countryCode),
   target: fetchCountryWeeklyStatsFx,
 });
 
 guard({
-  source: combine([$countryId, $week], ([countryId, interval]) => ({
-    countryId,
+  source: combine([$countryCode, $week], ([countryCode, interval]) => ({
+    countryCode,
     interval,
   })),
-  filter: ({ countryId }) => Boolean(countryId),
+  filter: ({ countryCode }) => Boolean(countryCode),
   target: fetchCountryDailyStatsFx,
 });
 
@@ -195,12 +180,12 @@ guard({
 // Zoom to country bounds
 sample({
   source: guard($mapContext, {
-    filter: ({ countryId, zoomedCountryId }) =>
-      Boolean(countryId && countryId !== zoomedCountryId),
+    filter: ({ countryCode, zoomedCountryCode }) =>
+      Boolean(countryCode && countryCode !== zoomedCountryCode),
   }),
-  fn: ({ map, countryId, countriesGeometry, country, isMobile }) => ({
+  fn: ({ map, countryCode, countriesGeometry, country, isMobile }) => ({
     map,
-    countryId,
+    countryCode,
     countriesGeometry,
     country,
     isMobile,
@@ -208,20 +193,20 @@ sample({
   target: zoomToCountryFx,
 });
 
-$zoomedCountryId.on(zoomToCountryFx.doneData, setPayload);
-$zoomedCountryId.reset(leaveCountryRouteFx.done);
+$zoomedCountryCode.on(zoomToCountryFx.doneData, setPayload);
+$zoomedCountryCode.reset(leaveCountryRouteFx.done);
 
 // Check received country for relevance
 const countryReceived = guard({
   source: sample({
-    source: $countryId,
+    source: $countryCode,
     clock: fetchCountryFx.done,
-    fn: (countryId, { params }) => ({
-      countryId,
-      doneCountryId: params,
+    fn: (countryCode, { params }) => ({
+      countryCode,
+      doneCountryCode: params,
     }),
   }),
-  filter: ({ countryId, doneCountryId }) => countryId === doneCountryId,
+  filter: ({ countryCode, doneCountryCode }) => countryCode === doneCountryCode,
 });
 
 // Update country
@@ -239,24 +224,24 @@ sample({
 // Check received schools for relevance
 const schoolsReceived = guard({
   source: sample({
-    source: $countryId,
+    source: $countryCode,
     clock: fetchSchoolsFx.done,
-    fn: (countryId, { params }) => ({
-      countryId,
+    fn: (countryCode, { params }) => ({
+      countryCode,
       params,
     }),
   }),
-  filter: ({ countryId, params }) => countryId === params,
+  filter: ({ countryCode, params }) => countryCode === params,
 });
 
 sample({
   source: $mapContext,
   clock: combine([$schoolsGlobal, $map]),
-  fn: ({ paintData, map, countryId }, [schoolsGlobal]) => ({
+  fn: ({ paintData, map, countryCode }, [schoolsGlobal]) => ({
     map,
     paintData,
     schoolsGlobal,
-    countryId,
+    countryCode,
   }),
   target: updateGlobalSchoolsFx,
 });
@@ -275,14 +260,14 @@ sample({
 
 sample({
   source: $mapContext,
-  clock: changeCountryId,
+  clock: changeCountryCode,
   fn: ({ map, paintData }) => ({ map, paintData }),
   target: removeCountryFx,
 });
 
 sample({
   source: guard($map, { filter: Boolean }),
-  clock: changeCountryId,
+  clock: changeCountryCode,
   fn: (map) => map,
   target: removeSchoolsFx,
 });
@@ -318,11 +303,11 @@ const onCountriesGeoJson = sample({
 sample({
   source: $mapContext,
   clock: guard(onCountriesGeoJson, { filter: Boolean }),
-  fn: ({ map, paintData, countryId }, countriesGeoJson) => ({
+  fn: ({ map, paintData, countryCode }, countriesGeoJson) => ({
     map,
     paintData,
     countriesGeoJson,
-    countryId,
+    countryCode,
   }),
   target: addCountriesFx,
 });
@@ -361,7 +346,7 @@ sample({
 sample({
   source: $mapContext,
   clock: guard($schoolId, { filter: Boolean }),
-  fn: ({ countryId, schoolId }) => ({ countryId, schoolId }),
+  fn: ({ countryCode, schoolId }) => ({ countryCode, schoolId }),
   target: fetchSchoolFx,
 });
 

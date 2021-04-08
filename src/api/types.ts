@@ -78,6 +78,7 @@ export type CountryWeeklyStats = {
 
 export type CountryGeometry = {
   id: number;
+  code: string;
   geometry_simplified: Geometry;
 };
 

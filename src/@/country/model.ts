@@ -12,12 +12,11 @@ import {
   School,
 } from '~/api/types';
 
-export const changeCountryId = createEvent<number>();
+export const changeCountryCode = createEvent<string>();
 export const changeSchoolId = createEvent<number>();
 export const clickSchool = createEvent<MapLayerMouseEvent>();
 
-export const $countryCode = createStore<string | null>('');
-export const $countryId = createStore(0); // TODO: Use nullable value <number | null> for $countryId and $schoolId
+export const $countryCode = createStore<string>('');
 export const $schoolId = createStore(0);
 export const $countriesGeometry = createStore<CountryGeometry[] | null>(null);
 export const $countries = createStore<CountryBasic[] | null>(null);
@@ -30,7 +29,7 @@ export const $schoolPending = fetchSchoolFx.pending;
 export const $countryWeeklyStats = createStore<CountryWeeklyStats | null>(null);
 export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $schoolDailyStats = createStore<DailyStats[] | null>(null);
-export const $zoomedCountryId = createStore(0);
+export const $zoomedCountryCode = createStore<string>('');
 export const $countryInfoPending = createStore(false);
 export const $countryHasConnectivity = createStore(false);
 export const $countryHasCoverage = createStore(false);

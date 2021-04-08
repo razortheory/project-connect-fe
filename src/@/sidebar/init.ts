@@ -10,7 +10,12 @@ import { mapCountry } from '~/core/routes';
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, getVoid, setPayload } from '~/lib/effector-kit';
 
-import { $countries, $country, changeCountryId } from '@/country/model';
+import {
+  $countries,
+  $country,
+  $countryCode,
+  changeCountryCode,
+} from '@/country/model';
 import { $mapType, $style, changeMapType, changeStyle } from '@/map/model';
 
 import {
@@ -63,7 +68,7 @@ $searchText.reset(clearSearchText);
 $isSidebarCollapsed.on(toggleSidebar, getInverted);
 $sortKey.on(changeSortKey, setPayload);
 $isSearchFocused.on(changeIsSearchFocused, setPayload);
-$isSearchFocused.reset(changeCountryId);
+$isSearchFocused.reset(changeCountryCode);
 
 guard({
   source: onClickSidebar,
@@ -85,11 +90,15 @@ const $sortedCountries = combine(
 );
 
 sample({
-  source: guard($countries, { filter: Boolean }),
-  clock: changeCountryId,
-  fn: (countries, countryId) => {
-    if (!countryId) return '';
-    return countries.find((country) => country.id === countryId)?.name ?? '';
+  source: combine([$countries, $countryCode]),
+  fn: ([countries, countryCode]) => {
+    if (!countryCode || !countries) return '';
+    return (
+      countries.find(
+        (country) =>
+          country.code.toLocaleLowerCase() === countryCode.toLocaleLowerCase()
+      )?.name ?? ''
+    );
   },
   target: changeSearchText,
 });
@@ -184,7 +193,7 @@ $week.on(nextWeek, (week) =>
 $week.on(previousWeek, (week) =>
   getInterval(sub(week.start, { weeks: 1 }), 'week')
 );
-$week.reset(changeCountryId);
+$week.reset(changeCountryCode);
 
 // Controls
 

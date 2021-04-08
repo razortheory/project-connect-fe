@@ -5,7 +5,7 @@ import { addGlobalSchoolsLayer } from '@/country/effects/add-global-schools-laye
 import { UpdateGlobalSchools } from '@/country/types';
 
 export const updateGlobalSchoolsFx = createEffect(
-  ({ map, paintData, schoolsGlobal, countryId }: UpdateGlobalSchools) => {
+  ({ map, paintData, schoolsGlobal, countryCode }: UpdateGlobalSchools) => {
     if (!map || !schoolsGlobal) return;
 
     map.addSource('schoolsGlobal', {
@@ -13,7 +13,7 @@ export const updateGlobalSchoolsFx = createEffect(
       data: schoolsGlobal,
     });
 
-    if (!countryId) {
+    if (!countryCode) {
       addGlobalSchoolsLayer({ map, paintData });
     }
   }

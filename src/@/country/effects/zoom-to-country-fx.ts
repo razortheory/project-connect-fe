@@ -22,15 +22,17 @@ export const zoomToCountryFx = createEffect(
   ({
     map,
     countriesGeometry,
-    countryId,
+    countryCode,
     country,
     isMobile,
-  }: ZoomToCountryBounds): number => {
-    if (!countryId || !map) return 0;
+  }: ZoomToCountryBounds): string => {
+    if (!countryCode || !map) return '';
 
     const currentCountryGeometry =
       countriesGeometry?.find(
-        (countryGeometry) => countryGeometry.id === countryId
+        (countryGeometry) =>
+          countryGeometry.code.toLocaleLowerCase() ===
+          countryCode.toLocaleLowerCase()
       )?.geometry_simplified ?? country?.geometry;
 
     if (currentCountryGeometry) {
@@ -42,9 +44,9 @@ export const zoomToCountryFx = createEffect(
         padding: isMobile ? paddingMobile : paddingDesktop,
       });
 
-      return countryId;
+      return countryCode;
     }
 
-    return 0;
+    return '';
   }
 );

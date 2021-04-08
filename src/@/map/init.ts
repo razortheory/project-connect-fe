@@ -11,7 +11,7 @@ import {
 import { project } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import { changeCountryId } from '@/country/model';
+import { changeCountryCode } from '@/country/model';
 
 import { stylePaintData } from './constants';
 import { addLoaderToMapFx, initMapFx, removeLoaderFromMapFx } from './effects';
@@ -37,7 +37,7 @@ $style.on(changeStyle, setPayload);
 $globalStats.on(fetchGlobalStatsFx.doneData, setPayload);
 $loader.on(setLoader, setPayload);
 $mapType.on(changeMapType, setPayload);
-$mapType.reset(changeCountryId);
+$mapType.reset(changeCountryCode);
 
 // Reset map after leave map page
 $map.reset(guard(project.visible, { filter: Boolean }));

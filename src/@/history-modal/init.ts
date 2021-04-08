@@ -10,8 +10,8 @@ import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import {
   $country,
+  $countryCode,
   $countryDailyStats,
-  $countryId,
   $school,
   $schoolDailyStats,
   $schoolId,
@@ -120,7 +120,7 @@ sample({
 sample({
   source: guard({
     source: combine({
-      countryId: $countryId,
+      countryCode: $countryCode,
       interval: $historyInterval,
       historyDataType: $historyDataType,
       week: $week,
@@ -128,7 +128,7 @@ sample({
     filter: ({ historyDataType, interval, week }) =>
       Boolean(historyDataType === 'country' && interval !== week),
   }),
-  fn: ({ countryId, interval }) => ({ countryId, interval }),
+  fn: ({ countryCode, interval }) => ({ countryCode, interval }),
   target: fetchCountryHistoryFx,
 });
 

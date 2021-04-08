@@ -22,7 +22,7 @@ export type UpdateGlobalSchools = {
   map: Map | null;
   paintData: StylePaintData;
   schoolsGlobal: FeatureCollection | null;
-  countryId: number;
+  countryCode: string;
 };
 
 export type UpdateSchoolsColors = {
@@ -33,7 +33,7 @@ export type UpdateSchoolsColors = {
 
 export type ZoomToCountryBounds = {
   map: Map | null;
-  countryId: number;
+  countryCode: string;
   countriesGeometry: CountryGeometry[] | null;
   country: Country | null;
   isMobile: boolean;
@@ -49,5 +49,5 @@ export type AddCountries = {
   map: Map | null;
   paintData: StylePaintData;
   countriesGeoJson: FeatureCollection;
-  countryId: number;
+  countryCode: string;
 };

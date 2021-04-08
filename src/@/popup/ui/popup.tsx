@@ -67,14 +67,14 @@ export const Popup = () => {
   const status =
     mapType === 'connectivity' ? connectivityStatus : coverageStatus;
 
+  const headerStatus = isVerified ? status ?? 'unknown' : 'notVerified';
+
   return (
     <div
       ref={onChangeRef}
       className="school-popup"
       style={{
-        borderTop: `0.9rem solid ${
-          paintData.schoolConnectivity[isVerified ? status : 'notVerified']
-        }`,
+        borderTop: `0.9rem solid ${paintData.schoolConnectivity[headerStatus]}`,
       }}
       data-id={id}
     >

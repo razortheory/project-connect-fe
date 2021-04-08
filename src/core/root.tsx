@@ -9,9 +9,10 @@ import {
   fetchGlobalStatsFx,
   fetchSchoolsGlobal,
 } from '~/api/project-connect';
-import { map, project, router } from '~/core/routes';
+import { map, mapCountry, project, router } from '~/core/routes';
 import { useRoute } from '~/lib/router';
 
+import { changeCountryCode } from '@/country/model';
 import { MapPage } from '@/map/ui';
 import { ProjectPage } from '@/project/ui';
 
@@ -20,11 +21,18 @@ const NotFound = () => (
 );
 
 export const Root = () => {
+  const { code = '' } = useStore(mapCountry.params) ?? {};
+
   useEffect(() => {
     void fetchCountriesFx();
     void fetchCountriesGeometryFx();
     void fetchGlobalStatsFx();
     void fetchSchoolsGlobal();
+
+    if (code) {
+      changeCountryCode(code);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
