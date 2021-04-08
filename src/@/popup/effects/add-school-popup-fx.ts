@@ -6,16 +6,11 @@ import { AddSchoolPopup } from '@/popup/types';
 const nextTick = async () => new Promise((resolve) => setTimeout(resolve, 0));
 
 export const addSchoolPopupFx = createEffect(
-  async ({ map, popup, event }: AddSchoolPopup) => {
+  async ({ map, popup, feature }: AddSchoolPopup) => {
     if (!map || !popup) return;
 
-    const feature = map.queryRenderedFeatures(event.point)[0];
     const point = feature.geometry as Point;
     const coordinates = [...point.coordinates];
-
-    while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
 
     // Close popup
     popup.remove();

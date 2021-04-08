@@ -324,10 +324,10 @@ sample({
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, event) => ({
+  fn: ({ map, popup }, feature) => ({
     map,
     popup,
-    event,
+    feature,
   }),
   target: addSchoolPopupFx,
 });
@@ -335,8 +335,7 @@ sample({
 // Update school id
 sample({
   source: clickSchool,
-  fn: (event) => {
-    const feature = event?.features?.[0];
+  fn: (feature) => {
     return (feature?.id as number) ?? 0;
   },
   target: changeSchoolId,

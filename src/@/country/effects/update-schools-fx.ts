@@ -1,6 +1,5 @@
 import { createEffect } from 'effector';
 
-import { clickSchool } from '@/country/model';
 import { UpdateSchools } from '@/country/types';
 import { mapCircleSizes } from '@/map/constants';
 
@@ -40,8 +39,6 @@ export const updateSchoolsFx = createEffect(
         // eslint-disable-next-line no-param-reassign
         map.getCanvas().style.cursor = '';
       });
-
-      map.on('click', 'schools', clickSchool);
     }
   }
 );
