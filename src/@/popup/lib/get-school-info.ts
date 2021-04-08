@@ -5,6 +5,23 @@ import { formatConnectionSpeed } from '~/core/formatters';
 
 import { SchoolInfo } from '@/popup/types';
 
+const getCoverageType = (type: string): string => {
+  switch (type) {
+    case 'no':
+      return 'No';
+    case '2g':
+      return '2G';
+    case '3g':
+      return '3G';
+    case '4g':
+      return '4G';
+    case 'unknown':
+      return 'Unknown';
+    default:
+      return type;
+  }
+};
+
 export const getSchoolInfo = (school: School): SchoolInfo => {
   const {
     id,
@@ -45,7 +62,7 @@ export const getSchoolInfo = (school: School): SchoolInfo => {
     longitude,
     networkCoverage: 'No data',
     connectivity,
-    coverageType: coverage_type,
+    coverageType: getCoverageType(coverage_type),
     regionClassification: environment || 'No data',
     coverageStatus: coverage_status,
     isVerified: is_verified,
