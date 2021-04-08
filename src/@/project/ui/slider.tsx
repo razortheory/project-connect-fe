@@ -166,22 +166,25 @@ export const Slider = () => {
               </CSSTransition>
             </SwitchTransition>
             <SliderNavigation isMobile />
-            <SwitchTransition>
-              <CSSTransition
-                key={slideIndex}
-                addEndListener={(node, done) => {
-                  node.addEventListener('transitionend', done, false);
-                }}
-                classNames="cross-fade"
-              >
-                <div className="slider__info-wrapper">
-                  <div className="slider__title">
-                    {SLIDES[slideIndex].title}
+            <div className="slider__info-wrapper">
+              <SwitchTransition>
+                <CSSTransition
+                  key={slideIndex}
+                  addEndListener={(node, done) => {
+                    node.addEventListener('transitionend', done, false);
+                  }}
+                  classNames="cross-fade"
+                >
+                  <div>
+                    <div className="slider__title">
+                      {SLIDES[slideIndex].title}
+                    </div>
+                    <p className="slider__text">{SLIDES[slideIndex].content}</p>
                   </div>
-                  <p className="slider__text">{SLIDES[slideIndex].content}</p>
-                </div>
-              </CSSTransition>
-            </SwitchTransition>
+                </CSSTransition>
+              </SwitchTransition>
+            </div>
+            v
           </div>
         </div>
         <div className="case-studies__slider-controls">
