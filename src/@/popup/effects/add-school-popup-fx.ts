@@ -1,15 +1,32 @@
 import { createEffect } from 'effector';
 import { Point } from 'geojson';
+import { PointLike } from 'mapbox-gl';
 
+import { changeSchoolId } from '@/country/model';
 import { AddSchoolPopup } from '@/popup/types';
 
 const nextTick = async () => new Promise((resolve) => setTimeout(resolve, 0));
 
 export const addSchoolPopupFx = createEffect(
-  async ({ map, popup, feature }: AddSchoolPopup) => {
+  async ({ map, popup, event }: AddSchoolPopup) => {
     if (!map || !popup) return;
 
-    const point = feature.geometry as Point;
+    const bbox: [PointLike, PointLike] = [
+      [event.point.x - 10, event.point.y - 10],
+      [event.point.x + 10, event.point.y + 10],
+    ];
+
+    const features = map.queryRenderedFeatures(bbox, {
+      layers: ['schools'],
+    });
+
+    if (!features?.length) {
+      return;
+    }
+
+    changeSchoolId(Number(features[0]?.id) ?? 0);
+
+    const point = features[0].geometry as Point;
     const coordinates = [...point.coordinates];
 
     // Close popup

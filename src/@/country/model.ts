@@ -1,6 +1,6 @@
 import { createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
-import { MapboxGeoJSONFeature } from 'mapbox-gl';
+import { MapMouseEvent } from 'mapbox-gl';
 
 import { fetchSchoolFx } from '~/api/project-connect';
 import {
@@ -14,7 +14,7 @@ import {
 
 export const changeCountryCode = createEvent<string>();
 export const changeSchoolId = createEvent<number>();
-export const clickSchool = createEvent<MapboxGeoJSONFeature>();
+export const clickSchool = createEvent<MapMouseEvent>();
 
 export const $countryCode = createStore<string>('');
 export const $schoolId = createStore(0);

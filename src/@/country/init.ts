@@ -324,21 +324,12 @@ sample({
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, feature) => ({
+  fn: ({ map, popup }, event) => ({
     map,
     popup,
-    feature,
+    event,
   }),
   target: addSchoolPopupFx,
-});
-
-// Update school id
-sample({
-  source: clickSchool,
-  fn: (feature) => {
-    return (feature?.id as number) ?? 0;
-  },
-  target: changeSchoolId,
 });
 
 // Fetch school data

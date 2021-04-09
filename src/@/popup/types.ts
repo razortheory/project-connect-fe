@@ -1,4 +1,4 @@
-import mapboxGl, { MapboxGeoJSONFeature } from 'mapbox-gl';
+import mapboxGl, { MapMouseEvent } from 'mapbox-gl';
 
 import { ConnectionStatus } from '~/api/types';
 
@@ -26,5 +26,5 @@ export type SchoolInfo = {
 export type AddSchoolPopup = {
   map: Map | null;
   popup: mapboxGl.Popup | null;
-  feature: MapboxGeoJSONFeature;
+  event: MapMouseEvent;
 };

@@ -1,5 +1,4 @@
 import { createEffect } from 'effector';
-import { PointLike } from 'mapbox-gl';
 
 import { clickSchool } from '@/country/model';
 import { UpdateCountry } from '@/country/types';
@@ -32,22 +31,7 @@ export const updateCountryFx = createEffect(
       map.getLayer('schools') ? 'schools' : ''
     );
 
-    map.on('click', 'selectedCountry', (event) => {
-      const bbox: [PointLike, PointLike] = [
-        [event.point.x - 10, event.point.y - 10],
-        [event.point.x + 10, event.point.y + 10],
-      ];
-
-      const features = map.queryRenderedFeatures(bbox, {
-        layers: ['schools'],
-      });
-
-      if (!features?.length) {
-        return;
-      }
-
-      clickSchool(features[0]);
-    });
+    map.on('click', 'selectedCountry', clickSchool);
 
     if (map.getLayer('countries')) {
       map.removeLayer('countries');
