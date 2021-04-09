@@ -260,7 +260,9 @@ const AboutContent = () => {
               </Link>
             </div>
           </div>
-          <div className="partners-list__title">Partners</div>
+          <div className="partners-list__title partners-list__title--first">
+            Partners
+          </div>
           <div className="partners__row">
             <ul className="partners__list partners-list">
               <li className="partners-list__item">
