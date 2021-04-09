@@ -45,11 +45,16 @@
 .partners__list {
   @include make-col-ready;
   @include make-col(12);
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 
   @include media-breakpoint-up(md) {
-    margin-top: 6rem;
     margin-bottom: 6rem;
   }
+}
+
+.partners-list__title {
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 2.3rem;
 }

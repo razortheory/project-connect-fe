@@ -1,6 +1,5 @@
 import { createEffect } from 'effector';
 
-import { clickSchool } from '@/country/model';
 import { Map } from '@/map/types';
 
 export const removeSchoolsFx = createEffect((map: Map) => {
@@ -12,8 +11,6 @@ export const removeSchoolsFx = createEffect((map: Map) => {
     // eslint-disable-next-line no-param-reassign
     map.getCanvas().style.cursor = '';
   });
-
-  map.off('click', 'schools', clickSchool);
 
   if (map.getLayer('schools')) {
     map.removeLayer('schools');

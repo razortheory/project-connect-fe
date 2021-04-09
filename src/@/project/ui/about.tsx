@@ -9,15 +9,20 @@ import IconEquity from '~/assets/images/icon-data-equity.svg';
 import IconPlanning from '~/assets/images/icon-information-for-planning.svg';
 import IconInvestment from '~/assets/images/icon-investment.svg';
 import IconMarket from '~/assets/images/icon-market-data.svg';
+import LogoActual from '~/assets/images/logo-actual.svg';
 import LogoArm from '~/assets/images/logo-arm.svg';
 import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
+import LogoDubaiCares from '~/assets/images/logo-dubai-cares.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
-import LogoFacebook from '~/assets/images/logo-facebook.svg';
 import LogoGsma from '~/assets/images/logo-gsma.svg';
 import LogoItu from '~/assets/images/logo-itu.svg';
-import LogoLiquid from '~/assets/images/logo-liquid.svg';
+import LogoMapbox from '~/assets/images/logo-mapbox.svg';
 import LogoMaxar from '~/assets/images/logo-maxar.svg';
+import LogoMLab from '~/assets/images/logo-mlab.svg';
+import LogoMuskFoundation from '~/assets/images/logo-musk-foundation.svg';
+import LogoNicBr from '~/assets/images/logo-nic-br.svg';
 import LogoSoftbank from '~/assets/images/logo-softbank.svg';
+import LogoTryoLabs from '~/assets/images/logo-tryo-labs.svg';
 import WhyMapping from '~/assets/images/why-mapping.jpg';
 import { formatPercent } from '~/core/formatters';
 import { joinUs } from '~/core/routes';
@@ -255,6 +260,7 @@ const AboutContent = () => {
               </Link>
             </div>
           </div>
+          <div className="partners-list__title">Partners</div>
           <div className="partners__row">
             <ul className="partners__list partners-list">
               <li className="partners-list__item">
@@ -264,22 +270,52 @@ const AboutContent = () => {
                 <LogoEricsson className="partners-list__image" alt="Ericsson" />
               </li>
               <li className="partners-list__item">
-                <LogoFacebook className="partners-list__image" alt="Facebook" />
+                <LogoMuskFoundation
+                  className="partners-list__image"
+                  alt="Musk Foundation"
+                />
+              </li>
+              <li className="partners-list__item">
+                <LogoDubaiCares
+                  className="partners-list__image"
+                  alt="Dubai Cares"
+                />
               </li>
               <li className="partners-list__item">
                 <LogoArm className="partners-list__image" alt="ARM" />
               </li>
               <li className="partners-list__item">
+                <LogoNicBr className="partners-list__image" alt="nic.br" />
+              </li>
+              <li className="partners-list__item">
+                <LogoActual className="partners-list__image" alt="Actual" />
+              </li>
+              <li className="partners-list__item">
                 <LogoSoftbank className="partners-list__image" alt="SoftBank" />
               </li>
+              <li className="partners-list__item">
+                <LogoGsma className="partners-list__image" alt="GSMA" />
+              </li>
+              <li className="partners-list__item">
+                <LogoMLab className="partners-list__image" alt="M Lab" />
+              </li>
+              <li className="partners-list__item">
+                <LogoTryoLabs
+                  className="partners-list__image"
+                  alt="tryo labs"
+                />
+              </li>
+              <li className="partners-list__item" />
+            </ul>
+          </div>
+          <div className="partners-list__title">Acknowledgements</div>
+          <div className="partners__row">
+            <ul className="partners__list partners-list">
               <li className="partners-list__item">
                 <LogoMaxar className="partners-list__image" alt="Maxar" />
               </li>
               <li className="partners-list__item">
-                <LogoLiquid className="partners-list__image" alt="Liquid" />
-              </li>
-              <li className="partners-list__item">
-                <LogoGsma className="partners-list__image" alt="GSMA" />
+                <LogoMapbox className="partners-list__image" alt="Mapbox" />
               </li>
               <li className="partners-list__item">
                 <LogoDevelopmentSeed
@@ -287,8 +323,6 @@ const AboutContent = () => {
                   alt="Development SEED"
                 />
               </li>
-              <li className="partners-list__item" />
-              <li className="partners-list__item" />
               <li className="partners-list__item" />
               <li className="partners-list__item" />
               <li className="partners-list__item" />
