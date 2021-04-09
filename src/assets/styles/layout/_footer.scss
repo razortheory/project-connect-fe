@@ -74,7 +74,7 @@
 .footer__info {
   @include media-breakpoint-up(sm) {
     max-width: 22rem;
-    margin-right: 3rem;
+    margin-right: 3.6rem;
   }
 }
 
@@ -111,16 +111,17 @@
 
 .footer__supporters {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 4rem;
 
-  @include media-breakpoint-only(md) {
-    flex-direction: column;
+  @include media-breakpoint-up(sm) {
+    margin-top: 0;
   }
 }
 
 .footer__supporters-title {
   width: 100%;
-  margin-top: 4rem;
   color: $text-color-light;
   font-weight: bold;
   font-size: 0.9rem;
@@ -128,10 +129,11 @@
   line-height: 1.1rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
+}
 
-  @include media-breakpoint-up(sm) {
-    margin-top: 6.9rem;
-  }
+.footer__supporter-logos {
+  display: flex;
+  flex-direction: row;
 }
 
 .footer__supporter-logo {

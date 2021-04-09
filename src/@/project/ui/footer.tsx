@@ -4,6 +4,7 @@ import Giga from '~/assets/images/giga-logo-footer.svg';
 import IconFacebook from '~/assets/images/icon-facebook-logo.svg';
 import IconGithub from '~/assets/images/icon-github-logo.svg';
 import IconTwitter from '~/assets/images/icon-twitter-logo.svg';
+import Itu from '~/assets/images/itu-logo-footer.svg';
 import Unicef from '~/assets/images/unicef-logo-footer.svg';
 import {
   about,
@@ -30,8 +31,26 @@ export const Footer = () => (
           </div>
           <div className="footer__supporters">
             <h4 className="footer__supporters-title">Supported by</h4>
-            <Unicef className="footer__supporter-logo" alt="Giga logo" />
-            <Giga className="footer__supporter-logo" alt="Unicef logo" />
+            <div className="footer__supporter-logos">
+              <Giga
+                className="footer__supporter-logo"
+                width="85"
+                height="4"
+                alt="Unicef logo"
+              />
+              <Unicef
+                className="footer__supporter-logo"
+                width="70"
+                height="37"
+                alt="Giga logo"
+              />
+              <Itu
+                className="footer__supporter-logo"
+                width="37"
+                height="40"
+                alt="ITU logo"
+              />
+            </div>
           </div>
         </div>
 
