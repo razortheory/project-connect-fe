@@ -104,6 +104,10 @@
   justify-content: flex-end;
   width: 0.7rem;
   height: 7.8rem;
+
+  &:empty {
+    margin-bottom: 0.01rem;
+  }
 }
 
 .week-graph__day {
