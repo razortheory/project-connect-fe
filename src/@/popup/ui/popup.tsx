@@ -22,6 +22,7 @@ import {
 } from '@/popup/model';
 import { $controlsMapType } from '@/sidebar/model';
 import { getWeekGraphData } from '@/week-graph/lib/get-week-graph-data';
+import { WeekGraphData } from '@/week-graph/types';
 import { WeekGraph } from '@/week-graph/ui';
 
 const onChangeRef = createEvent<HTMLDivElement | null>();
@@ -175,18 +176,17 @@ export const Popup = () => {
             </ul>
           </div>
         </div>
-        {weekGraphData && (
-          <>
-            <hr className="school-popup__divider" />
-            <div className="school-popup__week-graph">
-              <WeekGraph
-                weekGraphData={weekGraphData}
-                dataType="school"
-                showHistory
-              />
-            </div>
-          </>
-        )}
+
+        <>
+          <hr className="school-popup__divider" />
+          <div className="school-popup__week-graph">
+            <WeekGraph
+              weekGraphData={weekGraphData as WeekGraphData}
+              dataType="school"
+              showHistory
+            />
+          </div>
+        </>
       </div>
       {isMultipleSchoolsOnPoint && (
         <button
