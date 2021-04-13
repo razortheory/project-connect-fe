@@ -48,17 +48,21 @@ const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => {
   const paintData = useStore($stylePaintData);
   return (
     <div className="week-graph__item">
-      <div className="week-graph__pillar">
-        <Filler
-          height={data?.speedPercent}
-          background={paintData.schoolConnectivity[data?.status ?? 'no']}
-        >
-          <div className="week-graph__tooltip">
-            <span>{data?.speed}</span>
-            <span>{data?.date}</span>
-          </div>
-        </Filler>
-      </div>
+      {data?.speedPercent ? (
+        <div className="week-graph__pillar">
+          <Filler
+            height={data?.speedPercent}
+            background={paintData.schoolConnectivity[data?.status ?? 'no']}
+          >
+            <div className="week-graph__tooltip">
+              <span>{data?.speed}</span>
+              <span>{data?.date}</span>
+            </div>
+          </Filler>
+        </div>
+      ) : (
+        <div className="week-graph__pillar empty" />
+      )}
       <span className="week-graph__day">{title}</span>
     </div>
   );
