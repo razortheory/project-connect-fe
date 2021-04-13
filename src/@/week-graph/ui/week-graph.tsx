@@ -7,7 +7,11 @@ import IconHistory from '~/assets/images/icon-history.svg';
 
 import { changeHistoryDataType } from '@/history-modal/model';
 import { $stylePaintData } from '@/map/model';
-import { WeekGraphItemProps, WeekGraphProps } from '@/week-graph/types';
+import {
+  WeekGraphItemData,
+  WeekGraphItemProps,
+  WeekGraphProps,
+} from '@/week-graph/types';
 
 const fillerKeyframe = (height?: string) => keyframes`
   from {
@@ -61,19 +65,20 @@ const WeekGraphItem = ({ data, title }: WeekGraphItemProps) => {
 };
 
 export const WeekGraph = ({
-  weekGraphData: {
-    monday,
-    tuesday,
-    wednesday,
-    thursday,
-    friday,
-    saturday,
-    sunday,
-  },
+  weekGraphData,
   showButtons,
   showHistory,
   dataType,
 }: WeekGraphProps) => {
+  const {
+    monday = {} as WeekGraphItemData,
+    tuesday = {} as WeekGraphItemData,
+    wednesday = {} as WeekGraphItemData,
+    thursday = {} as WeekGraphItemData,
+    friday = {} as WeekGraphItemData,
+    saturday = {} as WeekGraphItemData,
+    sunday = {} as WeekGraphItemData,
+  } = weekGraphData ?? {};
   return (
     <>
       <h3 className="sidebar__secondary-title">Daily speed graph (download)</h3>
