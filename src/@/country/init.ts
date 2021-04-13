@@ -6,8 +6,6 @@ import {
   fetchCountryDailyStatsFx,
   fetchCountryFx,
   fetchCountryWeeklyStatsFx,
-  fetchSchoolDailyStatsFx,
-  fetchSchoolFx,
   fetchSchoolsFx,
   fetchSchoolsGlobal,
 } from '~/api/project-connect';
@@ -28,8 +26,7 @@ import {
 } from '@/country/effects';
 import { getCountriesGeoJson } from '@/country/lib';
 import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
-import { addSchoolPopupFx } from '@/popup/effects';
-import { $isOpenPopup, $popup } from '@/popup/model';
+import { $popup, $schoolId } from '@/popup/model';
 import { $week, nextWeek, previousWeek } from '@/sidebar/model';
 
 import {
@@ -43,15 +40,10 @@ import {
   $countryHasCoverage,
   $countryInfoPending,
   $countryWeeklyStats,
-  $school,
-  $schoolDailyStats,
-  $schoolId,
   $schools,
   $schoolsGlobal,
   $zoomedCountryCode,
   changeCountryCode,
-  changeSchoolId,
-  clickSchool,
 } from './model';
 
 $countries.on(fetchCountriesFx.doneData, setPayload);
@@ -60,16 +52,11 @@ $schoolsGlobal.on(fetchSchoolsGlobal.doneData, setPayload);
 $country.on(fetchCountryFx.doneData, setPayload);
 $countryCode.on(changeCountryCode, setPayload);
 $schools.on(fetchSchoolsFx.doneData, setPayload);
-
-$school.on(fetchSchoolFx.doneData, setPayload);
-$schoolId.on(changeSchoolId, setPayload);
-$countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
-$schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
+$countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 
 $country.reset(changeCountryCode, fetchCountryFx.fail);
 $schools.reset(changeCountryCode, fetchSchoolsFx.fail);
-$school.reset(fetchSchoolFx.fail);
 
 sample({
   source: guard($country, { filter: Boolean }),
@@ -99,9 +86,6 @@ sample({
   target: changeMapType,
 });
 
-const onClosePopup = guard($isOpenPopup, { filter: getInverted });
-$schoolId.reset(onClosePopup);
-
 $countryWeeklyStats.reset(
   changeCountryCode,
   fetchCountryWeeklyStatsFx,
@@ -116,14 +100,7 @@ $countryDailyStats.reset(
   previousWeek
 );
 
-$schoolDailyStats.reset(
-  changeSchoolId,
-  fetchSchoolDailyStatsFx,
-  nextWeek,
-  previousWeek
-);
-
-const $mapContext = combine({
+export const $mapContext = combine({
   map: $map,
   mapType: $mapType,
   countriesGeometry: $countriesGeometry,
@@ -139,8 +116,12 @@ const $mapContext = combine({
 
 // Routing
 sample({
-  source: combine([mapCountry.params]),
-  fn: ([params]) => params?.code ?? '',
+  source: guard({
+    source: combine([$countryCode, mapCountry.params]),
+    filter: ([countryCode, params]) => countryCode !== params?.code,
+  }),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  fn: ([_, params]) => params?.code ?? '',
   target: changeCountryCode,
 });
 
@@ -166,15 +147,6 @@ guard({
   })),
   filter: ({ countryCode }) => Boolean(countryCode),
   target: fetchCountryDailyStatsFx,
-});
-
-guard({
-  source: combine([$schoolId, $week], ([schoolId, week]) => ({
-    schoolId,
-    interval: week,
-  })),
-  filter: ({ schoolId }) => Boolean(schoolId),
-  target: fetchSchoolDailyStatsFx,
 });
 
 // Zoom to country bounds
@@ -310,34 +282,6 @@ sample({
     countryCode,
   }),
   target: addCountriesFx,
-});
-
-// Close an opened school popup on click by another school
-sample({
-  source: guard($schoolId, { filter: Boolean }),
-  clock: clickSchool,
-  fn: () => false,
-  target: $isOpenPopup,
-});
-
-// Add school popup
-sample({
-  source: $mapContext,
-  clock: clickSchool,
-  fn: ({ map, popup }, event) => ({
-    map,
-    popup,
-    event,
-  }),
-  target: addSchoolPopupFx,
-});
-
-// Fetch school data
-sample({
-  source: $mapContext,
-  clock: guard($schoolId, { filter: Boolean }),
-  fn: ({ countryCode, schoolId }) => ({ countryCode, schoolId }),
-  target: fetchSchoolFx,
 });
 
 // Change map type

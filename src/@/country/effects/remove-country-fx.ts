@@ -1,8 +1,8 @@
 import { createEffect } from 'effector';
 
-import { clickSchool } from '@/country/model';
 import { getDefaultCountryOpacity } from '@/map/constants';
 import { Map, StylePaintData } from '@/map/types';
+import { clickSchool } from '@/popup/model';
 
 export const removeCountryFx = createEffect(
   ({ map, paintData }: { map: Map | null; paintData: StylePaintData }) => {

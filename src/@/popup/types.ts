@@ -1,4 +1,4 @@
-import mapboxGl, { MapMouseEvent } from 'mapbox-gl';
+import { MapMouseEvent } from 'mapbox-gl';
 
 import { ConnectionStatus } from '~/api/types';
 
@@ -23,8 +23,8 @@ export type SchoolInfo = {
   isVerified: boolean;
 };
 
-export type AddSchoolPopup = {
+export type HandleSchoolClickFx = {
   map: Map | null;
-  popup: mapboxGl.Popup | null;
   event: MapMouseEvent;
+  countryCode: string;
 };
