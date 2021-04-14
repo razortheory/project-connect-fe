@@ -6,6 +6,8 @@ import postImage3 from '~/assets/images/media-post-3.jpg';
 import postImage4 from '~/assets/images/media-post-4.jpg';
 import postImage5 from '~/assets/images/media-post-5.gif';
 import postImage6 from '~/assets/images/media-post-6.jpg';
+import postImage7 from '~/assets/images/media-post-7.png';
+import postImage8 from '~/assets/images/media-post-8.png';
 
 export const Media = () => (
   <section className="section">
@@ -28,6 +30,46 @@ export const Media = () => (
             >
               <h3 className="post__title">
                 Without Internet, 364 million children are falling behind
+              </h3>
+            </a>
+          </div>
+        </article>
+        <article className="post">
+          <div className="post__image-wrapper">
+            <img className="post__image" src={postImage8} alt="" />
+          </div>
+          <div className="post__info">
+            <div className="post__metadata">
+              <div className="post__author">DEVELOPMENT SEED</div>
+              <div className="post__date">Mart 18, 2021</div>
+            </div>
+            <a
+              href="https://developmentseed.org/blog/2021-03-18-ai-enabling-school-mapping"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h3 className="post__title">
+                Scaling AI to map every school on the planet
+              </h3>
+            </a>
+          </div>
+        </article>
+        <article className="post">
+          <div className="post__image-wrapper">
+            <img className="post__image" src={postImage7} alt="" />
+          </div>
+          <div className="post__info">
+            <div className="post__metadata">
+              <div className="post__author">tryo labs</div>
+              <div className="post__date">December 29, 2020</div>
+            </div>
+            <a
+              href="https://tryolabs.com/blog/2020/12/29/using-ai-to-connect-every-school-with-the-internet/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h3 className="post__title">
+                Using AI to connect every school with the internet
               </h3>
             </a>
           </div>
