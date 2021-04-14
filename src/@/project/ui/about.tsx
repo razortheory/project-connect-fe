@@ -15,7 +15,6 @@ import LogoDevelopmentSeed from '~/assets/images/logo-development-seed.svg';
 import LogoDubaiCares from '~/assets/images/logo-dubai-cares.svg';
 import LogoEricsson from '~/assets/images/logo-ericsson.svg';
 import LogoGsma from '~/assets/images/logo-gsma.svg';
-import LogoItu from '~/assets/images/logo-itu.svg';
 import LogoMapbox from '~/assets/images/logo-mapbox.svg';
 import LogoMaxar from '~/assets/images/logo-maxar.svg';
 import LogoMLab from '~/assets/images/logo-mlab.svg';
@@ -268,9 +267,6 @@ const AboutContent = () => {
           <div className="partners__row">
             <ul className="partners__list partners-list">
               <li className="partners-list__item">
-                <LogoItu className="partners-list__image" alt="ITU" />
-              </li>
-              <li className="partners-list__item">
                 <LogoEricsson className="partners-list__image" alt="Ericsson" />
               </li>
               <li className="partners-list__item">
@@ -309,6 +305,7 @@ const AboutContent = () => {
                   alt="tryo labs"
                 />
               </li>
+              <li className="partners-list__item" />
               <li className="partners-list__item" />
             </ul>
           </div>
