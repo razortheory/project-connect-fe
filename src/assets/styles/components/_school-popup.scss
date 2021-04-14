@@ -6,6 +6,20 @@
   }
 }
 
+.school-popup-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.school-popup__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+}
+
 /* stylelint-disable-next-line selector-no-qualifying-type */
 .school-popup > div[class*='progress-bar__HorizontalLine'] {
   margin-right: 0.4rem;
@@ -16,7 +30,7 @@
 .school-popup__content {
   display: flex;
   flex-direction: column;
-  padding: 2rem 2rem 2.9rem;
+  padding: 2rem 1rem 2.9rem;
 }
 
 .school-popup__title {

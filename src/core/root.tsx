@@ -14,6 +14,7 @@ import { useRoute } from '~/lib/router';
 
 import { changeCountryCode } from '@/country/model';
 import { MapPage } from '@/map/ui';
+import { changeSchoolId } from '@/popup/model';
 import { ProjectPage } from '@/project/ui';
 
 const NotFound = () => (
@@ -21,7 +22,7 @@ const NotFound = () => (
 );
 
 export const Root = () => {
-  const { code = '' } = useStore(mapCountry.params) ?? {};
+  const { code = '', schoolId = '' } = useStore(mapCountry.params) ?? {};
 
   useEffect(() => {
     void fetchCountriesFx();
@@ -31,6 +32,10 @@ export const Root = () => {
 
     if (code) {
       changeCountryCode(code);
+    }
+
+    if (schoolId) {
+      changeSchoolId(Number(schoolId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,7 +1,7 @@
 import { createEffect } from 'effector';
 
-import { clickSchool } from '@/country/model';
 import { UpdateCountry } from '@/country/types';
+import { clickSchool } from '@/popup/model';
 
 export const updateCountryFx = createEffect(
   ({ map, paintData, country }: UpdateCountry) => {

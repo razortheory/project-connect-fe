@@ -8,14 +8,7 @@ import {
 import { getInterval, isCurrentInterval } from '~/lib/date-fns-kit';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
-import {
-  $country,
-  $countryCode,
-  $countryDailyStats,
-  $school,
-  $schoolDailyStats,
-  $schoolId,
-} from '@/country/model';
+import { $country, $countryCode, $countryDailyStats } from '@/country/model';
 import {
   $historyData,
   $historyDataPending,
@@ -33,6 +26,7 @@ import {
   nextHistoryInterval,
   previousHistoryInterval,
 } from '@/history-modal/model';
+import { $school, $schoolDailyStats, $schoolId } from '@/popup/model';
 import { $week } from '@/sidebar/model';
 
 $historyIntervalUnit.on(changeHistoryIntervalUnit, setPayload);
