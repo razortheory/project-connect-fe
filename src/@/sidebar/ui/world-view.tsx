@@ -33,7 +33,7 @@ export const WorldView = () => {
             Project Connect aims to map real-time connectivity of every school
             in the world. This will serve as a foundation to work with
             governments and service providers to connect every school to the
-            internet.
+            Internet.
           </p>
           <ul className="sidebar__list info-list">
             <li className="info-list__item">

@@ -30,7 +30,7 @@ export const Privacy = () => {
             </div>
             <div className="mapping__info">
               <h3 className="mapping__title">
-                Project Connect’s mission to map the location and internet
+                Project Connect’s mission to map the location and Internet
                 access of every school in the world is undeniably ambitious.
                 There is no single approach that will allow us to achieve it.
                 Our strategy is to combine a variety of methods to build full,
@@ -70,7 +70,7 @@ export const Privacy = () => {
                       develop a better map than either have individually. We
                       partner with Ministries of Education and Ministries of
                       Information and Communications Technology, as well as
-                      mobile network operators, internet service providers, and
+                      mobile network operators, Internet service providers, and
                       other tech companies, to develop an open source dataset
                       for schools and telecommunications infrastructure.
                     </p>
@@ -85,7 +85,7 @@ export const Privacy = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Real-time internet measurement tools
+                      Real-time Internet measurement tools
                     </h4>
                     <p className="mapping-list__text">
                       To obtain periodical updates on the quality of service of

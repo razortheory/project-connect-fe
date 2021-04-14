@@ -16,7 +16,7 @@ export const DashboardDescription = () => {
         This view allows the Project Connect partners and the public to view the
         progress of the countries that are a part of this initiative. This
         aligns with the values of transparency by real time monitoring of
-        schools connected to the internet.
+        schools connected to the Internet.
       </p>
 
       <div className="progress-dashboard__legend">

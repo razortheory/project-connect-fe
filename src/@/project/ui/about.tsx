@@ -61,14 +61,14 @@ const AboutContent = () => {
               <h4 className="about-intro__text">
                 Nobody has the answer to these foundational questions, at least
                 not yet. In an increasingly digital world, lack of access to
-                education and internet translates to exclusion, fewer resources
+                education and Internet translates to exclusion, fewer resources
                 to learn and grow, and limited opportunities for the most
                 vulnerable children and youth. But without answers to these
                 questions, we can’t change that.
               </h4>
               <h4 className="about-intro__subtitle">In response</h4>
               <h4 className="about-intro__text">
-                UNICEF is mapping the location and real-time internet connection
+                UNICEF is mapping the location and real-time Internet connection
                 of every school in the world. This map, hosted on an open data
                 platform, is helping governments and partners eliminate the
                 digital divide globally. To date, 800,000 schools in more than
@@ -97,7 +97,7 @@ const AboutContent = () => {
                       {formatPercent(percent_schools_without_connectivity)}
                     </p>
                     <h3 className="info-list__title">
-                      Schools without internet
+                      Schools without Internet
                     </h3>
                   </li>
                 </ul>
@@ -160,11 +160,11 @@ const AboutContent = () => {
                   </div>
                   <div className="mapping-list__info-wrapper">
                     <h4 className="mapping-list__title">
-                      Know where there is internet and if it is reliable
+                      Know where there is Internet and if it is reliable
                     </h4>
                     <p className="mapping-list__text">
                       Many governments and organizations are committed to
-                      connecting schools to the internet, but don’t yet have the
+                      connecting schools to the Internet, but don’t yet have the
                       ability to monitor whether schools are actually connected
                       and where.
                     </p>
@@ -219,7 +219,7 @@ const AboutContent = () => {
                       Captures market demand
                     </h4>
                     <p className="mapping-list__text">
-                      Because internet service providers aren’t able to measure
+                      Because Internet service providers aren’t able to measure
                       the size of potential new customers, they struggle to make
                       a case for bringing infrastructure to remote areas. This
                       results in limited investment and increased prices.

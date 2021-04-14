@@ -191,11 +191,11 @@ export const RadioButtons = <T,>({
           <div>
             <PopupSubtitle>Connectivity map</PopupSubtitle>
             <PopupSubContent>
-              This view shows the current internet connectivity at school level.
+              This view shows the current Internet connectivity at school level.
             </PopupSubContent>
             <PopupSubtitle>Coverage map</PopupSubtitle>
             <PopupSubContent>
-              This view shows internet coverage that is available at school
+              This view shows Internet coverage that is available at school
               level. It illustrates the potential of a school point getting
               connectivity.
             </PopupSubContent>

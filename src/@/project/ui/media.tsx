@@ -27,7 +27,7 @@ export const Media = () => (
               rel="noopener noreferrer"
             >
               <h3 className="post__title">
-                Without internet, 364 million children are falling behind
+                Without Internet, 364 million children are falling behind
               </h3>
             </a>
           </div>
@@ -47,7 +47,7 @@ export const Media = () => (
               rel="noopener noreferrer"
             >
               <h3 className="post__title">
-                Mapping schools worldwide to bring internet connectivity. The
+                Mapping schools worldwide to bring Internet connectivity. The
                 Giga initiative gets going
               </h3>
             </a>
@@ -130,7 +130,7 @@ export const Media = () => (
               rel="noopener noreferrer"
             >
               <h3 className="post__title">
-                The challenge of connecting schools to the internet in the
+                The challenge of connecting schools to the Internet in the
                 developing world
               </h3>
             </a>

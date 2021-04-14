@@ -35,7 +35,7 @@ const SLIDES: Slide[] = [
     content:
       'Project Connect has worked with the Government to build a real-time ' +
       'map of all 2,180 public schools. This map highlighted the 690 schools ' +
-      'without internet, helping the Government to focus their initiative ' +
+      'without Internet, helping the Government to focus their initiative ' +
       'to connect every school. Almost every public school in Kyrgyzstan ' +
       'is now connected.' +
       '\nUsing Project Connect mapping, the Kyrgyz Government was able to ' +
