@@ -248,9 +248,11 @@ const AboutContent = () => {
                 <br />
                 <br />
                 Project Connect is grateful to its partners for supporting and
-                continuing to support our school mapping work. If you are
-                interested in contributing to this mission and joining us as a
-                partner, please reach out to projectconnect@unicef.org.
+                continuing to support our school mapping work, with special
+                thanks to Greg Wyler who generously put forward the first
+                financing to the project. If you are interested in contributing
+                to the mission and joining us as a partner, please reach out to
+                projectconnect@unicef.org
               </h3>
               <Link
                 to={joinUs}
