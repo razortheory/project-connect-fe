@@ -28,11 +28,6 @@
     "**/*.{css,scss,html,js,jsx,ts,tsx}": "stylelint --fix",
     "**/*": "prettier --write"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn && yarn ts && yarn test-silent && lint-staged"
-    }
-  },
   "engines": {
     "node": ">= 12.18.0"
   },
