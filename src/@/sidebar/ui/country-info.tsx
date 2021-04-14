@@ -147,7 +147,9 @@ const CountryInfoStatistics = () => {
         )}
         <li className="info-list__item">
           <h3 className="info-list__title info-list__title--full-width">
-            Schools with no internet
+            {mapType === 'connectivity'
+              ? 'Schools with no internet'
+              : 'Schools with no coverage'}
           </h3>
           <p className="info-list__description">
             {mapType === 'connectivity'
