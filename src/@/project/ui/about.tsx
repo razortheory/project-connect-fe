@@ -51,8 +51,8 @@ const AboutContent = () => {
                 Project Connect aims to create a live map of all schools in the
                 world and the status of their Internet connection. It is the
                 data foundation for Giga, a UNICEF and ITU initiative to connect
-                every school, and every young person to information,
-                opportunity, and choice.
+                every school and every young person to information, opportunity,
+                and choice.
               </h2>
               <h4 className="about-intro__subtitle">
                 How many schools are in the world? Where are they? How many of
@@ -71,9 +71,9 @@ const AboutContent = () => {
                 UNICEF is mapping the location and real-time Internet connection
                 of every school in the world. This map, hosted on an open data
                 platform, is helping governments and partners eliminate the
-                digital divide globally. To date, 900,000 schools in more than
-                35 countries have been mapped, and the number continues to grow
-                at an accelerated pace.
+                digital divide globally. To date, over 900,000 schools in more
+                than 35 countries have been mapped, and the number continues to
+                grow at an accelerated pace.
               </h4>
             </div>
             <div className="page-heading__media">
