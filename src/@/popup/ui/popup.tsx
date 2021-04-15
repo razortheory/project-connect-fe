@@ -6,7 +6,12 @@ import IconLocation from '~/assets/images/icon-location.svg';
 import { setPayload } from '~/lib/effector-kit';
 import { ProgressBar } from '~/ui';
 
-import { $school, $schoolDailyStats, $schoolPending } from '@/country/model';
+import {
+  $school,
+  $schoolDailyStats,
+  $schoolHasHistory,
+  $schoolPending,
+} from '@/country/model';
 import { $stylePaintData, changeMap } from '@/map/model';
 import { getSchoolInfo } from '@/popup/lib';
 import { $popup } from '@/popup/model';
@@ -32,6 +37,7 @@ const $weekGraphData = $schoolDailyStats.map(getWeekGraphData);
 
 export const Popup = () => {
   const school = useStore($school);
+  const schoolHasHistory = useStore($schoolHasHistory);
   const pending = useStore($schoolPending);
   const weekGraphData = useStore($weekGraphData);
   const mapType = useStore($controlsMapType);
@@ -138,17 +144,18 @@ export const Popup = () => {
             </ul>
           </div>
         </div>
-
-        <>
-          <hr className="school-popup__divider" />
-          <div className="school-popup__week-graph">
-            <WeekGraph
-              weekGraphData={weekGraphData as WeekGraphData}
-              dataType="school"
-              showHistory
-            />
-          </div>
-        </>
+        {schoolHasHistory && (
+          <>
+            <hr className="school-popup__divider" />
+            <div className="school-popup__week-graph">
+              <WeekGraph
+                weekGraphData={weekGraphData as WeekGraphData}
+                dataType="school"
+                showHistory
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -156,6 +156,7 @@ const fetchSchoolDailyStats = async (
 
 export const fetchSchoolDailyStatsFx = createRequestFx(fetchSchoolDailyStats);
 export const fetchSchoolHistoryFx = createRequestFx(fetchSchoolDailyStats);
+export const checkSchoolHasHistory = createRequestFx(fetchSchoolDailyStats);
 
 export const sendJoinUsFormFx = createRequestFx(
   async (formFields: JoinUsFormFields): Promise<ApiJoinUsFormFields | null> => {

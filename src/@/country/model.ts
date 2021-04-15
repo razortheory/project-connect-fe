@@ -2,7 +2,7 @@ import { createEvent, createStore } from 'effector';
 import { FeatureCollection } from 'geojson';
 import { MapMouseEvent } from 'mapbox-gl';
 
-import { fetchSchoolFx } from '~/api/project-connect';
+import { checkSchoolHasHistory, fetchSchoolFx } from '~/api/project-connect';
 import {
   Country,
   CountryBasic,
@@ -25,7 +25,9 @@ export const $schoolsGlobal = createStore<FeatureCollection | null>(null);
 export const $schools = createStore<FeatureCollection | null>(null);
 export const $country = createStore<Country | null>(null);
 export const $school = createStore<School | null>(null);
-export const $schoolPending = fetchSchoolFx.pending;
+export const $schoolHasHistory = createStore(false);
+export const $schoolPending =
+  fetchSchoolFx.pending || checkSchoolHasHistory.pending;
 export const $countryWeeklyStats = createStore<CountryWeeklyStats | null>(null);
 export const $countryDailyStats = createStore<DailyStats[] | null>(null);
 export const $schoolDailyStats = createStore<DailyStats[] | null>(null);

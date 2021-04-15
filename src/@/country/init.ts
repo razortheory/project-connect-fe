@@ -1,6 +1,7 @@
 import { combine, forward, guard, merge, sample } from 'effector';
 
 import {
+  checkSchoolHasHistory,
   fetchCountriesFx,
   fetchCountriesGeometryFx,
   fetchCountryDailyStatsFx,
@@ -45,6 +46,7 @@ import {
   $countryWeeklyStats,
   $school,
   $schoolDailyStats,
+  $schoolHasHistory,
   $schoolId,
   $schools,
   $schoolsGlobal,
@@ -66,10 +68,14 @@ $schoolId.on(changeSchoolId, setPayload);
 $countryWeeklyStats.on(fetchCountryWeeklyStatsFx.doneData, setPayload);
 $countryDailyStats.on(fetchCountryDailyStatsFx.doneData, setPayload);
 $schoolDailyStats.on(fetchSchoolDailyStatsFx.doneData, setPayload);
+$schoolHasHistory.on(checkSchoolHasHistory.doneData, (_, payload) =>
+  Boolean(payload?.length)
+);
 
 $country.reset(changeCountryCode, fetchCountryFx.fail);
 $schools.reset(changeCountryCode, fetchSchoolsFx.fail);
 $school.reset(fetchSchoolFx.fail);
+$schoolHasHistory.reset(changeSchoolId);
 
 sample({
   source: guard($country, { filter: Boolean }),
@@ -168,13 +174,31 @@ guard({
   target: fetchCountryDailyStatsFx,
 });
 
-guard({
-  source: combine([$schoolId, $week], ([schoolId, week]) => ({
+sample({
+  source: guard(combine([$schoolId, $week, $country]), {
+    filter: ([schoolId, week, country]) =>
+      Boolean(schoolId && country?.statistics.integration_status === 3 && week),
+  }),
+  fn: ([schoolId, week]) => ({
     schoolId,
     interval: week,
-  })),
-  filter: ({ schoolId }) => Boolean(schoolId),
+  }),
   target: fetchSchoolDailyStatsFx,
+});
+
+sample({
+  source: guard(combine([$schoolId, $country]), {
+    filter: ([schoolId, country]) =>
+      Boolean(schoolId && country?.statistics.integration_status === 3),
+  }),
+  fn: ([schoolId, country]) => ({
+    schoolId,
+    interval: {
+      start: new Date(country?.date_schools_mapped ?? '') as number | Date,
+      end: new Date() as number | Date,
+    },
+  }),
+  target: checkSchoolHasHistory,
 });
 
 // Zoom to country bounds
