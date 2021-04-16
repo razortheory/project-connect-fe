@@ -8,12 +8,14 @@ import { AddSchoolPopup } from '@/popup/types';
 const nextTick = async () => new Promise((resolve) => setTimeout(resolve, 0));
 
 export const addSchoolPopupFx = createEffect(
-  async ({ map, popup, event }: AddSchoolPopup) => {
+  async ({ map, popup, event, isMobile }: AddSchoolPopup) => {
     if (!map || !popup) return;
 
+    const clickAreaSize: number = isMobile ? 10 : 2;
+
     const bbox: [PointLike, PointLike] = [
-      [event.point.x - 10, event.point.y - 10],
-      [event.point.x + 10, event.point.y + 10],
+      [event.point.x - clickAreaSize, event.point.y - clickAreaSize],
+      [event.point.x + clickAreaSize, event.point.y + clickAreaSize],
     ];
 
     const features = map.queryRenderedFeatures(bbox, {

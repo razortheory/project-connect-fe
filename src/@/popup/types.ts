@@ -27,4 +27,5 @@ export type AddSchoolPopup = {
   map: Map | null;
   popup: mapboxGl.Popup | null;
   event: MapMouseEvent;
+  isMobile: boolean;
 };

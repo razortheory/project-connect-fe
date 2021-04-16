@@ -348,10 +348,11 @@ sample({
 sample({
   source: $mapContext,
   clock: clickSchool,
-  fn: ({ map, popup }, event) => ({
+  fn: ({ map, popup, isMobile }, event) => ({
     map,
     popup,
     event,
+    isMobile,
   }),
   target: addSchoolPopupFx,
 });
