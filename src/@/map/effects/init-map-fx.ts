@@ -16,6 +16,7 @@ export const initMapFx = createEffect(
       center: center ?? defaultCenter,
       zoom: zoom ?? defaultZoom,
       container,
+      logoPosition: 'bottom-right',
     });
 
     map.on('load', () => {
