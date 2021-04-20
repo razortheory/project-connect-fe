@@ -36,7 +36,7 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="container-fluid">
-        <Link to={exactRoot} type="button" className="header__logo logo">
+        <Link to={exactRoot} className="header__logo logo">
           Project&nbsp;connect
         </Link>
 
