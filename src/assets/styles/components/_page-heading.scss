@@ -29,6 +29,10 @@
 
 .country-progress-heading__title {
   max-width: 60.5rem;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: 4rem;
+  }
 }
 
 .page-heading__title-wrapper {
