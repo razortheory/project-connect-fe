@@ -4,7 +4,7 @@ import mapboxGL from 'mapbox-gl';
 import { API_MAPBOX_ACCESS_TOKEN } from '~/env';
 
 import { defaultCenter, defaultZoom, styleUrls } from '@/map/constants';
-import { changeMap } from '@/map/model';
+import { changeMap, onStyleLoaded } from '@/map/model';
 import { InitMapOptions } from '@/map/types';
 
 export const initMapFx = createEffect(
@@ -20,6 +20,10 @@ export const initMapFx = createEffect(
 
     map.on('load', () => {
       changeMap(map);
+    });
+
+    map.on('styledata', () => {
+      onStyleLoaded();
     });
   }
 );

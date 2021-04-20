@@ -48,6 +48,6 @@ export type LeaveCountryRoute = {
 export type AddCountries = {
   map: Map | null;
   paintData: StylePaintData;
-  countriesGeoJson: FeatureCollection;
+  countriesGeoJson: FeatureCollection | null;
   countryCode: string;
 };

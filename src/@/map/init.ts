@@ -12,9 +12,14 @@ import { project } from '~/core/routes';
 import { getInverted, setPayload } from '~/lib/effector-kit';
 
 import { changeCountryCode } from '@/country/model';
+import {
+  addLoaderToMapFx,
+  changeStyleFx,
+  initMapFx,
+  removeLoaderFromMapFx,
+} from '@/map/effects';
 
 import { stylePaintData } from './constants';
-import { addLoaderToMapFx, initMapFx, removeLoaderFromMapFx } from './effects';
 import {
   $globalStats,
   $loader,
@@ -67,12 +72,10 @@ sample({
   source: guard($map, { filter: Boolean }),
   clock: changeStyle,
   fn: (map, style) => ({
-    container: map.getContainer(),
-    zoom: map.getZoom(),
-    center: map.getCenter(),
+    map,
     style,
   }),
-  target: initMapFx,
+  target: changeStyleFx,
 });
 
 sample({

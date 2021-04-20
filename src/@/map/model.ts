@@ -13,6 +13,7 @@ import { Center, Map, MapType, Marker, Style, StylePaintData } from './types';
 export const changeMap = createEvent<Map>();
 export const changeMapType = createEvent<MapType>();
 export const changeStyle = createEvent<Style>();
+export const onStyleLoaded = createEvent();
 export const setCenter = createEvent<Center>();
 export const zoomIn = createEvent();
 export const zoomOut = createEvent();

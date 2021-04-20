@@ -28,7 +28,13 @@ import {
   zoomToCountryFx,
 } from '@/country/effects';
 import { getCountriesGeoJson } from '@/country/lib';
-import { $map, $mapType, $stylePaintData, changeMapType } from '@/map/model';
+import {
+  $map,
+  $mapType,
+  $stylePaintData,
+  changeMapType,
+  onStyleLoaded,
+} from '@/map/model';
 import { addSchoolPopupFx } from '@/popup/effects';
 import { $isOpenPopup, $popup } from '@/popup/model';
 import { $week, nextWeek, previousWeek } from '@/sidebar/model';
@@ -236,7 +242,7 @@ const countryReceived = guard({
 // Update country
 sample({
   source: $mapContext,
-  clock: merge([countryReceived, $map]),
+  clock: merge([countryReceived, $map, onStyleLoaded]),
   fn: ({ map, paintData, country }) => ({
     map,
     paintData,
@@ -271,8 +277,20 @@ sample({
 });
 
 sample({
+  source: combine([$stylePaintData, $map, $countryCode, $schoolsGlobal]),
+  clock: onStyleLoaded,
+  fn: ([paintData, map, countryCode, schoolsGlobal]) => ({
+    map,
+    paintData,
+    schoolsGlobal,
+    countryCode,
+  }),
+  target: updateGlobalSchoolsFx,
+});
+
+sample({
   source: $mapContext,
-  clock: merge([schoolsReceived, $map]),
+  clock: merge([schoolsReceived, $map, onStyleLoaded]),
   fn: ({ map, schools, mapType, paintData }) => ({
     map,
     schools,
@@ -333,6 +351,20 @@ sample({
     countriesGeoJson,
     countryCode,
   }),
+  target: addCountriesFx,
+});
+
+sample({
+  source: combine([$map, $stylePaintData, $countryCode, $countriesGeoJson]),
+  clock: onStyleLoaded,
+  fn: ([map, paintData, countryCode, countriesGeoJson]) => {
+    return {
+      map,
+      paintData,
+      countriesGeoJson,
+      countryCode,
+    };
+  },
   target: addCountriesFx,
 });
 
